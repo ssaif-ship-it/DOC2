@@ -18,10 +18,9 @@ The user taps their preferred app, the app opens with the exact payment amount p
 
 To understand the secure integration behind the scenes, here is the technical architectural flow of UPI Intent. This details how the intent data, signatures, and encrypted payloads are routed between the Merchant App, the Payment Service Providers (PSPs), and the NPCI switch:
 
-![UPI Intent Technical Architecture](image_158674.jpg)
 
 ### The Standard Flow
-
+<img width="1198" height="533" alt="Screenshot 2026-07-23 at 5 00 03 PM" src="https://github.com/user-attachments/assets/8201d117-2075-4d7c-b362-2f4eadd5fd01" />
 1. **Checkout:** The user selects UPI on your checkout page.
 2. **Order Creation:** Your backend calls the Cashfree API to create an order.
 3. **Intent Invocation:** You pass the returned UPI deep link to your mobile frontend.
