@@ -1,4 +1,3 @@
-# 1.3 Standards & Onboarding Requirements
 
 To maintain the integrity of the UPI ecosystem and comply with RBI and NPCI guidelines, strict standards dictate how merchants are classified, verified, and permitted to transact. These onboarding guardrails are not mere formalities; they directly dictate your transaction limits, allowed payment flows, and settlement cycles.
 
