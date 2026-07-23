@@ -1,3 +1,4 @@
+
 Unlike traditional card networks, UPI operates on a streamlined, interoperable **4-Pillar Model**.
 
 This architecture is orchestrated entirely by the **NPCI** through a central routing engine known as the **UPI Switch**.
@@ -13,3 +14,4 @@ This architecture is orchestrated entirely by the **NPCI** through a central rou
 
 * **Authorization is Real-Time (Milliseconds):** When a user hits "Pay," the NPCI Switch coordinates the debit/credit messaging in under 3 seconds. You fulfill the order based on this Webhook.
 * **Settlement is Batched (T+1):** The physical cash has not yet moved. The actual transfer of funds happens in massive batches behind the scenes settling to your account on a T+1 cycle.
+<img width="1000" height="470" alt="UPIWorkingFlowchart" src="https://github.com/user-attachments/assets/fe38ec39-3f1a-4448-83bf-6695788dd6d4" />
