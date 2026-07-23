@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cashfree Docs Manager</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['ui-monospace', 'monospace'] },
+                    colors: {
+                        'cf-purple': '#5A28A3',
+                        'cf-purple-light': '#F4F0FA',
+                        'cf-text-main': '#1F2937',
+                        'cf-text-muted': '#6B7280',
+                        'cf-border': '#E5E7EB',
+                        'cf-bg': '#FFFFFF',
+                        'cf-sidebar': '#F9FAFB'
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { -webkit-font-smoothing: antialiased; }
+        
+        /* Markdown Content Styling */
+        #content-area { line-height: 1.7; color: #374151; font-size: 15px; }
+        #content-area h1 { font-size: 2.25rem; font-weight: 700; margin-bottom: 1.5rem; color: #111827; letter-spacing: -0.02em; }
+        #content-area h2 { font-size: 1.5rem; font-weight: 600; margin-top: 2.5rem; margin-bottom: 1rem; color: #111827; border-bottom: 1px solid #E5E7EB; padding-bottom: 0.5rem;}
+        #content-area h3 { font-size: 1.15rem; font-weight: 600; margin-top: 2rem; margin-bottom: 0.75rem; color: #111827; }
+        #content-area p { margin-bottom: 1.25rem; }
+        #content-area ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; }
+        #content-area ol { list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 1.25rem; }
+        #content-area li { margin-bottom: 0.5rem; }
+        #content-area strong { font-weight: 600; color: #111827; }
+        #content-area a { color: #5A28A3; text-decoration: none; font-weight: 500; }
+        #content-area a:hover { text-decoration: underline; }
+        #content-area blockquote { border-left: 4px solid #5A28A3; background-color: #F9FAFB; padding: 1rem; color: #4B5563; margin-left: 0; margin-bottom: 1.25rem; border-radius: 0 0.5rem 0.5rem 0; }
+        #content-area code { background-color: #F3F4F6; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-size: 0.875em; font-family: ui-monospace, monospace; color: #DB2777;}
+        #content-area pre { background-color: #1F2937; color: #E5E7EB; padding: 1.25rem; border-radius: 0.5rem; overflow-x: auto; margin-bottom: 1.5rem; }
+        #content-area pre code { background-color: transparent; color: inherit; padding: 0; }
+        
+        /* Scrollbars */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #9CA3AF; }
+
+        /* Sidebar Nav Styles */
+        .nav-item { cursor: pointer; user-select: none; }
+        .nav-item.active { background-color: #F4F0FA; color: #5A28A3; font-weight: 600; }
+        .nav-item:hover:not(.active) { background-color: #F3F4F6; }
+        .nav-category { font-weight: 600; color: #111827; margin-top: 1rem; margin-bottom: 0.25rem; font-size: 0.875rem; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+        .nav-children { display: block; }
+        .nav-children.collapsed { display: none; }
+        .chevron { transition: transform 0.2s; }
+        .chevron.collapsed { transform: rotate(-90deg); }
+    </style>
+</head>
+<body class="bg-cf-bg h-screen w-full flex flex-col font-sans overflow-hidden text-cf-text-main m-0 p-0 absolute inset-0">
+
+    <!-- Header -->
+    <header class="h-16 flex items-center justify-between px-6 border-b border-cf-border bg-white flex-shrink-0 z-20">
+        <div class="flex items-center gap-2">
+            <div class="flex items-center">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-green-500 mr-1"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="font-bold text-lg tracking-tight">Cashfree</span>
+                <span class="font-normal text-lg tracking-tight ml-1 text-gray-600">Payments</span>
+            </div>
+            <span class="bg-cf-purple text-white text-xs font-semibold px-2 py-0.5 rounded ml-2">Docs Manager</span>
+        </div>
+        
+        <div class="flex items-center gap-4 text-sm font-medium">
+            <button id="btn-gh-settings" class="text-gray-600 hover:text-gray-900 flex items-center gap-1.5 px-2 py-1 rounded-md hover:bg-gray-100 transition-colors">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path></svg>
+                Setup GitHub Sync
+            </button>
+            <button id="btn-export" class="bg-cf-purple text-white px-4 py-2 rounded-md hover:bg-purple-800 transition-colors flex items-center gap-2 shadow-sm font-semibold text-sm">
+                Export Local Copy
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex flex-1 overflow-hidden w-full relative bg-white">
+        
+        <!-- Left Sidebar (Navigation) -->
+        <aside class="w-72 flex-shrink-0 border-r border-cf-border overflow-y-auto bg-cf-sidebar py-6 flex flex-col">
+            <div class="px-4 mb-6">
+                <h2 class="text-2xl font-bold text-gray-900 tracking-tight">UPI</h2>
+            </div>
+            <div class="px-4 mb-2 flex justify-between items-center">
+                <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Navigation</span>
+            </div>
+            <nav id="sidebar-nav" class="flex flex-col gap-1 px-4 flex-1 pb-10">
+                <!-- Dynamically populated from JS -->
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 overflow-y-auto px-10 py-10" id="main-scroll-area">
+            <div class="max-w-[800px] mx-auto relative">
+                
+                <div class="flex items-center justify-between mb-6 border-b border-gray-200 pb-4">
+                    <div>
+                        <div id="breadcrumb" class="text-sm font-medium text-cf-purple mb-1">Category > Section</div>
+                        <h1 id="document-title" class="text-3xl font-bold text-gray-900 m-0">Document Title</h1>
+                    </div>
+                    <button id="btn-edit-section" class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors shadow-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                        Edit Section
+                    </button>
+                </div>
+                
+                <div id="content-area">
+                    <!-- Markdown will be rendered here -->
+                </div>
+                
+                <!-- Pagination -->
+                <div class="mt-16 pt-8 border-t border-gray-200 flex justify-between items-center">
+                    <button id="btn-prev" class="text-gray-600 hover:text-cf-purple flex items-center gap-2 font-medium">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                        Previous
+                    </button>
+                    <button id="btn-next" class="text-gray-600 hover:text-cf-purple flex items-center gap-2 font-medium">
+                        Next
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+                </div>
+                <div class="h-16"></div>
+            </div>
+        </div>
+
+        <!-- Right Sidebar (Table of Contents) -->
+        <aside class="w-64 flex-shrink-0 overflow-y-auto hidden xl:block py-10 px-6 border-l border-gray-100 bg-gray-50">
+            <div class="sticky top-0">
+                <div class="flex items-center gap-2 text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wider">
+                    On this page
+                </div>
+                <ul class="text-sm space-y-2.5 text-gray-500 border-l border-gray-200 ml-1" id="toc-list">
+                    <!-- Dynamic Intra-page TOC -->
+                </ul>
+            </div>
+        </aside>
+    </main>
+
+    <!-- GitHub Settings Modal -->
+    <div id="gh-modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 hidden flex items-center justify-center backdrop-blur-sm">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-gray-50">
+                <h3 class="font-bold text-lg text-gray-800 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path></svg>
+                    GitHub Sync Setup
+                </h3>
+            </div>
+            <div class="p-6 space-y-4 text-sm">
+                <p class="text-gray-600 mb-2">Connect this editor directly to your GitHub repository. Your token is stored safely in your browser's local memory only.</p>
+                <div>
+                    <label class="block font-medium text-gray-700 mb-1">GitHub Owner/Username</label>
+                    <input type="text" id="gh-owner" placeholder="e.g. ssaif-ship-it" class="w-full border border-gray-300 rounded-md p-2 focus:ring-cf-purple focus:border-cf-purple outline-none">
+                </div>
+                <div>
+                    <label class="block font-medium text-gray-700 mb-1">Repository Name</label>
+                    <input type="text" id="gh-repo" placeholder="e.g. doc_preview_edit" class="w-full border border-gray-300 rounded-md p-2 focus:ring-cf-purple focus:border-cf-purple outline-none">
+                </div>
+                <div>
+                    <label class="block font-medium text-gray-700 mb-1">Branch</label>
+                    <input type="text" id="gh-branch" value="main" class="w-full border border-gray-300 rounded-md p-2 focus:ring-cf-purple focus:border-cf-purple outline-none">
+                </div>
+                <div>
+                    <label class="block font-medium text-gray-700 mb-1">Personal Access Token (Classic or Fine-Grained)</label>
+                    <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx" class="w-full border border-gray-300 rounded-md p-2 focus:ring-cf-purple focus:border-cf-purple outline-none font-mono">
+                    <p class="text-xs text-gray-500 mt-1">Requires write access to contents.</p>
+                </div>
+            </div>
+            <div class="px-6 py-4 border-t border-gray-200 flex justify-end gap-3 bg-gray-50">
+                <button id="gh-cancel-btn" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">Cancel</button>
+                <button id="gh-save-btn" class="px-4 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg hover:bg-black shadow-sm">Save Configuration</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- The In-Tab Editor Modal Overlay -->
+    <div id="edit-modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 hidden flex items-center justify-center backdrop-blur-sm">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl h-[80vh] flex flex-col overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-gray-50">
+                <h3 class="font-bold text-lg text-gray-800" id="edit-modal-title">Edit Section</h3>
+                <button id="close-modal-btn" class="text-gray-400 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="flex-1 p-0 flex flex-col relative">
+                <!-- Smart Textarea -->
+                <textarea id="markdown-editor" class="w-full h-full p-6 font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cf-purple focus:ring-inset text-gray-800 bg-white" placeholder="Type your markdown here..."></textarea>
+            </div>
+            <div class="px-6 py-4 border-t border-gray-200 flex justify-between items-center bg-gray-50">
+                <div class="flex items-center gap-2">
+                    <span class="text-xs text-gray-500 font-mono">Supports Markdown & HTML.</span>
+                    <span id="save-status-msg" class="text-xs font-semibold text-green-600 hidden">✓ Saved to Local Memory</span>
+                </div>
+                <div class="flex gap-3">
+                    <button id="cancel-edit-btn" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">Cancel</button>
+                    <button id="save-edit-btn" class="px-4 py-2 text-sm font-medium text-white bg-cf-purple rounded-lg hover:bg-purple-800 shadow-sm flex items-center gap-2">
+                        <span>Save & Commit to GitHub</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Logic -->
+    <script>
+        marked.setOptions({ breaks: true, gfm: true });
+
+        const docsState = [
+            {
+                title: "1. Overview, Onboarding & Educational Foundations",
+                id: "cat-1",
+                isOpen: true,
+                children: [
+                    { title: "1.1 About UPI", id: "doc-1-1", file: "upi_docs/section_1_1.md" },
+                    { title: "1.2 The UPI Architecture", id: "doc-1-2", file: "upi_docs/section_1_2.md" },
+                    { title: "1.3 Standards & Onboarding Requirements", id: "doc-1-3", file: "upi_docs/section_1_3.md" }
+                ]
+            },
+            {
+                title: "2. The UPI Checkout Experience",
+                id: "cat-2",
+                isOpen: true,
+                children: [
+                    { title: "2.1 UPI Intent", id: "doc-2-1", file: "upi_docs/section_2_1.md" },
+                    { title: "2.2 Flash UPI", id: "doc-2-2", file: "upi_docs/section_2_2.md" },
+                    { title: "2.3 UPI Collect", id: "doc-2-3", file: "upi_docs/section_2_3.md" },
+                    { title: "2.4 QR Solutions", id: "doc-2-4", file: "upi_docs/section_2_4.md" },
+                    { title: "2.5 Scan2EMI", id: "doc-2-5", file: "upi_docs/section_2_5.md" },
+                    { title: "2.6 SoftPOS & Offline Products", id: "doc-2-6", file: "upi_docs/section_2_6.md" }
+                ]
+            },
+            {
+                title: "3. UPI Transaction Limits & MCCs",
+                id: "cat-3",
+                isOpen: false,
+                children: [
+                    { title: "3.1 Standard UPI Limits", id: "doc-3-1", file: "upi_docs/section_3_1.md" },
+                    { title: "3.2 MCC Specific Caps", id: "doc-3-2", file: "upi_docs/section_3_2.md" },
+                    { title: "3.3 MCC & Supported Methods", id: "doc-3-3", file: "upi_docs/section_3_3.md" },
+                    { title: "3.4 Supported UPI Flows per MCC", id: "doc-3-4", file: "upi_docs/section_3_4.md" }
+                ]
+            },
+            {
+                title: "4. Advanced Financial Services",
+                id: "cat-4",
+                isOpen: false,
+                children: [
+                    { title: "4.1 AutoPay Evolution & Migration", id: "doc-4-1", file: "upi_docs/section_4_1.md" },
+                    { title: "4.2 Mandate Lifecycle & Execution", id: "doc-4-2", file: "upi_docs/section_4_2.md" },
+                    { title: "4.3 Single Block Multiple Debits & OTM", id: "doc-4-3", file: "upi_docs/section_4_3.md" },
+                    { title: "4.4 EMI & Credit on UPI", id: "doc-4-4", file: "upi_docs/section_4_4.md" },
+                    { title: "4.5 UPI Lite & Prepaid Wallets (PPI)", id: "doc-4-5", file: "upi_docs/section_4_5.md" },
+                    { title: "4.6 UPI Global & Reserve Pay", id: "doc-4-6", file: "upi_docs/section_4_6.md" }
+                ]
+            },
+            {
+                title: "5. Technical Setup & Authentication",
+                id: "cat-5",
+                isOpen: false,
+                children: [
+                    { title: "5.1 Integration Paths", id: "doc-5-1", file: "upi_docs/section_5_1.md" },
+                    { title: "5.2 Environment Setup", id: "doc-5-2", file: "upi_docs/section_5_2.md" },
+                    { title: "5.3 Authentication & Payload Security", id: "doc-5-3", file: "upi_docs/section_5_3.md" }
+                ]
+            },
+            {
+                title: "6. Post-Payment Lifecycle",
+                id: "cat-6",
+                isOpen: false,
+                children: [
+                    { title: "6.1 Transaction Status Management", id: "doc-6-1", file: "upi_docs/section_6_1.md" },
+                    { title: "6.2 Refund & Reversal Protocols", id: "doc-6-2", file: "upi_docs/section_6_2.md" },
+                    { title: "6.3 Reconciliation & Direct Settlement", id: "doc-6-3", file: "upi_docs/section_6_3.md" }
+                ]
+            },
+            {
+                title: "7. Reliability, Routing & Error Handling",
+                id: "cat-7",
+                isOpen: false,
+                children: [
+                    { title: "7.1 Dynamic Routing & Uptime", id: "doc-7-1", file: "upi_docs/section_7_1.md" },
+                    { title: "7.2 Standard Transaction Errors", id: "doc-7-2", file: "upi_docs/section_7_2.md" },
+                    { title: "7.3 AutoPay Error Codes", id: "doc-7-3", file: "upi_docs/section_7_3.md" },
+                    { title: "7.4 Sub-error Code Consumption", id: "doc-7-4", file: "upi_docs/section_7_4.md" }
+                ]
+            },
+            {
+                title: "8. Frequently Asked Questions",
+                id: "cat-8",
+                isOpen: false,
+                children: [
+                    { title: "8.1 Troubleshooting & Policies", id: "doc-8-1", file: "upi_docs/section_8_1.md" }
+                ]
+            }
+        ];
+
+        let activeDocId = "doc-1-1";
+        let currentRawMarkdown = "";
+
+        const sidebarNav = document.getElementById('sidebar-nav');
+        const contentArea = document.getElementById('content-area');
+        const docTitleEl = document.getElementById('document-title');
+        const breadcrumbEl = document.getElementById('breadcrumb');
+        const tocList = document.getElementById('toc-list');
+        const mainScrollArea = document.getElementById('main-scroll-area');
+        
+        const editModal = document.getElementById('edit-modal');
+        const editor = document.getElementById('markdown-editor');
+
+        // --- GITHUB SYNC LOGIC ---
+        let ghConfig = {
+            owner: localStorage.getItem('gh_owner') || '',
+            repo: localStorage.getItem('gh_repo') || '',
+            branch: localStorage.getItem('gh_branch') || 'main',
+            token: localStorage.getItem('gh_token') || ''
+        };
+
+        // Proper Base64 encoding for Unicode (markdown with emojis/special chars)
+        function utf8_to_btoa(str) {
+            return window.btoa(unescape(encodeURIComponent(str)));
+        }
+
+        async function getFileSha(path) {
+            if(!ghConfig.token || !ghConfig.owner || !ghConfig.repo) return null;
+            const url = `https://api.github.com/repos/${ghConfig.owner}/${ghConfig.repo}/contents/${path}?ref=${ghConfig.branch}`;
+            try {
+                const res = await fetch(url, { headers: { 'Authorization': `token ${ghConfig.token}` } });
+                if (res.ok) {
+                    const data = await res.json();
+                    return data.sha;
+                }
+            } catch (e) { console.error("Error fetching SHA:", e); }
+            return null;
+        }
+
+        async function commitToGitHub(path, content, commitMessage) {
+            if(!ghConfig.token || !ghConfig.owner || !ghConfig.repo) {
+                throw new Error("GitHub Sync is not fully configured.");
+            }
+            const sha = await getFileSha(path);
+            const url = `https://api.github.com/repos/${ghConfig.owner}/${ghConfig.repo}/contents/${path}`;
+            
+            const body = {
+                message: commitMessage,
+                content: utf8_to_btoa(content),
+                branch: ghConfig.branch
+            };
+            if (sha) body.sha = sha; // Required to overwrite an existing file
+
+            const res = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${ghConfig.token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+
+            if (!res.ok) {
+                const err = await res.json();
+                throw new Error(err.message || "Failed to commit to GitHub.");
+            }
+            return await res.json();
+        }
+
+        // GitHub Settings Modal Listeners
+        document.getElementById('btn-gh-settings').addEventListener('click', () => {
+            document.getElementById('gh-owner').value = ghConfig.owner;
+            document.getElementById('gh-repo').value = ghConfig.repo;
+            document.getElementById('gh-branch').value = ghConfig.branch;
+            document.getElementById('gh-token').value = ghConfig.token;
+            document.getElementById('gh-modal').classList.remove('hidden');
+        });
+
+        document.getElementById('gh-cancel-btn').addEventListener('click', () => {
+            document.getElementById('gh-modal').classList.add('hidden');
+        });
+
+        document.getElementById('gh-save-btn').addEventListener('click', () => {
+            ghConfig.owner = document.getElementById('gh-owner').value.trim();
+            ghConfig.repo = document.getElementById('gh-repo').value.trim();
+            ghConfig.branch = document.getElementById('gh-branch').value.trim() || 'main';
+            ghConfig.token = document.getElementById('gh-token').value.trim();
+            
+            localStorage.setItem('gh_owner', ghConfig.owner);
+            localStorage.setItem('gh_repo', ghConfig.repo);
+            localStorage.setItem('gh_branch', ghConfig.branch);
+            localStorage.setItem('gh_token', ghConfig.token);
+            
+            document.getElementById('gh-modal').classList.add('hidden');
+            alert("GitHub Configuration Saved!");
+        });
+
+        // --- CORE UI LOGIC ---
+
+        function slugify(text) {
+            return text.toString().toLowerCase()
+                .replace(/\s+/g, '-')
+                .replace(/[^\w\-]+/g, '')
+                .replace(/\-\-+/g, '-')
+                .replace(/^-+/, '')
+                .replace(/-+$/, '');
+        }
+
+        function findDocAndCategory(docId) {
+            for (let cat of docsState) {
+                if (cat.children) {
+                    let doc = cat.children.find(d => d.id === docId);
+                    if (doc) return { doc, category: cat };
+                }
+            }
+            return null;
+        }
+
+        function getFlatDocs() {
+            let flat = [];
+            docsState.forEach(cat => {
+                if(cat.children) flat = flat.concat(cat.children);
+            });
+            return flat;
+        }
+
+        function renderSidebar() {
+            sidebarNav.innerHTML = '';
+            
+            docsState.forEach((cat) => {
+                const catEl = document.createElement('div');
+                catEl.className = 'nav-category';
+                catEl.innerHTML = `
+                    <span class="truncate">${cat.title}</span>
+                    <svg class="w-4 h-4 text-gray-400 chevron ${cat.isOpen ? '' : 'collapsed'}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                `;
+                
+                const childrenContainer = document.createElement('div');
+                childrenContainer.className = `nav-children flex flex-col gap-0.5 ml-2 border-l border-gray-200 pl-2 ${cat.isOpen ? '' : 'collapsed'}`;
+                
+                catEl.onclick = () => {
+                    cat.isOpen = !cat.isOpen;
+                    catEl.querySelector('.chevron').classList.toggle('collapsed');
+                    childrenContainer.classList.toggle('collapsed');
+                };
+
+                if (cat.children) {
+                    cat.children.forEach(doc => {
+                        const docEl = document.createElement('div');
+                        docEl.className = `nav-item px-3 py-1.5 rounded-md text-[13px] text-gray-600 transition-colors truncate ${doc.id === activeDocId ? 'active' : ''}`;
+                        docEl.textContent = doc.title;
+                        
+                        docEl.onclick = (e) => {
+                            e.stopPropagation();
+                            loadDocument(doc.id);
+                        };
+                        childrenContainer.appendChild(docEl);
+                    });
+                }
+
+                sidebarNav.appendChild(catEl);
+                sidebarNav.appendChild(childrenContainer);
+            });
+        }
+
+        function renderIntraPageTOC(htmlContent) {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = htmlContent;
+            const headings = tempDiv.querySelectorAll('h2, h3');
+            
+            tocList.innerHTML = '';
+            if(headings.length === 0) {
+                tocList.innerHTML = '<li class="text-gray-400 italic">No sub-headings</li>';
+                return tempDiv.innerHTML;
+            }
+
+            headings.forEach((heading, index) => {
+                const id = slugify(heading.innerText) || `heading-${index}`;
+                heading.id = id; 
+                
+                const li = document.createElement('li');
+                li.className = heading.tagName.toLowerCase() === 'h2' 
+                    ? 'pl-3 border-l-2 border-cf-purple text-cf-purple -ml-[2px] font-medium mt-2' 
+                    : 'pl-3 hover:text-gray-900 border-l-2 border-transparent -ml-[2px] text-gray-500';
+                
+                const a = document.createElement('a');
+                a.href = `#${id}`;
+                a.textContent = heading.innerText;
+                
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetEl = document.getElementById(id);
+                    if(targetEl) {
+                        mainScrollArea.scrollTo({top: targetEl.offsetTop - 20, behavior: 'smooth'});
+                    }
+                });
+
+                li.appendChild(a);
+                tocList.appendChild(li);
+            });
+
+            return tempDiv.innerHTML; 
+        }
+
+        async function loadDocument(docId) {
+            activeDocId = docId;
+            const found = findDocAndCategory(docId);
+            
+            if (!found) return;
+            const { doc, category } = found;
+
+            if (!category.isOpen) category.isOpen = true;
+            renderSidebar();
+
+            docTitleEl.textContent = doc.title;
+            breadcrumbEl.textContent = `${category.title} > ${doc.title}`;
+            currentRawMarkdown = ""; 
+            
+            contentArea.innerHTML = `
+                <div class="flex items-center justify-center py-20 text-gray-400">
+                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-cf-purple" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Loading content...
+                </div>
+            `;
+
+            // 1. Check Local Storage First (Immediate feedback after saving)
+            const localContent = localStorage.getItem('cf_doc_' + doc.id);
+            
+            if (localContent) {
+                currentRawMarkdown = localContent;
+                contentArea.innerHTML = renderIntraPageTOC(marked.parse(localContent));
+            } else {
+                // 2. Try fetching from the actual hosted file on GitHub Pages
+                try {
+                    const response = await fetch(doc.file);
+                    if (response.ok) {
+                        currentRawMarkdown = await response.text();
+                        contentArea.innerHTML = renderIntraPageTOC(marked.parse(currentRawMarkdown));
+                    } else {
+                        // 3. File doesn't exist
+                        contentArea.innerHTML = `
+                            <div class="bg-purple-50 border border-dashed border-purple-200 rounded-lg p-10 text-center text-gray-600 mt-4">
+                                <svg class="w-12 h-12 mx-auto text-purple-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                <p class="font-medium text-gray-900 text-lg mb-2">No Content Found</p>
+                                <p class="text-sm mb-6">You haven't added any content for <strong>${doc.title}</strong> yet.</p>
+                                <button onclick="openEditor()" class="bg-white border border-gray-300 shadow-sm text-gray-700 px-4 py-2 rounded-md hover:bg-gray-50 transition-colors font-medium text-sm">
+                                    Click 'Edit Section' to start writing
+                                </button>
+                            </div>
+                        `;
+                        tocList.innerHTML = '<li class="text-gray-400 italic">No sub-headings</li>';
+                    }
+                } catch (error) {
+                    contentArea.innerHTML = `<p class="text-red-500 py-10">Error loading content.</p>`;
+                }
+            }
+            
+            updateNavButtons();
+            mainScrollArea.scrollTo(0,0);
+        }
+
+        function openEditor() {
+            const found = findDocAndCategory(activeDocId);
+            if(!found) return;
+            document.getElementById('edit-modal-title').textContent = `Editing: ${found.doc.title}`;
+            document.getElementById('save-status-msg').classList.add('hidden');
+            
+            editor.value = localStorage.getItem('cf_doc_' + activeDocId) || currentRawMarkdown || "";
+            editModal.classList.remove('hidden');
+            editor.focus();
+        }
+
+        function closeEditor() {
+            editModal.classList.add('hidden');
+        }
+
+        // Allow Tab indentation in textarea
+        editor.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                var start = this.selectionStart;
+                var end = this.selectionEnd;
+                this.value = this.value.substring(0, start) + "  " + this.value.substring(end);
+                this.selectionStart = this.selectionEnd = start + 2;
+            }
+        });
+
+        document.getElementById('btn-edit-section').addEventListener('click', openEditor);
+        document.getElementById('close-modal-btn').addEventListener('click', closeEditor);
+        document.getElementById('cancel-edit-btn').addEventListener('click', closeEditor);
+        
+        // The Magic Save Button (Commits directly to GitHub)
+        document.getElementById('save-edit-btn').addEventListener('click', async () => {
+            const newContent = editor.value;
+            const found = findDocAndCategory(activeDocId);
+            if(!found) return;
+
+            const btn = document.getElementById('save-edit-btn');
+            const originalHtml = btn.innerHTML;
+            
+            // Immediately save to localStorage so the UI updates instantly
+            localStorage.setItem('cf_doc_' + activeDocId, newContent);
+            currentRawMarkdown = newContent;
+            contentArea.innerHTML = renderIntraPageTOC(marked.parse(newContent));
+            
+            if(ghConfig.token && ghConfig.repo && ghConfig.owner) {
+                // We have a token! Try to commit to GitHub
+                btn.innerHTML = `<svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Pushing to GitHub...`;
+                btn.disabled = true;
+
+                try {
+                    await commitToGitHub(found.doc.file, newContent, `Docs Edit: Update ${found.doc.title}`);
+                    closeEditor(); // Success!
+                } catch (e) {
+                    alert(`Saved locally, but failed to push to GitHub: ${e.message}`);
+                } finally {
+                    btn.innerHTML = originalHtml;
+                    btn.disabled = false;
+                }
+            } else {
+                // No token, just act as a local editor
+                document.getElementById('save-status-msg').classList.remove('hidden');
+                setTimeout(closeEditor, 500); 
+            }
+        });
+
+        // Backup Export Logic
+        document.getElementById('btn-export').addEventListener('click', async () => {
+            const originalText = document.getElementById('btn-export').innerHTML;
+            document.getElementById('btn-export').innerHTML = `Compiling...`;
+            
+            let exportStr = "# Cashfree UPI Documentation\n\n";
+            
+            for (let cat of docsState) {
+                if (cat.children) {
+                    exportStr += `## ${cat.title}\n\n`;
+                    for (let doc of cat.children) {
+                        exportStr += `### ${doc.title}\n\n`;
+                        let content = localStorage.getItem('cf_doc_' + doc.id);
+                        if (!content) {
+                            try {
+                                let res = await fetch(doc.file);
+                                if (res.ok) content = await res.text();
+                            } catch (e) {}
+                        }
+                        exportStr += (content || "*No content added yet.*") + "\n\n---\n\n";
+                    }
+                }
+            }
+
+            const blob = new Blob([exportStr], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Cashfree_UPI_Docs_Export.md';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            document.getElementById('btn-export').innerHTML = originalText;
+        });
+
+        function updateNavButtons() {
+            const flatDocs = getFlatDocs();
+            const currentIndex = flatDocs.findIndex(d => d.id === activeDocId);
+            
+            const btnPrev = document.getElementById('btn-prev');
+            const btnNext = document.getElementById('btn-next');
+
+            if (currentIndex > 0) {
+                btnPrev.style.visibility = 'visible';
+                btnPrev.onclick = () => loadDocument(flatDocs[currentIndex - 1].id);
+            } else {
+                btnPrev.style.visibility = 'hidden';
+            }
+
+            if (currentIndex < flatDocs.length - 1) {
+                btnNext.style.visibility = 'visible';
+                btnNext.onclick = () => loadDocument(flatDocs[currentIndex + 1].id);
+            } else {
+                btnNext.style.visibility = 'hidden';
+            }
+        }
+
+        // Initialize App
+        window.onload = () => {
+            renderSidebar();
+            loadDocument(activeDocId);
+        };
+    </script>
+</body>
+</html>
