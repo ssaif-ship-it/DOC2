@@ -1,5 +1,3 @@
-# 2.2 Flash UPI
-
 Flash UPI provides merchants with the functionality to accept UPI payments within the merchant's app without any redirection to PSPs like Google Pay, PhonePe, etc. This will increase the payment success rate for merchants.
 
 ### Customer Flow
