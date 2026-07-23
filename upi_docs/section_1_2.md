@@ -13,4 +13,4 @@ This architecture is orchestrated entirely by the **NPCI** through a central rou
 
 * **Authorization is Real-Time (Milliseconds):** When a user hits "Pay," the NPCI Switch coordinates the debit/credit messaging in under 3 seconds. You fulfill the order based on this Webhook.
 * **Settlement is Batched (T+1):** The physical cash has not yet moved. The actual transfer of funds happens in massive batches behind the scenes settling to your account on a T+1 cycle.
-<img width="859" height="516" alt="Screenshot 2026-07-23 at 12 57 41 PM" src="https://github.com/user-attachments/assets/049ca0d5-7352-4886-b824-e8ada7839fd4" />
+<img width="887" height="505" alt="Screenshot 2026-07-23 at 4 28 39 PM" src="https://github.com/user-attachments/assets/8cd2857b-c2d7-40f3-b3a5-564d332c3174" />
