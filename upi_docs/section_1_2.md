@@ -1,4 +1,3 @@
-
 Unlike traditional card networks, UPI operates on a streamlined, interoperable **4-Pillar Model**.
 
 This architecture is orchestrated entirely by the **NPCI** through a central routing engine known as the **UPI Switch**.
