@@ -1,5 +1,3 @@
-# 2.1 UPI Intent
-
 UPI Intent is the most seamless, frictionless payment flow available for mobile users. If your customers are shopping on a mobile website or inside your Android/iOS app, this is the flow you should default to.
 
 ### How it works
