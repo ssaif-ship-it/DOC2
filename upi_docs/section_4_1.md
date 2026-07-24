@@ -1,35 +1,72 @@
-UPI AutoPay offers a mandate service that allows users to set up recurring payments (Standing Instructions) for use cases like subscriptions, utility bills, insurance premiums, and EMI repayments[cite: 1]. While mandate creation is a one-time activity, it allows the user's account to be debited automatically as per the agreed terms, without the user needing to authenticate subsequent transactions (within specific limits)[cite: 1]. Mandates are supported on all valid UPI IDs and are revocable by the user[cite: 1].
+# 4.1 AutoPay
 
-### Mandate Creation Modes
-AutoPay mandates can be created via three primary modes[cite: 1]:
-*   **QR Scanning (Payer-initiated):** Merchant initiated QR scanning via the Payer App[cite: 1].
-*   **Intent Call (Payer-initiated):** Merchant initiated Intent Call to the Payer App, often used for in-app or WhatsApp promotional flows[cite: 1].
-*   **Collect Request (Payee-initiated):** Merchant initiated Collect request pushed directly to the Payer's UPI app[cite: 1].
+UPI AutoPay is a recurring payments framework built on the Unified Payments Interface (UPI). It allows users to set up mandates (Standing Instructions) for use cases like subscriptions, loan EMIs, insurance premiums, and utility bills. While mandate creation is a one-time activity requiring authentication, it allows the user's account to be debited automatically for subsequent cycles without manual intervention (within permitted limits).
 
+Merchants can initiate mandate creation via three modes: **QR Scanning**, **Intent Deep Links**, or **Collect Requests**.
 
 <video src="https://github.com/user-attachments/assets/7b85f9ad-0ca5-4efc-b045-7642565cc15c" autoplay loop muted playsinline width="100%">
   Your browser does not support the video tag.
 </video>
 
-### Key Mandate Attributes
-When creating a mandate, the following core attributes must be defined[cite: 1]:
-*   **Validity Date:** This includes the start date and the end date, signifying the total validity period of the mandate (which can be a maximum of up to 30 years)[cite: 1].
-*   **Amount Rule (MAX vs. EXACT):** 
-    *   `MAX`: The payee can debit any value up to the specified amount per debit (e.g., variable utility bills)[cite: 1].
-    *   `EXACT`: The payee can only debit the exact specified amount[cite: 1].
-*   **Recurrence Pattern (Frequency):** Specifies when the debit will be initiated. Allowed frequencies are: Daily, Weekly, Fortnightly, Monthly, Bimonthly, Quarterly, Half-yearly, Yearly, or "As presented"[cite: 1].
 
-### Execution Limits & AFA (UPI PIN) Rules
-The requirement for an Additional Factor of Authentication (AFA), which is the UPI PIN, depends on the transaction amount and the Merchant Category Code (MCC):
-*   **Transactions ≤ ₹15,000:** The first execution can happen instantly without AFA, and subsequent transactions can be performed without AFA[cite: 1].
-*   **Select MCCs (Extended Limits):** For specific MCCs (as per OC 151A), the maximum execution amount without AFA is extended up to ₹1,00,000[cite: 1].
-*   **Transactions > ₹15,000 (or > ₹1 Lakh for select MCCs):** Every mandate execution exceeding these thresholds must be accompanied by a UPI PIN[cite: 1].
-*   **Deferred Executions:** If the user is not willing to have an instant first debit (i.e., the execution happens on a deferred date or more than 5 minutes after creation), AFA is always required for the first execution, regardless of the amount[cite: 1]. 
+## 1. Core Concepts: Amount Rules & Frequencies
 
-### Pre-Debit Notification (PDN) Guidelines
-*   **24-Hour Rule:** It is the liability of the Payee PSP to communicate the execution date, time, and details (UMN, Merchant Name, etc.) to the Payer PSP and Issuer Bank so that the customer is notified at least 24 hours prior to execution[cite: 1].
-*   **PDN Exemptions:** A 24-hour PDN is *not* required for:
-    *   Daily mandates[cite: 1].
-    *   Mandates where execution happens within 5 minutes of creation[cite: 1].
-    *   Mandates where execution happens on the same date as creation[cite: 1].
-    *   Auto Top-Up for NETC FASTag (MCC 4784) and RuPay NCMC (MCC 7412)[cite: 1].
+When creating a mandate, you must define the specific rules that dictate how and when funds can be pulled.
+
+| Amount Rule | Description |
+| :--- | :--- |
+| **EXACT** | You are authorized to debit the exact amount specified (e.g., exactly ₹1,000 for a fixed subscription). |
+| **MAX** | You are authorized to debit up to a maximum ceiling limit per cycle (e.g., up to ₹5,000 for a variable utility bill). You must ensure any extra amount collected during the first execution is adjusted in subsequent executions. |
+
+**Supported Frequencies:**
+Daily, Weekly, Fortnightly, Monthly, Bimonthly, Quarterly, Half-yearly, Yearly, or As Presented.
+
+> **Note on "As Presented":** To prevent misuse, unverified offline merchants using "As Presented" mandates are capped at a cumulative debit of ₹25,000 per month. This cap does not apply to verified online merchants.
+
+---
+
+## 2. AFA (UPI PIN) Limits & Execution Rules
+
+The NPCI enforces strict limits on how much money can be automatically debited without the customer entering their Additional Factor of Authentication (AFA/UPI PIN).
+
+| Limit Type | Threshold | Description |
+| :--- | :--- | :--- |
+| **Standard Limit** | ₹15,000 | For most retail merchants, recurring debits up to ₹15,000 execute automatically without a PIN. |
+| **Extended Limit** | ₹1,00,000 | For specific high-value categories mandated by OC 151A (Mutual Funds, Insurance Premiums, Credit Card Bills), the automatic PIN-less limit is extended to ₹1,00,000. |
+| **Over-Limit Executions** | Above limits | Any execution exceeding these thresholds requires the user to manually enter their UPI PIN for every single cycle. |
+
+**Instant vs. Deferred First Execution:**
+*   **Instant:** If the very first debit happens instantly (within 5 minutes of mandate creation), no additional PIN is required, as the creation PIN suffices.
+*   **Deferred:** If the first execution is deferred to a later date, that specific first debit will always strictly require a UPI PIN, regardless of the amount.
+
+---
+
+## 3. The 24-Hour Pre-Debit Notification (PDN)
+
+To ensure transparency, you must trigger a Pre-Debit Notification (PDN) to the Payer PSP and Issuer Bank.
+
+*   This notification must be sent at least **24 to 48 hours before** the actual execution date to remind the user to maintain a sufficient balance.
+*   If you fail to send the PDN, the customer's bank will proactively block the subsequent debit execution.
+
+> **Exemptions:** PDNs are not required for Daily frequency mandates, same-day executions, or auto-replenishments like NETC FASTag (MCC 4784) and RuPay NCMC (MCC 7412).
+
+---
+
+## 4. Tracking, Retries, and SeqNum
+
+Every mandate execution is tracked using a sequential number (SeqNum). For example, month one is `SeqNum: 1`, month two is `SeqNum: 2`.
+
+| Action | Rule |
+| :--- | :--- |
+| **Retries** | If an execution fails (e.g., insufficient funds), you are allowed a maximum of **9 re-initiation attempts** (10 attempts total) for that specific SeqNum. |
+| **Cooling Off** | There must be a minimum gap of **1 hour** between any retry attempts. |
+| **Skipping** | If all 10 attempts fail, or if you miss a cycle, that specific SeqNum stands cancelled. You must skip it and use the next sequence number (e.g., `SeqNum: 3`) for the following execution. |
+
+---
+
+## 5. Pause & Revoke (The Loan Exception)
+
+Users can pause or permanently revoke their active mandates directly from their UPI app. Any attempt to debit a paused or revoked mandate will result in an immediate technical decline.
+
+**The MCC 7322 Exception:**
+To protect lenders, merchants operating under **MCC 7322 (Debt Collection / Loans)** can pass a specific `revokeable=N` flag during mandate creation. This removes the "Revoke" and "Pause" buttons from the customer's UPI app. For these EMI mandates, the user cannot cancel the AutoPay themselves; they must contact the lending institution directly.
