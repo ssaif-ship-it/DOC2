@@ -1,5 +1,3 @@
-# 3.1 Transaction Limits & MCC Caps
-
 To maintain the security of the payment ecosystem and mitigate fraud, the National Payments Corporation of India (NPCI) and participating banks enforce strict transaction and velocity limits on the UPI network.
 
 As a merchant, it is crucial to understand both the baseline network limits and your specific Merchant Category Code (MCC) limits. Attempting to collect amounts above these thresholds—or using restricted payment flows—will result in immediate technical declines.
