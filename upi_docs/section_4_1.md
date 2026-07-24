@@ -5,6 +5,11 @@ AutoPay mandates can be created via three primary modes[cite: 1]:
 *   **QR Scanning (Payer-initiated):** Merchant initiated QR scanning via the Payer App[cite: 1].
 *   **Intent Call (Payer-initiated):** Merchant initiated Intent Call to the Payer App, often used for in-app or WhatsApp promotional flows[cite: 1].
 *   **Collect Request (Payee-initiated):** Merchant initiated Collect request pushed directly to the Payer's UPI app[cite: 1].
+*   
+
+https://github.com/user-attachments/assets/7b85f9ad-0ca5-4efc-b045-7642565cc15c
+
+
 
 ### Key Mandate Attributes
 When creating a mandate, the following core attributes must be defined[cite: 1]:
