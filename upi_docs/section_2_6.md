@@ -1,55 +1,38 @@
-🛒 What is SoftPOS?
-Cashfree’s SoftPOS is a solution that allows merchants to accept offline payments easily through QR codes.
-There are two main ways a merchant can collect payments:
+## 2.6 SoftPOS & Offline Products
 
-Storefront QR:
-A QR code is placed physically at the merchant’s store. Customers visit the shop, scan the QR code, and make payments.
+Cashfree’s SoftPOS (Software Point of Sale) is a dedicated solution that enables merchants to seamlessly accept offline (in-person) payments using QR codes, bridging the gap between digital payments and physical retail or logistics.
 
-Agent QR:
-A delivery person or field agent carries an Android phone displaying a QR code. When delivering goods, they can collect payment at the customer's doorstep by showing the QR code.
+### Primary Collection Methods
 
-📱 Types of QR Codes in SoftPOS
-There are two types of QR codes used in the system:
+Within the SoftPOS ecosystem, there are two primary methods for collecting payments:
 
-Static QR:
+*   **Storefront QR:** A physical QR code is placed at the merchant’s billing counter or store. Customers visit the shop, scan the QR code using any UPI app, and complete the transaction.
+*   **Agent QR:** A delivery executive or field agent uses their standard Android smartphone to display a QR code. Upon delivering goods or services at the customer's doorstep, the agent presents the screen to the customer to scan and pay.
 
-It remains the same all the time.
+### Types of QR Codes in SoftPOS
 
-The customer must manually enter the payment amount after scanning.
+Depending on your operational needs, the SoftPOS system utilizes two types of QR configurations:
 
-Commonly used when the same QR is shared across multiple transactions without changing.
+| QR Type | How it works | Best For / Requirements |
+| :--- | :--- | :--- |
+| **Static QR** | The QR code remains the same across transactions. The customer must manually type in the correct payment amount before entering their UPI PIN. | **Best for:** Storefronts or generic collection points where the same QR is shared across multiple variable transactions without backend integration. |
+| **Dynamic QR** | A unique, new QR code is generated for every single transaction or order. The payment amount is pre-filled and locked, meaning the customer simply scans and pays. | **Requirements:** Requires technical API integration at your backend to generate the specific requests, as the amount and order ID change every time. |
 
-Dynamic QR:
+### Merchant Signup Process
 
-A new QR code is generated for each transaction or order.
+SoftPOS is an advanced feature and is not enabled by default for all merchants. To utilize the SoftPOS suite, you must go through the following activation workflow:
 
-The payment amount is pre-filled, so the customer just scans and pays.
+**Step 1: Request Activation**
+The merchant needs to formally request SoftPOS activation through the Cashfree merchant dashboard or their account manager.
 
-Requires technical integration at the backend.
+**Step 2: Choose the Required Features**
+The merchant must decide and configure the exact combination of SoftPOS features their business model requires:
+*   Static QR for storefronts
+*   Static QR for field agents
+*   Dynamic QR for field agents
+*   A mix of both static and dynamic QRs
 
-🔑 Merchant Signup Process
-When a merchant wants to use SoftPOS, the following steps must be followed:
-
-Step 1: Request Activation
-
-SoftPOS is not enabled by default for all merchants.
-
-The merchant needs to request SoftPOS activation.
-
-Step 2: Choose the Required Features
-
-Merchant decides if they want:
-
-Static QR for storefront
-
-Static QR for agents
-
-Dynamic QR for agents
-
-Or a mix of both static and dynamic QRs
-
-Step 3: Complete Agent and Merchant Details
-
-Each agent must register with a unique phone number.
-
-Agents are required to complete an Aadhaar KYC verification (or the verification can be skipped manually in special cases).
+**Step 3: Complete Agent Registration and KYC**
+If you are utilizing the Agent QR flow, you must register your delivery or field staff within the system:
+*   Each agent must be registered using a unique phone number.
+*   Agents are strictly required to complete an Aadhaar-based KYC verification process to ensure security. *(Note: Under specific circumstances or enterprise agreements, this verification can be skipped manually).*
