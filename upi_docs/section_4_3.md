@@ -1,10 +1,13 @@
+# 4.3 Single Block Multiple Debits (SBMD) & OTM
+
 While standard UPI flows (Intent, Collect) transfer funds instantly, certain business models require a "pre-authorization" mechanism. You may need to secure a customer's financial commitment upfront, but only capture the funds when a service is fulfilled, an order is adjusted, or a trade is executed.
 
 UPI solves this using the Mandate Block functionality. The customer pre-authorizes a transaction, which freezes the required funds in their bank account. The funds are only debited when the merchant initiates the execution at a later time.
 
 There are two primary architectures for this: **One-Time Mandates (OTM)** and **Single Block Multiple Debits (SBMD) / UPI Reserve Pay**.
 
----
+<img width="1288" height="711" alt="image" src="https://github.com/user-attachments/assets/cfc6963d-f96f-4611-8f70-baf617912ca9" />
+
 
 ## 1. One-Time Mandates (OTM)
 
@@ -17,7 +20,6 @@ A One-Time Mandate allows a merchant to block funds for a specific transaction a
 | **Execution** | You can debit an amount up to the blocked amount. Once the single debit is executed, the mandate is permanently closed, and any remaining blocked funds are released. |
 | **Revocation** | The Revoke action must be initiated by the Payee (Merchant) on behalf of the user/merchant request. |
 
----
 
 ## 2. Single Block Multiple Debits (SBMD) / UPI Reserve Pay
 
