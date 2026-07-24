@@ -1,5 +1,3 @@
-# 4.6 UPI Global & Reserve Pay
-
 As the Unified Payments Interface (UPI) expands beyond domestic instant transfers, two key extensions enable merchants and users to handle cross-border payments and pre-authorized reserved balances: UPI Global and UPI Reserve Pay.
 
 ---
