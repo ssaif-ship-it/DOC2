@@ -1,5 +1,3 @@
-# 2.4 QR Solutions
-
 UPI QR codes bridge the gap between offline and online payments, as well as desktop and mobile environments. By adhering to the interoperable BharatQR and UPI QR standards, these solutions allow customers to scan and pay using any UPI PSP app. 
 
 Depending on your integration environment and reconciliation needs, there are three primary QR architectures you can deploy.
