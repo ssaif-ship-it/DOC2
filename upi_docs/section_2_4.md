@@ -18,7 +18,7 @@ A Dynamic QR code is generated on the fly for every single transaction. It encod
 * **Best for:** Desktop website checkouts, self-checkout kiosks, automated vending machines, and organized retail POS systems.
 * **Benefits:** Perfect reconciliation. Because the exact Order ID is baked into the QR code, your backend instantly receives a Webhook tying the successful payment to the exact shopping cart or invoice.
 
-## 3. POD QR
+## 3.POD QR
 
 POD QR (podQR) is a Cashfree UPI QR variant designed for **pay-on-delivery / delayed-payment** use cases — situations where a standard UPI QR doesn't fit because the customer isn't paying immediately at the time the QR is generated (e.g., a delivery invoice, a printed restaurant bill, or a WhatsApp/digital invoice sent ahead of collection).
 
