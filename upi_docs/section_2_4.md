@@ -18,20 +18,17 @@ A Dynamic QR code is generated on the fly for every single transaction. It encod
 * **Best for:** Desktop website checkouts, self-checkout kiosks, automated vending machines, and organized retail POS systems.
 * **Benefits:** Perfect reconciliation. Because the exact Order ID is baked into the QR code, your backend instantly receives a Webhook tying the successful payment to the exact shopping cart or invoice.
 
-### 3. POD (Pay on Demand) QR Code
+3. POD (Pay on Demand) QR Code
+POD QR (podQR) is a Cashfree UPI QR variant designed for pay-on-delivery / delayed-payment use cases — situations where a standard UPI QR doesn't fit because the customer isn't paying immediately at the time the QR is generated (e.g., a delivery invoice, a printed restaurant bill, or a WhatsApp/digital invoice sent ahead of collection).
 
-POD QR (`podQR`) is a Cashfree UPI QR variant designed for pay-on-delivery / delayed-payment use cases — situations where a standard UPI QR doesn't fit because the customer isn't paying immediately at the time the QR is generated (e.g., a delivery invoice, a printed restaurant bill, or a WhatsApp/digital invoice sent ahead of collection).
+Problem with a standard UPI QR:
 
-**Problem with a standard UPI QR:**
-* **No retries** — a failed payment attempt kills the transaction; the customer has to be issued a fresh QR/link, causing confusion and lost revenue.
-* **Short TTL** — standard QR codes expire quickly, which doesn't work for invoices where payment may happen hours or days later.
+No retries — a failed payment attempt kills the transaction; the customer has to be issued a fresh QR/link, causing confusion and lost revenue.
+Short TTL — standard QR codes expire quickly, which doesn't work for invoices where payment may happen hours or days later.
+How POD QR solves this:
 
-**How POD QR solves this:**
-
-| Feature | Behavior |
-| :--- | :--- |
-| **Payment retries allowed** | The same QR keeps working for repeated attempts until the TTL expires — no need to regenerate. |
-| **Customisable TTL** | Configurable from a few hours up to 30+ days, instead of the few-minute expiry on a normal QR. |
-| **Smarter session handling** | The final payment status is confirmed only after TTL expiry (via a status check), avoiding premature failures. |
-
-**Best suited for:** Pay-on-Delivery, printed invoices, and WhatsApp/digital invoices — anywhere the payer might not pay on the first try or might pay later.
+Feature	Behavior
+Payment retries allowed	The same QR keeps working for repeated attempts until the TTL expires — no need to regenerate.
+Customisable TTL	Configurable from a few hours up to 30+ days, instead of the few-minute expiry on a normal QR.
+Smarter session handling	The final payment status is confirmed only after TTL expiry (via a status check), avoiding premature failures.
+Best suited for: Pay-on-Delivery, printed invoices, and WhatsApp/digital invoices — anywhere the payer might not pay on the first try or might pay later.
