@@ -1,5 +1,3 @@
-# 4.4 EMI & Credit on UPI (Contextual Payments & Affordability Suite)
-
 The NPCI has launched EMI on UPI using the Contextual Payments Framework. This feature enables eligible merchants to offer real-time EMI options for customers paying via RuPay Credit Cards on standard UPI QR codes and Intent links.
 
 By providing instant EMI capabilities natively at checkout, merchants address cart abandonment, lower barriers for high-ticket purchases, and leverage marketing and funding support driven by NPCI.
