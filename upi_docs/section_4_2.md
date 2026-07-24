@@ -1,5 +1,3 @@
-# 4.2 UPI AutoPay Interoperability & Migration Flow
-
 UPI AutoPay is the recurring payments framework built on the Unified Payments Interface (UPI). It supports subscriptions, loan EMIs, insurance premiums, utility bills, and similar recurring payment types. 
 
 By default, most payment service providers (PSPs) bind AutoPay mandates to the gateway that originally created them. When you switch your acquiring bank or payment gateway, those mandates become invalid and your customers must set them up again. 
