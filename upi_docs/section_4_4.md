@@ -43,7 +43,7 @@ To ensure switch stability and comply with initial NPCI rollout guidelines, Phas
 
 Contextual payment routing enables real-time negotiation between the Payer PSP app, NPCI Switch, and the Cashfree Acquirer Switch.
 
-> *(Insert Technical Flow Architecture Diagram / Sequence Image Here)*
+<img width="2816" height="1536" alt="Gemini_Generated_Image_nkqulfnkqulfnkqu" src="https://github.com/user-attachments/assets/402ceeac-060d-43b8-961e-73d6fd8f7c90" />
 
 ### Step-by-Step API Execution Sequence
 
