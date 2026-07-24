@@ -4,7 +4,7 @@ UPI solves this using the Mandate Block functionality. The customer pre-authoriz
 
 There are two primary architectures for this: **One-Time Mandates (OTM)** and **Single Block Multiple Debits (SBMD) / UPI Reserve Pay**.
 
-<img width="1288" height="711" alt="image" src="https://github.com/user-attachments/assets/cfc6963d-f96f-4611-8f70-baf617912ca9" />
+<img width="1299" height="698" alt="image" src="https://github.com/user-attachments/assets/cd8c7d17-91c1-46c5-a77e-cd4b60fd1dd1" />
 
 ## 1. One-Time Mandates (OTM)
 
