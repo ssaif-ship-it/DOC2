@@ -1,5 +1,3 @@
-# 4.1 AutoPay
-
 UPI AutoPay is a recurring payments framework built on the Unified Payments Interface (UPI). It allows users to set up mandates (Standing Instructions) for use cases like subscriptions, loan EMIs, insurance premiums, and utility bills. While mandate creation is a one-time activity requiring authentication, it allows the user's account to be debited automatically for subsequent cycles without manual intervention (within permitted limits).
 
 Merchants can initiate mandate creation via three modes: **QR Scanning**, **Intent Deep Links**, or **Collect Requests**.
