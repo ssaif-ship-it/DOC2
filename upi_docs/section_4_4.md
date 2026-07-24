@@ -73,39 +73,34 @@ Contextual payment routing enables real-time negotiation between the Payer PSP a
 
 Merchants can configure both No-Cost EMI and Low-Cost EMI structures via the Cashfree Dashboard or API.
 
-### Mechanics of No-Cost EMI
-In a No-Cost EMI model, the customer pays only the product sticker price ($A$), split equally over $N$ months. The merchant absorbs the interest by offering an upfront discount equivalent to the total interest charged by the bank.
-
 ### Mathematical Amortization & Settlement Model
-The monthly installment ($EMI$) paid by the customer is calculated using the standard amortized equation:
 
-$$EMI = \frac{P \times R \times (1+R)^N}{(1+R)^N - 1}$$
+The monthly installment (**EMI**) paid by the customer is calculated using the standard amortized equation:
 
-Where:
-*   $A$ = Order Amount / Product Sticker Price (paid by customer)
-*   $P$ = Adjusted Base Principal (settled upfront to merchant)
-*   $R$ = Monthly Interest Rate charged by issuing bank ($\text{Annual Rate} / 12 / 100$)
-*   $N$ = Repayment Tenure in months
-*   $EMI$ = Monthly Installment Amount, where $EMI = \frac{A}{N}$ for No-Cost EMI
+**EMI = [P × R × (1+R)^N] / [(1+R)^N - 1]**
 
-Solving for the net Principal amount ($P$):
+**Where:**
+*   **A** = Total Order Amount / Product Sticker Price 
+*   **P** = Adjusted Principal Base (amount settled upfront to merchant)
+*   **R** = Bank's Monthly Interest Rate (Annual Rate / 12 / 100)
+*   **N** = Repayment tenure in months
 
-$$P = \frac{EMI \times [(1+R)^N - 1]}{R \times (1+R)^N}$$
+Solving for the net Principal amount (**P**):
 
-### Standard Calculation Example: ₹10,000 Order on a 3-Month No-Cost EMI at 16% p.a. Bank Interest
+**P = [EMI × ((1+R)^N - 1)] / [R × (1+R)^N]**
 
-| Parameter | Symbol / Formula | Numerical Value | Description |
+### Calculation Example: ₹10,000 Order (3-Month No-Cost EMI @ 16% p.a.)
+
+| Parameter | Symbol / Formula | Value | Description |
 | :--- | :--- | :--- | :--- |
-| **Order Amount (Sticker Price)** | $A$ | ₹10,000 | Total amount paid by customer over $N$ months |
-| **Tenure** | $N$ | 3 Months | Chosen repayment duration |
-| **Bank Interest Rate** | $Annual\ R$ | 16% p.a. | Bank's credit card interest rate |
-| **Monthly EMI Amount** | $EMI = A / N$ | ₹3,333 | Fixed monthly amount paid by customer |
-| **Adjusted Principal Base** | $P$ | ₹9,739 | Calculated base amount using formula above |
-| **Merchant Subvention Discount** | $A - P$ | ₹261 | Upfront discount absorbed by merchant |
-| **Subvention Percentage** | `%` | 2.61% | Total subvention percentage cost to merchant |
-| **Processing Fee** | `-` | ₹199 | One-time charge levied by issuing bank to user |
-| **Upfront Settlement Amount** | $Net$ | ₹9,739 | Amount settled to merchant ($A - \text{Discount}$) |
-
+| **Order Sticker Price** | **A** | ₹10,000 | Total paid by customer over 3 months |
+| **Tenure** | **N** | 3 Months | Selected repayment duration |
+| **Bank Interest Rate** | **Annual R** | 16% p.a. | Issuing bank's standard credit card EMI interest rate |
+| **Monthly Installment** | **EMI = A / N** | ₹3,333 | Fixed monthly payment for the customer |
+| **Net Settlement Base** | **P** | ₹9,739 | Base principal settled upfront to merchant |
+| **Merchant Subvention Cost** | **A - P** | ₹261 | Upfront interest discount absorbed by merchant (2.61%) |
+| **Customer Processing Fee** | **Fee** | ₹199 | One-time charge levied by bank to customer |
+| **Upfront Settlement Amount** | **Net** | ₹9,739 | Amount settled to merchant (**A** - Discount) |
 ### Low-Cost EMI Setup
 For Low-Cost EMI, the merchant specifies a capped interest subvention percentage (partial interest discount), and the customer pays the remaining balance interest.
 
