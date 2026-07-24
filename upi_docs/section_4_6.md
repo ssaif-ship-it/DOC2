@@ -34,11 +34,5 @@ UPI Reserve Pay is NPCI's standardized umbrella solution for fund reservation (p
 ### Key Mechanics of UPI Reserve Pay
 Instead of deducting money immediately during checkout, UPI Reserve Pay places a lien (hold) on the requested funds directly inside the customer's savings or current bank account.
 
-```text
-+-------------------+      1. Reserve Request (Lien)      +-------------------+
-|  Customer Account |  =================================> | Merchant / App    |
-|  (Funds Locked)   |                                     | (Fulfillment)     |
-+-------------------+      2. Executed Debit (Partial/Full)+-------------------+
-        ||                                                         ||
-        \/                                                         \/
-   Unused Balance Released automatically upon expiration or explicit Revoke API call
+<img width="3754" height="1088" alt="Gemini_Generated_Image_j3pbmpj3pbmpj3pb" src="https://github.com/user-attachments/assets/4cc215e4-6fd6-4255-8670-e0c5acc3f6bb" />
+
