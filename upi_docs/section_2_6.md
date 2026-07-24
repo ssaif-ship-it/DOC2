@@ -1,4 +1,3 @@
-## 2.6 SoftPOS & Offline Products
 
 Cashfree’s SoftPOS (Software Point of Sale) is a dedicated solution that enables merchants to seamlessly accept offline (in-person) payments using QR codes, bridging the gap between digital payments and physical retail or logistics.
 
