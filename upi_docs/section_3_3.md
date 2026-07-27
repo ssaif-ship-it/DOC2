@@ -1,5 +1,3 @@
-## 3.3 MCC, Supported Payment Methods & Initiation Flows
-
 The UPI ecosystem supports a wide range of funding sources—including Savings/Current Accounts, RuPay Credit Cards, Prepaid Wallets (PPI), and Pre-Sanctioned Credit Lines.
 
 However, because alternative instruments involve Interchange Fees, Merchant Discount Rates (MDR), and specific credit risk guidelines, NPCI and regulatory bodies enforce strict controls on which business categories (MCCs) can accept specific payment methods and which checkout initiation flows (Intent, Dynamic QR, Collect, AutoPay) they are permitted to use.
