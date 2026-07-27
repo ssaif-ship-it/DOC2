@@ -1,23 +1,8 @@
+# UPI Payment Products & Merchant Onboarding Guide
+
+A complete reference for choosing the right UPI payment product and getting a Cashfree merchant account from signup to go-live.
+
 ---
-title: "Merchant Onboarding Guide"
-description: "Sign up, complete KYC, choose a UPI payment product, and go live on Cashfree — a step-by-step guide for merchants and their integration teams."
-id: doc-merchant-onboarding
----
-
-# Merchant Onboarding Guide
-
-Everything you need to start accepting UPI payments on Cashfree — from creating your account to processing your first live transaction.
-
-**Who this guide is for:** business owners and operators setting up a Cashfree account, working alongside a developer for the integration steps. Sections marked **For Developers** go into API-level detail; you can hand those off to your technical team.
-
-## Prerequisites
-
-Before you start, have the following ready:
-
-- PAN (business or individual, depending on your entity type)
-- Business registration documents and address proof
-- A bank account for settlements (IFSC, account number, account holder name)
-- Access to your website or app codebase, if integrating online payments
 
 ## Product Comparison at a Glance
 
@@ -30,79 +15,74 @@ Before you start, have the following ready:
 | **Dynamic QR** | Delivery, desktop, invoices | Medium (API) | Scan → PIN (amount pre-filled) | Offline/Online |
 | **SoftPOS** | Field agents, delivery, retail | Low (app install) | Scan QR / Tap card / Pay link | Offline |
 
-Not sure which product fits your business? See [Choosing a UPI Payment Product](#) for a more detailed breakdown.
+---
 
-## Step 1 — Sign Up on Cashfree
+## Getting Started from Zero — Complete Merchant Onboarding Guide
+
+### Step 1 — Sign Up on Cashfree
 
 1. Go to [merchant.cashfree.com](https://merchant.cashfree.com) and create an account.
-2. Provide your basic business details (business name, type, PAN, contact info).
-3. You'll land on the **Merchant Dashboard** with immediate access to the Test (Sandbox) environment.
+2. Provide basic business details (business name, type, PAN, contact info).
+3. You'll land on the **Merchant Dashboard** with access to the Test (Sandbox) environment immediately.
 
-## Step 2 — Complete KYC
+### Step 2 — Complete KYC
 
-Go to **Dashboard → Account Settings → KYC** and upload:
+In **Dashboard → Account Settings → KYC**, upload:
 
-- PAN (business or individual, based on entity type)
+- PAN (Business or Individual, based on entity type)
 - Bank account details (IFSC, account number, account holder name)
 - Address proof and business registration documents
 
-Cashfree verifies your bank account with a **penny test** — a ₹1–2 NEFT transfer that you'll need to acknowledge in the dashboard.
+Cashfree performs verification, including a **penny test** (₹1–2 NEFT to your bank, which must be acknowledged).
 
-> **Note:** Once KYC is approved, your Payment Gateway is activated for production.
+> ✅ Once KYC is approved, the Payment Gateway is activated for production.
 
-## Step 3 — Get Your API Keys
+### Step 3 — Get API Keys
 
-*For Developers*
+**Dashboard → Payment Gateway → Developers → API Keys**
 
-Go to **Dashboard → Payment Gateway → Developers → API Keys**.
+- **Test mode:** keys are auto-generated.
+- **Production mode:** click **"Generate API Keys"** and complete 2FA.
 
-- **Test mode:** keys are generated automatically.
-- **Production mode:** click **Generate API Keys** and complete two-factor authentication.
-
-Store your keys securely as environment variables:
+Store your keys securely:
 
 ```bash
 x-client-id: <YOUR_APP_ID>
 x-client-secret: <YOUR_SECRET_KEY>
 ```
 
-> **Warning:** Never expose your secret key in client-side code.
+> ⚠️ **Never expose your secret key in client-side code.**
 
-## Step 4 — Choose Your Integration Path
+### Step 4 — Choose Your Integration Path
 
 | If you want… | Do this |
 | :--- | :--- |
 | Fastest start, minimal code | Use **Cashfree Checkout** (hosted page) — create an order via API and redirect the customer |
-| Full control over UI | Use **Seamless/Custom Integration** — call the Order Pay API with a specific payment method |
+| Full control over UI | Use **Seamless/Custom Integration** — call the Order Pay API with specific payment methods |
 | Offline/in-person only | Activate **SoftPOS** — no coding required |
-| In-app UPI without redirects | Integrate the **Flash UPI SDK** into your Android app |
+| In-app UPI without redirects | Integrate the **Flash UPI SDK** in your Android app |
 
-## Step 5 — Integrate (Online Payments)
+### Step 5 — Integrate (Online – Standard PG)
 
-*For Developers*
-
-**Create an order**
+**a) Create Order API**
 
 ```http
 POST /orders
 Headers: x-client-id, x-client-secret
-```
-
-```json
-{
-  "order_amount": 0,
-  "order_currency": "INR",
-  "customer_details": { "...": "..." },
-  "order_meta": { "return_url": "..." }
+Body: {
+  order_amount,
+  order_currency: "INR",
+  customer_details: {...},
+  order_meta: { return_url: "..." }
 }
 ```
 
-The response returns a `payment_session_id` (for Cashfree Checkout) or `order_token` (for custom integrations).
+Returns a `payment_session_id` (for Cashfree Checkout) or `order_token`.
 
-**Accept payment**
+**b) Accept Payment**
 
-- **Cashfree Checkout:** load Cashfree's hosted page with `payment_session_id`. All methods (UPI Intent, Collect, Cards, Net Banking, Wallets) appear automatically.
-- **Custom/Seamless:** call the Order Pay API with a specific payment method:
+- **Cashfree Checkout:** Use `payment_session_id` to load Cashfree's hosted page. All methods (UPI Intent, Collect, Cards, NB, Wallets) are shown automatically.
+- **Custom/Seamless:** Call the Order Pay API with a specific payment method:
 
   ```json
   // UPI Intent
@@ -112,60 +92,62 @@ The response returns a `payment_session_id` (for Cashfree Checkout) or `order_to
   { "payment_method": { "upi": { "channel": "collect", "upi_id": "customer@upi" } } }
   ```
 
-**Handle the response**
+**c) Handle Response**
 
-- Configure webhooks (**Dashboard → Developers → Webhooks**) for Payment Success, Payment Failed, and Refund events.
+- Configure webhooks (**Dashboard → Developers → Webhooks**) for: Payment Success, Payment Failed, Refund events.
 - Implement signature verification on incoming webhooks.
 - Use the **Get Order Status API** as a fallback check.
 
-See the full [API Reference](#) for request/response schemas and error codes.
+### Step 6 — Activate Offline/SoftPOS (If Needed)
 
-## Step 6 — Activate Offline Payments (SoftPOS)
-
-1. Go to **Dashboard → SoftPOS** and click **Request Activation**.
+1. **Dashboard → SoftPOS →** click **"Request Activation."**
 2. Once approved:
-   - Add **Storefronts** (upload address proof and store images).
-   - Add **Agents** (phone number and Aadhaar KYC).
-   - Agents download the SoftPOS app and can start collecting payments.
-3. For Dynamic QR via API, use the **Create Terminal Transaction API** with your terminal ID. *(For Developers)*
+   - Add **Storefronts** (upload address proof, store images).
+   - Add **Agents** (phone number + Aadhaar KYC).
+   - Agents download the SoftPOS app and start collecting.
+3. For Dynamic QR via API, use the **Create Terminal Transaction API** with your terminal ID.
 
-## Step 7 — Test End-to-End
+### Step 7 — Test End-to-End
 
-- Use Cashfree's Sandbox environment to simulate payments.
-- Test success, failure, user-dropped, and refund scenarios.
-- Confirm webhooks arrive and your system processes them correctly.
-- Check that settlement reports appear correctly in the dashboard.
+- Use Cashfree's Sandbox/Test environment to simulate payments.
+- Test: success, failure, user-dropped, and refunds.
+- Verify webhooks arrive and your system processes them correctly.
+- Verify settlement reports in the dashboard.
 
-## Step 8 — Go Live
+### Step 8 — Go Live
 
 1. Switch from Test to Production API keys.
-2. Confirm KYC is fully approved.
-3. Confirm your penny test shows as **Acknowledged**.
-4. Choose your settlement cycle (T+1, T+2, or Instant).
-5. Set up notifications for settlements, refunds, and disputes.
-6. Start processing live transactions.
+2. Ensure KYC is fully approved (v3).
+3. Confirm the penny test is **ACKNOWLEDGED**.
+4. Choose your settlement cycle (T+1 / T+2 / Instant).
+5. Configure notifications (settlement, refund, dispute alerts).
+6. Start processing real transactions.
+
+---
 
 ## Go-Live Checklist
 
 - [ ] Cashfree account created and email verified
 - [ ] KYC documents uploaded and approved
-- [ ] Bank account verified (penny test acknowledged)
+- [ ] Bank account verified (penny test ACKNOWLEDGED)
 - [ ] Production API keys generated and stored securely
 - [ ] Webhook endpoints configured and tested
 - [ ] Signature verification implemented
 - [ ] Integration tested in Sandbox (all methods)
 - [ ] Settlement cycle chosen and confirmed
 - [ ] Refund and dispute workflows understood
-- [ ] SoftPOS activated (if offline payments needed)
+- [ ] SoftPOS activated (if offline needed)
 - [ ] Collection points created and verified (if offline)
-- [ ] Live — monitoring transactions and settlements daily
+- [ ] Go live — monitor transactions and settlements daily
+
+---
 
 ## Support & Resources
 
 | Resource | Details |
 | :--- | :--- |
 | **Dashboard** | [merchant.cashfree.com](https://merchant.cashfree.com) |
-| **API Docs** | See the Cashfree Developer Documentation |
+| **API Docs** | Cashfree Developer Documentation |
 | **Postman Collections** | Available for quick API testing |
 | **Sandbox** | Full test environment with simulated payments |
 | **Account Manager** | Contact for custom pricing, Flash UPI, or enterprise needs |
