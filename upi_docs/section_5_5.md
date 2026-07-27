@@ -1,4 +1,4 @@
-During checkout, multiple points of failure exist outside a merchant's direct control — a bank's Core Banking System (CBS) may go offline, an acquiring partner's API might time out, or the NPCI switch could experience network congestion. If traffic is statically routed down a single gateway pipe during these events, conversion rates fluctuate heavily.
+During checkout, multiple points of failure exist outside a merchant's direct control a bank's Core Banking System (CBS) may go offline, an acquiring partner's API might time out, or the NPCI switch could experience network congestion. If traffic is statically routed down a single gateway pipe during these events, conversion rates fluctuate heavily.
 
 Cashfree's Smart Routing engine continuously measures real-time performance across all acquiring channels, detects degradation within seconds, and automatically redirects traffic to healthy payment paths to protect checkout conversion.
 
