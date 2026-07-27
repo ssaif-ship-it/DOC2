@@ -17,7 +17,7 @@ A complete reference for choosing the right UPI payment product and getting a Ca
 
 ---
 
-## Getting Started from Zero — Complete Merchant Onboarding Guide
+## Getting Started from Zero, Complete Merchant Onboarding Guide
 
 ### Step 1 — Sign Up on Cashfree
 
