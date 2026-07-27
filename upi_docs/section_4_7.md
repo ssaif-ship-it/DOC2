@@ -1,4 +1,3 @@
-# 4.1 UPI AutoPay Merchant Onboarding Guide
 
 This guide provides a step-by-step walkthrough for merchants integrating Cashfree UPI AutoPay (alongside eNACH and Card Standing Instructions). It covers account activation, webhook configuration, subscription lifecycle execution, sandbox verification, and direct links to comprehensive developer documentation.
 
