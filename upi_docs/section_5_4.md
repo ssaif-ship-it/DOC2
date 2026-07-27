@@ -1,4 +1,3 @@
-# 5.5 Customer-Facing Messages
 
 Every payment failure on the UPI network or card rails returns a raw, technical error string from the issuing bank or switch—such as `U30|DEBIT HAS BEEN FAILED|Z9|INSUFFICIENT FUNDS IN CUSTOMER (REMITTER) ACCOUNT`, `ZM`, `U69`, or `EPI401`. Displaying these raw codes directly to customers leads to confusion, unnecessary support tickets, and cart abandonment.
 
