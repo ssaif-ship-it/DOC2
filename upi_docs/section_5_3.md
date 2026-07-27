@@ -1,5 +1,3 @@
-This guide outlines standard non-technical business failures, network response codes, error normalization rules, and subscription-specific AutoPay errors in UPI processing. It helps engineering, finance, and customer support teams distinguish between recoverable user errors, mandate state blocks, bank outages, and compliance guardrails to optimize checkout and recurring billing retry paths.
-
 ## 1. Overview & Error Architecture
 
 When a UPI transaction or recurring debit fails, the failure signal originates at one of three layers before being reported back to your application:
