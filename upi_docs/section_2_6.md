@@ -6,11 +6,11 @@ A complete reference for choosing the right UPI payment product and getting a Ca
 
 ## Product Comparison at a Glance
 
-| Product | Best For | Integration Effort | Customer Action | Where |
+| Product | Best For | Integration Effort |     Customer Action | Where |
 | :--- | :--- | :--- | :--- | :--- |
-| **UPI Intent** | Mobile app/web checkout | Low (API) | Tap app → PIN | Online |
-| **UPI Collect** | Desktop web, known VPA | Low (API) | Type VPA → approve in app | Online |
-| **Flash UPI** | High-volume repeat apps | Medium (SDK) | PIN only (no app switch) | Online (in-app) |
+| **UPI Intent** | Mobile app/web checkout | Low (API) |     Tap app → PIN | Online |
+| **UPI Collect** | Desktop web, known VPA | Low (API) |     Type VPA → approve in app | Online |
+| **Flash UPI** | High-volume repeat apps | Medium (SDK) |     PIN only (no app switch) | Online (in-app) |
 | **Static QR** | Physical stores, no-tech | Zero (print QR) | Scan → type amount → PIN | Offline |
 | **Dynamic QR** | Delivery, desktop, invoices | Medium (API) | Scan → PIN (amount pre-filled) | Offline/Online |
 | **SoftPOS** | Field agents, delivery, retail | Low (app install) | Scan QR / Tap card / Pay link | Offline |
