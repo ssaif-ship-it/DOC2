@@ -12,7 +12,8 @@ The MCC dictates the fundamental rules of engagement for your UPI integration:
 * **AutoPay Limits:** The maximum threshold for auto-debit without an additional PIN (AFA) varies by MCC (e.g., standard is ₹15,000, but mutual funds/insurance can be up to ₹1 Lakh).
 
 > **Note:** It is critical to accurately declare your business operations during onboarding to ensure the correct MCC is assigned.
-more details in 3.2
+
+> **Note:** More details about MCC in 3.2
 
 ### Third-Party Verification (TPV)
 
