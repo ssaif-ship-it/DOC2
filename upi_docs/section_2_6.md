@@ -6,53 +6,6 @@ A complete reference for choosing the right UPI payment product and getting a Ca
 
 ## Product Comparison at a Glance
 
-<div class="overflow-x-auto rounded-lg border border-cf-border shadow-sm my-6">
-  <table class="w-full text-sm text-left border-collapse">
-    <thead>
-      <tr class="bg-cf-purple-light">
-        <th class="px-4 py-3 font-semibold text-cf-purple">Product</th>
-        <th class="px-4 py-3 font-semibold text-cf-purple">Best for</th>
-        <th class="px-4 py-3 font-semibold text-cf-purple">Integration effort</th>
-        <th class="px-4 py-3 font-semibold text-cf-purple">Customer action</th>
-        <th class="px-4 py-3 font-semibold text-cf-purple">Where</th>
-      </tr>
-    </thead>
-    <tbody class="divide-y divide-cf-border">
-      <tr class="hover:bg-gray-50 transition-colors">
-        <td class="px-4 py-3 font-semibold text-gray-900">UPI Intent</td>
-        <td class="px-4 py-3 text-gray-600">Mobile app/web checkout</td>
-        <td class="px-4 py-3"><span class="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700">Low (API)</span></td>
-        <td class="px-4 py-3 text-gray-600">Tap app → PIN</td>
-        <td class="px-4 py-3"><span class="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">Online</span></td>
-      </tr>
-      <tr class="hover:bg-gray-50 transition-colors">
-        <td class="px-4 py-3 font-semibold text-gray-900">UPI Collect</td>
-        <td class="px-4 py-3 text-gray-600">Desktop web, known VPA</td>
-        <td class="px-4 py-3"><span class="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700">Low (API)</span></td>
-        <td class="px-4 py-3 text-gray-600">Type VPA → approve in app</td>
-        <td class="px-4 py-3"><span class="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">Online</span></td>
-      </tr>
-      <tr class="hover:bg-gray-50 transition-colors">
-        <td class="px-4 py-3 font-semibold text-gray-900">Flash UPI</td>
-        <td class="px-4 py-3 text-gray-600">High-volume repeat apps</td>
-        <td class="px-4 py-3"><span class="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-700">Medium (SDK)</span></td>
-        <td class="px-4 py-3 text-gray-600">PIN only (no app switch)</td>
-        <td class="px-4 py-3"><span class="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">Online (in-app)</span></td>
-      </tr>
-      <tr class="hover:bg-gray-50 transition-colors">
-        <td class="px-4 py-3 font-semibold text-gray-900">Static QR</td>
-        <td class="px-4 py-3 text-gray-600">Physical stores, no-tech</td>
-        <td class="px-4 py-3"><span class="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-green-50 text-green-700">Zero (print QR)</span></td>
-        <td class="px-4 py-3 text-gray-600">Scan → type amount → PIN</td>
-        <td class="px-4 py-3"><span class="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700">Offline</span></td>
-      </tr>
-      <tr class="hover:bg-gray-50 transition-colors">
-        <td class="px-4 py-3 font-semibold text-gray-900">Dynamic QR</td>
-        <td class="px-4 py-3 text-gray-600">Delivery, desktop, invoices</td>
-        <td class="px-4 py-3"><span class="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-700">Medium (API)</span></td>
-        <td class="px-4 py-3 text-gray-600">Scan → PIN (amount pre-filled)</td>
-        <td class="px-4 py-3"><span class="inline-block px-2 py-0.5 rounded-full text-xs font-medium
----
 
 ## Getting Started from Zero, Complete Merchant Onboarding Guide
 
