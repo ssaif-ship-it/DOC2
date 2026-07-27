@@ -1,5 +1,3 @@
-## 5.1 Settlements & Payouts
-
 This guide explains how and when funds from customer payments reach your bank account, how settlement cycles (T+1, T+0) work in practice, and how to manage reconciliation, direct settlements, and risk holds.
 
 ### 1. Key Concepts & Terminology
