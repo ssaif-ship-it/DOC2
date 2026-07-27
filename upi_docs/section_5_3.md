@@ -1,6 +1,3 @@
-5.3 Standard Error Codes
-========================
-
 This guide outlines standard non-technical business failures, network response codes, and error normalization rules in UPI processing. It helps engineering and customer support teams distinguish between recoverable user errors, bank outages, and compliance blocks to optimize checkout retry paths.
 
 1\. Overview & Error Architecture
@@ -28,125 +25,19 @@ Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQL
 
 The table below maps standard NPCI error codes, raw bank responses, root causes, and recommended user/checkout actions:
 
-NPCI Code
-
-Gateway Error Code
-
-Root Cause / Business Context
-
-Category
-
-Recommended Action / UI Guidance
-
-**ZA**
-
-INSUFFICIENT\_FUNDS
-
-Remitter account balance is lower than transaction amount.
-
-User Error
-
-Prompt user to choose another bank account, RuPay Credit Card, or alternative payment method. Do not retry automatically.
-
-**ZM**
-
-INCORRECT\_PIN
-
-Customer entered an incorrect 4-digit or 6-digit UPI PIN.
-
-User Error
-
-Prompt customer to re-enter PIN carefully or reset UPI PIN in their UPI app.
-
-**Z6**
-
-PIN\_ATTEMPTS\_EXCEEDED
-
-Customer entered an incorrect UPI PIN 3 consecutive times; account blocked for 24h.
-
-User Error
-
-Instruct customer to wait 24 hours or reset PIN using their debit card in their UPI app.
-
-**ZK**
-
-ACCOUNT\_BLOCKED
-
-Customer's bank account is frozen, inactive, or restricted by the issuing bank.
-
-Compliance / Risk
-
-Advise customer to contact their issuing bank to remove account blocks.
-
-**U16**
-
-TRANSACTION\_LIMIT\_EXCEEDED
-
-Transaction exceeds daily per-transaction cap ($\\text{₹}1,00,000$ standard P2M or $\\text{₹}5,00,000$ special MCC cap).
-
-Limit Error
-
-Request customer to split order amount or use NetBanking / Credit Card.
-
-**U30**
-
-NEW\_USER\_VELOCITY\_CAP
-
-Customer registered, changed device, or reset PIN within the last 24 hours (capped at $\\text{₹}5,00,000 \\rightarrow \\text{₹}5,000$).
-
-Anti-Fraud Cap
-
-Show message: _"UPI limit capped at ₹5,000 for 24 hours following phone/PIN setup. Please pay using NetBanking."_
-
-**U19**
-
-TPV\_ACCOUNT\_MISMATCH
-
-Paid account does not match registered investor account details (MCC 6211 Capital Markets).
-
-Compliance Block
-
-Inform user that payment must originate strictly from their pre-registered bank account.
-
-**U01**
-
-VPA\_NOT\_FOUND
-
-Virtual Payment Address (VPA / UPI ID) entered does not exist or handle is deleted.
-
-Input Error
-
-Prompt user to re-check and type a valid UPI handle (e.g., name@upi).
-
-**U69**
-
-COLLECT\_BLOCKED\_FOR\_MCC
-
-Collect request initiated for an MCC restricted to Intent/QR only (Gaming 5816, Wallet 6540, Rent 6513).
-
-Integration Block
-
-Switch checkout implementation to **UPI Intent** or **Dynamic QR** flow.
-
-**U14**
-
-ENCRYPTION\_ERROR
-
-Device Common Library (CL) token expired or cryptographic handshake failed.
-
-Technical
-
-Ask user to retry transaction or restart their UPI app.
-
-**U66**
-
-CBS\_UNREACHABLE
-
-Remitter bank Core Banking System (CBS) is temporarily down or timed out.
-
-Network Failure
-
-Automatically retry via secondary acquiring route or show bank outage status.
+| NPCI Code | Gateway Error Code | Root Cause / Business Context | Category | Recommended Action / UI Guidance |
+| :--- | :--- | :--- | :--- | :--- |
+| **ZA** | `INSUFFICIENT_FUNDS` | Remitter account balance is lower than transaction amount. | User Error | Prompt user to choose another bank account, RuPay Credit Card, or alternative payment method. Do not retry automatically. |
+| **ZM** | `INCORRECT_PIN` | Customer entered an incorrect 4-digit or 6-digit UPI PIN. | User Error | Prompt customer to re-enter PIN carefully or reset UPI PIN in their UPI app. |
+| **Z6** | `PIN_ATTEMPTS_EXCEEDED` | Customer entered an incorrect UPI PIN 3 consecutive times; account blocked for 24h. | User Error | Instruct customer to wait 24 hours or reset PIN using their debit card in their UPI app. |
+| **ZK** | `ACCOUNT_BLOCKED` | Customer's bank account is frozen, inactive, or restricted by the issuing bank. | Compliance / Risk | Advise customer to contact their issuing bank to remove account blocks. |
+| **U16** | `TRANSACTION_LIMIT_EXCEEDED` | Transaction exceeds daily per-transaction cap (**₹1,00,000** standard P2M or **₹5,00,000** special MCC cap). | Limit Error | Request customer to split order amount or use NetBanking / Credit Card. |
+| **U30** | `NEW_USER_VELOCITY_CAP` | Customer registered, changed device, or reset PIN within the last 24 hours (capped at **₹5,00,000 → ₹5,000**). | Anti-Fraud Cap | Show message: "UPI limit capped at ₹5,000 for 24 hours following phone/PIN setup. Please pay using NetBanking." |
+| **U19** | `TPV_ACCOUNT_MISMATCH` | Paid account does not match registered investor account details (MCC 6211 Capital Markets). | Compliance Block | Inform user that payment must originate strictly from their pre-registered bank account. |
+| **U01** | `VPA_NOT_FOUND` | Virtual Payment Address (VPA / UPI ID) entered does not exist or handle is deleted. | Input Error | Prompt user to re-check and type a valid UPI handle (e.g., name@upi). |
+| **U69** | `COLLECT_BLOCKED_FOR_MCC` | Collect request initiated for an MCC restricted to Intent/QR only (Gaming 5816, Wallet 6540, Rent 6513). | Integration Block | Switch checkout implementation to UPI Intent or Dynamic QR flow. |
+| **U14** | `ENCRYPTION_ERROR` | Device Common Library (CL) token expired or cryptographic handshake failed. | Technical | Ask user to retry transaction or restart their UPI app. |
+| **U66** | `CBS_UNREACHABLE` | Remitter bank Core Banking System (CBS) is temporarily down or timed out. | Network Failure | Automatically retry via secondary acquiring route or show bank outage status. |
 
 3\. High-Priority Business Scenarios & Edge Cases
 -------------------------------------------------
