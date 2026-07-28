@@ -137,7 +137,7 @@ Choose your preferred integration path below for complete, up-to-date documentat
 
 Native SDKs for Android, iOS, React Native, Flutter, and Cordova.
 
-#### Intent
+### Intent
 Users see a list of installed UPI apps and tap to pay directly, without leaving your checkout context.
 
 - [Android SDK Docs](https://www.cashfree.com/docs/payments/online/mobile/android)
@@ -147,13 +147,13 @@ Users see a list of installed UPI apps and tap to pay directly, without leaving 
 
 Handles multiple UPI methods depending on device — desktop or mobile web.
 
-#### Collect
+### Collect
 User manually enters their VPA (UPI ID) on the checkout page.
 
-#### QR
+### QR
 A dynamic QR code is rendered on-screen for the user to scan and pay.
 
-#### Intent
+### Intent
 On mobile-web, the user is redirected to their preferred UPI app to complete payment.
 
 - [Web Checkout Docs](https://www.cashfree.com/docs/payments/overview)
@@ -162,7 +162,7 @@ On mobile-web, the user is redirected to their preferred UPI app to complete pay
 
 Fully native, in-app UPI experience — no switching to a separate app.
 
-#### PIN
+### PIN
 The user enters their UPI PIN directly inside your app to authorize the payment.
 
 - [UPI Setup Docs](https://www.cashfree.com/docs/payments/manage/payment-methods/upi)
@@ -171,7 +171,7 @@ The user enters their UPI PIN directly inside your app to authorize the payment.
 
 For a fully custom backend integration.
 
-#### Custom
+### Custom
 Manage the `/orders` endpoint, session generation, and webhook signature verification directly.
 
 - [API Reference](https://www.cashfree.com/docs/api-reference/overview)
@@ -191,7 +191,7 @@ If your business operates offline — retail storefronts, field agents, or cash-
 
 ### Path 2: Dynamic QR (API)
 
-#### QR
+### QR
 Use our Terminal APIs to push a unique QR code or payment link mapped to a specific order ID and amount.
 
 *Review the Terminal & Offline Payments endpoints in the Core API Reference.*
