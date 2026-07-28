@@ -47,14 +47,17 @@ Unlike traditional card networks, UPI operates on a streamlined, interoperable 4
   </tbody>
 </table>
 
-## UPI with Cashfree
-
-Running the 4-Pillar architecture on your own requires heavy technical lifting. When you integrate UPI with Cashfree, we act as your Payee PSP and absorb the complexity of the ecosystem entirely.
-
-Here is how Cashfree optimizes your UPI processing:
-
-*   **Payload Normalization:** You only need to integrate our single API. We handle the heavy lifting of translating that data into the diverse formats required by various banking systems.
-*   **Dynamic Routing:** Bank servers frequently experience downtime. Cashfree actively monitors bank health and routes your transactions through the most stable pipelines to protect and maximize your Success Rates.
-*   **Automated Reconciliation:** We match the real-time transaction statuses from the NPCI switch with the actual nodal bank settlements, giving you a clean, unified dashboard of your funds without the manual accounting work.
-
 <img width="2838" height="1504" alt="Gemini_Generated_Image_nm4ea8nm4ea8nm4e" src="https://github.com/user-attachments/assets/0f98078e-b6ce-4dd1-9c6a-50cad93c22dd" />
+
+
+## 3. UPI with Cashfree
+
+Connecting directly to the 4-Pillar UPI infrastructure requires significant engineering resources, bank partnerships, and continuous maintenance. When you integrate with Cashfree, we act as your Payee PSP, absorbing the complexity of the ecosystem so you can focus on growing your business.
+
+### How Cashfree Optimizes Your UPI Infrastructure
+
+*   **Single-API Integration (Payload Normalization):** Every bank requires data in slightly different technical formats. Cashfree normalizes this complexity into a single, clean API. You integrate once, and we handle the translation to match every bank's unique requirements behind the scenes.
+*   **Dynamic Intelligent Routing:** Bank servers frequently undergo maintenance or experience unexpected downtime. Cashfree’s AI-powered routing engine continuously monitors bank health across the network. If a primary banking gateway slows down, we instantly reroute your transactions through the most reliable pipeline available to maximize your payment success rates.
+*   **Automated Settlement & Reconciliation:** Manually matching transactions against bank payouts is complex and time-consuming. Cashfree automatically reconciles NPCI transaction statuses directly with bank settlements, offering you a single dashboard with automated Unique Transaction Reference (UTR) tracking and zero manual bookkeeping.
+*   **Complete Integration Versatility:** Cashfree supports all major UPI checkout experiences—including UPI Intent (seamless mobile app switching), Dynamic QR Codes (for web and offline checkouts), and AutoPay (for recurring subscriptions)—allowing you to design the exact user flow your customers prefer.
+*   **Proactive Status Polling & Instant Refunds:** When transactions stall due to customer network drops, Cashfree's system automatically polls for status updates to ensure you never miss a verified payment. Should a payment fail or a customer request a return, you can initiate instant refunds directly back to the customer's source account via API.
