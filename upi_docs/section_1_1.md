@@ -8,13 +8,13 @@ For merchants, integrating UPI is no longer just an alternative payment method; 
 *   **Frictionless User Experience:** Customers complete payments in seconds via deep-linked apps or QR scans, eliminating the need to manually enter 16-digit card numbers.
 *   **Native Security:** UPI uses mandatory Two-Factor Authentication (2FA). Factor 1 is hard device binding (the user's registered mobile device), and Factor 2 is their secure 4- or 6-digit UPI PIN.
 *   **Virtual Payment Address (VPA):** Also known as a UPI Handle (e.g., customer@bank), this acts as a unique identifier mapped directly to the user's underlying bank account, keeping their financial details private.
-<img width="2838" height="1504" alt="Gemini_Generated_Image_nm4ea8nm4ea8nm4e" src="https://github.com/user-attachments/assets/8e402728-a71e-4423-83b4-b76d8c6156bc" />
 
 ### How a UPI Transaction Works
 
 Unlike traditional card networks, UPI operates on a streamlined, interoperable 4-Pillar Model. This architecture is orchestrated entirely by the NPCI through a central routing engine known as the UPI Switch.
 
 It is crucial to note that consumer-facing apps like Google Pay or PhonePe are Third-Party Application Providers (TPAPs). They provide the user interface but do not hold a direct UPI banking license. They must partner with regulated Payment Service Provider (PSP) banks to route transactions to the NPCI.
+
 
 <table>
   <thead>
@@ -48,6 +48,7 @@ It is crucial to note that consumer-facing apps like Google Pay or PhonePe are T
   </tbody>
 </table>
 
+<img width="2838" height="1504" alt="Gemini_Generated_Image_nm4ea8nm4ea8nm4e" src="https://github.com/user-attachments/assets/8e402728-a71e-4423-83b4-b76d8c6156bc" />
 ### UPI with Cashfree
 
 Connecting directly to the 4-Pillar UPI infrastructure requires significant engineering resources, direct banking partnerships, and continuous compliance maintenance. When you integrate with Cashfree, we act as your Payment Aggregator (PA). We partner with multiple top-tier Payee PSPs and absorb the entire technical and regulatory complexity of the ecosystem so you can focus strictly on growing your business.
