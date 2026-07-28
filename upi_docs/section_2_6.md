@@ -149,7 +149,7 @@ Store your keys securely:
   }
 
   .doc-wrap {
-    max-width: 780px;
+    max-width: 800px;
     margin: 0 auto;
   }
 
@@ -166,21 +166,17 @@ Store your keys securely:
     font-size: 30px;
     font-weight: 700;
     margin: 0 0 8px;
-    color: var(--cf-text);
   }
 
   h2 {
     font-size: 22px;
     font-weight: 700;
-    margin: 48px 0 8px;
+    margin: 52px 0 8px;
     padding-bottom: 10px;
     border-bottom: 1px solid var(--cf-border);
-    color: var(--cf-text);
   }
 
-  h2 .step-num {
-    color: var(--cf-blue);
-  }
+  h2 .step-num { color: var(--cf-blue); }
 
   p.lead {
     font-size: 16px;
@@ -188,10 +184,7 @@ Store your keys securely:
     margin: 0 0 28px;
   }
 
-  p {
-    font-size: 15.5px;
-    color: var(--cf-text);
-  }
+  p { font-size: 15.5px; }
 
   .intro-note {
     background: var(--cf-blue-light);
@@ -203,27 +196,22 @@ Store your keys securely:
     margin: 20px 0 28px;
   }
 
+  /* --- Path card (top-level integration route) --- */
   .path-card {
     border: 1px solid var(--cf-border);
     border-radius: 10px;
-    padding: 20px 22px;
-    margin: 16px 0;
+    padding: 22px 24px;
+    margin: 18px 0;
     background: #fff;
-    transition: box-shadow 0.15s ease;
-  }
-
-  .path-card:hover {
-    box-shadow: 0 4px 16px rgba(18, 89, 195, 0.08);
   }
 
   .path-title {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 700;
-    margin: 0 0 8px;
-    color: var(--cf-text);
+    margin: 0 0 6px;
   }
 
   .path-badge {
@@ -234,38 +222,61 @@ Store your keys securely:
     padding: 3px 9px;
     border-radius: 20px;
     letter-spacing: 0.03em;
+    flex-shrink: 0;
   }
 
-  .path-card p {
-    margin: 0 0 12px;
+  .path-desc {
     color: var(--cf-muted);
     font-size: 14.5px;
+    margin: 0 0 18px;
   }
 
-  .path-card p:last-child {
-    margin-bottom: 0;
+  /* --- Method label (Intent / Collect / QR / PIN) --- */
+  .method {
+    border-top: 1px dashed var(--cf-border);
+    padding-top: 14px;
+    margin-top: 14px;
+  }
+
+  .method:first-of-type {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+  }
+
+  .method-label {
+    display: inline-block;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--cf-blue);
+    background: var(--cf-blue-light);
+    padding: 3px 10px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+  }
+
+  .method p {
+    margin: 0 0 10px;
+    font-size: 14.5px;
+    color: var(--cf-text);
   }
 
   .doc-link {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-size: 14.5px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--cf-blue);
     text-decoration: none;
   }
 
-  .doc-link:hover {
-    text-decoration: underline;
-  }
+  .doc-link:hover { text-decoration: underline; }
+  .doc-link::after { content: "→"; font-weight: 400; }
 
-  .doc-link::after {
-    content: "→";
-    font-weight: 400;
-  }
-
-  code, .inline-code {
+  code {
     background: var(--cf-code-bg);
     color: var(--cf-code-text);
     padding: 2px 6px;
@@ -278,7 +289,7 @@ Store your keys securely:
     display: inline-block;
     background: #fff4e5;
     color: #9a5b00;
-    font-size: 11.5px;
+    font-size: 11px;
     font-weight: 700;
     padding: 2px 8px;
     border-radius: 4px;
@@ -287,21 +298,19 @@ Store your keys securely:
   }
 
   ul.step-list {
-    margin: 0 0 12px;
+    margin: 0 0 10px;
     padding-left: 20px;
-    color: var(--cf-muted);
+    color: var(--cf-text);
     font-size: 14.5px;
   }
 
-  ul.step-list li {
-    margin-bottom: 4px;
-  }
+  ul.step-list li { margin-bottom: 5px; }
 
   .also-note {
     font-size: 13.5px;
     color: var(--cf-muted);
     font-style: italic;
-    margin-top: -6px;
+    margin-top: 6px;
   }
 
   hr.divider {
@@ -328,29 +337,64 @@ Store your keys securely:
 
   <p>Choose your preferred integration path below for complete, up-to-date documentation and code samples.</p>
 
+  <!-- Path 1: Mobile -->
   <div class="path-card">
-    <p class="path-title"><span class="path-badge">Path 1</span> Mobile App Integration (UPI Intent &amp; SDKs)</p>
-    <p>Integrate our native SDKs to offer seamless UPI Intent flows, where users see a list of installed UPI apps and tap to pay directly without leaving your checkout context.</p>
-    <a class="doc-link" href="https://www.cashfree.com/docs/payments/online/mobile/android">Android SDK Docs</a>
-    <p class="also-note">Also available for iOS, React Native, Flutter, and Cordova.</p>
+    <p class="path-title"><span class="path-badge">Path 1</span> Mobile App Integration</p>
+    <p class="path-desc">Native SDKs for Android, iOS, React Native, Flutter, and Cordova.</p>
+
+    <div class="method">
+      <span class="method-label">Intent</span>
+      <p>Users see a list of installed UPI apps and tap to pay directly, without leaving your checkout context.</p>
+      <a class="doc-link" href="https://www.cashfree.com/docs/payments/online/mobile/android">Android SDK Docs</a>
+      <p class="also-note">Also available for iOS, React Native, Flutter, and Cordova.</p>
+    </div>
   </div>
 
+  <!-- Path 2: Web -->
   <div class="path-card">
     <p class="path-title"><span class="path-badge">Path 2</span> Web Checkout (Hosted &amp; Custom) <span class="flag">check link</span></p>
-    <p>For web platforms, use our Web Integration to handle UPI Collect (entering a VPA), on-screen dynamic QR codes, or UPI Intent for mobile-web users.</p>
+    <p class="path-desc">Handles multiple UPI methods depending on device — desktop or mobile web.</p>
+
+    <div class="method">
+      <span class="method-label">Collect</span>
+      <p>User manually enters their VPA (UPI ID) on the checkout page.</p>
+    </div>
+
+    <div class="method">
+      <span class="method-label">QR</span>
+      <p>A dynamic QR code is rendered on-screen for the user to scan and pay.</p>
+    </div>
+
+    <div class="method">
+      <span class="method-label">Intent</span>
+      <p>On mobile-web, the user is redirected to their preferred UPI app to complete payment.</p>
+    </div>
+
     <a class="doc-link" href="https://www.cashfree.com/docs/payments/overview">Web Checkout Docs</a>
   </div>
 
+  <!-- Path 3: Flash UPI -->
   <div class="path-card">
     <p class="path-title"><span class="path-badge">Path 3</span> Flash UPI <span class="flag">check link</span></p>
-    <p>For a fully native, in-app UPI payment experience where the user enters their PIN directly inside your app — no app switching — integrate the Flash UPI SDK.</p>
-    <a class="doc-link" href="https://www.cashfree.com/docs/payments/manage/payment-methods/upi">UPI Setup Docs</a>
+    <p class="path-desc">Fully native, in-app UPI experience — no switching to a separate app.</p>
+
+    <div class="method">
+      <span class="method-label">PIN</span>
+      <p>The user enters their UPI PIN directly inside your app to authorize the payment.</p>
+      <a class="doc-link" href="https://www.cashfree.com/docs/payments/manage/payment-methods/upi">UPI Setup Docs</a>
+    </div>
   </div>
 
+  <!-- Path 4: API -->
   <div class="path-card">
     <p class="path-title"><span class="path-badge">Path 4</span> Core API Reference &amp; Webhooks</p>
-    <p>If you're building a custom backend integration, rely on our API reference to manage the <code>/orders</code> endpoint, session generation, and webhook signature verification.</p>
-    <a class="doc-link" href="https://www.cashfree.com/docs/api-reference/overview">API Reference</a>
+    <p class="path-desc">For a fully custom backend integration.</p>
+
+    <div class="method">
+      <span class="method-label">Custom</span>
+      <p>Manage the <code>/orders</code> endpoint, session generation, and webhook signature verification directly.</p>
+      <a class="doc-link" href="https://www.cashfree.com/docs/api-reference/overview">API Reference</a>
+    </div>
   </div>
 
   <!-- STEP 6 -->
@@ -358,30 +402,43 @@ Store your keys securely:
 
   <p>If your business operates offline — retail storefronts, field agents, or cash-on-delivery alternatives — configure your offline collection methods via the Dashboard or APIs.</p>
 
+  <!-- Path 1: Static QR -->
   <div class="path-card">
     <p class="path-title"><span class="path-badge">Path 1</span> Static QR</p>
-    <p><strong>Setup:</strong></p>
-    <ul class="step-list">
-      <li>Go to <strong>Dashboard → Payment Gateway → QR Codes → Static QR</strong></li>
-      <li>Generate and download the image</li>
-      <li>Print it for your physical store display</li>
-    </ul>
+
+    <div class="method">
+      <span class="method-label">Setup</span>
+      <ul class="step-list">
+        <li>Go to <strong>Dashboard → Payment Gateway → QR Codes → Static QR</strong></li>
+        <li>Generate and download the image</li>
+        <li>Print it for your physical store display</li>
+      </ul>
+    </div>
   </div>
 
+  <!-- Path 2: Dynamic QR -->
   <div class="path-card">
     <p class="path-title"><span class="path-badge">Path 2</span> Dynamic QR (API)</p>
-    <p>Use our Terminal APIs to push a unique QR code or payment link mapped to a specific order ID and amount.</p>
-    <p>Review the Terminal &amp; Offline Payments endpoints in the Core API Reference.</p>
+
+    <div class="method">
+      <span class="method-label">QR</span>
+      <p>Use our Terminal APIs to push a unique QR code or payment link mapped to a specific order ID and amount.</p>
+      <p class="also-note">Review the Terminal &amp; Offline Payments endpoints in the Core API Reference.</p>
+    </div>
   </div>
 
+  <!-- Path 3: SoftPOS -->
   <div class="path-card">
     <p class="path-title"><span class="path-badge">Path 3</span> SoftPOS</p>
-    <p><strong>Setup:</strong></p>
-    <ul class="step-list">
-      <li>Go to <strong>Dashboard → SoftPOS → Request Activation</strong></li>
-      <li>Once approved, add Storefronts and Agents (requires phone number + KYC verification)</li>
-      <li>Agents can download the Cashfree app to collect via generated QR, SMS payment links, or NFC Tap</li>
-    </ul>
+
+    <div class="method">
+      <span class="method-label">Setup</span>
+      <ul class="step-list">
+        <li>Go to <strong>Dashboard → SoftPOS → Request Activation</strong></li>
+        <li>Once approved, add Storefronts and Agents (requires phone number + KYC verification)</li>
+        <li>Agents can download the Cashfree app to collect via generated QR, SMS payment links, or NFC Tap</li>
+      </ul>
+    </div>
   </div>
 
   <hr class="divider">
