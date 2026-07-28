@@ -1,5 +1,3 @@
-## 1.1 About UPI: The Complete Guide to UPI for Merchants
-
 The Unified Payments Interface (UPI) is a real-time instant payment system developed by the National Payments Corporation of India (NPCI). Operating 24/7/365, it facilitates instant person-to-merchant (P2M) and peer-to-peer (P2P) transactions.
 
 For merchants, integrating UPI is no longer just an alternative payment method; it is the primary driver of digital checkout conversions in India.
@@ -48,6 +46,7 @@ It is crucial to note that consumer-facing apps like Google Pay or PhonePe are T
     </tr>
   </tbody>
 </table>
+<img width="2838" height="1504" alt="Gemini_Generated_Image_nm4ea8nm4ea8nm4e" src="https://github.com/user-attachments/assets/8e402728-a71e-4423-83b4-b76d8c6156bc" />
 
 ### UPI with Cashfree
 
@@ -59,4 +58,4 @@ Connecting directly to the 4-Pillar UPI infrastructure requires significant engi
 *   **Dynamic Intelligent Routing:** Bank servers frequently undergo maintenance or experience unexpected downtime. Cashfree’s AI-powered routing engine continuously monitors bank gateway health across our Payee PSP network. If a primary banking gateway slows down, we instantly reroute your transactions through the most reliable pipeline available to maximize your payment success rates.
 *   **Automated Settlement & Reconciliation:** Manually matching transactions against bank payouts is complex and time-consuming. Cashfree automatically reconciles real-time NPCI transaction statuses directly with your nodal bank settlements, offering you a single dashboard with automated Unique Transaction Reference (UTR) tracking and zero manual bookkeeping.
 *   **Complete Integration Versatility:** Cashfree supports all major UPI checkout experiences—including UPI Intent (seamless mobile app switching), Dynamic QR Codes (for web and offline checkouts), and AutoPay (for recurring subscriptions)—allowing you to design the exact user flow your customers prefer.
-*   **Proactive Status Polling & Instant Refunds:** When transactions stall in a "pending" state due to customer network drops, Cashfree's system automatically polls the bank for status updates to ensure you never miss a verified payment. Should a payment fail or a customer request a return, you can initiate instant refunds directly back to the customer's source account via a single API call.
+*   **Proactive Status Polling & Instant Refunds:** When transactions stall in a "pending" state due to customer network drops, Cashfree's system automatically polls the bank for status updates to ensure you never miss a verified payment. Should a payment fail or a customer request a return, you can initiate instant refunds directly back to the customer's source account via a single API call.<img width="2838" height="1504" alt="Gemini_Generated_Image_nm4ea8nm4ea8nm4e" src="https://github.com/user-attachments/assets/87438eb6-416d-4898-830d-d02cfa847e31" />
