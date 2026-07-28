@@ -2,7 +2,7 @@
 
 The Unified Payments Interface (UPI) is a real-time instant payment system developed by the National Payments Corporation of India (NPCI). Operating 24/7/365, it facilitates instant person-to-merchant (P2M) and peer-to-peer (P2P) transactions.
 
-For merchants, integrating UPI is no longer just an alternative payment method—it is the primary driver of digital checkout conversions in India.
+For merchants, integrating UPI is no longer just an alternative payment method,it is the primary driver of digital checkout conversions in India.
 
 ## Why UPI Matters for Your Business
 
