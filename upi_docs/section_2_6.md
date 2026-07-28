@@ -121,142 +121,273 @@ Store your keys securely:
 
 ---
 
-## Step 5 — Integrate (Online – Standard PG)
-
-### a) Create Order API (Applies to all online methods)
-Create an order to generate a session ID.
-
-* **Endpoint:** `POST /orders`
-* **Headers:** `x-client-id`, `x-client-secret`, `x-api-version: 2023-08-01`
-* **Body:**
-
-```json
-{
-  "order_amount": 500.00,
-  "order_currency": "INR",
-  "customer_details": {
-    "customer_id": "cust_001",
-    "customer_phone": "9999999999"
-  },
-  "order_meta": {
-    "return_url": "https://yoursite.com/payment-result?order_id={order_id}"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Integration Guide — Step 5 & Step 6</title>
+<style>
+  :root {
+    --cf-blue: #1259c3;
+    --cf-blue-light: #eef4ff;
+    --cf-text: #1a1a2e;
+    --cf-muted: #5c6474;
+    --cf-border: #e3e7ee;
+    --cf-code-bg: #f4f6fa;
+    --cf-code-text: #b3261e;
   }
-}
-```
 
-* **Returns:** `payment_session_id` (and `order_id`).
+  * { box-sizing: border-box; }
 
----
-
-### b) Accept Payment (Choose your specific method below)
-
-#### Path 1: Cashfree Checkout (Hosted)
-Use the `payment_session_id` to load Cashfree's hosted page. All enabled methods (UPI Intent, Collect, Cards, Wallets) are shown automatically.
-
-#### Path 2: UPI Intent (Custom UI)
-Call `POST /orders/sessions` to get a deep-link:
-
-```json
-{
-  "payment_session_id": "<id>",
-  "payment_method": {
-    "upi": {
-      "channel": "link"
-    }
+  body {
+    margin: 0;
+    padding: 48px 24px;
+    background: #ffffff;
+    color: var(--cf-text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.65;
   }
-}
-```
-* **Action:** Extract the `upi://` URL from `data.payload.default` and launch it on the user's device (e.g., via Android Intent).
 
-#### Path 3: UPI Collect (Custom UI)
-Call `POST /orders/sessions` targeting the user's specific UPI ID:
-
-```json
-{
-  "payment_session_id": "<id>",
-  "payment_method": {
-    "upi": {
-      "channel": "collect",
-      "upi_id": "customer@okaxis"
-    }
+  .doc-wrap {
+    max-width: 780px;
+    margin: 0 auto;
   }
-}
-```
-* **Action:** Show a "waiting for approval" spinner (5-minute timeout window).
 
-#### Path 4: Flash UPI (Android SDK)
-1. Request activation via Account Manager to get a dedicated handle.
-2. Add dependencies: `com.cashfree.pg:api:x.x.x` and `com.cashfree.pg:upi:x.x.x`.
-3. Initialize and trigger:
-
-```java
-CFSession cfSession = new CFSession.CFSessionBuilder()
-        .setEnvironment(CFSession.Environment.PRODUCTION)
-        .setPaymentSessionId(paymentSessionId)
-        .setOrderId(orderId)
-        .build();
-
-CFUPIIntentCheckoutPayment cfUPIPayment = new CFUPIIntentCheckoutPayment.CFUPIIntentCheckoutPaymentBuilder()
-        .setSession(cfSession)
-        .build();
-
-CFPaymentGatewayService.getInstance().doPayment(activity, cfUPIPayment);
-```
-
----
-
-### c) Handle Response (Applies to all online methods)
-1. Configure Webhooks in **Dashboard → Developers → Webhooks** (Payment Success, Payment Failed, Refund events).
-2. Implement signature verification on incoming webhooks.
-3. Use `GET /orders/{order_id}` as a fallback to check status (especially critical for polling UPI Collect).
-
----
-
-## Step 6 — Activate Offline/QR (If Needed)
-Choose your offline flow based on your operational setup:
-
-### Path 1: Static QR
-* **Setup:** Go to **Dashboard → Payment Gateway → QR Codes → Static QR**. Generate and download the image. Print for display.
-* **Tracking:** Reconcile via `GET /settlements/transactions?start_date=...&end_date=...` matching amount + timestamp + payer VPA.
-
-#### Path 2: Dynamic QR (API)
-* **Setup:** Create a terminal one-time via `POST /terminal`:
-
-```json
-{
-  "terminal_id": "store_counter_1",
-  "terminal_name": "Main Counter",
-  "terminal_type": "QRCODE",
-  "terminal_phone_no": "9999999999"
-}
-```
-
-* **Trigger:** Generate a unique QR per order via `POST /terminal/transactions`:
-
-```json
-{
-  "cf_terminal_id": "store_counter_1",
-  "order_id": "order_20240101_001",
-  "order_amount": 750.00,
-  "order_currency": "INR",
-  "payment_method": "QR_CODE",
-  "customer_details": {
-    "customer_id": "cust_001",
-    "customer_phone": "9999999999"
+  .doc-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--cf-blue);
+    margin-bottom: 8px;
   }
-}
-```
 
-* **Action:** Display the returned base64 image or URL. Handle expiry and webhooks.
+  h1 {
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: var(--cf-text);
+  }
 
-### Path 3: SoftPOS
-* **Setup:** Go to **Dashboard → SoftPOS → Request Activation**.
-* Once approved, add **Storefronts** (upload address proof, store images).
-* Add **Agents** (requires phone number + KYC verification).
-* **Action:** Agents download the app and collect via generated QR, SMS payment links, or NFC Tap.
-* *(Optional)* Push a dynamic amount straight to the agent's app via API: `POST /terminal/transactions` using `"payment_method": "UPI_QR"`.
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 48px 0 8px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--cf-border);
+    color: var(--cf-text);
+  }
 
----
+  h2 .step-num {
+    color: var(--cf-blue);
+  }
+
+  p.lead {
+    font-size: 16px;
+    color: var(--cf-muted);
+    margin: 0 0 28px;
+  }
+
+  p {
+    font-size: 15.5px;
+    color: var(--cf-text);
+  }
+
+  .intro-note {
+    background: var(--cf-blue-light);
+    border-left: 3px solid var(--cf-blue);
+    padding: 14px 18px;
+    border-radius: 6px;
+    font-size: 15px;
+    color: #26365e;
+    margin: 20px 0 28px;
+  }
+
+  .path-card {
+    border: 1px solid var(--cf-border);
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin: 16px 0;
+    background: #fff;
+    transition: box-shadow 0.15s ease;
+  }
+
+  .path-card:hover {
+    box-shadow: 0 4px 16px rgba(18, 89, 195, 0.08);
+  }
+
+  .path-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: var(--cf-text);
+  }
+
+  .path-badge {
+    background: var(--cf-blue);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+  }
+
+  .path-card p {
+    margin: 0 0 12px;
+    color: var(--cf-muted);
+    font-size: 14.5px;
+  }
+
+  .path-card p:last-child {
+    margin-bottom: 0;
+  }
+
+  .doc-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--cf-blue);
+    text-decoration: none;
+  }
+
+  .doc-link:hover {
+    text-decoration: underline;
+  }
+
+  .doc-link::after {
+    content: "→";
+    font-weight: 400;
+  }
+
+  code, .inline-code {
+    background: var(--cf-code-bg);
+    color: var(--cf-code-text);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 13.5px;
+  }
+
+  .flag {
+    display: inline-block;
+    background: #fff4e5;
+    color: #9a5b00;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  ul.step-list {
+    margin: 0 0 12px;
+    padding-left: 20px;
+    color: var(--cf-muted);
+    font-size: 14.5px;
+  }
+
+  ul.step-list li {
+    margin-bottom: 4px;
+  }
+
+  .also-note {
+    font-size: 13.5px;
+    color: var(--cf-muted);
+    font-style: italic;
+    margin-top: -6px;
+  }
+
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--cf-border);
+    margin: 56px 0 40px;
+  }
+</style>
+</head>
+<body>
+<div class="doc-wrap">
+
+  <div class="doc-eyebrow">Payments · Integration Guide</div>
+  <h1>Set up your integration</h1>
+  <p class="lead">Follow the paths below based on where you need to accept payments — mobile app, web, in-app UPI, or a fully custom backend.</p>
+
+  <!-- STEP 5 -->
+  <h2><span class="step-num">Step 5 —</span> Integrate (Online – Standard PG)</h2>
+
+  <div class="intro-note">
+    Instead of manually building payloads, we highly recommend using our official SDKs and API collections to streamline integration. Every online transaction flow follows three core principles:
+    <strong>Create an Order</strong> (server-side) → <strong>Process the Payment</strong> (client-side) → <strong>Handle Webhooks</strong> (server-side).
+  </div>
+
+  <p>Choose your preferred integration path below for complete, up-to-date documentation and code samples.</p>
+
+  <div class="path-card">
+    <p class="path-title"><span class="path-badge">Path 1</span> Mobile App Integration (UPI Intent &amp; SDKs)</p>
+    <p>Integrate our native SDKs to offer seamless UPI Intent flows, where users see a list of installed UPI apps and tap to pay directly without leaving your checkout context.</p>
+    <a class="doc-link" href="https://www.cashfree.com/docs/payments/online/mobile/android">Android SDK Docs</a>
+    <p class="also-note">Also available for iOS, React Native, Flutter, and Cordova.</p>
+  </div>
+
+  <div class="path-card">
+    <p class="path-title"><span class="path-badge">Path 2</span> Web Checkout (Hosted &amp; Custom) <span class="flag">check link</span></p>
+    <p>For web platforms, use our Web Integration to handle UPI Collect (entering a VPA), on-screen dynamic QR codes, or UPI Intent for mobile-web users.</p>
+    <a class="doc-link" href="https://www.cashfree.com/docs/payments/overview">Web Checkout Docs</a>
+  </div>
+
+  <div class="path-card">
+    <p class="path-title"><span class="path-badge">Path 3</span> Flash UPI <span class="flag">check link</span></p>
+    <p>For a fully native, in-app UPI payment experience where the user enters their PIN directly inside your app — no app switching — integrate the Flash UPI SDK.</p>
+    <a class="doc-link" href="https://www.cashfree.com/docs/payments/manage/payment-methods/upi">UPI Setup Docs</a>
+  </div>
+
+  <div class="path-card">
+    <p class="path-title"><span class="path-badge">Path 4</span> Core API Reference &amp; Webhooks</p>
+    <p>If you're building a custom backend integration, rely on our API reference to manage the <code>/orders</code> endpoint, session generation, and webhook signature verification.</p>
+    <a class="doc-link" href="https://www.cashfree.com/docs/api-reference/overview">API Reference</a>
+  </div>
+
+  <!-- STEP 6 -->
+  <h2><span class="step-num">Step 6 —</span> Activate Offline / QR (If Needed)</h2>
+
+  <p>If your business operates offline — retail storefronts, field agents, or cash-on-delivery alternatives — configure your offline collection methods via the Dashboard or APIs.</p>
+
+  <div class="path-card">
+    <p class="path-title"><span class="path-badge">Path 1</span> Static QR</p>
+    <p><strong>Setup:</strong></p>
+    <ul class="step-list">
+      <li>Go to <strong>Dashboard → Payment Gateway → QR Codes → Static QR</strong></li>
+      <li>Generate and download the image</li>
+      <li>Print it for your physical store display</li>
+    </ul>
+  </div>
+
+  <div class="path-card">
+    <p class="path-title"><span class="path-badge">Path 2</span> Dynamic QR (API)</p>
+    <p>Use our Terminal APIs to push a unique QR code or payment link mapped to a specific order ID and amount.</p>
+    <p>Review the Terminal &amp; Offline Payments endpoints in the Core API Reference.</p>
+  </div>
+
+  <div class="path-card">
+    <p class="path-title"><span class="path-badge">Path 3</span> SoftPOS</p>
+    <p><strong>Setup:</strong></p>
+    <ul class="step-list">
+      <li>Go to <strong>Dashboard → SoftPOS → Request Activation</strong></li>
+      <li>Once approved, add Storefronts and Agents (requires phone number + KYC verification)</li>
+      <li>Agents can download the Cashfree app to collect via generated QR, SMS payment links, or NFC Tap</li>
+    </ul>
+  </div>
+
+  <hr class="divider">
+</div>
+</body>
+</html>
 
 ## Step 7 — Test End-to-End
 1. Use Cashfree's Sandbox/Test environment to simulate payments for your chosen method.
