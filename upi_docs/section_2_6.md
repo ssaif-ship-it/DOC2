@@ -323,8 +323,8 @@ Store your keys securely:
 <body>
 <div class="doc-wrap">
 
-  <div class="doc-eyebrow">Payments · Integration Guide</div>
-  <h1>Set up your integration</h1>
+  <div class="doc-eyebrow"></div>
+  <h1>S</h1>
   <p class="lead">Follow the paths below based on where you need to accept payments — mobile app, web, in-app UPI, or a fully custom backend.</p>
 
   <!-- STEP 5 -->
