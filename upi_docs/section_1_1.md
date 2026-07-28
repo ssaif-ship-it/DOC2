@@ -49,7 +49,9 @@ It is crucial to note that consumer-facing apps like Google Pay or PhonePe are T
 </table>
 
 <img width="2838" height="1504" alt="Gemini_Generated_Image_nm4ea8nm4ea8nm4e" src="https://github.com/user-attachments/assets/8e402728-a71e-4423-83b4-b76d8c6156bc" />
-### UPI with Cashfree
+
+
+## UPI with Cashfree
 
 Connecting directly to the 4-Pillar UPI infrastructure requires significant engineering resources, direct banking partnerships, and continuous compliance maintenance. When you integrate with Cashfree, we act as your Payment Aggregator (PA). We partner with multiple top-tier Payee PSPs and absorb the entire technical and regulatory complexity of the ecosystem so you can focus strictly on growing your business.
 
