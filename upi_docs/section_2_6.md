@@ -143,7 +143,7 @@ Users see a list of installed UPI apps and tap to pay directly, without leaving 
 - [Android SDK Docs](https://www.cashfree.com/docs/payments/online/mobile/android)
 - *Also available for iOS, React Native, Flutter, and Cordova.*
 
-### Path 2: Web Checkout (Hosted & Custom) ⚠️ *check link*
+### Path 2: Web Checkout (Hosted & Custom) 
 
 Handles multiple UPI methods depending on device — desktop or mobile web.
 
@@ -158,7 +158,7 @@ On mobile-web, the user is redirected to their preferred UPI app to complete pay
 
 - [Web Checkout Docs](https://www.cashfree.com/docs/payments/overview)
 
-### Path 3: Flash UPI ⚠️ *check link*
+### Path 3: Flash UPI 
 
 Fully native, in-app UPI experience — no switching to a separate app.
 
