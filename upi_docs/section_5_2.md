@@ -4,12 +4,44 @@ This guide outlines the rules, workflows, regulatory timelines, and reconciliati
 
 It is essential to distinguish between refunds, reversals, and chargebacks to manage cash flow and support operations effectively.
 
-| Term | Triggered By | Timing & Scope | Operational Focus |
-| :--- | :--- | :--- | :--- |
-| **Refund** | Merchant (Dashboard or API) | Post-capture (Up to 180 days from transaction date). | Used for order cancellations, product returns, goodwill credits, or SLA breaches. |
-| **Reversal** | System / Network (NPCI or Bank) | Pre-settlement / Immediate post-debit. | "Undoes" failed/stuck debits, authorization timeouts, or unlinked VPA transfers. |
-| **Chargeback** | Issuing Bank / NPCI (Customer Dispute) | Post-settlement (30 to 90+ days post-purchase). | Customer-initiated legal dispute; carries administrative fees and risk exposure. |
-
+<div style="overflow-x: auto; margin: 20px 0;">
+  <table style="width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid #eae5f2; border-radius: 12px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; color: #334155;">
+    <thead>
+      <tr style="background-color: #f6f1fc;">
+        <th style="padding: 16px 20px; text-align: left; color: #5b21b6; font-weight: 600; font-size: 15px; border-bottom: 1px solid #eae5f2;">Term</th>
+        <th style="padding: 16px 20px; text-align: left; color: #5b21b6; font-weight: 600; font-size: 15px; border-bottom: 1px solid #eae5f2;">Triggered By</th>
+        <th style="padding: 16px 20px; text-align: left; color: #5b21b6; font-weight: 600; font-size: 15px; border-bottom: 1px solid #eae5f2;">Timing &amp; Scope</th>
+        <th style="padding: 16px 20px; text-align: left; color: #5b21b6; font-weight: 600; font-size: 15px; border-bottom: 1px solid #eae5f2;">Operational Focus</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Refund</td>
+        <td style="padding: 16px 20px; border-bottom: 1px solid #f1f5f9; vertical-align: top;">
+          <span style="display: inline-block; background-color: #eff6ff; color: #2563eb; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">Merchant (Dashboard or API)</span>
+        </td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Post-capture (Up to 180 days from transaction date).</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Used for order cancellations, product returns, goodwill credits, or SLA breaches.</td>
+      </tr>
+      <tr>
+        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Reversal</td>
+        <td style="padding: 16px 20px; border-bottom: 1px solid #f1f5f9; vertical-align: top;">
+          <span style="display: inline-block; background-color: #f0eafc; color: #5b21b6; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">System / Network (NPCI or Bank)</span>
+        </td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Pre-settlement / Immediate post-debit.</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">"Undoes" failed/stuck debits, authorization timeouts, or unlinked VPA transfers.</td>
+      </tr>
+      <tr>
+        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; vertical-align: top;">Chargeback</td>
+        <td style="padding: 16px 20px; vertical-align: top;">
+          <span style="display: inline-block; background-color: #fef2f2; color: #dc2626; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">Issuing Bank / NPCI (Customer Dispute)</span>
+        </td>
+        <td style="padding: 16px 20px; color: #334155; vertical-align: top; line-height: 1.5;">Post-settlement (30 to 90+ days post-purchase).</td>
+        <td style="padding: 16px 20px; color: #334155; vertical-align: top; line-height: 1.5;">Customer-initiated legal dispute; carries administrative fees and risk exposure.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 **Core Rules for Refund Eligibility**
 *   **Transaction Status:** Only payments in `SUCCESS` / `Captured` state can be refunded. Pending, failed, or already reversed transactions cannot be refunded.
 *   **Time Window:** Standard refunds are allowed up to 180 days from the transaction date. Complaint-driven UPI UDIR refunds are supported up to 90 days.
