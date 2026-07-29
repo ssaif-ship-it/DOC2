@@ -16,7 +16,7 @@ This guide explains how and when funds from customer payments reach your bank ac
 *   **Gross Settlement:** You receive 100% of customer payments upfront; gateway charges and taxes are invoiced separately (common for specific enterprise setups).
 *   **Net Settlement (Default):** Merchant Discount Rates (MDR), GST (18%), refunds, and chargebacks are deducted prior to payout:
 
-```\text{Net Payout} = \text{Gross Sales} - \text{MDR/Fees} - \text{GST} - \text{Refunds/Disputes}```
+```Net Payout = Gross Sales - MDR Fees - GST - Refunds/Disputes```
 
 #### 1.3 Settlement Cycles Explained (T+n)
 
