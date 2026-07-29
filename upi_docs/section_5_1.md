@@ -35,43 +35,53 @@ Cycles represent business days (n) elapsed after transaction capture day (T):
 > **Standard Model:**  [Customer] ---> [Gateway/Acquirer] ---> [Aggregator Escrow] ---> [Merchant Bank]
 > **Direct Model:**    [Customer] ---> [Gateway/Acquirer] -------------------------> [Merchant Bank]
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: left;">Dimension</th>
-      <th style="text-align: left;">Standard Aggregator Settlement</th>
-      <th style="text-align: left;">Direct Settlement</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: left;"><strong>Escrow Routing</strong></td>
-      <td style="text-align: left;">Aggregator receives funds, nets fees, and dispatches single consolidated payouts.</td>
-      <td style="text-align: left;">Acquiring bank credits your corporate current account directly.</td>
-    </tr>
-    <tr>
-      <td style="text-align: left;"><strong>Fee Collection</strong></td>
-      <td style="text-align: left;">Net settlement (fees automatically deducted prior to bank transfer).</td>
-      <td style="text-align: left;">Gross transfer; charges billed separately via periodic debit mandates.</td>
-    </tr>
-    <tr>
-      <td style="text-align: left;"><strong>Reconciliation</strong></td>
-      <td style="text-align: left;">Simple 1:1 match per settlement batch UTR.</td>
-      <td style="text-align: left;">Requires 3-way reconciliation (Gateway Records ↔ Bank MIS ↔ Bank Statement).</td>
-    </tr>
-    <tr>
-      <td style="text-align: left;"><strong>Refunds</strong></td>
-      <td style="text-align: left;">Fully automated via PG Refund APIs.</td>
-      <td style="text-align: left;">Standard PG Refund APIs are blocked; refunds require direct payout execution.</td>
-    </tr>
-    <tr>
-      <td style="text-align: left;"><strong>Ideal For</strong></td>
-      <td style="text-align: left;">E-commerce, D2C, SaaS, Retail</td>
-      <td style="text-align: left;">Broking (MCC 6211), Wealth Management, Mutual Funds</td>
-    </tr>
-  </tbody>
-</table>
----
+<div style="overflow-x: auto; margin: 20px 0;">
+  <table style="width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid #eae5f2; border-radius: 12px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; color: #334155;">
+    <thead>
+      <tr style="background-color: #f6f1fc;">
+        <th style="padding: 16px 20px; text-align: left; color: #5b21b6; font-weight: 600; font-size: 15px; border-bottom: 1px solid #eae5f2;">Dimension</th>
+        <th style="padding: 16px 20px; text-align: left; color: #5b21b6; font-weight: 600; font-size: 15px; border-bottom: 1px solid #eae5f2;">Standard Aggregator Settlement</th>
+        <th style="padding: 16px 20px; text-align: left; color: #5b21b6; font-weight: 600; font-size: 15px; border-bottom: 1px solid #eae5f2;">Direct Settlement</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Escrow Routing</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Aggregator receives funds, nets fees, and dispatches single consolidated payouts.</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Acquiring bank credits your corporate current account directly.</td>
+      </tr>
+      <tr>
+        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Fee Collection</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Net settlement (fees automatically deducted prior to bank transfer).</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Gross transfer; charges billed separately via periodic debit mandates.</td>
+      </tr>
+      <tr>
+        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Reconciliation</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Simple 1:1 match per settlement batch UTR.</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Requires 3-way reconciliation (Gateway Records ↔ Bank MIS ↔ Bank Statement).</td>
+      </tr>
+      <tr>
+        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Refunds</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Fully automated via PG Refund APIs.</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Standard PG Refund APIs are blocked; refunds require direct payout execution.</td>
+      </tr>
+      <tr>
+        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; vertical-align: top;">Ideal For</td>
+        <td style="padding: 16px 20px; color: #334155; vertical-align: top; line-height: 1.8;">
+          <span style="display: inline-block; background-color: #eff6ff; color: #2563eb; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500; margin: 2px 4px 2px 0;">E-commerce</span>
+          <span style="display: inline-block; background-color: #eff6ff; color: #2563eb; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500; margin: 2px 4px 2px 0;">D2C</span>
+          <span style="display: inline-block; background-color: #eff6ff; color: #2563eb; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500; margin: 2px 4px 2px 0;">SaaS</span>
+          <span style="display: inline-block; background-color: #eff6ff; color: #2563eb; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500; margin: 2px 4px 2px 0;">Retail</span>
+        </td>
+        <td style="padding: 16px 20px; color: #334155; vertical-align: top; line-height: 1.8;">
+          <span style="display: inline-block; background-color: #fef3c7; color: #d97706; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500; margin: 2px 4px 2px 0;">Broking (MCC 6211)</span>
+          <span style="display: inline-block; background-color: #fef3c7; color: #d97706; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500; margin: 2px 4px 2px 0;">Wealth Management</span>
+          <span style="display: inline-block; background-color: #fef3c7; color: #d97706; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500; margin: 2px 4px 2px 0;">Mutual Funds</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 ## 3. Cut-off Times, Weekends & Bank Holidays
 
