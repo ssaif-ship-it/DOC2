@@ -54,9 +54,8 @@ Designed specifically for equity, derivative, and commodity broking under MCC 62
 - **Revocable Flag:** Must be set to `N` (Non-revocable by customer inside TPAP apps). Revocation can only be triggered via merchant/CC interfaces.
 - **Transaction Reference (`tr`) Format:** Must strictly follow the hyphen-separated structure:
 
-  ``text
-  TMCODE-SEGMENTCODE-UCCCODE-brokerref
-  ``
+ >  **TMCODE-SEGMENTCODE-UCCCODE-brokerref**
+  
 
   e.g., `12345-123-1122334456-brokerref`, where TM Code is 5 digits, Segment Code is 3 digits, and UCC is 12 digits.
 
