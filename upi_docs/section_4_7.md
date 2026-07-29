@@ -3,9 +3,9 @@ This guide provides a step-by-step walkthrough for merchants integrating Cashfre
 
 **Developer documentation quick links:**
 
-- [Cashfree Developer Studio](#) — central documentation hub
-- [Subscriptions API Reference](#) — full request/response schemas and error contracts
-- [Cashfree Postman Collections](#) — interactive API testing collections
+- [Cashfree Developer Studio](https://www.cashfree.com/devstudio/)  
+- [Subscriptions API Reference](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/raise-a-charge-or-create-an-auth) 
+- [Cashfree Postman Collections](https://www.cashfree.com/docs/apireference/payments/latest/subscription/subscription-postman-collection)  
 
 ## 1. Onboarding Prerequisites
 
@@ -134,8 +134,8 @@ Before transitioning to production, complete end-to-end testing in the Cashfree 
 
 | Endpoint | Method | Purpose | Reference |
 | :--- | :--- | :--- | :--- |
-| `/pg/plans` | `POST` | Define billing schedules and amounts | [API Docs](#https://www.cashfree.com/docs/api-reference/payments/latest/subscription/raise-a-charge-or-create-an-auth) |
-| `/pg/subscriptions` | `POST` | Initialize subscription and generate mandate link | [API Docs](#) |
+| `/pg/plans` | `POST` | Define billing schedules and amounts | [API Docs](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/raise-a-charge-or-create-an-auth) |
+| `/pg/subscriptions` | `POST` | Initialize subscription and generate mandate link | [API Docs](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/raise-a-charge-or-create-an-auth) |
 | `/pg/subscriptions/{id}` | `GET` | Fetch subscription status and details | [API Docs](#) |
 | `/pg/subscriptions/{id}/manage` | `POST` | Pause, resume, or cancel subscription | [API Docs](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/raise-a-charge-or-create-an-auth) |
 | `/pg/subscriptions/pay` | `POST` | Trigger an on-demand recurring charge | [API Docs](#) |
