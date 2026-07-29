@@ -1,6 +1,3 @@
-
-C# Overview: Cashfree SoftPOS
-
 Cashfree SoftPOS converts any standard Android smartphone into a digital payment terminal. It enables businesses to accept in-person payments—in-store or at the doorstep—without expensive hardware terminals.
 
 ---
@@ -43,6 +40,7 @@ Cashfree SoftPOS converts any standard Android smartphone into a digital payment
 * **Centralized Dashboard:** Real-time visibility into individual agent collections, store transactions, and automated settlements from a single Merchant Dashboard.
 
 ---
+# Activation Guide
 
 ## Step 1: Activate Offline Payments
 
