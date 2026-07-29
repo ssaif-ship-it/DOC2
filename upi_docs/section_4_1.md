@@ -7,6 +7,8 @@ Merchants can initiate mandate creation via three modes: **QR Scanning**, **Inte
   Your browser does not support the video tag.
 </video>
 
+
+
 ## 1. Core Concepts: Amount Rules & Frequencies
 
 When creating a mandate, you must define the specific rules that dictate how and when funds can be pulled.
