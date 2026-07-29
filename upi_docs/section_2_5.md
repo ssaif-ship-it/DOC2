@@ -35,6 +35,8 @@ The merchant must decide and configure the exact combination of SoftPOS features
 If you are utilizing the Agent QR flow, you must register your delivery or field staff within the system:
 *   Each agent must be registered using a unique phone number.
 *   Agents are strictly required to complete an Aadhaar-based KYC verification process to ensure security. *(Note: Under specific circumstances or enterprise agreements, this verification can be skipped manually).*
+
+
 # Get Started with Offline Payments
 
 Set up Cashfree Offline Payments in four steps: activate the product, configure collection points, complete KYC, and start accepting payments via softPOS.
