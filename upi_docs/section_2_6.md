@@ -225,32 +225,6 @@ Manage the `/orders` endpoint, session generation, and webhook signature verific
 - [API Reference](https://www.cashfree.com/docs/api-reference/overview)
 
 ---
-
-## Step 6 — Activate Offline / QR (If Needed)
-
-If your business operates offline — retail storefronts, field agents, or cash-on-delivery alternatives — configure your offline collection methods via the Dashboard or APIs.
-
-### Path 1: Static QR
-
-#### Setup
-1. Go to **Dashboard → Payment Gateway → QR Codes → Static QR**
-2. Generate and download the image
-3. Print it for your physical store display
-
-### Path 2: Dynamic QR (API)
-
-### QR
-Use our Terminal APIs to push a unique QR code or payment link mapped to a specific order ID and amount.
-
-*Review the Terminal & Offline Payments endpoints in the Core API Reference.*
-
-### Path 3: SoftPOS
-
-#### Setup
-1. Go to **Dashboard → SoftPOS → Request Activation**
-2. Once approved, add Storefronts and Agents (requires phone number + KYC verification)
-3. Agents can download the Cashfree app to collect via generated QR, SMS payment links, or NFC Tap
-
 ## Step 7  Test End-to-End
 1. Use Cashfree's Sandbox/Test environment to simulate payments for your chosen method.
 2. Test: success, failure, user-dropped, and refunds.
