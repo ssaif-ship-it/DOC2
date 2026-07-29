@@ -4,12 +4,47 @@ This guide explains how and when funds from customer payments reach your bank ac
 
 ### 1.1 Summary of Lifecycle Stages
 
-| Stage | What Happens | Merchant Timing |
-| :--- | :--- | :--- |
-| **Authorization** | Issuing bank confirms fund availability and locks the payment amount. | Real-time at checkout. |
-| **Capture** | Transaction is finalized for clearing (Cards) or confirmed successful (UPI/NetBanking). | Real-time at checkout. |
-| **Settlement** | Funds move from customer banks to the Payment Aggregator’s nodal/escrow account (or your bank account directly). | T+0 to T+2 interbank clearing. |
-| **Payout** | Net money is transferred from the aggregator/acquirer into your registered merchant bank account. | Scheduled based on your T+n cycle. |
+<div style="overflow-x: auto; margin: 20px 0;">
+  <table style="width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid #eae5f2; border-radius: 12px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; color: #334155;">
+    <thead>
+      <tr style="background-color: #f6f1fc;">
+        <th style="padding: 16px 20px; text-align: left; color: #5b21b6; font-weight: 600; font-size: 15px; border-bottom: 1px solid #eae5f2;">Stage</th>
+        <th style="padding: 16px 20px; text-align: left; color: #5b21b6; font-weight: 600; font-size: 15px; border-bottom: 1px solid #eae5f2;">What Happens</th>
+        <th style="padding: 16px 20px; text-align: left; color: #5b21b6; font-weight: 600; font-size: 15px; border-bottom: 1px solid #eae5f2;">Merchant Timing</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Authorization</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Issuing bank confirms fund availability and locks the payment amount.</td>
+        <td style="padding: 16px 20px; border-bottom: 1px solid #f1f5f9; vertical-align: top;">
+          <span style="display: inline-block; background-color: #eff6ff; color: #2563eb; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">Real-time at checkout</span>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Capture</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Transaction is finalized for clearing (Cards) or confirmed successful (UPI/NetBanking).</td>
+        <td style="padding: 16px 20px; border-bottom: 1px solid #f1f5f9; vertical-align: top;">
+          <span style="display: inline-block; background-color: #eff6ff; color: #2563eb; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">Real-time at checkout</span>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Settlement</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Funds move from customer banks to the Payment Aggregator’s nodal/escrow account (or your bank account directly).</td>
+        <td style="padding: 16px 20px; border-bottom: 1px solid #f1f5f9; vertical-align: top;">
+          <span style="display: inline-block; background-color: #f0eafc; color: #5b21b6; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">T+0 to T+2 interbank clearing</span>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; vertical-align: top;">Payout</td>
+        <td style="padding: 16px 20px; color: #334155; vertical-align: top; line-height: 1.5;">Net money is transferred from the aggregator/acquirer into your registered merchant bank account.</td>
+        <td style="padding: 16px 20px; vertical-align: top;">
+          <span style="display: inline-block; background-color: #fef3c7; color: #d97706; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">Scheduled based on your T+n cycle</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 ### 1.2 Gross vs. Net Settlement
 
