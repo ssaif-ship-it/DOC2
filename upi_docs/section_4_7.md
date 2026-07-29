@@ -137,7 +137,7 @@ Before transitioning to production, complete end-to-end testing in the Cashfree 
 | `/pg/plans` | `POST` | Define billing schedules and amounts | [API Docs](#) |
 | `/pg/subscriptions` | `POST` | Initialize subscription and generate mandate link | [API Docs](#) |
 | `/pg/subscriptions/{id}` | `GET` | Fetch subscription status and details | [API Docs](#) |
-| `/pg/subscriptions/{id}/manage` | `POST` | Pause, resume, or cancel subscription | [API Docs](#) |
+| `/pg/subscriptions/{id}/manage` | `POST` | Pause, resume, or cancel subscription | [API Docs,https://www.cashfree.com/docs/api-reference/payments/latest/subscription/raise-a-charge-or-create-an-auth](#) |
 | `/pg/subscriptions/pay` | `POST` | Trigger an on-demand recurring charge | [API Docs](#) |
 | `/pg/subscriptions/{id}/payments` | `GET` | Retrieve payment execution history | [API Docs](#) |
 
