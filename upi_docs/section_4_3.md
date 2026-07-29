@@ -37,3 +37,4 @@ A One-Time Mandate allows a merchant to block funds for a single transaction and
 
 ## 3. UPI Reserve Pay/ Single Block Multiple Debits (SBMD) 
 
+https://www.cashfree.com/docs/payments/upi-reserve-pay/reserve-pay
