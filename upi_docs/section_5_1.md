@@ -1,8 +1,8 @@
 This guide explains how and when funds from customer payments reach your bank account, how settlement cycles (T+1, T+0) work in practice, and how to manage reconciliation, direct settlements, and risk holds.
 
-### 1. Key Concepts & Terminology
+## 1. Key Concepts & Terminology
 
-#### 1.1 Summary of Lifecycle Stages
+### 1.1 Summary of Lifecycle Stages
 
 | Stage | What Happens | Merchant Timing |
 | :--- | :--- | :--- |
@@ -11,14 +11,14 @@ This guide explains how and when funds from customer payments reach your bank ac
 | **Settlement** | Funds move from customer banks to the Payment Aggregator’s nodal/escrow account (or your bank account directly). | T+0 to T+2 interbank clearing. |
 | **Payout** | Net money is transferred from the aggregator/acquirer into your registered merchant bank account. | Scheduled based on your T+n cycle. |
 
-#### 1.2 Gross vs. Net Settlement
+### 1.2 Gross vs. Net Settlement
 
 *   **Gross Settlement:** You receive 100% of customer payments upfront; gateway charges and taxes are invoiced separately (common for specific enterprise setups).
 *   **Net Settlement (Default):** Merchant Discount Rates (MDR), GST (18%), refunds, and chargebacks are deducted prior to payout:
 
 ```Net Payout = Gross Sales - MDR Fees - GST - Refunds/Disputes```
 
-#### 1.3 Settlement Cycles Explained (T+n)
+### 1.3 Settlement Cycles Explained (T+n)
 
 Cycles represent business days (n) elapsed after transaction capture day (T):
 
@@ -28,9 +28,9 @@ Cycles represent business days (n) elapsed after transaction capture day (T):
 
 ---
 
-### 2. End-to-End Fund Movement
+## 2. End-to-End Fund Movement
 
-#### 2.1 Standard Aggregator Model vs. Direct Settlement Model
+### 2.1 Standard Aggregator Model vs. Direct Settlement Model
 
 > **Standard Model:**  [Customer] ---> [Gateway/Acquirer] ---> [Aggregator Escrow] ---> [Merchant Bank]
 > **Direct Model:**    [Customer] ---> [Gateway/Acquirer] -------------------------> [Merchant Bank]
@@ -45,13 +45,13 @@ Cycles represent business days (n) elapsed after transaction capture day (T):
 
 ---
 
-### 3. Cut-off Times, Weekends & Bank Holidays
+## 3. Cut-off Times, Weekends & Bank Holidays
 
-#### 3.1 Eligibility Cut-off Formula
+### 3.1 Eligibility Cut-off Formula
 
 Settlement eligibility is evaluated using strict business-day logic:
 
-$$\text{Eligibility Cut-off} = \text{Date}(T) + (n - 1 \text{ days}) + 23:59:59 \text{ IST}$$
+```Eligibility Cut-off = Date + (n - 1  days) + 23:59:59 IST```
 
 If the resulting target date falls on an RBI banking holiday or non-working day, the execution date rolls forward to the next bank working day.
 
