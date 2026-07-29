@@ -107,21 +107,23 @@ Refund processing speeds and technical capabilities vary significantly depending
     </tbody>
   </table>
 </div>
-### 3. Refunds vs. Reversals
 
-#### 3.1 Merchant-Initiated Refunds (Full vs. Partial)
+
+## 3. Refunds vs. Reversals
+
+### 3.1 Merchant-Initiated Refunds (Full vs. Partial)
 *   **Full Refund:** Refunds 100% of the captured transaction amount.
 *   **Partial Refund:** Refunds a portion of the original sale. Multiple partial refunds are permitted until the total captured balance reaches zero.
 *   **Multi-Payment Orders:** On orders paid via multiple transactions, refunds must be executed at the transaction level (`payment_id`) rather than the order level to ensure clear ledger allocation.
 
-#### 3.2 System-Driven Auto-Reversals
+### 3.2 System-Driven Auto-Reversals
 Reversals occur automatically when funds leave the customer's account but cannot be fulfilled:
 *   **UPI Timeouts ("Deemed Success"):** Debited funds that fail terminal confirmation are auto-reversed back to the remitter bank via NPCI switch signals.
 *   **Direct VPA Transfers:** Payments sent directly to a merchant VPA without a valid checkout session/Order ID are tagged as `UNRECONCILED_AUTO_REFUND` and auto-reversed.
 *   **Card Auth Timeouts:** Authorization holds that drop before capture are released via ISO 8583 0400 messages.
 *   **Direct Settlement Exception:** If you operate on a Direct Settlement model (where acquirers credit your bank account directly), standard Payment Gateway refund APIs are blocked. Refunds must be executed as explicit outbound Payout transfers from your current account or refund wallet.
 
-### 4. Refund Status Lifecycle
+## 4. Refund Status Lifecycle
 
 Gateways track refunds across a defined lifecycle. You can monitor these statuses via Dashboard or Webhooks:
 
