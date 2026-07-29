@@ -251,7 +251,7 @@ Use our Terminal APIs to push a unique QR code or payment link mapped to a speci
 2. Once approved, add Storefronts and Agents (requires phone number + KYC verification)
 3. Agents can download the Cashfree app to collect via generated QR, SMS payment links, or NFC Tap
 
-## Step 7 — Test End-to-End
+## Step 7  Test End-to-End
 1. Use Cashfree's Sandbox/Test environment to simulate payments for your chosen method.
 2. Test: success, failure, user-dropped, and refunds.
 3. Verify webhooks arrive and your system processes them correctly.
@@ -259,7 +259,7 @@ Use our Terminal APIs to push a unique QR code or payment link mapped to a speci
 
 ---
 
-## Step 8 — Go Live
+## Step 8   Go Live
 1. Switch from Test to Production API keys.
 2. Ensure KYC is fully approved (v3).
 3. Confirm the penny test is ACKNOWLEDGED.
@@ -269,7 +269,7 @@ Use our Terminal APIs to push a unique QR code or payment link mapped to a speci
 
 ---
 
-## Go-Live Checklist
+## Go Live Checklist
 
 - [ ] Cashfree account created and email verified
 - [ ] KYC documents uploaded and approved
