@@ -35,6 +35,11 @@ A One-Time Mandate allows a merchant to block funds for a single transaction and
 
 > **TDR Pricing Rule:** Transaction Discount Rate (TDR) is charged upon mandate creation success. Even if a mandate is voided without capture, creation cost pricing applies.
 
+## OTM
+
+https://www.cashfree.com/docs/payments/subscription/upi-otm
+
+
 ## 3. UPI Reserve Pay/ Single Block Multiple Debits (SBMD) 
 
 https://www.cashfree.com/docs/payments/upi-reserve-pay/reserve-pay
