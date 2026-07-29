@@ -35,14 +35,42 @@ Cycles represent business days (n) elapsed after transaction capture day (T):
 > **Standard Model:**  [Customer] ---> [Gateway/Acquirer] ---> [Aggregator Escrow] ---> [Merchant Bank]
 > **Direct Model:**    [Customer] ---> [Gateway/Acquirer] -------------------------> [Merchant Bank]
 
-| Dimension | Standard Aggregator Settlement | Direct Settlement |
-| :--- | :--- | :--- |
-| **Escrow Routing** | Aggregator receives funds, nets fees, and dispatches single consolidated payouts. | Acquiring bank credits your corporate current account directly. |
-| **Fee Collection** | Net settlement (fees automatically deducted prior to bank transfer). | Gross transfer; charges billed separately via periodic debit mandates. |
-| **Reconciliation** | Simple 1:1 match per settlement batch UTR. | Requires 3-way reconciliation (Gateway Records ↔ Bank MIS ↔ Bank Statement). |
-| **Refunds** | Fully automated via PG Refund APIs. | Standard PG Refund APIs are blocked; refunds require direct payout execution. |
-| **Ideal For** | E-commerce, D2C, SaaS, Retail | Broking (MCC 6211), Wealth Management, Mutual Funds |
-
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left;">Dimension</th>
+      <th style="text-align: left;">Standard Aggregator Settlement</th>
+      <th style="text-align: left;">Direct Settlement</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left;"><strong>Escrow Routing</strong></td>
+      <td style="text-align: left;">Aggregator receives funds, nets fees, and dispatches single consolidated payouts.</td>
+      <td style="text-align: left;">Acquiring bank credits your corporate current account directly.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left;"><strong>Fee Collection</strong></td>
+      <td style="text-align: left;">Net settlement (fees automatically deducted prior to bank transfer).</td>
+      <td style="text-align: left;">Gross transfer; charges billed separately via periodic debit mandates.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left;"><strong>Reconciliation</strong></td>
+      <td style="text-align: left;">Simple 1:1 match per settlement batch UTR.</td>
+      <td style="text-align: left;">Requires 3-way reconciliation (Gateway Records ↔ Bank MIS ↔ Bank Statement).</td>
+    </tr>
+    <tr>
+      <td style="text-align: left;"><strong>Refunds</strong></td>
+      <td style="text-align: left;">Fully automated via PG Refund APIs.</td>
+      <td style="text-align: left;">Standard PG Refund APIs are blocked; refunds require direct payout execution.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left;"><strong>Ideal For</strong></td>
+      <td style="text-align: left;">E-commerce, D2C, SaaS, Retail</td>
+      <td style="text-align: left;">Broking (MCC 6211), Wealth Management, Mutual Funds</td>
+    </tr>
+  </tbody>
+</table>
 ---
 
 ## 3. Cut-off Times, Weekends & Bank Holidays
@@ -55,13 +83,13 @@ Settlement eligibility is evaluated using strict business-day logic:
 
 If the resulting target date falls on an RBI banking holiday or non-working day, the execution date rolls forward to the next bank working day.
 
-#### 3.2 Practical Examples
+### 3.2 Practical Examples
 
 *   **Standard T+1 Batch:** Transaction captured Thursday at 16:00 IST → Included in Friday’s scheduled payout batch (e.g., 14:00 IST).
 *   **Weekend Rollover (T+1):** Transaction captured Friday at 18:00 IST → Target date is Saturday. Because banks are closed, payout moves to Monday's batch. (If Monday is a bank holiday, payout executes Tuesday).
 *   **T+0 Instant Override:** 24x7 Instant Settlements execute continuously via IMPS/UPI rails regardless of bank holidays.
 
-#### 3.3 Payment Mode Level Configuration
+### 3.3 Payment Mode Level Configuration
 
 You can configure distinct settlement schedules per payment method rather than enforcing a single global schedule across your entire account:
 
