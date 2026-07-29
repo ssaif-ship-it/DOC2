@@ -42,6 +42,8 @@ It is essential to distinguish between refunds, reversals, and chargebacks to ma
     </tbody>
   </table>
 </div>
+
+
 **Core Rules for Refund Eligibility**
 *   **Transaction Status:** Only payments in `SUCCESS` / `Captured` state can be refunded. Pending, failed, or already reversed transactions cannot be refunded.
 *   **Time Window:** Standard refunds are allowed up to 180 days from the transaction date. Complaint-driven UPI UDIR refunds are supported up to 90 days.
