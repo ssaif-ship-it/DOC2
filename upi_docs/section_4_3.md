@@ -37,13 +37,13 @@ A One-Time Mandate allows a merchant to block funds for a single transaction and
 
 ## 3. Single Block Multiple Debits (SBMD) / UPI Reserve Pay
 
-SBMD is an extension of OTM. It allows a merchant to block a maximum ceiling amount once and execute multiple partial debits against that single block over time — until the funds are exhausted, revoked, or expired.
+SBMD is an extension of OTM. It allows a merchant to block a maximum ceiling amount once and execute multiple partial debits against that single block over time   until the funds are exhausted, revoked, or expired.
 
 Unlike traditional AutoPay, where individual recurring debits can fail due to low balance, SBMD guarantees that every debit execution is backed by pre-reserved funds.
 
 ### SBMD Purpose Codes & Vertical Specifications
 
-#### Purpose Code 76 — Secondary Market Trading
+#### Purpose Code 76   Secondary Market Trading
 
 Designed specifically for equity, derivative, and commodity broking under MCC 6211.
 
@@ -61,7 +61,7 @@ Designed specifically for equity, derivative, and commodity broking under MCC 62
 
 - **Funding Sources:** Savings Accounts, Current Accounts, Overdraft Accounts.
 
-#### Purpose Code 77 — Online Goods & Services
+#### Purpose Code 77   Online Goods & Services
 
 Designed for general e-commerce, quick commerce, travel, and mobility platforms.
 
@@ -89,7 +89,7 @@ Reserved by NPCI for upcoming product extensions and industry verticals.
 
 **UPI Reserve Pay** is NPCI's official consumer-facing brand name for SBMD. While technical specifications, APIs, and switch routing use "SBMD", customer-facing interfaces inside TPAP apps (Google Pay, PhonePe, Paytm, CRED) display "UPI Reserve Pay".
 
-**In-App Messaging Example:** *"UPI Reserve Pay mandate — ₹10,000 blocked for [Merchant Name]"*
+**In-App Messaging Example:** *"UPI Reserve Pay mandate   ₹10,000 blocked for [Merchant Name]"*
 
 > **Merchant UX Best Practice:** Use "UPI Reserve Pay" in checkout banners and tooltips to build consumer familiarity with fund-blocking mechanics.
 
@@ -119,10 +119,10 @@ upi://mandate?ver=01&pn=MerchantName&cu=INR&amrule=MAX&block=Y
 &validityend=25102026&pa=merchant@bank&tr=REFERENCE123&txnType=CREATE
 ```
 
-- `block=Y` — Triggers account lien.
-- `recur=ASPRESENTED` — Configures multi-debit capability.
-- `purpose=76 / 77` — Enforces industry-specific rules and ceilings.
-- `amrule=MAX` — Declares amount as a maximum cap.
+- `block=Y`   Triggers account lien.
+- `recur=ASPRESENTED`   Configures multi-debit capability.
+- `purpose=76 / 77`   Enforces industry-specific rules and ceilings.
+- `amrule=MAX`   Declares amount as a maximum cap.
 
 ### Phase 2: Debit (Execution)
 
@@ -148,9 +148,9 @@ Unutilized funds are released back to the customer's available balance under thr
 
 > **Revocation Rule:** Customers cannot directly revoke SBMD mandates inside their UPI apps. Revocation must be initiated by the merchant on behalf of the customer.
 
-# Cashfree SBMD Pre-Authorization — Integration Guide
+# Cashfree SBMD Pre-Authorization  Integration Guide
 
-Cashfree Payments provides pre-authorization and SBMD (Single Block, Multiple Debit) capabilities through its Orders & Pre-Authorization APIs. This lets you place a lien on a customer's bank balance via UPI, then debit it in one or more partial captures as the order is fulfilled — releasing anything uncaptured back to the customer.
+Cashfree Payments provides pre-authorization and SBMD (Single Block, Multiple Debit) capabilities through its Orders & Pre-Authorization APIs. This lets you place a lien on a customer's bank balance via UPI, then debit it in one or more partial captures as the order is fulfilled   releasing anything uncaptured back to the customer.
 
 ## Integration flow overview
 
@@ -161,7 +161,7 @@ Four parties are involved: the customer, your merchant app, Cashfree's payment g
 
 ## Step-by-step implementation
 
-### Step 1 — Create a pre-authorization order
+### Step 1   Create a pre-authorization order
 
 Call Cashfree's Create Order API with `authorize_only: true` in the order configuration.
 
@@ -194,7 +194,7 @@ Call Cashfree's Create Order API with `authorize_only: true` in the order config
 }
 ```
 
-### Step 2 — Initiate payment (pay request with SBMD/OTM)
+### Step 2   Initiate payment (pay request with SBMD/OTM)
 
 Invoke the Order Pay API with the UPI payment payload and the SBMD parameters (shown here for UPI intent / dynamic QR mode).
 
@@ -254,7 +254,7 @@ async function createSBMDPayment(paymentSessionId) {
 
 </details>
 
-### Step 3 — Capture / execute debit against blocked funds
+### Step 3   Capture / execute debit against blocked funds
 
 Once the lien is active, execute single or multiple partial debits against the blocked funds until the total captured amount equals the original block amount.
 
@@ -299,7 +299,7 @@ print("Response:", response.json())
 
 </details>
 
-### Step 4 — Void / release remaining blocked funds
+### Step 4   Void / release remaining blocked funds
 
 When fulfillment is complete, or if the order is canceled, call the Void API to release the balance lien back to the customer instantly.
 
@@ -343,7 +343,7 @@ Configure webhooks in your Cashfree Merchant Dashboard to handle asynchronous ma
 | `CAPTURE_SUCCESS` | A partial or full debit against the lien succeeds. |
 | `MANDATE_REVOKED` / `VOID_SUCCESS` | The lien is removed and remaining funds are freed. |
 
-**Sample payload — `MANDATE_CREATED_NOTIFICATION`**
+**Sample payload   `MANDATE_CREATED_NOTIFICATION`**
 
 ```json
 {
@@ -361,8 +361,8 @@ Configure webhooks in your Cashfree Merchant Dashboard to handle asynchronous ma
 ## Operational guardrails & best practices
 
 > [!IMPORTANT]
-> **MCC alignment** — Purpose Code 76 requires stockbroking MCC 6211. General retail e-commerce must use Purpose Code 77.
+> **MCC alignment**   Purpose Code 76 requires stockbroking MCC 6211. General retail e-commerce must use Purpose Code 77.
 
-- **Refunds vs. voids** — You cannot use the Refund API on uncaptured money. Use the Void API to unblock locked funds, and reserve the Refund API for funds that have already been debited/captured.
-- **OMS tracking** — Ensure your order management system can map multiple capture IDs against a single parent `order_id`.
-- **TDR pricing** — Gateway TDR applies upon successful mandate creation (block), regardless of whether you capture the full amount or subsequently void the mandate.
+- **Refunds vs. voids**   You cannot use the Refund API on uncaptured money. Use the Void API to unblock locked funds, and reserve the Refund API for funds that have already been debited/captured.
+- **OMS tracking**   Ensure your order management system can map multiple capture IDs against a single parent `order_id`.
+- **TDR pricing**   Gateway TDR applies upon successful mandate creation (block), regardless of whether you capture the full amount or subsequently void the mandate.
