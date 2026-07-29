@@ -50,7 +50,6 @@ It is essential to distinguish between refunds, reversals, and chargebacks to ma
 *   **Refundable Balance:** Any new refund must satisfy:
 
 $$\text{Refund Amount} \le \text{Captured Amount} - \sum \text{Previous Partial Refunds}$$
-
 ### 2. Payment Method Differences & Regulatory SLAs
 
 Refund processing speeds and technical capabilities vary significantly depending on the payment rail used.
