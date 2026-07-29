@@ -156,29 +156,8 @@ Cashfree Payments provides pre-authorization and SBMD (Single Block, Multiple De
 
 Four parties are involved: the customer, your merchant app, Cashfree's payment gateway, and the customer's issuing bank.
 
-```mermaid
-sequenceDiagram
-    participant C as Customer
-    participant M as Merchant App
-    participant CF as Cashfree PG
-    participant B as Issuing Bank
+<img width="1280" height="720" alt="UPI Single Block Multiple Debits 7 (3) pptx" src="https://github.com/user-attachments/assets/3e0a2de8-f254-4599-9cb5-702571b53015" />
 
-    C->>M: 1. Checkout
-    M->>CF: 2. POST /pg/orders (authorize_only=true)
-    CF-->>M: returns payment_session_id
-    C->>M: 3. Pay with UPI
-    M->>CF: 4. POST /pg/orders/pay (sbmd=true)
-    CF->>B: 5. Trigger lien request
-    C->>B: 6. Enters UPI PIN (direct, out-of-band)
-    B-->>CF: 7. Lien placed confirmation
-    CF--)M: 8. Webhook: MANDATE_ACTIVE
-    Note over C,M: 9. Service fulfilled (e.g. order delivered)
-    M->>CF: 10. POST /capture
-    CF->>B: 11. Execute debit
-    CF-->>M: 12. Capture success
-    M->>CF: 13. POST /void (release)
-    CF->>B: 14. Lift remaining lien
-```
 
 ## Step-by-step implementation
 
