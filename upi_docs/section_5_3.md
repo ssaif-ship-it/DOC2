@@ -38,19 +38,7 @@ To abstract bank-specific error strings across different acquirers, the gateway 
 
 The table below maps standard NPCI error codes, raw bank responses, root causes, and recommended user/checkout actions:
 
-| NPCI Code | Gateway Error Code | Root Cause / Business Context | Category | Recommended Action / UI Guidance |
-| :--- | :--- | :--- | :--- | :--- |
-| **ZA** | `INSUFFICIENT_FUNDS` | Remitter account balance is lower than transaction amount. | User Error | Prompt user to choose another bank account, RuPay Credit Card, or alternative payment method. Do not retry automatically. |
-| **ZM** | `INCORRECT_PIN` | Customer entered an incorrect 4-digit or 6-digit UPI PIN. | User Error | Prompt customer to re-enter PIN carefully or reset UPI PIN in their UPI app. |
-| **Z6** | `PIN_ATTEMPTS_EXCEEDED` | Customer entered an incorrect UPI PIN 3 consecutive times; account blocked for 24h. | User Error | Instruct customer to wait 24 hours or reset PIN using their debit card in their UPI app. |
-| **ZK** | `ACCOUNT_BLOCKED` | Customer's bank account is frozen, inactive, or restricted by the issuing bank. | Compliance / Risk | Advise customer to contact their issuing bank to remove account blocks. |
-| **U16** | `TRANSACTION_LIMIT_EXCEEDED` | Transaction exceeds daily per-transaction cap (₹1,00,000 standard P2M or ₹5,00,000 special MCC cap). | Limit Error | Request customer to split order amount or use NetBanking / Credit Card. |
-| **U30** | `NEW_USER_VELOCITY_CAP` | Customer registered, changed device, or reset PIN within the last 24 hours (capped at ₹5,00,000 → ₹5,000). | Anti-Fraud Cap | Show message: "UPI limit capped at ₹5,000 for 24 hours following phone/PIN setup. Please pay using NetBanking." |
-| **U19** | `TPV_ACCOUNT_MISMATCH` | Paid account does not match registered investor account details (MCC 6211 Capital Markets). | Compliance Block | Inform user that payment must originate strictly from their pre-registered bank account. |
-| **U01** | `VPA_NOT_FOUND` | Virtual Payment Address (VPA / UPI ID) entered does not exist or handle is deleted. | Input Error | Prompt user to re-check and type a valid UPI handle (e.g., name@upi). |
-| **U69** | `COLLECT_BLOCKED_FOR_MCC` | Collect request initiated for an MCC restricted to Intent/QR only (Gaming 5816, Wallet 6540, Rent 6513). | Integration Block | Switch checkout implementation to UPI Intent or Dynamic QR flow. |
-| **U14** | `ENCRYPTION_ERROR` | Device Common Library (CL) token expired or cryptographic handshake failed. | Technical | Ask user to retry transaction or restart their UPI app. |
-| **U66** | `CBS_UNREACHABLE` | Remitter bank Core Banking System (CBS) is temporarily down or timed out. | Network Failure | Automatically retry via secondary acquiring route or show bank outage status. |
+https://ssaif-ship-it.github.io/Error_codes/
 
 ## 3. High-Priority Business Scenarios & Edge Cases
 
@@ -84,22 +72,7 @@ Attempting to send a "pull" (Collect) request for restricted business categories
 
 To resolve this permanently, merchants operating in restricted MCCs must eliminate VPA entry screens and use **UPI Intent Deep Links** or **Dynamic QR Codes**.
 
-## 4. AutoPay & Recurring Mandate Specific Errors
 
-Recurring mandates have their own set of error codes due to lifecycle constraints, pre-debit notifications, and sequential debit ordering.
-
-### 4.1 Master AutoPay Error Code Reference
-
-| Error Code | Gateway Error Code | Context / Root Cause | Operational Handling & Retry Rules |
-| :--- | :--- | :--- | :--- |
-| **M1** | `MANDATE_NOT_FOUND` | UMN (Unique Mandate Number) is invalid or does not exist in switch records. | Do not retry. Prompt user to re-authorize a fresh AutoPay mandate setup. |
-| **M2** | `MANDATE_EXPIRED` | The end date of the mandate has lapsed. | Block automatic debits. Require customer to set up a new subscription mandate. |
-| **MD / M3** | `MANDATE_REVOKED` | Customer explicitly cancelled/revoked the mandate inside their UPI App. | Mandate terminal state. Mark subscription as `CANCELLED` in merchant database; trigger re-activation email. |
-| **MP** | `MANDATE_PAUSED` | Customer temporarily paused the mandate in their UPI App. | Do not execute. Wait until customer unpauses, or send a push notification to resume subscription. |
-| **M5** | `SEQ_NUM_MISMATCH` | Execution submitted with an out-of-sync SeqNum (e.g. sent SeqNum: 4 when bank expected 3). | Re-synchronize SeqNum against last successful webhook or query Mandate Details API before retrying. |
-| **M6** | `DUPLICATE_EXECUTION` | An execution attempt for the current SeqNum was already processed or is pending. | Check transaction status via API; do not trigger another debit for this cycle. |
-| **PDN_MISSING** | `PRE_DEBIT_NOTIF_REQUIRED` | Debit initiated without delivering a Pre-Debit Notification 24h prior. | Issuer bank automatically rejects debit. Schedule PDN immediately and queue debit 24 hours later. |
-| **MF** | `RECURRING_DEBIT_FAILED` | Debit failed due to remitter side reasons (ZA Insufficient Funds or ZK Account Blocked). | Retries permitted: Max 9 retries (10 total) for this SeqNum with at least 1 hour cooling-off period. |
 
 ## 5. AutoPay Pre-Debit Notification (PDN) & Retry Guardrails
 
