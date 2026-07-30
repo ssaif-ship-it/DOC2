@@ -37,6 +37,7 @@ To abstract bank-specific error strings across different acquirers, the gateway 
 ## 2. Master NPCI Error Code & Business Failure Mapping
 
 The table below maps standard NPCI error codes, raw bank responses, root causes, and recommended user/checkout actions:
+# error codes table
 
 # https://ssaif-ship-it.github.io/Error_codes/
 
