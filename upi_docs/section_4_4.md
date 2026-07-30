@@ -1,6 +1,4 @@
-# Cashfree Docs: EMI on UPI (Contextual Payments)
 
-## 5.5 EMI & Credit on UPI
 
 ### About EMI on UPI
 EMI on UPI is an NPCI-backed capability known as "Contextual Payments." It enables merchants to offer No-Cost and Low-Cost EMI directly on the UPI rail, specifically tailored for RuPay Credit Cards on UPI (with Credit Line on UPI planned for Phase 2).
