@@ -1,0 +1,351 @@
+Cf Error Code,Pg Error Code,Reason,Cf Error Description
+GATEWAY_ERROR,U07,invalid_format,gateway infrastructure error detected
+GATEWAY_ERROR,U10,invalid_format,gateway infrastructure error detected
+GATEWAY_ERROR,U12,currency_mismatch,gateway infrastructure error detected
+GATEWAY_ERROR,U15,encryption_error,gateway infrastructure error detected
+TRANSACTION_DECLINED,U18,auth_failure,Customer could not be authenticated for the transaction
+GATEWAY_ERROR,U36,response_error,gateway infrastructure error detected
+TRANSACTION_DECLINED,SP,invalid_atmpin,issuer bank or payment service provider declined the transaction
+TRANSACTION_DECLINED,U02,transaction_amount_limit,customer has exceeded the withdrawal amount limit
+GATEWAY_ERROR,U04,invalid_transaction,Transaction was invalid
+GATEWAY_ERROR,U06,invalid_transaction,Transaction was invalid
+NETWORK_ERROR,U08,bank_offline,request session is timed out. Kindly retry after sometime.
+TRANSACTION_DECLINED,U24,auth_timeout,issuer bank or payment service provider declined the transaction
+TRANSACTION_DECLINED,OC,credit_failed,issuer bank or payment service provider declined the transaction
+NETWORK_ERROR,RB,credit_reversal_timeout,a network infrastructure error was detected
+PAYMENT_INSTRUMENT_BLOCKED,RN,attempts_exceeded,customer's payment instrument was blocked by the network
+NETWORK_ERROR,RR,debit_reversal_timeout,a network infrastructure error was detected
+GATEWAY_ERROR,U01,duplicate_transaction,gateway infrastructure error detected
+TRANSACTION_DECLINED,U20,auth_timeout,issuer bank or payment service provider declined the transaction
+TRANSACTION_DECLINED,NC,credit_failed,issuer bank or payment service provider declined the transaction
+TRANSACTION_DECLINED,U29,debit_failed,Issuer bank or payment service provider declined the transaction.
+TRANSACTION_DECLINED,AJ,inactive_card,issuer bank or payment service provider declined the transaction
+NETWORK_ERROR,BT,acquirer_bank_offline,a network infrastructure error was detected
+GATEWAY_ERROR,U05,invalid_format,gateway infrastructure error detected
+TRANSACTION_DECLINED,U32,credit_failed,issuer bank or payment service provider declined the transaction
+TRANSACTION_DECLINED,U34,transaction_reverted,issuer bank or payment service provider declined the transaction
+GATEWAY_ERROR,U38,response_error,gateway infrastructure error detected
+TRANSACTION_DECLINED,LD,debit_failed,issuer bank or payment service provider declined the transaction
+TRANSACTION_DECLINED,ZX,account_inactive_customer,issuer bank or payment service provider declined the transaction
+TRANSACTION_DECLINED,XJ,unknown_error,issuer bank or payment service provider declined the transaction
+NETWORK_ERROR,U88,network_timeout,a network infrastructure error was detected
+TRANSACTION_DECLINED,S0,psp_decline_spam,payment service provider declined the transaction
+,null,,
+TRANSACTION_DECLINED,XN,no_card_customer,issuer bank or payment service provider declined the transaction
+TRANSACTION_DECLINED,XT,cutoff_time,issuer bank or payment service provider declined the transaction
+NETWORK_ERROR,XY,bank_offline,request session is timed out. Kindly retry after sometime.
+TRANSACTION_DECLINED,YE,account_blocked_customer,issuer bank or payment service provider declined the transaction
+TRANSACTION_DECLINED,Z6,pin_try_exceeded,Allowed number of pin retry exceeded
+PAYMENT_INSTRUMENT_BLOCKED,M5,account_closed,customer's payment instrument was blocked by the network
+TRANSACTION_DECLINED,400,invalid_phone_number,entered phone number against this transaction is invalid
+TRANSACTION_DECLINED,403,unauthorized_user,User is not authorized to perform this action. reach out to issuer bank
+,CF13,,
+NETWORK_ERROR,L05,unknown_network_error,a network infrastructure error was detected
+TRANSACTION_DECLINED,NA,unknown_error,issuer bank or payment service provider declined the transaction
+TRANSACTION_CANCELLED,U48,customer_inactive,transaction was cancelled or unattempted
+TRANSACTION_DECLINED,VK,transaction_amount_limit,customer has exceeded the withdrawal amount limit
+VALIDATION_FAILURE,R02,invalid_vpa,customer's payment instrument was not setup properly
+TECHNICAL_FAILURE,U78,credit_failed,Beneficiary bank is not available
+NETWORK_ERROR,U85,network_timeout,a network infrastructure error was detected
+TRANSACTION_DECLINED,51,insufficient_funds,customer account does not have sufficent balance
+TRANSACTION_DECLINED,XL,expired_card,Transaction declined as the card is expired or incorrect expiry date is entered
+TRANSACTION_DECLINED,XR,restricted_by_bank,issuer bank or payment service provider declined the transaction
+TRANSACTION_DECLINED,YD,payment_not_allowed,Payment to this beneficiary is declined
+TRANSACTION_DECLINED,57,account_holder_restricted,Account of the customer is restricted by the bank for the transaction .
+TRANSACTION_DECLINED,S1,fraud_detected,issuer bank or payment service provider declined the transaction
+NETWORK_ERROR,500,bank_offline,request session is timed out. Kindly retry after sometime.
+VALIDATION_FAILURE,404,invalid_google_pay_user,User is not a valid Google Pay user. Register with correct phone number.
+NETWORK_ERROR,CF22,bank_offline,request session is timed out. Kindly retry after sometime.
+TRANSACTION_DECLINED,U53,remitter_bank_unavailable,The transaction failed due to the PSP did not receive confirmation of the debit. Please ask the customer to retry.
+VALIDATION_FAILURE,T03,invalid_parameter,txn note can be alphanumeric with minlength is 1 and maxlength is 50
+,MR,,
+TRANSACTION_DECLINED,U22,auth_declined,issuer bank or payment service provider declined the transaction
+TRANSACTION_DECLINED,U26,psp_declined,issuer bank or payment service provider declined the transaction
+TRANSACTION_DECLINED,U31,transaction_not_permitted,TPV payment was made using a non-registered bank account | Remitter bank declined the transaction.
+GATEWAY_ERROR,U14,encryption_error,Encryption Error at NPCI
+MERCHANT_BLOCKED,TM,merchant_blocked,transaction was declined because customer has blocked the merchant
+TRANSACTION_NOT_INITIATED,L04,invalid_format,transaction was not initiated with the service provider
+GATEWAY_ERROR,94,duplicate_transaction,transaction declined as this is the duplicate transaction
+TRANSACTION_DECLINED,ZG,vpa_resolution_failed,issuer bank or payment service provider declined the transaction
+TRANSACTION_DECLINED,CF07,bad_request,"the request the client made is incorrect or corrupt, and the server can't understand it."
+TRANSACTION_DECLINED,XQ,payment_not_allowed,Payment to this beneficiary is declined
+TRANSACTION_DECLINED,YF,account_blocked_merchant,issuer bank or payment service provider declined the transaction
+VALIDATION_FAILURE,XI,invalid_account,customer's payment instrument was not setup properly
+NETWORK_ERROR,91,network_timeout,Transaction failed due to host timeout
+TRANSACTION_DECLINED,FL,transaction_amount_limit,customer has exceeded the withdrawal amount limit
+NETWORK_ERROR,HS,bank_offline,request session is timed out. Kindly retry after sometime.
+NETWORK_ERROR,IR,bank_offline,request session is timed out. Kindly retry after sometime.
+CUSTOMER_CANCELLED,U69,request_expired,Collect request expired
+,SD,,
+TRANSACTION_FAILED,5009,technical_error,transaction failed due to some technical error. Kindly retry or reach out to bank
+,5000,,
+,UM8,,
+,119,,
+,EXPIRED,,
+TRANSACTION_DECLINED,1,psp_decline_throttle,payment service provider declined the transaction
+TRANSACTION_DECLINED,U28,remitter_bank_unavailable,The remitter bank or TPAP is currently unavailable. Please request the user to retry after some time.
+,Y1,,
+,VJ,,
+,HS1,,
+,HS2,,
+,103,,
+,5042,,
+,CC8,,
+,G27,,
+,ALL-SITE-DOWN-FOR-ROUTE,,
+TECHNICAL_FAILURE,CF29,cred_error,Transaction failed due to issues with bank credentials
+TRANSACTION_DECLINED,SA,payment_not_allowed,Payment from this type of source account (cc/ppi/od) is not allowed
+,5005,,
+,F,,
+CUSTOMER_AUTH_FAILURE,ZA,customer_decline,This transaction has been declined/cancelled by the customer
+NETWORK_ERROR,ZM,invalid_pin,The customer entered an invalid pin. please request the customer to try again with the correct pin.
+TRANSACTION_DECLINED,B3,restricted_account,"TPV payment was made using a non-registered bank account | Payment was made using a restricted account as per bank policy (e.g., minor account, proprietor account)."
+TECHNICAL_FAILURE,CF23,remitter_bank_unavailable,Resource that you are trying to reach is currentlu unavailable. please retry after sometime.
+NETWORK_ERROR,ZH,invalid_vpa,Customer has entered incorrect vpa
+NETWORK_ERROR,U81,bank_offline,request session is timed out. Kindly retry after sometime.
+,FAILED,,
+,104,,
+,UN5,,
+,ZB,,
+,U46,,
+,DECLINED,,
+TRANSACTION_DECLINED,FAILURE,unknown_error,issuer bank or payment service provider declined the transaction
+,5309,,
+,YI,,
+TRANSACTION_DECLINED,U30,debit_failed,The remitter (customer’s) bank declined the transaction. Please request the user to try again or check with their bank.
+,XH,,
+,IM,,
+,U80,,
+,S95,,
+,XS,,
+TRANSACTION_DECLINED,U16,risk_threshold_exceeded,Issuer bank or payment service provider declined the transaction
+CUSTOMER_CANCELLED,U67,high_response_time,Declined because of high response time from remitter bank
+NETWORK_ERROR,Z9,insufficient_funds,Insufficient funds in the user’s account. please request the user to retry after adding sufficient funds.
+TRANSACTION_DECLINED,Z8,per_transaction_limit_exceeded,The transaction amount exceeded the limit set by the user’s bank. please request the customer to verify this with their bank.
+CUSTOMER_CANCELLED,U90,remitter_bank_unavailable,The remitter bank deemed high response time. please request the user to retry after some time.
+CUSTOMER_CANCELLED,U91,acquiring_bank_unavailable,The beneficiary bank deemed high response time. please request the user to retry after some time.
+CUSTOMER_CANCELLED,UT,remitter_bank_unavailable,Remitter bank is not available
+,XD,,
+TRANSACTION_DECLINED,U19,authentication_failure,Issuer bank or payment service provider declined the transaction
+,U17,,
+TRANSACTION_DECLINED,HS3,debit_failed,Issuer bank or payment service provider declined the transaction
+TECHNICAL_FAILURE,CF02,api_timeout,Bank API time out
+TRANSACTION_DECLINED,M16,risk_decline,Transaction declined by risk model of npci
+,96,,
+,CF27,,
+,PM4,,
+TRANSACTION_DECLINED,XV,compliance_violation,TPV payment was made using a non-registered bank account | Remitter bank declined the transaction due to a compliance violation.
+,XC,,
+,S97,,
+,VM,,
+,22,,
+,YG,,
+,X1,,
+,IE,,
+,U66,,
+CUSTOMER_CANCELLED,0,request_expired,Collect request expired
+,UT1,,
+,CF14,,
+,XW,,
+,ZS,,
+,ML,,
+,QU,,
+,ZF,,
+,M3,,
+,CF40,,
+,102,,
+,U33,,
+,AE,,
+,XK,,
+,62,,
+,T22,,
+,CF01,,
+,CF44,,
+,U54,,
+TRANSACTION_DECLINED,ZU,transaction_limit_exceeded,The transaction failed due to limit set by the customer’s bank exceeded. Please ask the customer to check with their bank.
+,S93,,
+,T17,,
+TRANSACTION_DECLINED,DT,bank_decline,The provided account number is invalid or not found in the beneficiary bank's records.
+,U86,,
+,YA,,
+,AA,,
+,TCC|102,,
+,E19,,
+,U94,,
+,U71,,
+,A09,,
+,61,,
+,CF55,,
+TRANSACTION_DECLINED,ZI,debit_failed,Transaction declined due to suspected fraud based on the beneficiary risk score.
+,UB7,,
+,VH,,
+,CF21,,
+,FR9,,
+,15,,
+,S2,,
+,S96,,
+,MER_058,,
+,UB,,
+,V1,,
+,VO,,
+,VF,,
+,MER_050,,
+,BR,,
+,U93,,
+,10,,
+,S94,,
+,O2,,
+,O4,,
+,UN6,,
+,ZY,,
+,XF,,
+,V01,,
+,DF,,
+TRANSACTION_DECLINED,U21,auth_failure,Customer could not be authenticated for the transaction
+TRANSACTION_DECLINED,U23,auth_timeout,issuer bank or payment service provider declined the transaction
+TRANSACTION_DECLINED,U25,,issuer bank or payment service provider declined the transaction
+TRANSACTION_DECLINED,U27,psp_unresponsive,issuer bank or payment service provider declined the transaction
+GATEWAY_ERROR,U37,response_error,gateway infrastructure error detected
+GATEWAY_ERROR,U11,credentials_missing,gateway infrastructure error detected
+NETWORK_ERROR,U13,external_error,a network infrastructure error was detected
+TRANSACTION_DECLINED,ND,debit_failed,issuer bank or payment service provider declined the transaction
+TRANSACTION_DECLINED,OD,debit_failed,issuer bank or payment service provider declined the transaction
+TRANSACTION_DECLINED,RM,invalid_mpin,issuer bank or payment service provider declined the transaction
+NETWORK_ERROR,RP,debit_reversal_timeout,a network infrastructure error was detected
+TRANSACTION_DECLINED,U68,credit_failed,issuer bank or payment service provider declined the transaction
+TRANSACTION_DECLINED,ZE,psp_declined,Transaction not permitted to the customer’s UPI ID (VPA) by the PSP.
+TRANSACTION_DECLINED,ZD,debit_failed,"The transaction declined by remitter (customer's) bank, please ask the customer to check with their bank before retrying."
+TRANSACTION_DECLINED,XU,cutoff_time,issuer bank or payment service provider declined the transaction
+TRANSACTION_DECLINED,U89,bank_decline_throttle,issuer bank or payment service provider declined the transaction
+TRANSACTION_DECLINED,FP,transaction_amount_limit,customer has exceeded the withdrawal amount limit
+VALIDATION_FAILED,54,card_expired,the UPI ID associated with the debit card is already expired.
+TRANSACTION_DECLINED,Z7,debit_limit_exceeded,Transaction frequency limit set by the remitting bank has been exceeded.
+,G25,,
+,43,,
+,V07,,
+,U09,,
+CUSTOMER_CANCELLED,UP,psp_timeout,Received timeout response from payment service provider
+TRANSACTION_DECLINED,Null Error Code,debit_failed,Issuer bank or payment service provider declined the transaction
+,CF41,,
+,9,,
+,T14,,
+,BUU|UT1,,
+,T12,,
+,SE,,
+,E05,,
+,CF04,,
+,E12,,
+,ERR010,,
+,QO,,
+,VP,,
+,VU6,,
+,O3,,
+,CI,,
+GATEWAY_ERROR,U35,response_error,gateway infrastructure error detected
+PAYMENT_INSTRUMENT_INACTIVE,B2,multiple_names_linked,customer's payment instrument is inactive
+TRANSACTION_DECLINED,YC,debit_failed,Issuer bank or payment service provider declined the transaction.
+TRANSACTION_DECLINED,XP,debit_failed,"Issuer bank or payment service provider declined the transaction, transaction not permitted for the user."
+NETWORK_ERROR,5007,invalid_vpa,Customer has entered incorrect vpa
+PAYMENT_INSTRUMENT_BLOCKED,5008,psp_timeout,Customer's payment instrument was blocked by the network
+TECHNICAL_FAILURE,5010,technical_decline,Transaction failed due to some technical error. kindly retry or reach out to bank
+TRANSACTION_FAILED,CF11,technical_error,issue in decrypting the payment information. Please try again.
+TECHNICAL_FAILURE,5087,account_number_missing,Payer account number and payer ifsc are missing. please enter these details
+,5001,,
+,PM5,,
+CUSTOMER_CANCELLED,CF15,invalid_credentials,Transaction failed due to issues with bank credentials
+,32,,
+,PN0,,
+,PM9,,
+,PM16,,
+,B1,,
+,RNF,,
+,REJECTED,,
+,12,,
+,XB,,
+TRANSACTION_DECLINED,XX,invalid_details,"The transaction failed due to invalid details in the payment, please verify the details and retry."
+,B07,,
+,U03,,
+,E04,,
+,DRC|104,,
+,59,,
+,ZR,,
+,125,,
+TRANSACTION_DECLINED,UM1,customer_decline,The upi mandate request was successfully initiated and is awaiting user approval
+,QK,,
+TRANSACTION_DECLINED,UN8,customer_decline,The payment could not proceed because the users upi app or bank is not registered to handle upi transactions
+TRANSACTION_DECLINED,UM9,debit_failed,The mandate setup request was declined by the bank or app.please retry or use a different upi app
+TRANSACTION_DECLINED,UM0,debit_failed,The mandate setup request was declined by the bank or app.please retry or use a different upi app
+,ROUTE-PLAN-NOT-FOUND,,
+,B03,,
+,3,,
+,PM3,,
+,YH,,
+,21,,
+,VS,,
+,QD,,
+,CN,,
+,UN4,,
+,1210,,
+TRANSACTION_DECLINED,NO,debit_failed,"The transaction declined by remitter (customer's) bank, please ask the customer to check with their bank before retrying."
+TRANSACTION_DECLINED,K1,suspected_fraud,The transaction was declined by the remitter bank due to a high risk score or suspected fraud activity.
+TRANSACTION_DECLINED,U92,remitter_bank_unavailable,The remitter bank or TPAP is currently unavailable. Please retry after some time.
+TRANSACTION_DECLINED,UX,invalid_vpa,UPI virtual address (VPA) used has expired or is no longer valid. Please request the user to retry with a valid VPA.
+,116,,
+,NORECORD,,
+TRANSACTION_DECLINED,V,transaction_details_missing,some of the details reletaed to the transaction are missing in the request
+VALIDATION_FAILURE,409,duplicate_transaction,duplicate transaction id found
+TRANSACTION_DECLINED,S99,debit_failed,The remitter (customer’s) bank declined the transaction. Please request the user to try again or check with their bank.
+,5006,,
+NETWORK_ERROR,8010,bank_offline,request session is timed out. Kindly retry after sometime.
+,5032,,
+,5,,
+,257,,
+,52,,
+CUSTOMER_AUTH_FAILURE,2,collect_request_expired,"Collect expired, the customer did not approve or complete the payment within the permitted time frame."
+,E13,,
+,207,,
+,PENDING,,
+,Z5,,
+,U47,,
+,PN2,,
+,111,,
+,AM,,
+,A79,,
+,D06,,
+,PH105,,
+TRANSACTION_DECLINED,86,debit_failed,The transaction failed due to an internal error at the remitter's bank or server.
+TRANSACTION_DECLINED,V03,invalid_credentials,Transaction failed due to invalid or missing upi credentials. please check and try again
+CUSTOMER_AUTH_FAILURE,92,collect_request_expired,"Collect expired, the customer did not approve or complete the payment within the permitted time frame."
+,TCC|103,,
+,PH025,,
+,I04,,
+,QL,,
+,T18,,
+,FR5,,
+,D02,,
+,VY,,
+,VU,,
+,PM1,,
+NETWORK_ERROR,503,bank_offline,request session is timed out. Kindly retry after sometime.
+VALIDATION_FAILED,M2,limit_exceed,amount limit is exceeded for this customer
+,907,,
+,8002,,
+,BUU,,
+,5021,,
+,XE,,
+,PM8,,
+TRANSACTION_DECLINED,S3,fraud_detected,issuer bank or payment service provider declined the transaction
+,444,,
+,8,,
+,D13,,
+,5420,,
+,V4,,
+,U84,,
+,203,,
+,D05,,
+,T05,,
+,71,,
+,O1,,
+,C12,,
+,UN3,,
+,VD,,
