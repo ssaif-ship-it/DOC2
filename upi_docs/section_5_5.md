@@ -1,5 +1,3 @@
-# Smart Routing & High-Availability Architecture
-
 Payment checkout flows involve multiple external dependencies—including acquiring bank APIs, issuing bank Core Banking Systems (CBS), and national switches like NPCI. A technical downtime or network spike at any of these points can directly impact checkout conversion if traffic is statically routed down a single channel.
 
 Smart Routing continuously measures real-time performance across all acquiring channels, detects network degradation within seconds, and dynamically shifts traffic to healthy payment paths to protect your checkout Success Rate (SR).
