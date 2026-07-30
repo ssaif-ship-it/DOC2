@@ -41,6 +41,115 @@ The table below maps standard NPCI error codes, raw bank responses, root causes,
 
 # https://ssaif-ship-it.github.io/Error_codes/
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive CSV Table</title>
+
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 2rem;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+    .table-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    /* Style for column search inputs */
+    thead input {
+      width: 100%;
+      padding: 6px;
+      box-sizing: border-box;
+      font-size: 13px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="table-container">
+  <h2>Data Directory</h2>
+  <table id="csv-table" class="display" style="width:100%">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<!-- jQuery and DataTables JS -->
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<!-- PapaParse (CSV Parser) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+<script>
+  const CSV_FILE_PATH = 'data.csv';
+
+  // Load and parse CSV file
+  Papa.parse(CSV_FILE_PATH, {
+    download: true,
+    skipEmptyLines: true,
+    complete: function (results) {
+      const data = results.data;
+
+      if (!data || data.length === 0) {
+        console.error("CSV file is empty.");
+        return;
+      }
+
+      // First row contains header titles
+      const headers = data[0];
+      // Remaining rows contain table data
+      const rows = data.slice(1);
+
+      // Build header HTML (Row 1: Column Titles, Row 2: Search Inputs)
+      let titleRow = '<tr>' + headers.map(h => `<th>${h}</th>`).join('') + '</tr>';
+      let searchRow = '<tr>' + headers.map(h => `<th><input type="text" placeholder="Filter ${h}..." /></th>`).join('') + '</tr>';
+
+      $('#csv-table thead').html(titleRow + searchRow);
+
+      // Initialize DataTable
+      const table = $('#csv-table').DataTable({
+        data: rows,
+        pageLength: 20,               // Default to 20 rows per page
+        lengthMenu: [10, 20, 50, 100],  // Pagination dropdown options
+        orderCellsTop: true,          // Sorting applies to title row, not input row
+        responsive: true
+      });
+
+      // Attach per-column filtering logic
+      $('#csv-table thead tr:eq(1) th').each(function (index) {
+        $('input', this).on('keyup change clear', function () {
+          if (table.column(index).search() !== this.value) {
+            table
+              .column(index)
+              .search(this.value)
+              .draw();
+          }
+        });
+      });
+    },
+    error: function (err) {
+      console.error("Error reading CSV:", err);
+    }
+  });
+</script>
+
+</body>
+</html>
+
 ## 3. High-Priority Business Scenarios & Edge Cases
 
 ### 3.1 Third-Party Verification (TPV) Failures (U19)
@@ -62,70 +171,3 @@ To prevent account takeover fraud, NPCI caps transactions at ₹5,000 for 24 hou
 3. UPI PIN reset/change.
 
 If an order is ₹15,000, NPCI will decline the transaction with code U30 even if the user has ample account balance. Checkouts should detect U30 and offer non-UPI fallback instruments.
-
-### 3.3 Restricted Flow Errors (U69)
-
-Attempting to send a "pull" (Collect) request for restricted business categories results in an immediate U69 rejection.
-
-```text
-[Merchant App] -- Collect Request (MCC 5816) --> [NPCI Switch] -- REJECT (U69: Collect Blocked) --> [Merchant]
-```
-
-To resolve this permanently, merchants operating in restricted MCCs must eliminate VPA entry screens and use **UPI Intent Deep Links** or **Dynamic QR Codes**.
-
-
-
-## 5. AutoPay Pre-Debit Notification (PDN) & Retry Guardrails
-
-### 5.1 The 24-Hour PDN Rule
-
-For all AutoPay recurring debits exceeding same-day execution, merchants must notify the user's issuing bank via the Pre-Debit Notification (PDN) API at least 24 to 48 hours prior to execution.
-
-```text
-[Day T-1 (24h Prior)] ---> Send PDN Request ---> [Payer PSP / Issuer Bank] ---> SMS Sent to User
-[Day T (Execution)]   ---> Trigger ReqPay API  ---> [Bank Validates PDN]     ---> Debit Executed
-```
-
-If PDN is not sent or fails delivery validation, the issuer bank drops the debit with error `PRE_DEBIT_NOTIF_REQUIRED`.
-
-**Exemptions:** Daily frequency mandates, same-day instant first execution (≤ 5 mins from creation), FASTag auto-replenishment (MCC 4784), and Transit (MCC 7412).
-
-### 5.2 AutoPay Retry Matrix (SeqNum Lifecycle Rules)
-
-When a recurring debit fails due to temporary balance insufficiency (ZA) or CBS timeouts (U66):
-
-- **Max Retry Limit:** A maximum of 9 retry attempts (10 total executions) is allowed for a single sequence number (SeqNum).
-- **Cooling-off Window:** Each retry attempt must be spaced by a minimum interval of 1 hour.
-- **SeqNum Progression:** If all 10 attempts fail or the execution window for that billing cycle closes, that SeqNum is marked `EXPIRED`/`CANCELLED`. The merchant must skip to the next sequence number (e.g., SeqNum: 2 → SeqNum: 3) for the following billing cycle.
-
-## 6. Merchant Retry Matrix & Smart Logic
-
-Not all errors should trigger an automated retry. The decision tree below details how checkout and recurring engines should handle specific failure states:
-
-```text
-                          [ Payment Failure Received ]
-                                       |
-          +----------------------------+----------------------------+
-          |                                                         |
- [ User-Fixable / Terminal ]                              [ Technical / Network ]
-(ZA, ZM, U01, U16, U19, U30, M1, MD, MP)                  (U66, U14, B1, Timeout, MF)
-          |                                                         |
- Do NOT retry automatically.                               Can retry automatically!
- Show actionable UI alert or                               Route to backup acquirer node,
- update subscription status.                                or retry debit after 1h delay.
-```
-
-### Action Logic Summary
-
-1. **INSUFFICIENT_FUNDS / INCORRECT_PIN:** Display inline prompt. Do **not** trigger background retries.
-2. **CBS_UNREACHABLE / SYSTEM_TIMEOUT:** Gateway handles internal retry across healthy bank pipes. If terminal failure is reached, offer a 1-click retry button.
-3. **MANDATE_REVOKED / MANDATE_PAUSED:** Instantly flag recurring subscription in backend CRM and request user to re-authorize mandate.
-4. **TRANSACTION_LIMIT_EXCEEDED:** Do not offer retry with UPI. Instantly toggle checkout tab to Credit/Debit Cards or NetBanking.
-
-## 7. Webhook Integration Checklist for Failure Handling
-
-- [ ] **Subscribe to PAYMENT_FAILED Webhooks:** Ensure backend listens for terminal failure webhooks to release reserved inventory immediately.
-- [ ] **Subscribe to MANDATE_NOTIFICATION Webhooks:** Capture real-time events for mandate revocation, pause, and execution failures.
-- [ ] **Parse Subcode Metadata:** Store `error_subcode` and `raw_bank_response` in transaction logs for analytics and support debugging.
-- [ ] **Filter Non-Actionable Alerts:** Do not trigger internal engineering alerts for customer-driven errors (ZA, ZM); monitor spike rates only for infrastructure errors (U66, B1).
-- [ ] **Synchronize Order Lifecycle:** Ensure stock allocation is unblocked instantly when U19 (TPV Mismatch) or U69 (Collect Blocked) occurs.
