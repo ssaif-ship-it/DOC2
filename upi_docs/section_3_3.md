@@ -28,24 +28,238 @@ However, because alternative instruments involve Interchange Fees, Merchant Disc
 
 The table below outlines instrument support and allowed checkout initiation flows across primary industry categories:
 
-| Business Category / Industry | Sample MCCs | Bank Acc | RuPay CC | Wallets (PPI) | Credit Lines | Permitted Initiation Flows & Restrictions |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Standard Retail & E-Commerce | 5411, 5311, 5651 | ✅ | ✅ | ✅ | ✅ | Intent, Dynamic QR, AutoPay |
-| Restaurants & Dining | 5812, 5814 | ✅ | ✅ | ✅ | ✅ | Intent, Dynamic QR |
-| Travel, Airlines & Hotels | 3000-3299, 7011, 4722 | ✅ | ✅ | ✅ | ✅ | Intent, Dynamic QR, OTM/SBMD |
-| Utilities & Telecom | 4900, 4814 | ✅ | ✅ | ✅ (0.7% Fee) | ✅ | Intent, Dynamic QR, AutoPay |
-| Fuel Stations | 5541, 5542 | ✅ | ✅ | ✅ (0.5% Fee) | ✅ | Dynamic QR, Static QR |
-| Education & Schools | 8211, 8220, 8299 | ✅ | ✅ | ✅ (0.7% Fee) | ✅ | Intent, Dynamic QR, Collect |
-| Hospitals & Healthcare | 8011, 8062, 8099 | ✅ | ✅ | ✅ | ✅ | Intent, Dynamic QR |
-| Capital Markets & Broking | 6211 | ✅ | ❌ Blocked | ❌ Blocked | ❌ Blocked | Intent, Dynamic QR, Collect (TPV Mandated; Credit/Wallet Blocked) |
-| Financial Services / NBFC | 6012 | ✅ | ❌ Blocked | ❌ Blocked | ❌ Blocked | Intent, Dynamic QR, Collect (TPV Mandated; Credit/Wallet Blocked) |
-| Digital Gaming & Casinos | 5816, 7995 | ✅ | ❌ Blocked | ❌ Blocked | ❌ Blocked | Intent Only (Collect & QR Flows Strictly Blocked) |
-| Wallet Loading | 6540 | ✅ | ❌ Blocked | ❌ Blocked | ❌ Blocked | Intent Only (Collect & QR Flows Strictly Blocked) |
-| Rent Payments | 6513 | ✅ | ❌ Blocked | ✅ | ❌ Blocked | Intent, Dynamic QR (Collect Blocked) |
-| Credit Card Bill Payments | 5413 | ✅ | ❌ Blocked | ❌ Blocked | ❌ Blocked | Intent, Dynamic QR (Collect Strictly Blocked) |
-| Digital Gold Purchases | 5412 | ✅ | ❌ Blocked | ❌ Blocked | ❌ Blocked | Intent, Dynamic QR (Collect Strictly Blocked) |
-| Tax & Government Services | 9311, 9399 | ✅ | ✅ | ✅ | ✅ | Intent, Dynamic QR |
-| Unverified Small Merchants | P2PM | ✅ | ❌ Blocked | ✅ | ❌ Blocked | QR Scan, Intent (Collect capped at ₹2,000) |
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>UPI Merchant Category & Instrument Eligibility Matrix</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #f7f7f8;
+    color: #1a1a1a;
+    padding: 32px;
+  }
+  h1 {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    font-size: 13.5px;
+  }
+  th, td {
+    border: 1px solid #e0e0e0;
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: #1a1a1a;
+    color: #fff;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  td.center {
+    text-align: center;
+  }
+  tr:nth-child(even) {
+    background: #fafafa;
+  }
+  tr:hover {
+    background: #f0f4ff;
+  }
+  code {
+    background: #eef0f3;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 12.5px;
+    white-space: nowrap;
+  }
+  .yes {
+    color: #1a7f37;
+    font-weight: 600;
+  }
+  .no {
+    color: #c62828;
+    font-weight: 600;
+  }
+  .fee {
+    color: #b26a00;
+    font-weight: 500;
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+
+<h1>UPI Merchant Category & Instrument Eligibility Matrix</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Business Category / Industry</th>
+      <th>Sample MCCs</th>
+      <th>Bank Acc</th>
+      <th>RuPay CC</th>
+      <th>Wallets (PPI)</th>
+      <th>Credit Lines</th>
+      <th>Permitted Initiation Flows & Restrictions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Standard Retail & E-Commerce</td>
+      <td><code>5411</code>, <code>5311</code>, <code>5651</code></td>
+      <td class="center yes">✅</td>
+      <td class="center yes">✅</td>
+      <td class="center yes">✅</td>
+      <td class="center yes">✅</td>
+      <td>Intent, Dynamic QR, AutoPay</td>
+    </tr>
+    <tr>
+      <td>Restaurants & Dining</td>
+      <td><code>5812</code>, <code>5814</code></td>
+      <td class="center yes">✅</td>
+      <td class="center yes">✅</td>
+      <td class="center yes">✅</td>
+      <td class="center yes">✅</td>
+      <td>Intent, Dynamic QR</td>
+    </tr>
+    <tr>
+      <td>Travel, Airlines & Hotels</td>
+      <td><code>3000–3299</code>, <code>7011</code>, <code>4722</code></td>
+      <td class="center yes">✅</td>
+      <td class="center yes">✅</td>
+      <td class="center yes">✅</td>
+      <td class="center yes">✅</td>
+      <td>Intent, Dynamic QR, OTM/SBMD</td>
+    </tr>
+    <tr>
+      <td>Utilities & Telecom</td>
+      <td><code>4900</code>, <code>4814</code></td>
+      <td class="center yes">✅</td>
+      <td class="center yes">✅</td>
+      <td class="center yes">✅ <span class="fee">(0.7% fee)</span></td>
+      <td class="center yes">✅</td>
+      <td>Intent, Dynamic QR, AutoPay</td>
+    </tr>
+    <tr>
+      <td>Fuel Stations</td>
+      <td><code>5541</code>, <code>5542</code></td>
+      <td class="center yes">✅</td>
+      <td class="center yes">✅</td>
+      <td class="center yes">✅ <span class="fee">(0.5% fee)</span></td>
+      <td class="center yes">✅</td>
+      <td>Dynamic QR, Static QR</td>
+    </tr>
+    <tr>
+      <td>Education & Schools</td>
+      <td><code>8211</code>, <code>8220</code>, <code>8299</code></td>
+      <td class="center yes">✅</td>
+      <td class="center yes">✅</td>
+      <td class="center yes">✅ <span class="fee">(0.7% fee)</span></td>
+      <td class="center yes">✅</td>
+      <td>Intent, Dynamic QR, Collect</td>
+    </tr>
+    <tr>
+      <td>Hospitals & Healthcare</td>
+      <td><code>8011</code>, <code>8062</code>, <code>8099</code></td>
+      <td class="center yes">✅</td>
+      <td class="center yes">✅</td>
+      <td class="center yes">✅</td>
+      <td class="center yes">✅</td>
+      <td>Intent, Dynamic QR</td>
+    </tr>
+    <tr>
+      <td>Capital Markets & Broking</td>
+      <td><code>6211</code></td>
+      <td class="center yes">✅</td>
+      <td class="center no">❌ Blocked</td>
+      <td class="center no">❌ Blocked</td>
+      <td class="center no">❌ Blocked</td>
+      <td>Intent, Dynamic QR, Collect — TPV mandated; credit/wallet blocked</td>
+    </tr>
+    <tr>
+      <td>Financial Services / NBFC</td>
+      <td><code>6012</code></td>
+      <td class="center yes">✅</td>
+      <td class="center no">❌ Blocked</td>
+      <td class="center no">❌ Blocked</td>
+      <td class="center no">❌ Blocked</td>
+      <td>Intent, Dynamic QR, Collect — TPV mandated; credit/wallet blocked</td>
+    </tr>
+    <tr>
+      <td>Digital Gaming & Casinos</td>
+      <td><code>5816</code>, <code>7995</code></td>
+      <td class="center yes">✅</td>
+      <td class="center no">❌ Blocked</td>
+      <td class="center no">❌ Blocked</td>
+      <td class="center no">❌ Blocked</td>
+      <td>Intent only — Collect & QR flows strictly blocked</td>
+    </tr>
+    <tr>
+      <td>Wallet Loading</td>
+      <td><code>6540</code></td>
+      <td class="center yes">✅</td>
+      <td class="center no">❌ Blocked</td>
+      <td class="center no">❌ Blocked</td>
+      <td class="center no">❌ Blocked</td>
+      <td>Intent only — Collect & QR flows strictly blocked</td>
+    </tr>
+    <tr>
+      <td>Rent Payments</td>
+      <td><code>6513</code></td>
+      <td class="center yes">✅</td>
+      <td class="center no">❌ Blocked</td>
+      <td class="center yes">✅</td>
+      <td class="center no">❌ Blocked</td>
+      <td>Intent, Dynamic QR — Collect blocked</td>
+    </tr>
+    <tr>
+      <td>Credit Card Bill Payments</td>
+      <td><code>5413</code></td>
+      <td class="center yes">✅</td>
+      <td class="center no">❌ Blocked</td>
+      <td class="center no">❌ Blocked</td>
+      <td class="center no">❌ Blocked</td>
+      <td>Intent, Dynamic QR — Collect strictly blocked</td>
+    </tr>
+    <tr>
+      <td>Digital Gold Purchases</td>
+      <td><code>5412</code></td>
+      <td class="center yes">✅</td>
+      <td class="center no">❌ Blocked</td>
+      <td class="center no">❌ Blocked</td>
+      <td class="center no">❌ Blocked</td>
+      <td>Intent, Dynamic QR — Collect strictly blocked</td>
+    </tr>
+    <tr>
+      <td>Tax & Government Services</td>
+      <td><code>9311</code>, <code>9399</code></td>
+      <td class="center yes">✅</td>
+      <td class="center yes">✅</td>
+      <td class="center yes">✅</td>
+      <td class="center yes">✅</td>
+      <td>Intent, Dynamic QR</td>
+    </tr>
+    <tr>
+      <td>Unverified Small Merchants</td>
+      <td><code>P2PM</code></td>
+      <td class="center yes">✅</td>
+      <td class="center no">❌ Blocked</td>
+      <td class="center yes">✅</td>
+      <td class="center no">❌ Blocked</td>
+      <td>QR Scan, Intent — Collect capped at ₹2,000</td>
+    </tr>
+  </tbody>
+</table>
+
+</body>
+</html>
 
 ### 3. Category Guardrails & Routing Restrictions
 
