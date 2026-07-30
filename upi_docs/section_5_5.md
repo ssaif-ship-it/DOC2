@@ -8,7 +8,7 @@ Smart Routing continuously measures real-time performance across all acquiring c
 
 Transaction Success Rate (SR) measures the operational efficiency of your payment flow. It is defined as:
 
-$$\text{Success Rate (SR)} = \left( \frac{\text{Successful Transactions}}{\text{Total Attempted Transactions}} \right) \times 100$$
+> **Success Rate (SR) = (Successful Transactions ÷ Total Attempted Transactions) × 100**
 
 In standard ecosystem conditions on UPI, overall baseline SR averages ~80%. Non-successful attempts fall into two distinct categories:
 
@@ -19,45 +19,45 @@ In standard ecosystem conditions on UPI, overall baseline SR averages ~80%. Non-
 
 To maintain high availability, the Smart Routing engine categorizes payment failure factors based on controllable mitigation capabilities:
 
-<table>
+<table style="border-collapse: collapse; width: 100%;">
   <thead>
     <tr>
-      <th>Failure Factor</th>
-      <th>Ecosystem Impact</th>
-      <th>Controllable via Smart Routing?</th>
-      <th>Automated Mitigation</th>
+      <th style="border: 1px solid #ccc; padding: 8px 12px; background-color: #f2f2f2; text-align: left;">Failure Factor</th>
+      <th style="border: 1px solid #ccc; padding: 8px 12px; background-color: #f2f2f2; text-align: left;">Ecosystem Impact</th>
+      <th style="border: 1px solid #ccc; padding: 8px 12px; background-color: #f2f2f2; text-align: left;">Controllable via Smart Routing?</th>
+      <th style="border: 1px solid #ccc; padding: 8px 12px; background-color: #f2f2f2; text-align: left;">Automated Mitigation</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Acquiring Gateway Health</td>
-      <td>Aggregator/Gateway API timeouts or infrastructure failure.</td>
-      <td>Yes</td>
-      <td>Shifts traffic instantly to secondary healthy acquiring paths.</td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Acquiring Gateway Health</td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Aggregator/Gateway API timeouts or infrastructure failure.</td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Yes</td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Shifts traffic instantly to secondary healthy acquiring paths.</td>
     </tr>
     <tr>
-      <td>Issuing Bank CBS Health</td>
-      <td>Remitter bank maintenance or sudden downtime (e.g., SBI, HDFC).</td>
-      <td>Partial</td>
-      <td>Warns customers prior to payment or deprioritizes impacted issuers.</td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Issuing Bank CBS Health</td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Remitter bank maintenance or sudden downtime (e.g., SBI, HDFC).</td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Partial</td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Warns customers prior to payment or deprioritizes impacted issuers.</td>
     </tr>
     <tr>
-      <td>PSP App Outages</td>
-      <td>Application degradation (e.g., Google Pay, PhonePe, Paytm).</td>
-      <td>Partial</td>
-      <td>Reorders or deprioritizes degraded UPI apps on hosted checkout.</td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">PSP App Outages</td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Application degradation (e.g., Google Pay, PhonePe, Paytm).</td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Partial</td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Reorders or deprioritizes degraded UPI apps on hosted checkout.</td>
     </tr>
     <tr>
-      <td>NPCI Switch Congestion</td>
-      <td>Core network queueing across the entire UPI network.</td>
-      <td>No</td>
-      <td>Recommends non-UPI rails (Cards or NetBanking) on checkout UI.</td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">NPCI Switch Congestion</td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Core network queueing across the entire UPI network.</td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">No</td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Recommends non-UPI rails (Cards or NetBanking) on checkout UI.</td>
     </tr>
     <tr>
-      <td>Checkout UI / User Input</td>
-      <td>Invalid VPA inputs or manual entry typos.</td>
-      <td>Yes</td>
-      <td>Replaces manual VPA entry with seamless UPI Intent or Dynamic QR flows.</td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Checkout UI / User Input</td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Invalid VPA inputs or manual entry typos.</td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Yes</td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Replaces manual VPA entry with seamless UPI Intent or Dynamic QR flows.</td>
     </tr>
   </tbody>
 </table>
