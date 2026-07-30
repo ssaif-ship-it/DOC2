@@ -1,142 +1,247 @@
-## 4.5 UPI Lite & Prepaid Wallets (PPI)
 
-This section provides comprehensive integration and operational specifications for two key alternative low-value/wallet-based payment solutions on the UPI network: UPI Lite (an on-device wallet for instant, PIN-less small-value payments) and Prepaid Payment Instruments (PPI Wallets on UPI) (interoperable third-party digital wallets processing payments across standard merchant UPI QR codes and Intent checkouts).
+Welcome to the Cashfree Payments Merchant Integration Guide for UPI Lite and Interoperable PPI Wallets.
 
----
+By integrating Cashfree Payments for UPI checkout (via Dynamic QR, Intent, or POS), your business automatically supports these two advanced payment features with zero additional code changes. This document outlines the operational mechanics, regulatory limits, merchant economics, and post-transaction lifecycles.
 
-### PART A: UPI LITE (On-Device PIN-Less Wallet)
+## 1. Executive Summary
 
-UPI Lite is an on-device wallet solution designed by NPCI to process low-value transactions seamlessly without cluttering bank passbooks or stressing core banking systems (CBS). By storing balance directly within the secure Common Library (CL) on the customer's phone, UPI Lite enables 1-click PIN-less payments for amounts up to ₹200.
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>UPI Lite</th>
+      <th>Interoperable PPI Wallets</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Use Case</td>
+      <td>High-frequency, low-value payments</td>
+      <td>High-value payments using stored digital wallet funds</td>
+    </tr>
+    <tr>
+      <td>Max Transaction Limit</td>
+      <td>₹200 per payment (PIN-less)</td>
+      <td>Up to customer's available wallet balance</td>
+    </tr>
+    <tr>
+      <td>Max Stored Balance</td>
+      <td>₹2,000</td>
+      <td>Up to ₹2,00,000 (₹2 Lakhs) for Full-KYC</td>
+    </tr>
+    <tr>
+      <td>Authentication</td>
+      <td>1-Click (No UPI PIN required)</td>
+      <td>Wallet PIN, Biometric, or 2FA (depending on issuer)</td>
+    </tr>
+    <tr>
+      <td>Merchant Cost (MDR)</td>
+      <td>0% (Standard UPI rates apply)</td>
+      <td>0% for ≤ ₹2,000; 1.1% for &gt; ₹2,000 (Standard Retail)</td>
+    </tr>
+    <tr>
+      <td>Integration Effort</td>
+      <td>Natively supported out of the box</td>
+      <td>Natively supported out of the box</td>
+    </tr>
+  </tbody>
+</table>
 
-#### 1. Enablement & Initial Top-Up Flow
+## 2. UPI Lite: On-Device PIN-Less Payments
 
-**Product View & User Journey**
-*   **Discovery & Opt-In:** The customer sees an activation prompt/banner on the app's home screen and taps "Set-up now".
-*   **Bank Selection & Consent:** The app displays linked bank accounts eligible for UPI Lite. The customer selects an account, reviews features, and agrees to the Terms & Conditions.
-*   **Top-Up Amount:** The customer enters an initial top-up amount (recommended presets: ₹500, ₹1,000, ₹2,000).
-*   **Authentication:** The customer enters their UPI PIN via the NPCI Common Library (CL) overlay screen.
-*   **Confirmation:** Upon success, a "Money added Successfully!" screen displays the updated balance (up to ₹2,000), and an SMS notification is triggered by the PSP.
+### 2.1 What is UPI Lite?
 
-**Mandatory Business & Security Validations**
-*   **Device Integrity:** The app must verify that the device is not rooted or jailbroken. Activation is strictly blocked on compromised devices.
-*   **Single Active Wallet Limit:** The Common Library can only hold balance for one UPI Lite account at a time.
-*   **Maximum Stored Value:** The initial top-up cannot exceed the maximum stored value limit of ₹2,000.
-*   **Issuer Eligibility:** The app must filter and present only issuing banks that are live on the UPI Lite network.
+Designed by NPCI, UPI Lite is an on-device wallet that stores balances directly inside a secure local container (Common Library) on the customer's smartphone. By handling low-value transactions locally, UPI Lite bypasses core banking system (CBS) overhead, resulting in higher payment success rates and instantaneous checkouts.
 
-**Technical Architecture & API Sequence**
-*   **Phase 1 - Eligibility Query:** Payer PSP calls RespListAccPvd to check if the selected issuing bank account supports UPI Lite.
-*   **Phase 1 - Keypair Generation:** Upon user consent, the app invokes the device Common Library (CL) to generate a cryptographic key pair. The CL returns the Public Key to the app.
-*   **Phase 1 - Registration Call:** The Payer PSP initiates a ReqListKeys call (with type="GetLite") to the UPI network, passing the Public Key to the NPCI Auth Engine.
-*   **Phase 1 - LRN Allocation:** The NPCI Auth Engine stores the Public Key, registers the device, and returns RespListKeys containing a unique LITE Reference Number (LRN) for the user's Lite account.
-*   **Phase 2 - Cryptogram Generation:** The app captures the top-up amount and UPI PIN. The CL constructs a secure credential block containing the UPI PIN and an Authentication Request Cryptogram (ARQC).
-*   **Phase 2 - Top-up Execution (ReqPay):** Payer PSP executes ReqPay with Purpose Code 41 (Enablement + Add Money) passing the credential block. *(Note: If the user also opts for AutoPay auto-replenishment during setup, Purpose Code 71 is passed instead).*
-*   **Phase 2 - On-Device Ledger Update:** UPI Switch responds with RespPay containing an Authentication Response Cryptogram (ARPC). The app passes the ARPC into the CL, which validates the payload and updates the local on-device balance.
+```
+[Customer Scans Cashfree QR / Clicks Intent]
+                      │
+                      ▼
+        [Check Amount ≤ ₹200 & Wallet Bal]
+                      │
+            ┌─────────┴─────────┐
+            │                   │
+      (Success Conditions)  (Exceeds Limit / Insufficient)
+            │                   │
+            ▼                   ▼
+    [1-Click PIN-Less Pay]  [Fallback to Standard 2FA UPI PIN]
+            │                   │
+            └─────────┬─────────┘
+                      │
+                      ▼
+         [Instant Settlement Signal]
+```
 
-#### 2. Subsequent Top-Up (Add Money) Flow
+### 2.2 Core Business Benefits
 
-*   **Initiation:** The customer selects "Add Money" from the UPI Lite dashboard. If the stored balance drops below ₹200, the app proactively displays a top-up prompt.
-*   **Limits:** Minimum top-up amount is ₹1. The app strictly validates that Current Balance + Top-Up Amount ≤ ₹2,000.
-*   **Authentication:** The app invokes the CL overlay for UPI PIN authorization. Funds are strictly debited from the specific bank account linked during initial activation (no multi-bank selector).
-*   **Notification:** The on-device balance updates instantly, accompanied by a real-time SMS confirmation from the issuing bank.
+- **Faster Checkout Speeds:** Transactions under ₹200 require no 4-digit or 6-digit UPI PIN, significantly cutting payment processing times.
+- **Higher Approval Rates:** Because the bank's core servers are not queried during execution, payment failure rates due to bank downtime or network congestion are nearly eliminated.
+- **Seamless Automated Fallback:** If an order total exceeds ₹200 or the customer's Lite balance is insufficient, Cashfree automatically shifts the checkout flow to standard 2-Factor Authentication (2FA) UPI without dropping the transaction session.
 
-#### 3. Payment Flow (Online & Offline)
+### 2.3 Customer Eligibility & Limits
 
-*   **Initiation:** Customer scans a QR code, selects a contact, or triggers an Intent checkout.
-*   **Validation Rules:** Transaction amount is ≤ ₹200, and sufficient balance exists in the on-device UPI Lite wallet.
-*   **Fallback:** If the amount exceeds ₹200 or Lite balance is insufficient, the app automatically falls back to standard 2FA UPI requiring a PIN.
-*   **1-Click Execution:** The customer taps "Pay". No UPI PIN is required. The app enforces local device security (biometric, pattern, or passcode) prior to payment.
-*   **Consolidated Statement:** To avoid SMS clutter, issuing banks send a single consolidated daily SMS summary detailing total UPI Lite transactions for that day instead of per-transaction SMS alerts.
+- **Maximum Wallet Balance:** Capped at ₹2,000 max stored value.
+- **Top-Up Limits:** Minimum top-up is ₹1, up to the ₹2,000 threshold (preset options: ₹500, ₹1,000, ₹2,000).
+- **Single Active Account:** A customer can maintain only one active UPI Lite wallet across all Payment Service Provider (PSP) apps at a time.
+- **Device Integrity Enforcement:** Activation is strictly blocked on rooted or jailbroken devices.
 
-#### 4. Transfer Out Flow (Partial Withdrawal)
+### 2.4 Technical & Architecture Flow (PSP Level)
 
-*   **Concept:** Allows users to withdraw a portion of their stored UPI Lite balance back into their primary bank account at any time without closing/disabling the UPI Lite account.
-*   **Processing:** Strictly an online credit flow. Because money is returning to the customer's own linked account, no UPI PIN is required.
-*   **Technical Execution:** Utilizes the payment execution infrastructure with Purpose Code 46 (CREDIT transaction type).
+1. **Registration & Key Generation:** The customer app invokes the Common Library (CL) on the device to generate a cryptographic key pair. The PSP calls `ReqListKeys` (type="GetLite") to NPCI, which returns a LITE Reference Number (LRN).
+2. **Top-Up Execution:** Top-ups use `ReqPay` with Purpose Code 41 (Enablement + Add Money) or Purpose Code 71 (AutoPay replenishment). An Authentication Response Cryptogram (ARPC) updates the on-device balance.
+3. **Daily Statements:** Issuing banks send a single consolidated daily SMS summary of UPI Lite debits rather than triggering an SMS per transaction, reducing SMS notification clutter.
 
-#### 5. Disablement (De-registration) Flow
+### 2.5 Edge Cases & Background Sync
 
-*   **Initiation:** The user selects "Disable UPI Lite" in settings. Apps must mandate that the user disables/deregisters UPI Lite prior to uninstalling or unlinking their main bank account from the UPI app.
-*   **Fund Refund:** All residual funds in the Lite wallet are immediately credited back to the parent bank account without requiring a UPI PIN.
-*   **Technical API (ReqPay) With Balance:** App triggers a single ReqPay API with Purpose Code 43 and transaction type CREDIT. This single API call clears the on-device CL balance, notifies the NPCI engine, and credits the bank account.
-*   **Technical API (ReqPay) Zero Balance:** A de-registration notification is sent to unbind the LRN from the device.
+- **Timeout Handling:** If a network failure occurs after a top-up or transaction before the ARPC cryptogram reaches the device, a mandatory 3-minute cooling-off period is enforced before triggering a background sync (capped at 3 attempts/day).
+- **Transaction Lock:** New UPI Lite payments are paused on the device until background synchronization completes. If all attempts fail, the app falls back to standard 2FA UPI.
+- **Device Replacement:** Moving to a new phone requires explicit de-registration (Purpose Code 43) on the old device to credit residual funds back to the linked bank account before setting up a new LRN.
 
-#### 6. Background Sync & Recovery Flows
+## 3. PPI Wallets on UPI (PhonePe, Paytm, Mobikwik, Amazon Pay)
 
-To prevent discrepancies between the local on-device wallet and network ledgers caused by timeouts or app reinstalls, the app must enforce strict background synchronization rules.
+### 3.1 Interoperability Overview
 
-*   **Timeout / Dropout:** Occurs when a Top-Up or Payment succeeds at the bank/Auth Engine, but network loss prevents the ARPC from reaching the phone.
-*   **Cooling Off Period:** The app must wait 3 minutes after a transaction timeout before firing a sync request.
-*   **Attempt Cap:** Max 3 sync attempts per day for any specific stuck transaction.
-*   **Fallback Protocol:** If 3 sync attempts fail, the app flags the transaction as un-synced and falls back to processing transactions via standard 2FA UPI.
-*   **Transaction Blocking:** The app must block any new UPI Lite transactions until background sync completes and the missing ARPC cryptogram is successfully written to the Common Library.
+Under NPCI directives, Prepaid Payment Instruments (PPI)—such as PhonePe Wallet, Paytm Wallet, Mobikwik, and Amazon Pay—are fully interoperable across the UPI ecosystem.
 
-#### 7. Edge Cases: Device Change or Loss
+Customers who hold balances in their preferred wallet can spend those funds at any merchant displaying a Cashfree UPI QR code, POS terminal, or online checkout.
 
-| Scenario | Impact & Required Action |
-| :--- | :--- |
-| **Scenario A: Device Upgrade / Phone Switch** | **Step 1 (Old Phone):** Customer must manually trigger the Disablement Flow to transfer remaining funds back to their bank. <br> **Step 2 (New Phone):** Install the UPI App. Old LITE balances cannot be restored directly from local storage. <br> **Step 3 (Fresh Setup):** Customer performs a brand new registration generating a new LRN and keypair. |
-| **Scenario B: Lost or Damaged Device** | Because the old device cannot be accessed to extract the CL state, balance recovery is handled directly by the Issuing Bank's customer support/reconciliation team. No Payer PSP API calls are involved. |
+> **Key Rule:** Merchants accepting UPI through Cashfree accept interoperable PPI wallets by default. No separate contract or technical integration is required for individual wallet providers.
 
----
+### 3.2 Full-KYC Wallet Capability & Capacity Limits
 
-### PART B: PREPAID PAYMENT INSTRUMENTS (PPI Wallets on UPI)
+To ensure financial regulatory compliance while supporting high Average Order Values (AOV), RBI dictates two distinct wallet tiers.
 
-Prepaid Payment Instruments (PPIs)—such as Paytm Wallet, Mobikwik, Amazon Pay, and PhonePe Wallet—are fully integrated into the UPI ecosystem under NPCI's interoperability directives. This enables users to utilize their pre-funded wallet balances to pay at any merchant accepting UPI, without requiring the merchant to explicitly onboard with each individual wallet provider.
+**KYC Tier Breakdown**
 
-#### 1. Interoperability Architecture & User Onboarding
+<table>
+  <thead>
+    <tr>
+      <th>Wallet Parameter</th>
+      <th>Min-KYC Wallet (Small PPI)</th>
+      <th>Full-KYC Wallet (Upgraded PPI)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Max Balance Limit</td>
+      <td>₹10,000</td>
+      <td>₹2,00,000 (₹2 Lakhs)</td>
+    </tr>
+    <tr>
+      <td>Monthly Loading Cap</td>
+      <td>₹10,000 maximum per month</td>
+      <td>No monthly cap</td>
+    </tr>
+    <tr>
+      <td>UPI Network Interoperability</td>
+      <td>❌ Blocked on cross-network UPI</td>
+      <td>✅ Fully Enabled on Cashfree UPI Checkouts</td>
+    </tr>
+    <tr>
+      <td>Validity</td>
+      <td>Max 24 months (Requires KYC conversion)</td>
+      <td>Unlimited</td>
+    </tr>
+  </tbody>
+</table>
 
-**Regulatory & KYC Prerequisites**
-*   **Full-KYC Mandate:** RBI and NPCI mandate that only Full-KYC PPI accounts can be linked to the UPI network for interoperable payments. Small-value/Min-KYC wallets are strictly excluded from cross-network UPI transactions.
-*   **Device & SIM Binding:** Just like bank-backed UPI handles, linking a PPI wallet to a UPI PSP app requires strict device binding and mobile number verification against the registered wallet phone number.
+```
+[Min-KYC User (Cap ₹10,000)]  ──► Restricted to In-App Wallet Purchases
 
-**User Linking Flow**
-*   **Selection:** The customer selects "Add Wallet / Prepaid Account" inside their UPI PSP App (e.g., Paytm, Mobikwik, BHIM).
-*   **Account Fetching:** The PSP queries the PPI Issuer via NPCI directory services using the user's bound mobile number.
-*   **VPA Mapping:** Upon successful verification, a unique virtual payment handle is associated with the wallet (e.g., user@paytm or user@mobikwik).
-*   **Authentication Setup:** The customer sets or verifies their wallet authorization credentials (wallet passcode, biometric lock, or 2FA PIN depending on issuer setup).
+[Full-KYC User (Cap ₹2 Lakhs)] ──► Fully Interoperable across Cashfree UPI QRs & Checkout
+```
 
-#### 2. Wallet Top-Up (Loading) Rules & Restrictions
+**Impact for High-AOV Merchants:** Because Full-KYC PhonePe and PPI wallet limits expand up to ₹2,00,000 (₹2 Lakhs), customers can seamlessly complete high-value transactions (electronics, ticketing, jewelery, SaaS, e-commerce) using their wallet balance over the UPI network.
 
-To maintain financial system stability and prevent regulatory arbitrage, wallet loading via UPI is strictly regulated:
+### 3.3 Wallet Loading & Funding Restrictions (MCC 6540)
 
-*   **MCC Tagging:** All wallet top-up transactions are classified under MCC 6540 (POI Funding Transactions / Wallet Load).
-*   **RuPay Credit Cards Blocked:** NPCI strictly prohibits loading PPI wallets using RuPay Credit Cards on UPI to prevent un-authorized cash extraction or credit-to-cash laundering.
-*   **Pre-Sanctioned Credit Lines Blocked:** Credit lines cannot be used to load wallets.
-*   **Permitted Sources:** Wallet loads under MCC 6540 can only be funded via Savings Accounts, Current Accounts, or Overdraft Accounts.
-*   **Initiation Flow Restrictions:** Wallet top-ups under MCC 6540 are strictly restricted to Payer-Initiated Intent flows. Dynamic QR and Collect requests are systematically blocked by the NPCI switch for wallet loading.
+To prevent unauthorized credit extractions and regulatory arbitrage, loading money into a PPI wallet via UPI is governed by strict rules:
 
-#### 3. Interoperable P2M Transaction Journey
+- **MCC Tagging:** All top-up transactions are tagged under MCC 6540 (POI Funding Transactions / Wallet Load).
+- **Credit Restrictions:** Loading wallets using RuPay Credit Cards on UPI or Pre-Sanctioned Credit Lines is systematically blocked by the NPCI switch.
+- **Permitted Sources:** Top-ups under MCC 6540 can only be funded using Savings Accounts, Current Accounts, or Overdraft (OD) Accounts via Payer-Initiated Intent flows. Dynamic QR and Collect requests are disabled for wallet loads.
 
-When a customer pays a merchant using their linked PPI Wallet balance:
+### 3.4 Merchant Economics & Interchange Fee Structure
 
-*   **Checkout Initiation:** The customer scans any interoperable merchant UPI QR code (BharatQR / Dynamic QR) or clicks a UPI Intent link on a merchant app/website.
-*   **Instrument Selection:** On the payment screen, the customer selects their PPI Wallet as the preferred funding source instead of their savings bank account.
-*   **Balance Validation:** The Payer PSP verifies that the wallet has sufficient stored balance for the order.
-*   **Authorization:** Depending on the wallet issuer configuration, transactions ≤ ₹2,000 are executed via 1-click biometric/app passcode authentication or wallet PIN. Transactions > ₹2,000 are validated via two-factor authorization required by the issuer.
-*   **Real-time Settlement Signal:** The PPI Issuer debits the wallet ledger, and NPCI routes the success authorization message to Cashfree / Acquiring Bank.
+Standard UPI payments from savings accounts carry a 0% Merchant Discount Rate (MDR). However, interoperable transactions funded via PPI Wallets incur an Interchange Fee paid to the wallet issuer.
 
-#### 4. Interchange Fee Structure & Merchant Economics
+**NPCI Interchange Fee Slabs for PPI Transactions**
 
-Unlike standard savings account UPI transactions (which carry 0% MDR for merchants), PPI interoperable P2M transactions incur an Interchange Fee paid by the acquiring entity/merchant to the wallet issuer to cover credit, fraud, and infrastructure costs.
+<table>
+  <thead>
+    <tr>
+      <th>Category / Sector</th>
+      <th>MCC Scope</th>
+      <th>Order Amount</th>
+      <th>Applicable Interchange Fee</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Standard Retail &amp; E-Commerce</td>
+      <td>5411, 5311, 5651, etc.</td>
+      <td>≤ ₹2,000</td>
+      <td>0.0% (Free)</td>
+    </tr>
+    <tr>
+      <td>Standard Retail &amp; E-Commerce</td>
+      <td>Standard Merchant MCCs</td>
+      <td>&gt; ₹2,000</td>
+      <td>1.1%</td>
+    </tr>
+    <tr>
+      <td>Fuel Stations</td>
+      <td>5541, 5542</td>
+      <td>Any Amount</td>
+      <td>0.5%</td>
+    </tr>
+    <tr>
+      <td>Utilities &amp; Telecom</td>
+      <td>4900, 4814</td>
+      <td>Any Amount</td>
+      <td>0.7%</td>
+    </tr>
+    <tr>
+      <td>Educational Services</td>
+      <td>8211, 8220, 8299</td>
+      <td>Any Amount</td>
+      <td>0.7%</td>
+    </tr>
+    <tr>
+      <td>Agriculture &amp; Mutual Funds</td>
+      <td>0742, 6211 (select)</td>
+      <td>Any Amount</td>
+      <td>0.7%</td>
+    </tr>
+  </tbody>
+</table>
 
-**NPCI Interchange Fee Slabs for PPI Merchant Transactions**
+**Compliance Rules for Merchants**
 
-| Transaction Type / Industry Category | MCC Scope | Transaction Ceiling | Interchange Fee |
-| :--- | :--- | :--- | :--- |
-| Standard Retail & E-Commerce | 5411, 5311, 5651, etc. | ≤ ₹2,000 | 0.0% (Free) |
-| Standard Retail & E-Commerce | Standard Merchant MCCs | > ₹2,000 | 1.1% |
-| Fuel Stations | 5541, 5542 | Any Amount | 0.5% |
-| Utilities & Telecom | 4900, 4814 | Any Amount | 0.7% |
-| Educational Services | 8211, 8220, 8299 | Any Amount | 0.7% |
-| Agriculture & Mutual Funds | 0742, 6211 (select) | Any Amount | 0.7% |
+- **No Surcharging:** Merchants are strictly prohibited from passing interchange fees onto the end customer or applying convenience surcharges for selecting PPI Wallet checkout options.
+- **Commercial Merchants Only (P2M):** Interoperable wallet payments are limited to verified commercial merchants. Peer-to-Peer (P2P) and unverified micro-merchant (P2PM) wallet transfers are blocked at the network level.
 
-**Key Merchant Rules for PPI Acceptance**
-*   **Interoperable Acceptance by Default:** Merchants enabled for dynamic UPI checkouts natively accept wallet-funded payments without extra integration.
-*   **No Consumer Surcharging:** Merchants are strictly prohibited from charging an extra convenience fee or surcharge to customers who choose to checkout using PPI wallets.
-*   **P2P & P2PM Blocked:** Interoperable PPI wallet transactions are restricted to verified commercial merchants (P2M). Peer-to-Peer (P2P) and unverified small merchant (P2PM) transfers via PPI are blocked on the network switch.
+## 4. Post-Transaction Lifecycle & Operations
 
-#### 5. Refunds & Post-Transaction Lifecycle
+### 4.1 Automated Source Refunds
 
-*   **Automated Source Refunds:** When a merchant issues a refund for a PPI-funded transaction, Cashfree and NPCI route the refund strictly back to the originating wallet ID.
-*   **UDIR Framework Integration:** All PPI wallet dispute resolutions, failed transaction reversals, and pending status checks are fully integrated into NPCI's Unified Dispute and Issue Resolution (UDIR) system.
-*   **Wallet Credit Limits:** If a refund causes the customer's monthly wallet holding limit to be exceeded, the PPI issuer holds the refund in a pending staging ledger and notifies the user to upgrade or clear balance per RBI guidelines.
+All refunds initiated via the Cashfree Merchant Dashboard or Refund API are dynamically processed back to the exact payment source:
+
+- **UPI Lite Purchases:** Refunds credit back directly to the primary linked bank account.
+- **PPI Wallet Purchases:** Refunds route directly back to the original PPI Wallet handle (e.g., PhonePe Wallet ID).
+- **Handling Wallet Holding Overflow:** If a refund causes the customer's wallet balance to exceed their monthly statutory holding ceiling, the wallet issuer places the excess funds into a staging ledger and notifies the user to upgrade their KYC or clear existing balances per RBI directives.
+
+### 4.2 Partial Withdrawal (UPI Lite)
+
+Customers holding funds in a UPI Lite wallet can return partial stored balances to their primary bank account at any time using Purpose Code 46 (CREDIT flow). This action requires no UPI PIN verification because funds are returning to the verified source account.
+
+### 4.3 Unified Dispute & Issue Resolution (UDIR)
+
+Both UPI Lite and PPI Wallet payments are deeply integrated into NPCI's UDIR framework. Turnaround times (TAT) for chargeback resolutions, pending status validations, and auto-reversals are automated through Cashfree's dispute management pipeline.
+
+## 5. Integration Checklist for Cashfree Merchants
+
+- [x] **No Code Changes Required:** Existing Cashfree Payment Gateway (PG), Dynamic QR, and Intent integrations accept UPI Lite and PPI Wallets by default.
+- [x] **Update Checkout Terms:** Ensure no additional surcharges are configured for customers paying via PPI Wallets.
+- [x] **Accounting & Settlement Preparedness:** Ensure your financial reconciliation systems account for standard 1.1% interchange pricing on standard e-commerce orders > ₹2,000 funded via PPI Wallets.
+- [x] **Refund Flow Readiness:** Standard Cashfree Refund APIs support automatic routing to both UPI Lite primary bank accounts and Full-KYC PhonePe/PPI Wallets.
