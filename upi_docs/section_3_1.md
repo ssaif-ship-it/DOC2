@@ -37,7 +37,7 @@ The table below acts as your master reference for daily transaction limits and f
       </tr>
       <tr class="bg-gray-50 border-b hover:bg-gray-100">
         <td class="px-6 py-4 font-medium text-gray-900 border border-gray-200">MCC 5413 (Credit Card Bill Payments), 5412 (Purchase of digital gold)</td>
-        <td class="px-6 py-4 border border-gray-200">Completely blocked for collect payments</td>
+        <td class="px-6 py-4 border border-gray-200">5,00,000</td>
       </tr>
       <tr class="bg-white border-b hover:bg-gray-50">
         <td class="px-6 py-4 font-medium text-gray-900 border border-gray-200">MCCs 6513 (Rent), 6540 (Wallet Load), and 5816 (Digital Gaming)</td>
