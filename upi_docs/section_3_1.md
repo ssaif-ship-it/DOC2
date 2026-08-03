@@ -15,9 +15,6 @@ By default, the standard retail limit for a P2M (Person-to-Merchant) transaction
 The table below acts as your master reference for daily transaction limits and flow blocks enforced by the NPCI switch, based on your merchant category:
 
 
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
