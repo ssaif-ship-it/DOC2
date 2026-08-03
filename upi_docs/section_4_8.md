@@ -1,3 +1,21 @@
+# Recurring Mandate Execution & MCC Rule Matrix
+
+This guide defines the integration parameters, maximum registration caps, and Additional Factor of Authentication (AFA) exemption limits for recurring payment mandates (Card SI, UPI AutoPay, and NACH e-mandates). System validation logic is driven dynamically by your assigned Merchant Category Code (MCC).
+
+## 1. Key Terminology & Mechanics
+
+### Max Creation Limit (Registration Cap)
+The maximum upper bound allowed when registering a mandate. The merchant can never execute a debit that exceeds the registered Creation Limit on any billing cycle.
+
+### Billing Frequency Types
+* **As Presented (Ad-Hoc / Variable):** Debits are triggered on demand whenever an invoice is generated (e.g., utility bills, credit card statements). Because billing dates and amounts vary, stricter creation caps apply.
+* **All Others (Fixed / Periodic):** Predefined recurring intervals (e.g., Daily, Monthly, Half-Yearly, Yearly). Higher creation limits are permitted due to the predictable billing cadence.
+
+### AFA Exemption Threshold
+The monetary ceiling up to which recurring auto-debits process silently in the background without requiring user OTP/PIN verification:
+* **Transaction ≤ AFA Threshold:** Processed seamlessly via automated clearing (subject to mandatory pre-debit notifications).
+* **Transaction > AFA Threshold:** Fails auto-debit or requires a mandatory step-up authentication flow (SMS/Email payment link with OTP) prior to debit execution.
+
 <table>
   <thead>
     <tr>
