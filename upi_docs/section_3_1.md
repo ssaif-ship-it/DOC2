@@ -14,6 +14,10 @@ By default, the standard retail limit for a P2M (Person-to-Merchant) transaction
 
 The table below acts as your master reference for daily transaction limits and flow blocks enforced by the NPCI switch, based on your merchant category:
 
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -329,5 +333,9 @@ The table below acts as your master reference for daily transaction limits and f
 
 </body>
 </html>
+
+
+
+
 
 > **Note:** While the NPCI sets the maximum ceilings above, individual **Remitter Banks** reserve the right to set *lower* internal limits based on their own risk policies (e.g., a specific bank might cap daily UPI spends at ₹50,000 regardless of your MCC).
