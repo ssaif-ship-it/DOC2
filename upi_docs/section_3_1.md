@@ -14,43 +14,131 @@ By default, the standard retail limit for a P2M (Person-to-Merchant) transaction
 
 The table below acts as your master reference for daily transaction limits and flow blocks enforced by the NPCI switch, based on your merchant category:
 
-| Merchant Group | MCC Code | Description | Daily Limit |
-|---|---|---|---|
-| Standard Default | P2P | Person-to-Person Transfers | ₹100,000 |
-| Standard Default | RETAIL | Local Merchant & Grocery Stores | ₹100,000 |
-| Standard Default | ECOM | E-Commerce & Online Spends | ₹100,000 |
-| Standard Default | FOOD | Restaurants & Dining | ₹100,000 |
-| Standard Default | UTIL | Utility Bills & Recharges | ₹100,000 |
-| Standard Default | ALL | All Other Unspecified MCC Codes | ₹100,000 |
-| Medical & Healthcare | 8062 | Hospitals | ₹500,000 |
-| Medical & Healthcare | 8011 | Doctors & Physicians | ₹500,000 |
-| Medical & Healthcare | 8021 | Dentists | ₹500,000 |
-| Medical & Healthcare | 8071 | Medical & Dental Labs | ₹500,000 |
-| Medical & Healthcare | 8050 | Nursing Care | ₹500,000 |
-| Medical & Healthcare | 8042 | Optometrists | ₹500,000 |
-| Medical & Healthcare | 8031 | Osteopaths | ₹500,000 |
-| Medical & Healthcare | 8041 | Chiropractors | ₹500,000 |
-| Medical & Healthcare | 8049 | Podiatrists | ₹500,000 |
-| Medical & Healthcare | 8099 | Other Medical Services | ₹500,000 |
-| Medical & Healthcare | 0742 | Veterinary Services | ₹500,000 |
-| Education | 8211 | Schools (Elementary & Secondary) | ₹500,000 |
-| Education | 8220 | Colleges & Universities | ₹500,000 |
-| Education | 8249 | Vocational & Trade Schools | ₹500,000 |
-| Education | 8244 | Business Schools | ₹500,000 |
-| Education | 8241 | Correspondence Schools | ₹500,000 |
-| Education | 8299 | Educational Services | ₹500,000 |
-| Financial, Credit & Insurance | 5413 | Credit Card Bill Payments | ₹500,000 |
-| Financial, Credit & Insurance | 6300 | Insurance Underwriting & Premiums | ₹500,000 |
-| Financial, Credit & Insurance | 6529 | LIC Payments | ₹500,000 |
-| Financial, Credit & Insurance | 6211 | Securities Brokers & Dealers | ₹500,000 |
-| Financial, Credit & Insurance | 6012 | Financial Institutions | ₹500,000 |
-| Financial, Credit & Insurance | 5960 | Direct Marketing Insurance | ₹500,000 |
-| Financial, Credit & Insurance | 7322 | Debt Collection Agencies | ₹500,000 |
-| Financial, Credit & Insurance | 7410 | Digital Banking Services | ₹500,000 |
-| Government, Travel & Public Services | 9311 | Tax Payments | ₹500,000 |
-| Government, Travel & Public Services | 4722 | Travel Agencies & Tour Operators | ₹500,000 |
-| Retail Luxury & Digital KYC | 5944 | Jewellery, Watch & Silverware Shops | ₹200,000 |
-| Retail Luxury & Digital KYC | 7409 | Digital Account Opening | ₹200,000 |
+<div class="upi-table-wrapper" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #222; max-width: 100%; margin: 20px 0;">
+  <style>
+    .upi-limits-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .upi-limits-table th, 
+    .upi-limits-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #e0e0e0;
+      vertical-align: middle;
+    }
+    .upi-limits-table th {
+      background-color: #f5f7fa;
+      color: #333;
+      font-weight: 600;
+      border-bottom: 2px solid #ccc;
+    }
+    .upi-limits-table tr:hover {
+      background-color: #f9fbfd;
+    }
+    .mcc-code {
+      font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 13px;
+      color: #444;
+    }
+    .tier-badge {
+      font-weight: 600;
+      color: #1a73e8;
+    }
+    .limit-amount {
+      font-weight: 700;
+      color: #0f9d58;
+      white-space: nowrap;
+    }
+    .upi-constraints {
+      margin-top: 24px;
+      padding: 16px;
+      background-color: #f8f9fa;
+      border-left: 4px solid #1a73e8;
+      border-radius: 0 4px 4px 0;
+    }
+    .upi-constraints h4 {
+      margin: 0 0 10px 0;
+      font-size: 16px;
+      color: #1a73e8;
+    }
+    .upi-constraints ul {
+      margin: 0;
+      padding-left: 20px;
+      font-size: 14px;
+    }
+    .upi-constraints li {
+      margin-bottom: 8px;
+    }
+    .upi-constraints li:last-child {
+      margin-bottom: 0;
+    }
+  </style>
+
+  <table class="upi-limits-table">
+    <thead>
+      <tr>
+        <th>Limit Tier</th>
+        <th>Sector / Category</th>
+        <th>Covered Services</th>
+        <th>Associated MCC Codes</th>
+        <th>Daily Limit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td rowspan="4" class="tier-badge">High Ceiling Tier</td>
+        <td><strong>Medical &amp; Healthcare</strong></td>
+        <td>Hospitals, Doctors, Dentists, Labs, Nursing, Optometrists, Vets</td>
+        <td class="mcc-code">0742, 8011, 8021, 8031, 8041, 8042, 8049, 8050, 8062, 8071, 8099</td>
+        <td class="limit-amount">₹500,000</td>
+      </tr>
+      <tr>
+        <td><strong>Education</strong></td>
+        <td>Schools, Colleges, Universities, Vocational, Business, Services</td>
+        <td class="mcc-code">8211, 8220, 8241, 8244, 8249, 8299</td>
+        <td class="limit-amount">₹500,000</td>
+      </tr>
+      <tr>
+        <td><strong>Financial &amp; Insurance</strong></td>
+        <td>Credit Cards, Insurance, Securities, LIC, Banking, Debt Collection</td>
+        <td class="mcc-code">5413, 5960, 6012, 6211, 6300, 6529, 7322, 7410</td>
+        <td class="limit-amount">₹500,000</td>
+      </tr>
+      <tr>
+        <td><strong>Government &amp; Travel</strong></td>
+        <td>Taxes, Travel Agencies, Tour Operators</td>
+        <td class="mcc-code">4722, 9311</td>
+        <td class="limit-amount">₹500,000</td>
+      </tr>
+      <tr>
+        <td class="tier-badge">Intermediate Tier</td>
+        <td><strong>Retail Luxury &amp; KYC</strong></td>
+        <td>Jewellery, Watches, Silverware, Digital Account Opening</td>
+        <td class="mcc-code">5944, 7409</td>
+        <td class="limit-amount">₹200,000</td>
+      </tr>
+      <tr>
+        <td class="tier-badge">Standard Baseline</td>
+        <td><strong>General Retail &amp; P2P</strong></td>
+        <td>P2P Transfers, Grocery, E-Commerce, Dining, Utilities, All Unspecified</td>
+        <td class="mcc-code">P2P, RETAIL, ECOM, FOOD, UTIL, ALL</td>
+        <td class="limit-amount">₹100,000</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="upi-constraints">
+    <h4>Key Merchant &amp; User Velocity Constraints</h4>
+    <ul>
+      <li><strong>24-Hour Security Cap:</strong> Profile updates (new registration, device binding, or UPI PIN reset) cap transactions at <strong>₹5,000 total</strong> for the first 24 hours.</li>
+      <li><strong>Volume Cap:</strong> Standard Default merchants (₹100k tier) are subject to a maximum <strong>20 transactions daily</strong> per rolling 24 hours.</li>
+      <li><strong>Bank-Level Overrides:</strong> Remitter banks reserve authority to apply lower internal spending limits (e.g., ₹50,000 daily) regardless of category cap allowance.</li>
+    </ul>
+  </div>
+</div>
 
 > **Note:** The Standard Default tier is additionally subject to a 20-transaction daily limit per rolling 24 hours, and the ₹5,000 new-user cap described above still applies within its 24-hour window regardless of MCC.
 
