@@ -1,4 +1,75 @@
-# Getting Started from Zero: Complete Merchant Onboarding Guide
+## Product Comparison at a Glance
+
+<div class="upi-product-table" style="overflow-x:auto; border:1px solid #E5E7EB; border-radius:0.5rem; box-shadow:0 1px 2px rgba(0,0,0,0.05); margin:1.5rem 0;">
+<style>
+.upi-product-table table { width:100%; font-size:14px; text-align:left; border-collapse:collapse; }
+.upi-product-table thead th { background:#F4F0FA; color:#5A28A3; font-weight:600; padding:12px 16px; }
+.upi-product-table tbody td { padding:12px 16px; border-top:1px solid #E5E7EB; color:#4B5563; }
+.upi-product-table tbody tr:hover td { background:#F9FAFB; }
+.upi-product-table .badge { display:inline-block; padding:2px 10px; border-radius:9999px; font-size:12px; font-weight:500; }
+</style>
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Best for</th>
+      <th>Integration effort</th>
+      <th>Customer action</th>
+      <th>Where</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="font-weight:600;color:#111827;">UPI Intent</td>
+      <td>Mobile app/web checkout</td>
+      <td><span class="badge" style="background:#EFF6FF;color:#1D4ED8;">Low (API)</span></td>
+      <td>Tap app → PIN</td>
+      <td><span class="badge" style="background:#EEF2FF;color:#4338CA;">Online</span></td>
+    </tr>
+    <tr>
+      <td style="font-weight:600;color:#111827;">UPI Collect</td>
+      <td>Desktop web, known VPA</td>
+      <td><span class="badge" style="background:#EFF6FF;color:#1D4ED8;">Low (API)</span></td>
+      <td>Type VPA → approve in app</td>
+      <td><span class="badge" style="background:#EEF2FF;color:#4338CA;">Online</span></td>
+    </tr>
+    <tr>
+      <td style="font-weight:600;color:#111827;">Flash UPI</td>
+      <td>High-volume repeat apps</td>
+      <td><span class="badge" style="background:#FFFBEB;color:#B45309;">Medium (SDK)</span></td>
+      <td>PIN only (no app switch)</td>
+      <td><span class="badge" style="background:#EEF2FF;color:#4338CA;">Online (in-app)</span></td>
+    </tr>
+    <tr>
+      <td style="font-weight:600;color:#111827;">Static QR</td>
+      <td>Physical stores, no-tech</td>
+      <td><span class="badge" style="background:#F0FDF4;color:#15803D;">Zero (print QR)</span></td>
+      <td>Scan → type amount → PIN</td>
+      <td><span class="badge" style="background:#F3F4F6;color:#374151;">Offline</span></td>
+    </tr>
+    <tr>
+      <td style="font-weight:600;color:#111827;">Dynamic QR</td>
+      <td>Delivery, desktop, invoices</td>
+      <td><span class="badge" style="background:#FFFBEB;color:#B45309;">Medium (API)</span></td>
+      <td>Scan → PIN (amount pre-filled)</td>
+      <td><span class="badge" style="background:#F0FDFA;color:#0F766E;">Offline/Online</span></td>
+    </tr>
+    <tr>
+      <td style="font-weight:600;color:#111827;">SoftPOS</td>
+      <td>Field agents, delivery, retail</td>
+      <td><span class="badge" style="background:#EFF6FF;color:#1D4ED8;">Low (app install)</span></td>
+      <td>Scan QR / Tap card / Pay link</td>
+      <td><span class="badge" style="background:#F3F4F6;color:#374151;">Offline</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+
+## Getting Started from Zero: Complete Merchant Onboarding Guide
 
 ---
 
