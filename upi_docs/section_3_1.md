@@ -14,292 +14,44 @@ By default, the standard retail limit for a P2M (Person-to-Merchant) transaction
 
 The table below acts as your master reference for daily transaction limits and flow blocks enforced by the NPCI switch, based on your merchant category:
 
-<style>
-.upi-dashboard {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background-color: #0f172a;
-    color: #f8fafc;
-    padding: 30px 20px;
-    border-radius: 12px;
-    margin: 20px 0;
-}
+| Merchant Group | MCC Code | Description | Daily Limit |
+|---|---|---|---|
+| Standard Default | P2P | Person-to-Person Transfers | ₹100,000 |
+| Standard Default | RETAIL | Local Merchant & Grocery Stores | ₹100,000 |
+| Standard Default | ECOM | E-Commerce & Online Spends | ₹100,000 |
+| Standard Default | FOOD | Restaurants & Dining | ₹100,000 |
+| Standard Default | UTIL | Utility Bills & Recharges | ₹100,000 |
+| Standard Default | ALL | All Other Unspecified MCC Codes | ₹100,000 |
+| Medical & Healthcare | 8062 | Hospitals | ₹500,000 |
+| Medical & Healthcare | 8011 | Doctors & Physicians | ₹500,000 |
+| Medical & Healthcare | 8021 | Dentists | ₹500,000 |
+| Medical & Healthcare | 8071 | Medical & Dental Labs | ₹500,000 |
+| Medical & Healthcare | 8050 | Nursing Care | ₹500,000 |
+| Medical & Healthcare | 8042 | Optometrists | ₹500,000 |
+| Medical & Healthcare | 8031 | Osteopaths | ₹500,000 |
+| Medical & Healthcare | 8041 | Chiropractors | ₹500,000 |
+| Medical & Healthcare | 8049 | Podiatrists | ₹500,000 |
+| Medical & Healthcare | 8099 | Other Medical Services | ₹500,000 |
+| Medical & Healthcare | 0742 | Veterinary Services | ₹500,000 |
+| Education | 8211 | Schools (Elementary & Secondary) | ₹500,000 |
+| Education | 8220 | Colleges & Universities | ₹500,000 |
+| Education | 8249 | Vocational & Trade Schools | ₹500,000 |
+| Education | 8244 | Business Schools | ₹500,000 |
+| Education | 8241 | Correspondence Schools | ₹500,000 |
+| Education | 8299 | Educational Services | ₹500,000 |
+| Financial, Credit & Insurance | 5413 | Credit Card Bill Payments | ₹500,000 |
+| Financial, Credit & Insurance | 6300 | Insurance Underwriting & Premiums | ₹500,000 |
+| Financial, Credit & Insurance | 6529 | LIC Payments | ₹500,000 |
+| Financial, Credit & Insurance | 6211 | Securities Brokers & Dealers | ₹500,000 |
+| Financial, Credit & Insurance | 6012 | Financial Institutions | ₹500,000 |
+| Financial, Credit & Insurance | 5960 | Direct Marketing Insurance | ₹500,000 |
+| Financial, Credit & Insurance | 7322 | Debt Collection Agencies | ₹500,000 |
+| Financial, Credit & Insurance | 7410 | Digital Banking Services | ₹500,000 |
+| Government, Travel & Public Services | 9311 | Tax Payments | ₹500,000 |
+| Government, Travel & Public Services | 4722 | Travel Agencies & Tour Operators | ₹500,000 |
+| Retail Luxury & Digital KYC | 5944 | Jewellery, Watch & Silverware Shops | ₹200,000 |
+| Retail Luxury & Digital KYC | 7409 | Digital Account Opening | ₹200,000 |
 
-.upi-dashboard .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-    margin-bottom: 24px;
-}
-
-.upi-dashboard .stat-card {
-    background: #1e293b;
-    border: 1px solid #334155;
-    border-radius: 12px;
-    padding: 16px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-.upi-dashboard .stat-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-weight: bold;
-    flex-shrink: 0;
-}
-
-.upi-dashboard .stat-icon.green { background: rgba(16, 185, 129, 0.15); color: #10b981; }
-.upi-dashboard .stat-icon.amber { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
-.upi-dashboard .stat-icon.blue { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
-
-.upi-dashboard .stat-info h3 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 700;
-}
-
-.upi-dashboard .stat-info p {
-    margin: 2px 0 0 0;
-    font-size: 12px;
-    color: #94a3b8;
-}
-
-.upi-dashboard .category-card {
-    background: #1e293b;
-    border: 1px solid #334155;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 16px;
-}
-
-.upi-dashboard .category-card.default-tier {
-    border: 1px solid rgba(56, 189, 248, 0.4);
-    background: linear-gradient(180deg, rgba(30, 41, 59, 1) 0%, rgba(15, 23, 42, 0.8) 100%);
-}
-
-.upi-dashboard .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #334155;
-    padding-bottom: 12px;
-    margin-bottom: 14px;
-}
-
-.upi-dashboard .card-title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.upi-dashboard .card-title h2 {
-    margin: 0;
-    font-size: 16px;
-    color: #f8fafc;
-}
-
-.upi-dashboard .badge-count {
-    background: #334155;
-    color: #94a3b8;
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 12px;
-}
-
-.upi-dashboard .limit-badge {
-    font-size: 14px;
-    font-weight: 700;
-    padding: 4px 12px;
-    border-radius: 16px;
-}
-
-.upi-dashboard .limit-500k {
-    background: rgba(16, 185, 129, 0.15);
-    color: #10b981;
-    border: 1px solid rgba(16, 185, 129, 0.3);
-}
-
-.upi-dashboard .limit-200k {
-    background: rgba(245, 158, 11, 0.15);
-    color: #f59e0b;
-    border: 1px solid rgba(245, 158, 11, 0.3);
-}
-
-.upi-dashboard .limit-100k {
-    background: rgba(56, 189, 248, 0.15);
-    color: #38bdf8;
-    border: 1px solid rgba(56, 189, 248, 0.3);
-}
-
-.upi-dashboard .mcc-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.upi-dashboard .mcc-tag {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid #334155;
-    padding: 5px 10px;
-    border-radius: 6px;
-    font-size: 12px;
-    color: #cbd5e1;
-}
-
-.upi-dashboard .mcc-tag span {
-    color: #64748b;
-    font-weight: 600;
-    margin-right: 4px;
-}
-
-.upi-dashboard .rule-note {
-    margin-top: 10px;
-    font-size: 12px;
-    color: #94a3b8;
-    line-height: 1.4;
-}
-</style>
-
-<div class="upi-dashboard">
-    <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-icon blue">₹</div>
-            <div class="stat-info">
-                <h3>₹100,000</h3>
-                <p>Standard Baseline Cap</p>
-            </div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-icon amber">₹</div>
-            <div class="stat-info">
-                <h3>₹200,000</h3>
-                <p>Capped Specialty Tier</p>
-            </div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-icon green">₹</div>
-            <div class="stat-info">
-                <h3>₹500,000</h3>
-                <p>High-Value Exempt Tier</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="category-card default-tier">
-        <div class="card-header">
-            <div class="card-title">
-                <h2>Standard Default Tier (Every Other Payment)</h2>
-                <span class="badge-count" style="background: rgba(56,189,248,0.2); color: #38bdf8;">Standard Baseline</span>
-            </div>
-            <span class="limit-badge limit-100k">₹100,000 / day</span>
-        </div>
-        <div class="mcc-tags">
-            <div class="mcc-tag"><span>P2P</span> Person-to-Person Transfers</div>
-            <div class="mcc-tag"><span>RETAIL</span> Local Merchant & Grocery Stores</div>
-            <div class="mcc-tag"><span>ECOM</span> E-Commerce & Online Spends</div>
-            <div class="mcc-tag"><span>FOOD</span> Restaurants & Dining</div>
-            <div class="mcc-tag"><span>UTIL</span> Utility Bills & Recharges</div>
-            <div class="mcc-tag"><span>ALL</span> All Other Unspecified MCC Codes</div>
-        </div>
-        <div class="rule-note">
-            ⚡ <strong>Note:</strong> Subject to a 20-transaction daily limit per rolling 24 hours. Individual bank caps or new account 24-hr restrictions (₹5,000) apply.
-        </div>
-    </div>
-
-    <div class="category-card">
-        <div class="card-header">
-            <div class="card-title">
-                <h2>Medical & Healthcare</h2>
-                <span class="badge-count">11 MCCs</span>
-            </div>
-            <span class="limit-badge limit-500k">₹500,000</span>
-        </div>
-        <div class="mcc-tags">
-            <div class="mcc-tag"><span>8062</span> Hospitals</div>
-            <div class="mcc-tag"><span>8011</span> Doctors & Physicians</div>
-            <div class="mcc-tag"><span>8021</span> Dentists</div>
-            <div class="mcc-tag"><span>8071</span> Medical & Dental Labs</div>
-            <div class="mcc-tag"><span>8050</span> Nursing Care</div>
-            <div class="mcc-tag"><span>8042</span> Optometrists</div>
-            <div class="mcc-tag"><span>8031</span> Osteopaths</div>
-            <div class="mcc-tag"><span>8041</span> Chiropractors</div>
-            <div class="mcc-tag"><span>8049</span> Podiatrists</div>
-            <div class="mcc-tag"><span>8099</span> Other Medical Services</div>
-            <div class="mcc-tag"><span>0742</span> Veterinary Services</div>
-        </div>
-    </div>
-
-    <div class="category-card">
-        <div class="card-header">
-            <div class="card-title">
-                <h2>Education & Academic Institutions</h2>
-                <span class="badge-count">6 MCCs</span>
-            </div>
-            <span class="limit-badge limit-500k">₹500,000</span>
-        </div>
-        <div class="mcc-tags">
-            <div class="mcc-tag"><span>8211</span> Schools (Elementary & Secondary)</div>
-            <div class="mcc-tag"><span>8220</span> Colleges & Universities</div>
-            <div class="mcc-tag"><span>8249</span> Vocational & Trade Schools</div>
-            <div class="mcc-tag"><span>8244</span> Business Schools</div>
-            <div class="mcc-tag"><span>8241</span> Correspondence Schools</div>
-            <div class="mcc-tag"><span>8299</span> Educational Services</div>
-        </div>
-    </div>
-
-    <div class="category-card">
-        <div class="card-header">
-            <div class="card-title">
-                <h2>Financial Services, Credit & Insurance</h2>
-                <span class="badge-count">8 MCCs</span>
-            </div>
-            <span class="limit-badge limit-500k">₹500,000</span>
-        </div>
-        <div class="mcc-tags">
-            <div class="mcc-tag"><span>5413</span> Credit Card Bill Payments</div>
-            <div class="mcc-tag"><span>6300</span> Insurance Underwriting & Premiums</div>
-            <div class="mcc-tag"><span>6529</span> LIC Payments</div>
-            <div class="mcc-tag"><span>6211</span> Securities Brokers & Dealers</div>
-            <div class="mcc-tag"><span>6012</span> Financial Institutions</div>
-            <div class="mcc-tag"><span>5960</span> Direct Marketing Insurance</div>
-            <div class="mcc-tag"><span>7322</span> Debt Collection Agencies</div>
-            <div class="mcc-tag"><span>7410</span> Digital Banking Services</div>
-        </div>
-    </div>
-
-    <div class="category-card">
-        <div class="card-header">
-            <div class="card-title">
-                <h2>Government, Travel & Public Services</h2>
-                <span class="badge-count">2 MCCs</span>
-            </div>
-            <span class="limit-badge limit-500k">₹500,000</span>
-        </div>
-        <div class="mcc-tags">
-            <div class="mcc-tag"><span>9311</span> Tax Payments</div>
-            <div class="mcc-tag"><span>4722</span> Travel Agencies & Tour Operators</div>
-        </div>
-    </div>
-
-    <div class="category-card">
-        <div class="card-header">
-            <div class="card-title">
-                <h2>Retail Luxury & Digital KYC</h2>
-                <span class="badge-count">2 MCCs</span>
-            </div>
-            <span class="limit-badge limit-200k">₹200,000</span>
-        </div>
-        <div class="mcc-tags">
-            <div class="mcc-tag"><span>5944</span> Jewellery, Watch & Silverware Shops</div>
-            <div class="mcc-tag"><span>7409</span> Digital Account Opening</div>
-        </div>
-    </div>
-
-</div>
+> **Note:** The Standard Default tier is additionally subject to a 20-transaction daily limit per rolling 24 hours, and the ₹5,000 new-user cap described above still applies within its 24-hour window regardless of MCC.
 
 > **Note:** While the NPCI sets the maximum ceilings above, individual **Remitter Banks** reserve the right to set *lower* internal limits based on their own risk policies (e.g., a specific bank might cap daily UPI spends at ₹50,000 regardless of your MCC).
