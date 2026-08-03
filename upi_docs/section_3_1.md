@@ -14,176 +14,156 @@ By default, the standard retail limit for a P2M (Person-to-Merchant) transaction
 
 The table below acts as your master reference for daily transaction limits and flow blocks enforced by the NPCI switch, based on your merchant category:
 
+<style>
+.upi-dashboard {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #0f172a;
+    color: #f8fafc;
+    padding: 30px 20px;
+    border-radius: 12px;
+    margin: 20px 0;
+}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UPI Transaction Limits & Category Dashboard</title>
-    <style>
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --accent-green: #10b981;
-            --accent-blue: #38bdf8;
-            --accent-amber: #f59e0b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-color: #334155;
-        }
+.upi-dashboard .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
 
-        .upi-dashboard {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            padding: 30px 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-        }
+.upi-dashboard .stat-card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
 
-        .upi-dashboard .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 16px;
-            margin-bottom: 24px;
-        }
+.upi-dashboard .stat-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
 
-        .upi-dashboard .stat-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
+.upi-dashboard .stat-icon.green { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+.upi-dashboard .stat-icon.amber { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+.upi-dashboard .stat-icon.blue { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
 
-        .upi-dashboard .stat-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
+.upi-dashboard .stat-info h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+}
 
-        .upi-dashboard .stat-icon.green { background: rgba(16, 185, 129, 0.15); color: var(--accent-green); }
-        .upi-dashboard .stat-icon.amber { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
-        .upi-dashboard .stat-icon.blue { background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); }
+.upi-dashboard .stat-info p {
+    margin: 2px 0 0 0;
+    font-size: 12px;
+    color: #94a3b8;
+}
 
-        .upi-dashboard .stat-info h3 {
-            margin: 0;
-            font-size: 18px;
-            font-weight: 700;
-        }
+.upi-dashboard .category-card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+}
 
-        .upi-dashboard .stat-info p {
-            margin: 2px 0 0 0;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
+.upi-dashboard .category-card.default-tier {
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    background: linear-gradient(180deg, rgba(30, 41, 59, 1) 0%, rgba(15, 23, 42, 0.8) 100%);
+}
 
-        .upi-dashboard .category-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 16px;
-        }
+.upi-dashboard .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #334155;
+    padding-bottom: 12px;
+    margin-bottom: 14px;
+}
 
-        .upi-dashboard .category-card.default-tier {
-            border: 1px solid rgba(56, 189, 248, 0.4);
-            background: linear-gradient(180deg, rgba(30, 41, 59, 1) 0%, rgba(15, 23, 42, 0.8) 100%);
-        }
+.upi-dashboard .card-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
-        .upi-dashboard .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 12px;
-            margin-bottom: 14px;
-        }
+.upi-dashboard .card-title h2 {
+    margin: 0;
+    font-size: 16px;
+    color: #f8fafc;
+}
 
-        .upi-dashboard .card-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+.upi-dashboard .badge-count {
+    background: #334155;
+    color: #94a3b8;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
 
-        .upi-dashboard .card-title h2 {
-            margin: 0;
-            font-size: 16px;
-            color: var(--text-main);
-        }
+.upi-dashboard .limit-badge {
+    font-size: 14px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 16px;
+}
 
-        .upi-dashboard .badge-count {
-            background: #334155;
-            color: var(--text-muted);
-            font-size: 11px;
-            padding: 2px 8px;
-            border-radius: 12px;
-        }
+.upi-dashboard .limit-500k {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
 
-        .upi-dashboard .limit-badge {
-            font-size: 14px;
-            font-weight: 700;
-            padding: 4px 12px;
-            border-radius: 16px;
-        }
+.upi-dashboard .limit-200k {
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
 
-        .upi-dashboard .limit-500k {
-            background: rgba(16, 185, 129, 0.15);
-            color: var(--accent-green);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
+.upi-dashboard .limit-100k {
+    background: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+}
 
-        .upi-dashboard .limit-200k {
-            background: rgba(245, 158, 11, 0.15);
-            color: var(--accent-amber);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-        }
+.upi-dashboard .mcc-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
 
-        .upi-dashboard .limit-100k {
-            background: rgba(56, 189, 248, 0.15);
-            color: var(--accent-blue);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-        }
+.upi-dashboard .mcc-tag {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid #334155;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #cbd5e1;
+}
 
-        .upi-dashboard .mcc-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
+.upi-dashboard .mcc-tag span {
+    color: #64748b;
+    font-weight: 600;
+    margin-right: 4px;
+}
 
-        .upi-dashboard .mcc-tag {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border-color);
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 12px;
-            color: #cbd5e1;
-        }
-
-        .upi-dashboard .mcc-tag span {
-            color: #64748b;
-            font-weight: 600;
-            margin-right: 4px;
-        }
-
-        .upi-dashboard .rule-note {
-            margin-top: 10px;
-            font-size: 12px;
-            color: var(--text-muted);
-            line-height: 1.4;
-        }
-    </style>
-</head>
-<body>
+.upi-dashboard .rule-note {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #94a3b8;
+    line-height: 1.4;
+}
+</style>
 
 <div class="upi-dashboard">
     <div class="stats-grid">
@@ -210,12 +190,11 @@ The table below acts as your master reference for daily transaction limits and f
         </div>
     </div>
 
-    <!-- Default Tier -->
     <div class="category-card default-tier">
         <div class="card-header">
             <div class="card-title">
                 <h2>Standard Default Tier (Every Other Payment)</h2>
-                <span class="badge-count" style="background: rgba(56,189,248,0.2); color: var(--accent-blue);">Standard Baseline</span>
+                <span class="badge-count" style="background: rgba(56,189,248,0.2); color: #38bdf8;">Standard Baseline</span>
             </div>
             <span class="limit-badge limit-100k">₹100,000 / day</span>
         </div>
@@ -232,7 +211,6 @@ The table below acts as your master reference for daily transaction limits and f
         </div>
     </div>
 
-    <!-- Medical & Healthcare -->
     <div class="category-card">
         <div class="card-header">
             <div class="card-title">
@@ -256,7 +234,6 @@ The table below acts as your master reference for daily transaction limits and f
         </div>
     </div>
 
-    <!-- Education -->
     <div class="category-card">
         <div class="card-header">
             <div class="card-title">
@@ -275,7 +252,6 @@ The table below acts as your master reference for daily transaction limits and f
         </div>
     </div>
 
-    <!-- Financial & Insurance -->
     <div class="category-card">
         <div class="card-header">
             <div class="card-title">
@@ -296,7 +272,6 @@ The table below acts as your master reference for daily transaction limits and f
         </div>
     </div>
 
-    <!-- Government & Travel -->
     <div class="category-card">
         <div class="card-header">
             <div class="card-title">
@@ -311,7 +286,6 @@ The table below acts as your master reference for daily transaction limits and f
         </div>
     </div>
 
-    <!-- Retail Luxury & Digital KYC -->
     <div class="category-card">
         <div class="card-header">
             <div class="card-title">
@@ -327,12 +301,5 @@ The table below acts as your master reference for daily transaction limits and f
     </div>
 
 </div>
-
-</body>
-</html>
-
-
-
-
 
 > **Note:** While the NPCI sets the maximum ceilings above, individual **Remitter Banks** reserve the right to set *lower* internal limits based on their own risk policies (e.g., a specific bank might cap daily UPI spends at ₹50,000 regardless of your MCC).
