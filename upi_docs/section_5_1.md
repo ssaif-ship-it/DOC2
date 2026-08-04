@@ -130,13 +130,137 @@ When you see terms like T+1, the "T" stands for the Transaction Date, and the "+
 
 Here is how that timeline plays out in practice based on different transaction days:
 
-| Settlement Type | Transaction Time | Payout Time | The Logic |
-| :--- | :--- | :--- | :--- |
-| **Standard (T+1)** | Thursday at 4:00 PM | Friday afternoon | A normal weekday transaction clears on the next consecutive business day. |
-| **Weekend (T+1)** | Friday at 6:00 PM | Monday afternoon | The "+1" day lands on Saturday. Because banks are closed on weekends, it rolls to Monday. |
-| **Holiday Conflict** | Friday at 6:00 PM | Tuesday afternoon | If Monday happens to be a bank holiday, the payout rolls forward again to Tuesday. |
-| **Instant (T+0)** | Any day, any time | Instantly | Uses IMPS or UPI networks, which run 24/7/365. Bank holidays and weekends do not matter. |
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settlement Table</title>
+<style>
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    padding: 20px;
+    background-color: #ffffff;
+  }
 
+  .table-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    border: 1px solid #eaeaea;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f8f5fd;
+    color: #6b21a8;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 20px 24px;
+    border-bottom: 1px solid #eaeaea;
+  }
+
+  td {
+    padding: 24px;
+    border-bottom: 1px solid #f4f4f5;
+    color: #4b5563;
+    font-size: 15px;
+    line-height: 1.5;
+    vertical-align: top;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  td:first-child {
+    font-weight: 600;
+    color: #111827;
+    white-space: nowrap;
+  }
+
+  /* Badge Styles for Payout Time */
+  .badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .badge-blue {
+    background-color: #eff6ff;
+    color: #2563eb;
+  }
+
+  .badge-purple {
+    background-color: #f3e8ff;
+    color: #7e22ce;
+  }
+
+  .badge-orange {
+    background-color: #fef3c7;
+    color: #d97706;
+  }
+
+  .badge-green {
+    background-color: #dcfce7;
+    color: #16a34a;
+  }
+</style>
+</head>
+<body>
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Settlement Type</th>
+        <th>Transaction Time</th>
+        <th>Payout Time</th>
+        <th>The Logic</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Standard (T+1)</td>
+        <td>Thursday at 4:00 PM</td>
+        <td><span class="badge badge-blue">Friday afternoon</span></td>
+        <td>A normal weekday transaction clears on the next consecutive business day.</td>
+      </tr>
+      <tr>
+        <td>Weekend (T+1)</td>
+        <td>Friday at 6:00 PM</td>
+        <td><span class="badge badge-purple">Monday afternoon</span></td>
+        <td>The "+1" day lands on Saturday. Because banks are closed on weekends, it rolls to Monday.</td>
+      </tr>
+      <tr>
+        <td>Holiday Conflict</td>
+        <td>Friday at 6:00 PM</td>
+        <td><span class="badge badge-orange">Tuesday afternoon</span></td>
+        <td>If Monday happens to be a bank holiday, the payout rolls forward again to Tuesday.</td>
+      </tr>
+      <tr>
+        <td>Instant (T+0)</td>
+        <td>Any day, any time</td>
+        <td><span class="badge badge-green">Instantly</span></td>
+        <td>Uses IMPS or UPI networks, which run 24/7/365. Bank holidays and weekends do not matter.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
 ---
 
 ### 3.3 Payment-Specific Timelines 
