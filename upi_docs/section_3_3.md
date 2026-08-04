@@ -1,6 +1,3 @@
-# Standards & Onboarding Requirements
-
-
 To maintain the integrity of the UPI ecosystem and comply with RBI and NPCI guidelines, strict standards dictate how merchants are classified, verified, and permitted to transact. These onboarding guardrails are not mere formalities; they directly dictate your transaction limits, allowed payment flows, and settlement cycles.
 
 ### Merchant Category Code (MCC) Assignments
@@ -15,4 +12,4 @@ The MCC dictates the fundamental rules of engagement for your UPI integration:
 
 > **Note:** It is critical to accurately declare your business operations during onboarding to ensure the correct MCC is assigned.
 
-> **Note:** More details about MCC in 3.2
+> **Note:** More details about MCC in 3.5
