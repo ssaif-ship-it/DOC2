@@ -1,5 +1,3 @@
-## 3.3 Investment Category Onboarding
-
 To comply with SEBI guidelines, onboarding investment category merchants such as Stock Brokers, Mutual Funds, Online Bond Platform Providers (OBPPs), and Investment Advisers/Research Analysts (IA/RAs) requires configuring standardized, exclusive Valid UPI Handles. All merchants in this category must be onboarded under **MCC 6211 (Security Brokers/Dealers)**.
 
 A critical component of this onboarding is **Third-Party Validation (TPV)**. TPV ensures that payments are exclusively accepted from the investor’s pre-registered bank account, reducing failed or non-compliant transactions.
@@ -23,12 +21,132 @@ The format of the SEBI-mandated UPI handle depends on the transaction type. The 
 
 Properly configuring the beneficiary account and settlement flags is a strict compliance requirement. Failure to enable Direct Settlement (DS) where required will result in double settlement and financial loss.
 
-| Intermediary Type | Beneficiary Account | TPV Required | Direct Settlement (DS) |
-| :--- | :--- | :--- | :--- |
-| **Stock Brokers** | Broker's own designated bank account | Yes | **ON** |
-| **Mutual Funds (MF)** | ICCL / NCCL Bank Accounts | Yes | **ON** |
-| **OBPPs** | ICCL / NCCL Bank Accounts | Yes | **ON** |
-| **IA / RA** | Cashfree Payments' Axis Escrow Account | No | **OFF** |
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  .onboarding-table-container {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    margin: 20px 0;
+    overflow-x: auto;
+  }
+  
+  .onboarding-table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 900px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .onboarding-table thead {
+    background-color: #1a365d;
+    color: #ffffff;
+  }
+
+  .onboarding-table th {
+    text-align: left;
+    padding: 16px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .onboarding-table td {
+    padding: 16px 20px;
+    font-size: 14px;
+    color: #2d3748;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .onboarding-table tbody tr:nth-child(even) {
+    background-color: #f7fafc;
+  }
+
+  .onboarding-table tbody tr:hover {
+    background-color: #edf2f7;
+    transition: background-color 0.2s ease;
+  }
+
+  .onboarding-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .intermediary-type {
+    font-weight: 600;
+    color: #1a202c;
+  }
+
+  /* Status Badges */
+  .badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    min-width: 30px;
+  }
+
+  .badge-positive {
+    background-color: #c6f6d5;
+    color: #22543d;
+  }
+
+  .badge-negative {
+    background-color: #fed7d7;
+    color: #742a2a;
+  }
+</style>
+</head>
+<body>
+
+<div class="onboarding-table-container">
+  <table class="onboarding-table">
+    <thead>
+      <tr>
+        <th>Intermediary Type</th>
+        <th>Beneficiary Account</th>
+        <th>TPV Required</th>
+        <th>Direct Settlement (DS)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="intermediary-type">Stock Brokers</td>
+        <td>Broker's own designated bank account</td>
+        <td><span class="badge badge-positive">Yes</span></td>
+        <td><span class="badge badge-positive">ON</span></td>
+      </tr>
+      <tr>
+        <td class="intermediary-type">Mutual Funds (MF)</td>
+        <td>ICCL / NCCL Bank Accounts</td>
+        <td><span class="badge badge-positive">Yes</span></td>
+        <td><span class="badge badge-positive">ON</span></td>
+      </tr>
+      <tr>
+        <td class="intermediary-type">OBPPs</td>
+        <td>ICCL / NCCL Bank Accounts</td>
+        <td><span class="badge badge-positive">Yes</span></td>
+        <td><span class="badge badge-positive">ON</span></td>
+      </tr>
+      <tr>
+        <td class="intermediary-type">IA / RA</td>
+        <td>Cashfree Payments' Axis Escrow Account</td>
+        <td><span class="badge badge-negative">No</span></td>
+        <td><span class="badge badge-negative">OFF</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
 
 ---
 
