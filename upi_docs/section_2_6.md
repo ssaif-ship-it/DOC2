@@ -1,6 +1,6 @@
 # Affordability & Contextual Payments on UPI
 
-Welcome to the comprehensive guide for enabling Contextual Payments & Affordability on your checkout. This suite empowers you to offer flexible payment options, like EMI on UPI, UPI Lite for micro-transactions, and Interoperable PPI Wallets, directly to your customers, reducing cart abandonment and driving higher average order values.
+Enabling Contextual Payments & Affordability on your checkout, offers flexible payment options, like EMI on UPI, UPI Lite for micro-transactions, and Interoperable PPI Wallets, directly to your customers, reducing cart abandonment and driving higher average order values.
 
 ## 1. RuPay Credit Card EMI on UPI
 
