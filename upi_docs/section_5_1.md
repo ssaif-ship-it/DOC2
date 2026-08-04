@@ -130,134 +130,52 @@ When you see terms like T+1, the "T" stands for the Transaction Date, and the "+
 
 Here is how that timeline plays out in practice based on different transaction days:
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Modern Settlement Table</title>
-<style>
-  /* Reset and base font */
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    padding: 40px;
-    background-color: #ffffff;
-    display: flex;
-    justify-content: center;
-  }
-
-  /* Main container matching the rounded, bordered look */
-  .styled-table-container {
-    width: 100%;
-    max-width: 1050px;
-    border: 1px solid #F1F5F9;
-    border-radius: 12px;
-    overflow: hidden; 
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-  }
-
-  /* Purple header styling matching the new image */
-  th {
-    background-color: #F8F4FE; /* Light purple background */
-    color: #6B21A8; /* Vibrant purple text */
-    font-weight: 600;
-    font-size: 16px;
-    padding: 20px 24px;
-    border-bottom: 1px solid #F1F5F9;
-  }
-
-  /* Row styling */
-  td {
-    padding: 24px;
-    border-bottom: 1px solid #F8FAFC;
-    color: #475569;
-    font-size: 15px;
-    line-height: 1.6;
-    vertical-align: middle;
-  }
-
-  tr:last-child td {
-    border-bottom: none;
-  }
-
-  /* Bold left column for emphasis */
-  td:first-child {
-    font-weight: 600;
-    color: #0F172A;
-    font-size: 16px;
-  }
-
-  /* Pill Badges */
-  .pill {
-    display: inline-block;
-    padding: 8px 16px;
-    border-radius: 9999px; /* Fully rounded corners */
-    font-weight: 500;
-    font-size: 14px;
-    white-space: nowrap;
-  }
-
-  /* Colors exactly matching the new reference image */
-  .pill-blue {
-    background-color: #EFF6FF;
-    color: #2563EB;
-  }
-
-  .pill-orange {
-    background-color: #FEF3C7;
-    color: #D97706;
-  }
-</style>
-</head>
-<body>
-
-<div class="styled-table-container">
-  <table>
+<div style="overflow-x: auto; margin: 20px 0;">
+  <table style="width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid #eae5f2; border-radius: 12px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; color: #334155;">
     <thead>
-      <tr>
-        <th style="width: 20%;">Settlement Type</th>
-        <th style="width: 20%;">Transaction Time</th>
-        <th style="width: 40%;">The Logic</th>
-        <th style="width: 20%;">Payout Time</th>
+      <tr style="background-color: #f6f1fc;">
+        <th style="padding: 16px 20px; text-align: left; color: #5b21b6; font-weight: 600; font-size: 15px; border-bottom: 1px solid #eae5f2;">Settlement Type</th>
+        <th style="padding: 16px 20px; text-align: left; color: #5b21b6; font-weight: 600; font-size: 15px; border-bottom: 1px solid #eae5f2;">Transaction Time</th>
+        <th style="padding: 16px 20px; text-align: left; color: #5b21b6; font-weight: 600; font-size: 15px; border-bottom: 1px solid #eae5f2;">Payout Time</th>
+        <th style="padding: 16px 20px; text-align: left; color: #5b21b6; font-weight: 600; font-size: 15px; border-bottom: 1px solid #eae5f2;">The Logic</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>Standard (T+1)</td>
-        <td>Thursday at 4:00 PM</td>
-        <td>A normal weekday transaction clears on the next consecutive business day.</td>
-        <td><span class="pill pill-blue">Friday afternoon</span></td>
+        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Standard (T+1)</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Thursday at 4:00 PM</td>
+        <td style="padding: 16px 20px; border-bottom: 1px solid #f1f5f9; vertical-align: top;">
+          <span style="display: inline-block; background-color: #eff6ff; color: #2563eb; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">Friday afternoon</span>
+        </td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">A normal weekday transaction clears on the next consecutive business day.</td>
       </tr>
       <tr>
-        <td>Weekend (T+1)</td>
-        <td>Friday at 6:00 PM</td>
-        <td>The "+1" day lands on Saturday. Because banks are closed on weekends, it rolls to Monday.</td>
-        <td><span class="pill pill-blue">Monday afternoon</span></td>
+        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Weekend (T+1)</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Friday at 6:00 PM</td>
+        <td style="padding: 16px 20px; border-bottom: 1px solid #f1f5f9; vertical-align: top;">
+          <span style="display: inline-block; background-color: #eff6ff; color: #2563eb; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">Monday afternoon</span>
+        </td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">The "+1" day lands on Saturday. Because banks are closed on weekends, it rolls to Monday.</td>
       </tr>
       <tr>
-        <td>Holiday Conflict</td>
-        <td>Friday at 6:00 PM</td>
-        <td>If Monday happens to be a bank holiday, the payout rolls forward again to Tuesday.</td>
-        <td><span class="pill pill-orange">Tuesday afternoon</span></td>
+        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Holiday Conflict</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Friday at 6:00 PM</td>
+        <td style="padding: 16px 20px; border-bottom: 1px solid #f1f5f9; vertical-align: top;">
+          <span style="display: inline-block; background-color: #f0eafc; color: #5b21b6; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">Tuesday afternoon</span>
+        </td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">If Monday happens to be a bank holiday, the payout rolls forward again to Tuesday.</td>
       </tr>
       <tr>
-        <td>Instant (T+0)</td>
-        <td>Any day, any time</td>
-        <td>Uses IMPS or UPI networks, which run 24/7/365. Bank holidays and weekends do not matter.</td>
-        <td><span class="pill pill-orange">Instantly</span></td>
+        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; vertical-align: top;">Instant (T+0)</td>
+        <td style="padding: 16px 20px; color: #334155; vertical-align: top; line-height: 1.5;">Any day, any time</td>
+        <td style="padding: 16px 20px; vertical-align: top;">
+          <span style="display: inline-block; background-color: #fef3c7; color: #d97706; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">Instantly</span>
+        </td>
+        <td style="padding: 16px 20px; color: #334155; vertical-align: top; line-height: 1.5;">Uses IMPS or UPI networks, which run 24/7/365. Bank holidays and weekends do not matter.</td>
       </tr>
     </tbody>
   </table>
 </div>
-
-</body>
-</html>
 ---
 
 ### 3.3 Payment-Specific Timelines 
