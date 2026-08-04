@@ -150,9 +150,9 @@ Here is how that timeline plays out in practice based on different transaction d
   .styled-table-container {
     width: 100%;
     max-width: 1050px;
-    border: 1px solid #EAE5F0;
+    border: 1px solid #F1F5F9;
     border-radius: 12px;
-    overflow: hidden; /* Ensures the header background stays inside the rounded corners */
+    overflow: hidden; 
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
   }
 
@@ -162,27 +162,26 @@ Here is how that timeline plays out in practice based on different transaction d
     text-align: left;
   }
 
-  /* Purple header styling */
+  /* Purple header styling matching the new image */
   th {
-    background-color: #F8F5FE;
-    color: #6D28D9;
+    background-color: #F8F4FE; /* Light purple background */
+    color: #6B21A8; /* Vibrant purple text */
     font-weight: 600;
     font-size: 16px;
     padding: 20px 24px;
-    border-bottom: 1px solid #EAE5F0;
+    border-bottom: 1px solid #F1F5F9;
   }
 
   /* Row styling */
   td {
     padding: 24px;
-    border-bottom: 1px solid #F3F4F6;
-    color: #4B5563;
+    border-bottom: 1px solid #F8FAFC;
+    color: #475569;
     font-size: 15px;
     line-height: 1.6;
     vertical-align: middle;
   }
 
-  /* Remove border from the very last row */
   tr:last-child td {
     border-bottom: none;
   }
@@ -190,7 +189,7 @@ Here is how that timeline plays out in practice based on different transaction d
   /* Bold left column for emphasis */
   td:first-child {
     font-weight: 600;
-    color: #111827;
+    color: #0F172A;
     font-size: 16px;
   }
 
@@ -204,15 +203,10 @@ Here is how that timeline plays out in practice based on different transaction d
     white-space: nowrap;
   }
 
-  /* Matching the exact colors from your first image */
+  /* Colors exactly matching the new reference image */
   .pill-blue {
     background-color: #EFF6FF;
     color: #2563EB;
-  }
-
-  .pill-purple {
-    background-color: #F4E8FF;
-    color: #7E22CE;
   }
 
   .pill-orange {
@@ -250,7 +244,7 @@ Here is how that timeline plays out in practice based on different transaction d
         <td>Holiday Conflict</td>
         <td>Friday at 6:00 PM</td>
         <td>If Monday happens to be a bank holiday, the payout rolls forward again to Tuesday.</td>
-        <td><span class="pill pill-purple">Tuesday afternoon</span></td>
+        <td><span class="pill pill-orange">Tuesday afternoon</span></td>
       </tr>
       <tr>
         <td>Instant (T+0)</td>
