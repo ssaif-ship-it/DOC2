@@ -1,5 +1,3 @@
-## 1. Key Concepts & Terminology
-
 ### 1.1 Summary of Lifecycle Stages
 
 <div style="overflow-x: auto; margin: 20px 0;">
