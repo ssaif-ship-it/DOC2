@@ -116,26 +116,35 @@ Cycles represent business days (n) elapsed after transaction capture day (T):
 
 ## 3. Cut-off Times, Weekends & Bank Holidays
 
-### 3.1 Eligibility Cut-off Formula
+### 3.1 The Payout Formula
 
-Settlement eligibility is evaluated using strict business-day logic:
+The system calculates when a transaction is eligible for payout based on strictly defined "business days."
 
-```Eligibility Cut-off = Date + (n - 1  days) + 23:59:59 IST```
+When you see terms like T+1, the "T" stands for the Transaction Date, and the "+1" means one business day later. The formula ensures that at 11:59 PM (23:59:59 IST) on the target day, the funds are cleared for the next payout batch.
 
-If the resulting target date falls on an RBI banking holiday or non-working day, the execution date rolls forward to the next bank working day.
+**The Golden Rule:** Payouts rely on banks being open. If your payout date lands on a weekend or an official Reserve Bank of India (RBI) holiday, the system automatically pauses and pushes your money to the very next working day.
 
-### 3.2 Practical Examples
+---
 
-*   **Standard T+1 Batch:** Transaction captured Thursday at 16:00 IST → Included in Friday’s scheduled payout batch (e.g., 14:00 IST).
-*   **Weekend Rollover (T+1):** Transaction captured Friday at 18:00 IST → Target date is Saturday. Because banks are closed, payout moves to Monday's batch. (If Monday is a bank holiday, payout executes Tuesday).
-*   **T+0 Instant Override:** 24x7 Instant Settlements execute continuously via IMPS/UPI rails regardless of bank holidays.
+### 3.2 Real-World Scenarios 
 
-### 3.3 Payment Mode Level Configuration
+Here is how that timeline plays out in practice based on different transaction days:
 
-You can configure distinct settlement schedules per payment method rather than enforcing a single global schedule across your entire account:
+| Settlement Type | Transaction Time | Payout Time | The Logic |
+| :--- | :--- | :--- | :--- |
+| **Standard (T+1)** | Thursday at 4:00 PM | Friday afternoon | A normal weekday transaction clears on the next consecutive business day. |
+| **Weekend (T+1)** | Friday at 6:00 PM | Monday afternoon | The "+1" day lands on Saturday. Because banks are closed on weekends, it rolls to Monday. |
+| **Holiday Conflict** | Friday at 6:00 PM | Tuesday afternoon | If Monday happens to be a bank holiday, the payout rolls forward again to Tuesday. |
+| **Instant (T+0)** | Any day, any time | Instantly | Uses IMPS or UPI networks, which run 24/7/365. Bank holidays and weekends do not matter. |
 
-```text
-[Merchant Account Config]
-  ├── UPI Transactions        ===> T+0 (Instant / Same Day)
-  ├── Domestic Cards & NetBank ===> T+1 (Next Working Day)
-  └── International Cards      ===> T+5 (Extended Risk Window)
+---
+
+### 3.3 Payment-Specific Timelines 
+
+You are not forced to pick a single payout schedule for your entire business. The system allows you to configure different settlement speeds based on the type of payment your customer used.
+
+This is usually done to balance cash flow with fraud prevention:
+
+*   **UPI Transactions:** Can be set to T+0 (Instant). Because UPI is highly secure and runs 24/7, you can get this money immediately.
+*   **Domestic Cards & NetBanking:** Set to T+1 (Next working day). This is standard for normal Indian banking channels.
+*   **International Cards:** Set to T+5 (5 days later). Cross-border payments carry a much higher risk of fraud and chargebacks, so the gateway holds the funds longer to ensure the transaction is legitimate before passing it to you.
