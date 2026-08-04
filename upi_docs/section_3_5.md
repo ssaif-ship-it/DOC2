@@ -1,32 +1,42 @@
+## 3.3 Investment Category Onboarding
 
+To comply with SEBI guidelines, onboarding investment category merchants such as Stock Brokers, Mutual Funds, Online Bond Platform Providers (OBPPs), and Investment Advisers/Research Analysts (IA/RAs) requires configuring standardized, exclusive Valid UPI Handles. All merchants in this category must be onboarded under **MCC 6211 (Security Brokers/Dealers)**.
 
-### Third-Party Verification (TPV)
+A critical component of this onboarding is **Third-Party Validation (TPV)**. TPV ensures that payments are exclusively accepted from the investor’s pre-registered bank account, reducing failed or non-compliant transactions.
 
-Third-Party Verification (TPV) is a stringent compliance requirement designed to ensure that funds deposited into an investment account originate *only* from a bank account pre-registered and verified against that specific investor's profile.
+*   **Standard TPV:** Supported by ICICI, YES, HDFC, and AXIS banks.
+*   **Multibank TPV:** Allows merchants to pass up to 5 registered accounts per request, granting users flexibility. This is supported by ICICI and HDFC.
+*   **Recurring Payments:** TPV is fully supported for UPI Mandates and OTMs.
 
-* **Applicability:** TPV is heavily enforced for Capital Markets, Broking, and Mutual Funds (primarily **MCC 6211** and **6012**).
+---
 
-**How it Works in UPI:**
+### Valid Handle Formats
 
-1. **Initiation:** When the merchant creates the UPI payment request, they must pass the verified customer's bank account number and IFSC code in the payload.
-2. **Validation:** Before presenting the PIN screen, the Payer PSP queries the Remitter Bank to verify the underlying account details.
-3. **Enforcement:** If the user attempts to pay using a UPI ID linked to a non-registered bank account (e.g., paying from a spouse's account), the transaction is blocked at the bank level, failing with a specific TPV error code (e.g., `U19`).
+The format of the SEBI-mandated UPI handle depends on the transaction type. The suffix `cf` is used for standard handles, while `cfp` is required if the merchant needs AutoPay/subscription support.
 
-### SEBI Valid Handles (Capital Markets Mandatory Requirement)
+*   **One-Time Payments:** `MerchantName.cf.brk@[bank_identifier]`
+*   **UPI AutoPay:** `MerchantName.cfp.brk@[bank_identifier]`
 
-In a major move to combat impersonation fraud in the securities market, the Securities and Exchange Board of India (SEBI) mandated the use of standardized, validated UPI handles for all registered intermediaries (brokers, mutual funds, portfolio managers) effective **October 1, 2025**.
+---
 
-If you operate in the Capital Markets space (MCC 6211), you must comply with the `@valid` handle framework.
+### Beneficiary & Settlement Configuration
 
-**Key Features of SEBI Valid Handles:**
+Properly configuring the beneficiary account and settlement flags is a strict compliance requirement. Failure to enable Direct Settlement (DS) where required will result in double settlement and financial loss.
 
-* **Standardized Structure:** Your UPI ID must follow the structure: `[custom_prefix].[intermediary_type]@valid[bank_name]`.
-  * *Example (Broker):* `groww.brk@validhdfc`
-  * *Example (Mutual Fund):* `nippon.mf@validicici`
-* **Exclusive Designation:** The `@valid` suffix is restricted exclusively to SEBI-registered intermediaries operating under MCC 6211. It cannot be issued to any other merchant type.
-* **Visual Trust Indicators:** When a retail investor initiates a payment to a `@valid` handle, their UPI App will natively display a distinctive "thumbs-up inside a green triangle" icon.
-* **SEBI Check Verification:** Investors can independently verify your `@valid` handle through the "SEBI Check" tool on the SEBI portal or Saarthi app before transferring funds.
+| Intermediary Type | Beneficiary Account | TPV Required | Direct Settlement (DS) |
+| :--- | :--- | :--- | :--- |
+| **Stock Brokers** | Broker's own designated bank account | Yes | **ON** |
+| **Mutual Funds (MF)** | ICCL / NCCL Bank Accounts | Yes | **ON** |
+| **OBPPs** | ICCL / NCCL Bank Accounts | Yes | **ON** |
+| **IA / RA** | Cashfree Payments' Axis Escrow Account | No | **OFF** |
 
-> **Warning:** Merchants attempting to collect capital market investments without transitioning to the `@valid` infrastructure face regulatory action and blocked payment flows.
+---
 
+### Bank-Specific Procurement Workflows
 
+The process for acquiring and mapping the Valid Handle varies depending on the chosen acquiring bank:
+
+*   **Axis Bank (API-Based):** The most streamlined route. Handles are procured via internal API integration. The Banking Ops team uploads the specified DMO format file in Retool. 
+    > *Note: Terminals are created in a non-TPV state by default and must be manually updated to enable TPV.*
+*   **HDFC Bank (File-Based by Cashfree):** A manual process. Cashfree Banking Ops prepares the required onboarding files (including a covering letter on letterhead) and submits them directly to the HDFC onboarding team. The Bank Ops team manually adds the credentials to the system once provided by HDFC.
+*   **ICICI Bank (File-Based by Merchant):** The merchant is responsible for filling, signing, sealing, and submitting the UPI Onboarding Form directly to their ICICI point of contact (Mutual Funds must also get signatures from ICCL/NCCL). Once ICICI maps the VPA to Cashfree's parent MID, Bank Ops configures the credentials, ensuring the `isDMO` flag is set to `true`.
