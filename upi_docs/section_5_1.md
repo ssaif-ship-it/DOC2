@@ -135,119 +135,132 @@ Here is how that timeline plays out in practice based on different transaction d
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Real-World Scenarios</title>
+<title>Modern Settlement Table</title>
 <style>
+  /* Reset and base font */
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    color: #334155;
-    background-color: #ffffff;
     padding: 40px;
-    max-width: 1000px;
-    margin: 0 auto;
-    line-height: 1.6;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
   }
 
-  h2 {
-    color: #0f172a;
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 1.25rem;
-  }
-
-  p.intro-text {
-    font-size: 1rem;
-    margin-bottom: 2rem;
-    color: #334155;
+  /* Main container matching the rounded, bordered look */
+  .styled-table-container {
+    width: 100%;
+    max-width: 1050px;
+    border: 1px solid #EAE5F0;
+    border-radius: 12px;
+    overflow: hidden; /* Ensures the header background stays inside the rounded corners */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
   }
 
   table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: auto;
+    text-align: left;
   }
 
-  th, td {
-    padding: 16px 12px;
-    vertical-align: top;
-    font-size: 1rem;
-  }
-
-  /* Target first and second column headers for centering as seen in the image */
-  th:nth-child(1), th:nth-child(2) {
-    text-align: center;
-  }
-
-  /* Default left alignment for the rest of the table */
+  /* Purple header styling */
   th {
-    color: #334155;
-    font-weight: 700;
-    text-align: left;
-    vertical-align: bottom; /* Aligns header text to the bottom of the header cell */
+    background-color: #F8F5FE;
+    color: #6D28D9;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 20px 24px;
+    border-bottom: 1px solid #EAE5F0;
   }
 
+  /* Row styling */
   td {
-    text-align: left;
+    padding: 24px;
+    border-bottom: 1px solid #F3F4F6;
+    color: #4B5563;
+    font-size: 15px;
+    line-height: 1.6;
+    vertical-align: middle;
   }
 
-  td:nth-child(1) {
-    padding-left: 0; /* Align left edge of text with paragraph */
-  }
-  
-  th:nth-child(1) {
-      padding-left: 0;
+  /* Remove border from the very last row */
+  tr:last-child td {
+    border-bottom: none;
   }
 
-  .footer-dashes {
-    margin-top: 1rem;
-    font-weight: bold;
-    color: #334155;
-    letter-spacing: 2px;
+  /* Bold left column for emphasis */
+  td:first-child {
+    font-weight: 600;
+    color: #111827;
+    font-size: 16px;
+  }
+
+  /* Pill Badges */
+  .pill {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 9999px; /* Fully rounded corners */
+    font-weight: 500;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  /* Matching the exact colors from your first image */
+  .pill-blue {
+    background-color: #EFF6FF;
+    color: #2563EB;
+  }
+
+  .pill-purple {
+    background-color: #F4E8FF;
+    color: #7E22CE;
+  }
+
+  .pill-orange {
+    background-color: #FEF3C7;
+    color: #D97706;
   }
 </style>
 </head>
 <body>
 
-  <h2>3.2 Real-World Scenarios</h2>
-  <p class="intro-text">Here is how that timeline plays out in practice based on different transaction days:</p>
-
+<div class="styled-table-container">
   <table>
     <thead>
       <tr>
-        <th>Settlement<br>Type</th>
-        <th>Transaction<br>Time</th>
-        <th>Payout Time</th>
-        <th>The Logic</th>
+        <th style="width: 20%;">Settlement Type</th>
+        <th style="width: 20%;">Transaction Time</th>
+        <th style="width: 40%;">The Logic</th>
+        <th style="width: 20%;">Payout Time</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>Standard (T+1)</td>
         <td>Thursday at 4:00 PM</td>
-        <td>Friday<br>afternoon</td>
-        <td>A normal weekday transaction clears on the next consecutive<br>business day.</td>
+        <td>A normal weekday transaction clears on the next consecutive business day.</td>
+        <td><span class="pill pill-blue">Friday afternoon</span></td>
       </tr>
       <tr>
-        <td>Weekend<br>(T+1)</td>
+        <td>Weekend (T+1)</td>
         <td>Friday at 6:00 PM</td>
-        <td>Monday<br>afternoon</td>
-        <td>The "+1" day lands on Saturday. Because banks are closed on<br>weekends, it rolls to Monday.</td>
+        <td>The "+1" day lands on Saturday. Because banks are closed on weekends, it rolls to Monday.</td>
+        <td><span class="pill pill-blue">Monday afternoon</span></td>
       </tr>
       <tr>
-        <td>Holiday<br>Conflict</td>
+        <td>Holiday Conflict</td>
         <td>Friday at 6:00 PM</td>
-        <td>Tuesday<br>afternoon</td>
-        <td>If Monday happens to be a bank holiday, the payout rolls<br>forward again to Tuesday.</td>
+        <td>If Monday happens to be a bank holiday, the payout rolls forward again to Tuesday.</td>
+        <td><span class="pill pill-purple">Tuesday afternoon</span></td>
       </tr>
       <tr>
         <td>Instant (T+0)</td>
         <td>Any day, any time</td>
-        <td>Instantly</td>
-        <td>Uses IMPS or UPI networks, which run 24/7/365. Bank holidays<br>and weekends do not matter.</td>
+        <td>Uses IMPS or UPI networks, which run 24/7/365. Bank holidays and weekends do not matter.</td>
+        <td><span class="pill pill-orange">Instantly</span></td>
       </tr>
     </tbody>
   </table>
-  
-  <div class="footer-dashes">---</div>
+</div>
 
 </body>
 </html>
