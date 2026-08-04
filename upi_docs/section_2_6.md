@@ -1,6 +1,6 @@
 # Affordability & Contextual Payments on UPI
 
-Welcome to the comprehensive guide for enabling Contextual Payments & Affordability on your checkout. This suite empowers you to offer flexible payment options—like EMI on UPI, UPI Lite for micro-transactions, and Interoperable PPI Wallets—directly to your customers, reducing cart abandonment and driving higher average order values.
+Welcome to the comprehensive guide for enabling Contextual Payments & Affordability on your checkout. This suite empowers you to offer flexible payment options, like EMI on UPI, UPI Lite for micro-transactions, and Interoperable PPI Wallets, directly to your customers, reducing cart abandonment and driving higher average order values.
 
 ## 1. RuPay Credit Card EMI on UPI
 
@@ -26,35 +26,35 @@ In a No-Cost EMI model, the customer pays only the product sticker price, split 
 
 ### Mathematical Amortization Model
 
-The monthly installment ($EMI$) paid by the customer is calculated using the standard amortized equation:
+The monthly installment (EMI) paid by the customer is calculated using the standard amortized equation:
 
-$$
-EMI = \frac{P \times R \times (1+R)^N}{(1+R)^N - 1}
-$$
+```
+EMI = [P × R × (1 + R)^N] / [(1 + R)^N - 1]
+```
 
 Where:
 
-- $A$ = Order Amount / Product Sticker Price (total paid by customer)
-- $P$ = Adjusted Base Principal (settled upfront to merchant)
-- $R$ = Monthly Interest Rate charged by issuing bank (Annual Rate / 12 / 100)
-- $N$ = Repayment Tenure in months
-- $EMI$ = Monthly Installment Amount, where $EMI = \frac{A}{N}$ for No-Cost EMI
+- A = Order Amount / Product Sticker Price (total paid by customer)
+- P = Adjusted Base Principal (settled upfront to merchant)
+- R = Monthly Interest Rate charged by issuing bank (Annual Rate / 12 / 100)
+- N = Repayment Tenure in months
+- EMI = Monthly Installment Amount, where EMI = A / N for No-Cost EMI
 
-To determine the net Principal amount ($P$) settled to you:
+To determine the net Principal amount (P) settled to you:
 
-$$
-P = \frac{EMI \times [(1+R)^N - 1]}{R \times (1+R)^N}
-$$
+```
+P = [EMI × ((1 + R)^N - 1)] / [R × (1 + R)^N]
+```
 
 ### Standard Calculation Example (3-Month No-Cost EMI at 16% p.a.)
 
 | Parameter | Value | Description |
 |---|---|---|
-| Order Amount ($A$) | ₹10,000 | Total amount paid by customer over $N$ months |
-| Tenure ($N$) | 3 Months | Chosen repayment duration |
+| Order Amount (A) | ₹10,000 | Total amount paid by customer over N months |
+| Tenure (N) | 3 Months | Chosen repayment duration |
 | Bank Interest Rate | 16% p.a. | Bank's credit card interest rate |
 | Monthly EMI | ₹3,333 | Fixed monthly amount paid by customer |
-| Adjusted Principal ($P$) | ₹9,739 | Calculated base amount |
+| Adjusted Principal (P) | ₹9,739 | Calculated base amount |
 | Merchant Subvention | ₹261 | Upfront discount absorbed by merchant |
 | Upfront Settlement | ₹9,739 | Amount settled to merchant |
 
@@ -88,8 +88,8 @@ When creating an order, request a contextual Intent link or Dynamic QR by specif
 ### Reconciliation & Refunds
 
 - **Purpose Code:** All EMI-converted UPI transactions are tagged with Purpose Code 72 across webhooks and settlement reports.
-- **Settlement:** Standard payments are settled at the full order amount minus MDR. No-Cost EMI payments are settled at the net principal amount ($P$) minus standard fees.
-- **Refunds:** On a full refund, the net principal amount ($P$) is debited from your account, and the issuing bank cancels the customer's EMI schedule via NPCI's Unified Dispute and Issue Resolution (UDIR) framework.
+- **Settlement:** Standard payments are settled at the full order amount minus MDR. No-Cost EMI payments are settled at the net principal amount (P) minus standard fees.
+- **Refunds:** On a full refund, the net principal amount (P) is debited from your account, and the issuing bank cancels the customer's EMI schedule via NPCI's Unified Dispute and Issue Resolution (UDIR) framework.
 
 ## 4. UPI Lite & Prepaid Wallets (PPI)
 
