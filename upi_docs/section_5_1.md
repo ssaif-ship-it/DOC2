@@ -135,97 +135,86 @@ Here is how that timeline plays out in practice based on different transaction d
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Settlement Table</title>
+<title>Real-World Scenarios</title>
 <style>
   body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-    padding: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #334155;
     background-color: #ffffff;
-  }
-
-  .table-container {
-    width: 100%;
+    padding: 40px;
     max-width: 1000px;
     margin: 0 auto;
-    border: 1px solid #eaeaea;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    line-height: 1.6;
+  }
+
+  h2 {
+    color: #0f172a;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+  }
+
+  p.intro-text {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    color: #334155;
   }
 
   table {
     width: 100%;
     border-collapse: collapse;
-    text-align: left;
+    table-layout: auto;
   }
 
+  th, td {
+    padding: 16px 12px;
+    vertical-align: top;
+    font-size: 1rem;
+  }
+
+  /* Target first and second column headers for centering as seen in the image */
+  th:nth-child(1), th:nth-child(2) {
+    text-align: center;
+  }
+
+  /* Default left alignment for the rest of the table */
   th {
-    background-color: #f8f5fd;
-    color: #6b21a8;
-    font-weight: 600;
-    font-size: 15px;
-    padding: 20px 24px;
-    border-bottom: 1px solid #eaeaea;
+    color: #334155;
+    font-weight: 700;
+    text-align: left;
+    vertical-align: bottom; /* Aligns header text to the bottom of the header cell */
   }
 
   td {
-    padding: 24px;
-    border-bottom: 1px solid #f4f4f5;
-    color: #4b5563;
-    font-size: 15px;
-    line-height: 1.5;
-    vertical-align: top;
+    text-align: left;
   }
 
-  tr:last-child td {
-    border-bottom: none;
+  td:nth-child(1) {
+    padding-left: 0; /* Align left edge of text with paragraph */
+  }
+  
+  th:nth-child(1) {
+      padding-left: 0;
   }
 
-  td:first-child {
-    font-weight: 600;
-    color: #111827;
-    white-space: nowrap;
-  }
-
-  /* Badge Styles for Payout Time */
-  .badge {
-    display: inline-block;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-weight: 500;
-    font-size: 14px;
-    white-space: nowrap;
-  }
-
-  .badge-blue {
-    background-color: #eff6ff;
-    color: #2563eb;
-  }
-
-  .badge-purple {
-    background-color: #f3e8ff;
-    color: #7e22ce;
-  }
-
-  .badge-orange {
-    background-color: #fef3c7;
-    color: #d97706;
-  }
-
-  .badge-green {
-    background-color: #dcfce7;
-    color: #16a34a;
+  .footer-dashes {
+    margin-top: 1rem;
+    font-weight: bold;
+    color: #334155;
+    letter-spacing: 2px;
   }
 </style>
 </head>
 <body>
 
-<div class="table-container">
+  <h2>3.2 Real-World Scenarios</h2>
+  <p class="intro-text">Here is how that timeline plays out in practice based on different transaction days:</p>
+
   <table>
     <thead>
       <tr>
-        <th>Settlement Type</th>
-        <th>Transaction Time</th>
+        <th>Settlement<br>Type</th>
+        <th>Transaction<br>Time</th>
         <th>Payout Time</th>
         <th>The Logic</th>
       </tr>
@@ -234,30 +223,31 @@ Here is how that timeline plays out in practice based on different transaction d
       <tr>
         <td>Standard (T+1)</td>
         <td>Thursday at 4:00 PM</td>
-        <td><span class="badge badge-blue">Friday afternoon</span></td>
-        <td>A normal weekday transaction clears on the next consecutive business day.</td>
+        <td>Friday<br>afternoon</td>
+        <td>A normal weekday transaction clears on the next consecutive<br>business day.</td>
       </tr>
       <tr>
-        <td>Weekend (T+1)</td>
+        <td>Weekend<br>(T+1)</td>
         <td>Friday at 6:00 PM</td>
-        <td><span class="badge badge-purple">Monday afternoon</span></td>
-        <td>The "+1" day lands on Saturday. Because banks are closed on weekends, it rolls to Monday.</td>
+        <td>Monday<br>afternoon</td>
+        <td>The "+1" day lands on Saturday. Because banks are closed on<br>weekends, it rolls to Monday.</td>
       </tr>
       <tr>
-        <td>Holiday Conflict</td>
+        <td>Holiday<br>Conflict</td>
         <td>Friday at 6:00 PM</td>
-        <td><span class="badge badge-orange">Tuesday afternoon</span></td>
-        <td>If Monday happens to be a bank holiday, the payout rolls forward again to Tuesday.</td>
+        <td>Tuesday<br>afternoon</td>
+        <td>If Monday happens to be a bank holiday, the payout rolls<br>forward again to Tuesday.</td>
       </tr>
       <tr>
         <td>Instant (T+0)</td>
         <td>Any day, any time</td>
-        <td><span class="badge badge-green">Instantly</span></td>
-        <td>Uses IMPS or UPI networks, which run 24/7/365. Bank holidays and weekends do not matter.</td>
+        <td>Instantly</td>
+        <td>Uses IMPS or UPI networks, which run 24/7/365. Bank holidays<br>and weekends do not matter.</td>
       </tr>
     </tbody>
   </table>
-</div>
+  
+  <div class="footer-dashes">---</div>
 
 </body>
 </html>
