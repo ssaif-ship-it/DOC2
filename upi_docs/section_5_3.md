@@ -1,3 +1,5 @@
+##
+
 ## 1. Overview & Error Architecture
 
 When a UPI transaction or recurring debit fails, the failure signal originates at one of three layers before being reported back to your application:
@@ -40,11 +42,7 @@ The table below maps standard NPCI error codes, raw bank responses, root causes,
 
 # error codes table
 
-<div style="background:#EFF6FF;border:1px solid #BFDBFE;border-left:4px solid #1E40AF;border-radius:8px;padding:14px 16px;margin:1.25rem 0;">
-  <strong style="color:#1E40AF;">Note:</strong> https://ssaif-ship-it.github.io/Error_codes/
-</div>
-
-
+[Interactive Table for codes](https://ssaif-ship-it.github.io/Error_codes/)
 
   <style>
     body {
@@ -71,14 +69,6 @@ The table below maps standard NPCI error codes, raw bank responses, root causes,
       border-radius: 4px;
     }
   </style>
-
-<div class="table-container">
-  <h2>Data Directory</h2>
-  <table id="csv-table" class="display" style="width:100%">
-    <thead></thead>
-    <tbody></tbody>
-  </table>
-</div>
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
