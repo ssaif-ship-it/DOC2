@@ -7,10 +7,10 @@ When a UPI transaction or recurring debit fails, the failure signal originates a
        (User Error)                 (Bank/Network Error)             (Normalized API)            (Handled Code)
 ```
 
-1. **User / Account Errors (Business Failures):** Actionable issues originating from customer state (e.g., entering an incorrect PIN, insufficient account balance, or breaching daily limits).
-2. **Bank / Switch Errors (Technical Failures):** Infrastructure issues at the remitter bank's Core Banking System (CBS) or NPCI routing switch.
-3. **Compliance & Policy Blocks:** Failures triggered by regulatory guardrails (e.g., TPV account mismatch, restricted MCC flow block, or 24-hour velocity caps).
-4. **AutoPay & Mandate State Failures:** Failures specific to recurring mandate executions (e.g., paused/revoked mandates, missing 24h pre-debit notifications, or sequence number desynchronization).
+1.  **User / Account Errors (Business Failures):** Actionable issues originating from customer state (e.g., entering an incorrect PIN, insufficient account balance, or breaching daily limits).
+2.  **Bank / Switch Errors (Technical Failures):** Infrastructure issues at the remitter bank's Core Banking System (CBS) or NPCI routing switch.
+3.  **Compliance & Policy Blocks:** Failures triggered by regulatory guardrails (e.g., TPV account mismatch, restricted MCC flow block, or 24-hour velocity caps).
+4.  **AutoPay & Mandate State Failures:** Failures specific to recurring mandate executions (e.g., paused/revoked mandates, missing 24h pre-debit notifications, or sequence number desynchronization).
 
 ### Gateway Error Payload Structure
 
@@ -37,20 +37,12 @@ To abstract bank-specific error strings across different acquirers, the gateway 
 ## 2. Master NPCI Error Code & Business Failure Mapping
 
 The table below maps standard NPCI error codes, raw bank responses, root causes, and recommended user/checkout actions:
+
 # error codes table
 
 # https://ssaif-ship-it.github.io/Error_codes/
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive CSV Table</title>
-
-  <!-- DataTables CSS -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+Interactive CSV Table
 
   <style>
     body {
@@ -77,8 +69,6 @@ The table below maps standard NPCI error codes, raw bank responses, root causes,
       border-radius: 4px;
     }
   </style>
-</head>
-<body>
 
 <div class="table-container">
   <h2>Data Directory</h2>
@@ -88,10 +78,10 @@ The table below maps standard NPCI error codes, raw bank responses, root causes,
   </table>
 </div>
 
-<!-- jQuery and DataTables JS -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<!-- PapaParse (CSV Parser) -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script>
@@ -147,27 +137,27 @@ The table below maps standard NPCI error codes, raw bank responses, root causes,
   });
 </script>
 
-</body>
-</html>
-
 ## 3. High-Priority Business Scenarios & Edge Cases
 
 ### 3.1 Third-Party Verification (TPV) Failures (U19)
 
 In investment and capital markets flows (MCC 6211 / 6012), regulatory mandates require validating the remitter account against customer record.
 
-- **Trigger:** Customer initiates a payment using a UPI ID linked to Account A, but registered profile has Account B.
-- **Gateway Action:** Transaction is aborted before money leaves the bank, failing with `TPV_ACCOUNT_MISMATCH`.
-- **Handling:** Display explicit error banner detailing the expected account number last 4 digits:
+*   **Trigger:** Customer initiates a payment using a UPI ID linked to Account A, but registered profile has Account B.
 
-  > Expected Account: `XXXX-XXXX-1234`
+*   **Gateway Action:** Transaction is aborted before money leaves the bank, failing with `TPV_ACCOUNT_MISMATCH`.
+
+*   **Handling:** Display explicit error banner detailing the expected account number last 4 digits:
+
+    > Expected Account: `XXXX-XXXX-1234`
+
 
 ### 3.2 The 24-Hour Velocity Cooling-Off Rule (U30)
 
 To prevent account takeover fraud, NPCI caps transactions at ₹5,000 for 24 hours after:
 
-1. Initial UPI registration on a device.
-2. Device binding/SIM change.
-3. UPI PIN reset/change.
+1.  Initial UPI registration on a device.
+2.  Device binding/SIM change.
+3.  UPI PIN reset/change.
 
 If an order is ₹15,000, NPCI will decline the transaction with code U30 even if the user has ample account balance. Checkouts should detect U30 and offer non-UPI fallback instruments.

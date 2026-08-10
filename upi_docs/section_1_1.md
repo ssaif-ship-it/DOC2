@@ -13,8 +13,7 @@ For merchants, integrating UPI is no longer just an alternative payment method; 
 
 Unlike traditional card networks, UPI operates on a streamlined, interoperable 4-Pillar Model. This architecture is orchestrated entirely by the NPCI through a central routing engine known as the UPI Switch.
 
-It is crucial to note that consumer-facing apps like Google Pay or PhonePe are Third-Party Application Providers (TPAPs). They provide the user interface but do not hold a direct UPI banking license. They must partner with regulated Payment Service Provider (PSP) banks to route transactions to the NPCI.
-
+Note that consumer-facing apps like Google Pay or PhonePe are Third-Party Application Providers (TPAPs). They provide the user interface but do not hold a direct UPI banking license. They must partner with regulated Payment Service Provider (PSP) banks to route transactions to the NPCI.
 
 <table>
   <thead>
@@ -48,4 +47,4 @@ It is crucial to note that consumer-facing apps like Google Pay or PhonePe are T
   </tbody>
 </table>
 
-<img width="2838" height="1504" alt="Gemini_Generated_Image_nm4ea8nm4ea8nm4e" src="https://github.com/user-attachments/assets/8e402728-a71e-4423-83b4-b76d8c6156bc" />
+<img width="2838" height="1504" alt="Gemini_Generated_Image_nm4ea8nm4ea8nm4e" src="https://github.com/user-attachments/assets/8e402728-a71e-4423-83b4-b76d8c6156bc">

@@ -1,90 +1,126 @@
-Cashfree SoftPOS converts any standard Android smartphone into a digital payment terminal. It enables businesses to accept in-person payments—in-store or at the doorstep—without expensive hardware terminals.
+# Affordability & Contextual Payments on UPI
 
----
+Enabling Contextual Payments & Affordability on your checkout, offers flexible payment options, like EMI on UPI, UPI Lite for micro-transactions, and Interoperable PPI Wallets, directly to your customers, reducing cart abandonment and driving higher average order values.
 
-## 1. Collection Models
+## 1. RuPay Credit Card EMI on UPI
 
-### 🏢 Storefront Collection
-* **What it is:** Fixed-location payments at physical retail or billing counters.
-* **How it works:** A static QR code standee or display is placed at the counter. Customers scan using any UPI app (Google Pay, PhonePe, Paytm, etc.) and enter the bill amount.
-* **Best for:** Retail stores, pharmacies, supermarkets, and service counters.
+We have enabled real-time EMI options for customers paying via RuPay Credit Cards on standard UPI QR codes and Intent links. By providing instant EMI capabilities natively at checkout, you can drastically lower barriers for high-ticket purchases.
 
-### 🚚 Agent Collection (SoftPOS App)
-* **What it is:** On-the-go collections using field staff or delivery executives' Android smartphones.
-* **How it works:** Agents open the Cashfree SoftPOS mobile app, enter the order details, and display a QR code or send a payment link directly to the customer's phone.
-* **Best for:** Cash-on-delivery (COD) digitization, logistics, field collections, and doorstep services.
+### Key Merchant Benefits
 
-### 👤 Customer VPA (Specialized Model)
-* **What it is:** Assigning a dedicated, permanent UPI ID or static QR code to a specific recurring customer.
-* **Best for:** EMI repayments, school fees, and recurring utility payments requiring strict customer-level reconciliation.
+*   **Higher Conversions:** Presenting flexible options directly at checkout reduces customer drop-offs by up to 30%.
+*   **Increased Ticket Size:** Let customers purchase higher-value items, driving a 40% to 60% increase in Average Order Value (AOV).
+*   **Zero Risk:** Upfront settlement guarantees you receive the full transaction amount (less applicable subvention discounts), while the issuing bank bears the repayment risk.
 
----
+### Current Supported Scope
 
-## 2. QR Code Types
+*   **Supported Banks:** Real-time EMI is currently supported for SBI and HDFC RuPay Credit Cards.
+*   **Supported Flows:** Enabled exclusively for UPI Intent Links and Dynamic QR Codes.
+*   **Unsupported Flows:** Contextual EMI is strictly prohibited for UPI Collect requests. Combining flat discounts with EMI offers is not supported at this time.
 
-| Feature | Static QR | Dynamic QR |
-| :--- | :--- | :--- |
-| **Amount Handling** | Customer manually types the payment amount. | Amount is pre-set and locked by the merchant/agent. |
-| **Reusability** | Permanent (one code printed for infinite scans). | Single-use (unique per transaction). |
-| **Generation** | Generated via Merchant Dashboard. | Generated on-the-fly via SoftPOS App or Backend APIs. |
-| **Order Context** | Basic transaction details. | Supports attached metadata (Invoice #, Phone #, Notes). |
-| **Error Risk** | Risk of customer underpaying or overpaying. | Zero amount errors (locked bill value). |
+## 2. EMI Subvention & Affordability Engine
 
----
+You can configure both No-Cost EMI and Low-Cost EMI structures via the Merchant Dashboard or API.
 
-## 3. Key Merchant Benefits
+In a No-Cost EMI model, the customer pays only the product sticker price, split equally over the selected months. You, as the merchant, absorb the interest by offering an upfront discount equivalent to the total interest charged by the bank.
 
-* **Platform Requirements:** SoftPOS app is supported on Android 6.0 and above (iOS is not supported).
-* **Multiple Payment Options:** Beyond QR codes, agents can collect payments via SMS Links, Tap to Pay (NFC cards), and EMI on UPI.
-* **Cash Ledger Tracking:** Field agents can log cash payments inside the app to maintain a single settlement report for both cash and digital collections.
-* **Centralized Dashboard:** Real-time visibility into individual agent collections, store transactions, and automated settlements from a single Merchant Dashboard.
+### Mathematical Amortization Model
 
----
-# Activation Guide
+The monthly installment (EMI) paid by the customer is calculated using the standard amortized equation:
 
-## Step 1: Activate Offline Payments
+```
+EMI = [P * R * (1 + R)^N] / [(1 + R)^N - 1]
+```
 
-Ensure that you have an active Cashfree Payment Gateway account, then request Offline Payments activation from the Merchant Dashboard.
+Where:
 
-1. **Navigate to Offline Payments**  
-   Log in to the **Merchant Dashboard**, then go to **Offline Payments**.
+*   A = Order Amount / Product Sticker Price (total paid by customer)
+*   P = Adjusted Base Principal (settled upfront to merchant)
+*   R = Monthly Interest Rate charged by issuing bank (Annual Rate / 12 / 100)
+*   N = Repayment Tenure in months
+*   EMI = Monthly Installment Amount, where EMI = A / N for No-Cost EMI
 
-2. **Request Activation**  
-   Click **Request Activation**. This sends an activation request to your Cashfree account manager.
+To determine the net Principal amount (P) settled to you:
 
-3. **Wait for Email Confirmation**  
-   You will receive an email confirmation once your account manager activates Offline Payments.
+```
+P = [EMI * ((1 + R)^N - 1)] / [R * (1 + R)^N]
+```
 
----
+### Standard Calculation Example (3-Month No-Cost EMI at 16% p.a.)
 
-## Step 2: Select a Collection Point
+| Parameter | Value | Description |
+| --- | --- | --- |
+| Order Amount (A) | ₹10,000 | Total amount paid by customer over N months |
+| Tenure (N) | 3 Months | Chosen repayment duration |
+| Bank Interest Rate | 16% p.a. | Bank's credit card interest rate |
+| Monthly EMI | ₹3,333 | Fixed monthly amount paid by customer |
+| Adjusted Principal (P) | ₹9,739 | Calculated base amount |
+| Merchant Subvention | ₹261 | Upfront discount absorbed by merchant |
+| Upfront Settlement | ₹9,739 | Amount settled to merchant |
 
-To add a collection point, open **Offline Payments** in the Merchant Dashboard, then navigate to **Collection Point Management** and click **Add a Collection Point**.
+For Low-Cost EMI, you specify a capped interest subvention percentage, and the customer pays the remaining balance interest.
 
-Select the collection point type that matches your business needs:
+## 3. Integration & Post-Payment Lifecycle
 
-* **Storefront:** Use this model if you operate one or more physical store locations and want customers to scan a static QR code to pay at the counter, with funds credited directly to your account.
-* **Agent (softPOS):** Use this model if your staff or agents collect payments on your behalf at the point of service, such as at a customer’s doorstep or table, with funds credited directly to your account.
-* **Customer VPA**
+### Dashboard Configuration
 
----
+Log in to your Merchant Dashboard, navigate to **Offers & Affordability > Create Offer**, and select **RuPay Credit Card EMI**. Set your tenure rules and subvention type. Once saved, rule configurations are instantly replicated to the payment engine.
 
-## Step 3: Set Up Your Collection Points
+### API Integration
 
-Cashfree must verify each collection point before you can start collecting payments. Follow the respective setup steps according to your selected collection point type:
+When creating an order, request a contextual Intent link or Dynamic QR by specifying the `upi_cc_emi` payment method. The API attaches the required contextual metadata (`ctxtCode: "03"`) automatically.
 
-* Storefront setup
-* Agent setup
-* Customer VPA setup
+```json
+{
+  "order_id": "order_99887766",
+  "order_amount": 10000.00,
+  "order_currency": "INR",
+  "payment_method": {
+    "upi": {
+      "channel": "intent",
+      "ctxtCode": "03",
+      "prodCode": "SKU-44321"
+    }
+  }
+}
+```
 
-> **Note:** Each collection point must reach **Active** status before you can start collecting payments.
+### Reconciliation & Refunds
 
----
+*   **Purpose Code:** All EMI-converted UPI transactions are tagged with Purpose Code 72 across webhooks and settlement reports.
+*   **Settlement:** Standard payments are settled at the full order amount minus MDR. No-Cost EMI payments are settled at the net principal amount (P) minus standard fees.
+*   **Refunds:** On a full refund, the net principal amount (P) is debited from your account, and the issuing bank cancels the customer's EMI schedule via NPCI's Unified Dispute and Issue Resolution (UDIR) framework.
 
-## Step 4: Start Collecting Payments via Agents
+## 4. UPI Lite & Prepaid Wallets (PPI)
 
-Agents can begin accepting payments through the **softPOS application**, a mobile app for Android devices that supports QR codes, payment links, and more.
+To help you accept micro-transactions and alternative funding sources, our checkout fully supports UPI Lite and Interoperable Prepaid Wallets.
 
-For instructions on setting up static and dynamic QR codes, payment links, and payment limits, see **agent collection point**.
+### UPI Lite (On-Device Wallet)
 
-All transactions—both cash and digital—are visible in a single dashboard. See **settlements and reports** to understand how and when funds are transferred to your bank account.
+UPI Lite is an on-device wallet designed for 1-click, PIN-less payments for amounts up to ₹200.
+
+*   **Seamless Micro-Payments:** Customers experience sub-second transaction speeds without entering a UPI PIN.
+*   **Fallback Mechanism:** If the order amount exceeds ₹200 or the Lite balance is insufficient, the checkout automatically falls back to standard 2FA UPI requiring a PIN.
+*   **No Extra Integration:** Enabled automatically on standard UPI Intent and QR flows.
+
+### Prepaid Wallets (Interoperable PPI)
+
+Full-KYC Prepaid Payment Instruments (like Paytm Wallet, Amazon Pay, and PhonePe Wallet) are fully integrated into the UPI ecosystem. Customers can utilize their pre-funded wallet balances to pay at your existing UPI QR codes or Intent links without any explicit onboarding required on your end.
+
+#### Interchange Fees for PPI Wallet Acceptance
+
+Unlike standard savings account UPI transactions, PPI interoperable transactions incur an Interchange Fee paid by the merchant to cover the wallet issuer's infrastructure costs.
+
+| Transaction Category | Transaction Ceiling | Interchange Fee |
+| --- | --- | --- |
+| Standard Retail & E-Commerce | Up to ₹2,000 | 0.0% (Free) |
+| Standard Retail & E-Commerce | \> ₹2,000 | 1.1% |
+| Fuel Stations | Any Amount | 0.5% |
+| Utilities & Telecom | Any Amount | 0.7% |
+| Educational Services | Any Amount | 0.7% |
+| Agriculture & Mutual Funds | Any Amount | 0.7% |
+
+### Important PPI Rules
+
+*   **No Consumer Surcharging:** You are strictly prohibited from charging extra convenience fees to customers choosing to check out using PPI wallets.
+*   **Automated Source Refunds:** When you issue a refund for a PPI-funded transaction, funds are routed strictly back to the originating wallet ID via the UDIR framework.

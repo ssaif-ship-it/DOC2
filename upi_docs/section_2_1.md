@@ -1,4 +1,4 @@
-UPI Intent is the most seamless, frictionless payment flow available for mobile users. If your customers are shopping on a mobile website or inside your Android/iOS app, this is the flow you should default to.
+UPI Intent is the lowest friction payment flow available for mobile users. If your customers are shopping on a mobile website or inside your Android/iOS app, this is the flow you should default to.
 
 ### How it works
 
@@ -10,9 +10,9 @@ The user taps their preferred app, the app opens with the exact payment amount p
 
 ### Key Benefits
 
-* **Highest Success Rate:** Because the user doesn't have to manually switch apps, wait for SMS notifications, or type anything, this flow boasts the highest transaction success rates in the industry.
-* **Zero VPA Entry:** Completely eliminates failed transactions due to user typos.
-* **Native Experience:** Keeps the user in a smooth, continuous flow without jarring browser redirects.
+*   **Highest Success Rate:** Because the user doesn't have to manually switch apps, wait for SMS notifications, or type anything, this flow boasts the highest transaction success rates in the industry.
+*   **Zero VPA Entry:** Completely eliminates failed transactions due to user typos.
+*   **Native Experience:** Keeps the user in a smooth, continuous flow without jarring browser redirects.
 
 ### The Technical Architecture
 
@@ -20,16 +20,14 @@ To understand the secure integration behind the scenes, here is the technical ar
 
 ### The Standard Flow
 
+<img width="1198" height="533" alt="Screenshot 2026-07-23 at 5 00 03 PM" src="https://github.com/user-attachments/assets/8201d117-2075-4d7c-b362-2f4eadd5fd01">
 
-<img width="1198" height="533" alt="Screenshot 2026-07-23 at 5 00 03 PM" src="https://github.com/user-attachments/assets/8201d117-2075-4d7c-b362-2f4eadd5fd01" />
-
-
-1. **Checkout:** The user selects UPI on your checkout page.
-2. **Order Creation:** Your backend calls the Cashfree API to create an order.
-3. **Intent Invocation:** You pass the returned UPI deep link to your mobile frontend.
-4. **App Selection:** The user's phone OS handles app selection natively.
-5. **Authorization:** The user enters their UPI PIN in their chosen app.
-6. **Return:** The UPI app pushes the user back to your app/website.
-7. **Verification:** Always rely on the Server-to-Server Webhook to verify the final payment status before showing the success screen to the user.
+1.  **Checkout:** The user selects UPI on your checkout page.
+2.  **Order Creation:** Your backend calls the Cashfree API to create an order.
+3.  **Intent Invocation:** You pass the returned UPI deep link to your mobile frontend.
+4.  **App Selection:** The user's phone OS handles app selection natively.
+5.  **Authorization:** The user enters their UPI PIN in their chosen app.
+6.  **Return:** The UPI app pushes the user back to your app/website.
+7.  **Verification:** Always rely on the Server-to-Server Webhook to verify the final payment status before showing the success screen to the user.
 
 > **Warning:** Never trust the frontend app-switch return alone to verify a payment. Always wait for the backend Webhook confirmation from Cashfree.

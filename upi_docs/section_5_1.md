@@ -26,7 +26,7 @@
       </tr>
       <tr>
         <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Settlement</td>
-        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Funds move from customer banks to the Payment Aggregator’s nodal/escrow account (or your bank account directly).</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Funds move from customer banks to the Payment Aggregator's nodal/escrow account (or your bank account directly).</td>
         <td style="padding: 16px 20px; border-bottom: 1px solid #f1f5f9; vertical-align: top;">
           <span style="display: inline-block; background-color: #f0eafc; color: #5b21b6; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">T+0 to T+2 interbank clearing</span>
         </td>
@@ -89,7 +89,7 @@ Cycles represent business days (n) elapsed after transaction capture day (T):
       <tr>
         <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Reconciliation</td>
         <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Simple 1:1 match per settlement batch UTR.</td>
-        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Requires 3-way reconciliation (Gateway Records ↔ Bank MIS ↔ Bank Statement).</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Requires 3-way reconciliation (Gateway Records, Bank MIS and Bank Statement).</td>
       </tr>
       <tr>
         <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Refunds</td>
@@ -126,7 +126,7 @@ When you see terms like T+1, the "T" stands for the Transaction Date, and the "+
 
 ---
 
-### 3.2 Real-World Scenarios 
+### 3.2 Real-World Scenarios
 
 Here is how that timeline plays out in practice based on different transaction days:
 
@@ -178,7 +178,7 @@ Here is how that timeline plays out in practice based on different transaction d
 </div>
 ---
 
-### 3.3 Payment-Specific Timelines 
+### 3.3 Payment-Specific Timelines
 
 You are not forced to pick a single payout schedule for your entire business. The system allows you to configure different settlement speeds based on the type of payment your customer used.
 

@@ -1,35 +1,18 @@
-Flash UPI provides merchants with the functionality to accept UPI payments within the merchant's app without any redirection to PSPs like Google Pay, PhonePe, etc. This will increase the payment success rate for merchants.
+UPI Collect is a standard server-to-server "pull" mechanism. In this flow, the customer provides their Virtual Payment Address (VPA/UPI ID) on your checkout page. Your backend then sends a payment request directly to that VPA. The user receives a push notification or SMS, opens their UPI app (like Google Pay or PhonePe), and enters their PIN to authorize the transaction.
 
-### Customer Flow
-<img width="1728" height="1136" alt="8aa94f95-ac3e-458d-a29b-fa5daef220f3" src="https://github.com/user-attachments/assets/3827df1c-ea2a-453c-9efd-8486f6c363c9" />
+While this was once a standard integration, it inherently introduces friction (users must wait for network notifications and manually switch apps) and yields lower success rates compared to UPI Intent.
 
-**Returning customer who registered earlier:**
-1. The customer lands on the merchant’s checkout page and selects Flash UPI.
-2. Customer enters UPI PIN to complete the payment.
+### NPCI Sunset Guidelines (Effective February 2026)
 
-**The customer has an existing VPA with the partner bank:**
-1. The customer lands on the merchant’s checkout page and selects ‘Add Bank Account’.
-2. The customer selects the sim and gives permission to send text messages. This triggers device binding.
-3. Customer’s bank account details are fetched and linked to the VPA.
-4. Customer enters UPI PIN to complete the payment.
+To combat payment spam, reduce unauthorized mandate requests, and push the ecosystem towards higher-converting flows, the NPCI deprecated standard P2M (Person-to-Merchant) Collect flows effective **February 2026**.
 
-**The customer doesn't have an existing VPA with the partner bank but has used UPI via some other bank/PSP:**
-1. The customer lands on the merchant’s checkout page and selects ‘Add Bank Account’.
-2. The customer selects the sim and gives permission to send text messages. This triggers device binding.
-3. Customer selects a bank from the available banks - All accounts with that bank are fetched.
-4. We create a new VPA with `mobilenumber@axis` and link accounts which have a UPI PIN already set.
-5. The customer enters UPI PIN to complete the payment.
+For standard e-commerce and retail transactions, merchants are now strictly required to default to **UPI Intent** (for mobile checkouts) or **Dynamic QR Codes** (for desktop/web checkouts). Standard Collect requests sent for everyday retail transactions are heavily throttled or proactively blocked by the NPCI Switch, resulting in failed transactions and potential compliance warnings.
 
-**The customer never used UPI:**
-1. The customer lands on the merchant’s checkout page and selects ‘Add Bank Account’.
-2. The customer selects the sim and gives permission to send text messages. This triggers device binding.
-3. Customer selects a bank from the available banks - All accounts with that bank are fetched.
-4. The customer is prompted to provide their debit card details and enter an OTP to complete the setup.
-5. The customer enters UPI PIN to complete the payment.
+### Collect Exemptions: Valid Use Cases
 
-### Benefits
+The sunset of standard P2M Collect does not mean the architecture is entirely dead. Strict exemptions exist where UPI Collect remains a permitted, compliant, and necessary integration:
 
-* **Faster and Smooth Customer Experience**
-* **Higher Success Rates (by 4-5%):** With lesser opportunities for customers to drop off in the payment experience.
-* **Complete In-App Flow:** With no redirections, you gain much better control over the user journey.
-* **Eliminates Third-Party Dependencies:** Transactions do not need to be routed via external UPI applications, which reduces timeout issues significantly and gives you more visibility on payment failures.
+*   **Capital Markets & Broking (TPV):** For merchants operating under MCC 6211 or 6012, Collect is still permitted and heavily utilized in tandem with Third-Party Verification (TPV). It ensures the payment is pulled exactly from the investor's pre-registered bank account.
+*   **Desktop-to-Mobile Flows:** When a user is checking out on a desktop computer and chooses to type in their UPI ID rather than scanning a QR code, a Collect request is necessary to push the authorization prompt to their mobile phone.
+*   **iOS Platform Limitations:** In certain hybrid app environments or specific iOS browser flows where standard deep linking (Intent) fails or is blocked by the OS, Collect acts as an approved fallback mechanism to ensure the user can still pay.
+*   **Mandate Execution (AutoPay):** Recurring payments rely entirely on the Collect architecture. When a subscription is due, the merchant's server triggers a pre-authorized Collect request against the user's account, which executes automatically without requiring an additional PIN entry (within allowed limits).

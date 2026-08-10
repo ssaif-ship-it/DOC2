@@ -1,217 +1,145 @@
-## Product Comparison at a Glance
+To maintain the security of the payment ecosystem and mitigate fraud, the National Payments Corporation of India (NPCI) and participating banks enforce strict transaction and velocity limits on the UPI network.
 
-<div class="upi-product-table" style="overflow-x:auto; border:1px solid #E5E7EB; border-radius:0.5rem; box-shadow:0 1px 2px rgba(0,0,0,0.05); margin:1.5rem 0;">
-<style>
-.upi-product-table table { width:100%; font-size:14px; text-align:left; border-collapse:collapse; }
-.upi-product-table thead th { background:#F4F0FA; color:#5A28A3; font-weight:600; padding:12px 16px; }
-.upi-product-table tbody td { padding:12px 16px; border-top:1px solid #E5E7EB; color:#4B5563; }
-.upi-product-table tbody tr:hover td { background:#F9FAFB; }
-.upi-product-table .badge { display:inline-block; padding:2px 10px; border-radius:9999px; font-size:12px; font-weight:500; }
-</style>
-<table>
-  <thead>
-    <tr>
-      <th>Product</th>
-      <th>Best for</th>
-      <th>Integration effort</th>
-      <th>Customer action</th>
-      <th>Where</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="font-weight:600;color:#111827;">UPI Intent</td>
-      <td>Mobile app/web checkout</td>
-      <td><span class="badge" style="background:#EFF6FF;color:#1D4ED8;">Low (API)</span></td>
-      <td>Tap app → PIN</td>
-      <td><span class="badge" style="background:#EEF2FF;color:#4338CA;">Online</span></td>
-    </tr>
-    <tr>
-      <td style="font-weight:600;color:#111827;">UPI Collect</td>
-      <td>Desktop web, known VPA</td>
-      <td><span class="badge" style="background:#EFF6FF;color:#1D4ED8;">Low (API)</span></td>
-      <td>Type VPA → approve in app</td>
-      <td><span class="badge" style="background:#EEF2FF;color:#4338CA;">Online</span></td>
-    </tr>
-    <tr>
-      <td style="font-weight:600;color:#111827;">Flash UPI</td>
-      <td>High-volume repeat apps</td>
-      <td><span class="badge" style="background:#FFFBEB;color:#B45309;">Medium (SDK)</span></td>
-      <td>PIN only (no app switch)</td>
-      <td><span class="badge" style="background:#EEF2FF;color:#4338CA;">Online (in-app)</span></td>
-    </tr>
-    <tr>
-      <td style="font-weight:600;color:#111827;">Static QR</td>
-      <td>Physical stores, no-tech</td>
-      <td><span class="badge" style="background:#F0FDF4;color:#15803D;">Zero (print QR)</span></td>
-      <td>Scan → type amount → PIN</td>
-      <td><span class="badge" style="background:#F3F4F6;color:#374151;">Offline</span></td>
-    </tr>
-    <tr>
-      <td style="font-weight:600;color:#111827;">Dynamic QR</td>
-      <td>Delivery, desktop, invoices</td>
-      <td><span class="badge" style="background:#FFFBEB;color:#B45309;">Medium (API)</span></td>
-      <td>Scan → PIN (amount pre-filled)</td>
-      <td><span class="badge" style="background:#F0FDFA;color:#0F766E;">Offline/Online</span></td>
-    </tr>
-    <tr>
-      <td style="font-weight:600;color:#111827;">SoftPOS</td>
-      <td>Field agents, delivery, retail</td>
-      <td><span class="badge" style="background:#EFF6FF;color:#1D4ED8;">Low (app install)</span></td>
-      <td>Scan QR / Tap card / Pay link</td>
-      <td><span class="badge" style="background:#F3F4F6;color:#374151;">Offline</span></td>
-    </tr>
-  </tbody>
-</table>
+As a merchant, you need to understand both the baseline network limits and your specific Merchant Category Code (MCC) limits. Attempting to collect amounts above these thresholds, or using restricted payment flows, will result in immediate technical declines.
+
+### 1. The 24-Hour New User Velocity Rule (Anti-Fraud)
+
+One of the most common reasons for unexpected payment failures on high-value orders is the NPCI's 24-hour cooling-off period. To prevent account takeover fraud, the NPCI heavily restricts transaction capabilities when a user's UPI profile undergoes a major state change (e.g., first-time registration, device binding/new phone, or UPI PIN reset).
+
+**The Restriction:** For the first **24 hours** following any of these triggers, the user's UPI transaction limit is strictly capped at **₹5,000**. Normal limits are automatically restored after the 24-hour window expires.
+
+### 2. Standard & MCC-Specific Limits
+
+By default, the standard retail limit for a P2M (Person-to-Merchant) transaction is **₹1 Lakh**. However, the NPCI recognizes that certain critical industries require higher ceilings, while high-risk categories face strict flow limitations (such as completely blocking "pull"/Collect requests).
+
+The table below acts as your master reference for daily transaction limits and flow blocks enforced by the NPCI switch, based on your merchant category:
+
+<div class="upi-table-wrapper" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #222; max-width: 100%; margin: 20px 0;">
+  <style>
+    .upi-limits-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .upi-limits-table th,
+    .upi-limits-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #e0e0e0;
+      vertical-align: middle;
+    }
+    .upi-limits-table th {
+      background-color: #f5f7fa;
+      color: #333;
+      font-weight: 600;
+      border-bottom: 2px solid #ccc;
+    }
+    .upi-limits-table tr:hover {
+      background-color: #f9fbfd;
+    }
+    .mcc-code {
+      font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 13px;
+      color: #444;
+    }
+    .tier-badge {
+      font-weight: 600;
+      color: #1a73e8;
+    }
+    .limit-amount {
+      font-weight: 700;
+      color: #0f9d58;
+      white-space: nowrap;
+    }
+    .upi-constraints {
+      margin-top: 24px;
+      padding: 16px;
+      background-color: #f8f9fa;
+      border-left: 4px solid #1a73e8;
+      border-radius: 0 4px 4px 0;
+    }
+    .upi-constraints h4 {
+      margin: 0 0 10px 0;
+      font-size: 16px;
+      color: #1a73e8;
+    }
+    .upi-constraints ul {
+      margin: 0;
+      padding-left: 20px;
+      font-size: 14px;
+    }
+    .upi-constraints li {
+      margin-bottom: 8px;
+    }
+    .upi-constraints li:last-child {
+      margin-bottom: 0;
+    }
+  </style>
+
+  <table class="upi-limits-table">
+    <thead>
+      <tr>
+        <th>Limit Tier</th>
+        <th>Sector / Category</th>
+        <th>Covered Services</th>
+        <th>Associated MCC Codes</th>
+        <th>Daily Limit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td rowspan="4" class="tier-badge">High Ceiling Tier</td>
+        <td><strong>Medical &amp; Healthcare</strong></td>
+        <td>Hospitals, Doctors, Dentists, Labs, Nursing, Optometrists, Vets</td>
+        <td class="mcc-code">0742, 8011, 8021, 8031, 8041, 8042, 8049, 8050, 8062, 8071, 8099</td>
+        <td class="limit-amount">₹500,000</td>
+      </tr>
+      <tr>
+        <td><strong>Education</strong></td>
+        <td>Schools, Colleges, Universities, Vocational, Business, Services</td>
+        <td class="mcc-code">8211, 8220, 8241, 8244, 8249, 8299</td>
+        <td class="limit-amount">₹500,000</td>
+      </tr>
+      <tr>
+        <td><strong>Financial &amp; Insurance</strong></td>
+        <td>Credit Cards, Insurance, Securities, LIC, Banking, Debt Collection</td>
+        <td class="mcc-code">5413, 5960, 6012, 6211, 6300, 6529, 7322, 7410</td>
+        <td class="limit-amount">₹500,000</td>
+      </tr>
+      <tr>
+        <td><strong>Government &amp; Travel</strong></td>
+        <td>Taxes, Travel Agencies, Tour Operators</td>
+        <td class="mcc-code">4722, 9311</td>
+        <td class="limit-amount">₹500,000</td>
+      </tr>
+      <tr>
+        <td class="tier-badge">Intermediate Tier</td>
+        <td><strong>Retail Luxury &amp; KYC</strong></td>
+        <td>Jewellery, Watches, Silverware, Digital Account Opening</td>
+        <td class="mcc-code">5944, 7409</td>
+        <td class="limit-amount">₹200,000</td>
+      </tr>
+      <tr>
+        <td class="tier-badge">Standard Baseline</td>
+        <td><strong>General Retail &amp; P2P</strong></td>
+        <td>P2P Transfers, Grocery, E-Commerce, Dining, Utilities, All Unspecified</td>
+        <td class="mcc-code">P2P, RETAIL, ECOM, FOOD, UTIL, ALL</td>
+        <td class="limit-amount">₹100,000</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="upi-constraints">
+    <h4>Key Merchant &amp; User Velocity Constraints</h4>
+    <ul>
+      <li><strong>24-Hour Security Cap:</strong> Profile updates (new registration, device binding, or UPI PIN reset) cap transactions at <strong>₹5,000 total</strong> for the first 24 hours.</li>
+      <li><strong>Volume Cap:</strong> Standard Default merchants (₹100k tier) are subject to a maximum <strong>20 transactions daily</strong> per rolling 24 hours.</li>
+      <li><strong>Bank-Level Overrides:</strong> Remitter banks reserve authority to apply lower internal spending limits (e.g., ₹50,000 daily) regardless of category cap allowance.</li>
+    </ul>
+  </div>
 </div>
 
+> **Note:** The Standard Default tier is additionally subject to a 20-transaction daily limit per rolling 24 hours, and the ₹5,000 new-user cap described above still applies within its 24-hour window regardless of MCC.
 
-
-
-
-## Getting Started from Zero: Complete Merchant Onboarding Guide
-
----
-
-## Step 1 — Sign Up on Cashfree
-* Go to [merchant.cashfree.com](https://merchant.cashfree.com) and create an account.
-* Provide basic business details (business name, type, PAN, contact info).
-* You'll land on the Merchant Dashboard with access to the Test (Sandbox) environment immediately.
-
----
-
-## Step 2 — Complete KYC
-In **Dashboard → Account Settings → KYC**, upload:
-* **PAN** (Business or Individual, based on entity type)
-* **Bank account details** (IFSC, account number, account holder name)
-* **Address proof and business registration documents**
-
-Cashfree performs verification, including a penny test (₹1–2 NEFT to your bank, which must be acknowledged).
-
-> ✅ **Success:** Once KYC is approved, the Payment Gateway is activated for production.
-
----
-
-## Step 3 — Get API Keys
-Go to **Dashboard → Payment Gateway → Developers → API Keys**.
-* **Test mode:** Keys are auto-generated.
-* **Production mode:** Click **"Generate API Keys"** and complete 2FA.
-
-Store your keys securely:
-* `x-client-id: <YOUR_APP_ID>`
-* `x-client-secret: <YOUR_SECRET_KEY>`
-
-> ⚠️ **Warning:** Never expose your secret key in client-side code.
-
----
-
-## Step 4 — Choose Your Integration Path
-
-| If you want… | Do this |
-| :--- | :--- |
-| **Fastest start, minimal code** | Use Cashfree Checkout (hosted page) |
-| **Full control over UI** | Use Seamless/Custom Integration (API) |
-| **In-app UPI without redirects** | Integrate the Flash UPI SDK (Android) |
-| **Offline/in-person only** | Activate SoftPOS or Static QR |
-
----
-
-# Set up your integration
-
-Follow the paths below based on where you need to accept payments — mobile app, web, in-app UPI, or a fully custom backend.
-
----
-
-## Step 5 — Integrate (Online – Standard PG)
-
-> Instead of manually building payloads, we highly recommend using our official SDKs and API collections to streamline integration. Every online transaction flow follows three core principles: **Create an Order** (server-side) → **Process the Payment** (client-side) → **Handle Webhooks** (server-side).
-
-Choose your preferred integration path below for complete, up-to-date documentation and code samples.
-
-### Path 1: Mobile App Integration
-
-Native SDKs for Android, iOS, React Native, Flutter, and Cordova.
-
-### Intent
-Users see a list of installed UPI apps and tap to pay directly, without leaving your checkout context.
-
-- [Android SDK Docs](https://www.cashfree.com/docs/payments/online/mobile/android)
-- *Also available for iOS, React Native, Flutter, and Cordova.*
-
-### Path 2: Web Checkout (Hosted & Custom) 
-
-Handles multiple UPI methods depending on device — desktop or mobile web.
-
-### Collect
-User manually enters their VPA (UPI ID) on the checkout page.
-
-### QR
-A dynamic QR code is rendered on-screen for the user to scan and pay.
-
-### Intent
-On mobile-web, the user is redirected to their preferred UPI app to complete payment.
-
-- [Web Checkout Docs](https://www.cashfree.com/docs/payments/overview)
-
-### Path 3: Flash UPI 
-
-Fully native, in-app UPI experience — no switching to a separate app.
-
-### PIN
-The user enters their UPI PIN directly inside your app to authorize the payment.
-
-- [UPI Setup Docs](https://www.cashfree.com/docs/payments/manage/payment-methods/upi)
-
-### Path 4: Core API Reference & Webhooks
-
-For a fully custom backend integration.
-
-### Custom
-Manage the `/orders` endpoint, session generation, and webhook signature verification directly.
-
-- [API Reference](https://www.cashfree.com/docs/api-reference/overview)
-
----
-## Step 7  Test End-to-End
-1. Use Cashfree's Sandbox/Test environment to simulate payments for your chosen method.
-2. Test: success, failure, user-dropped, and refunds.
-3. Verify webhooks arrive and your system processes them correctly.
-4. Verify settlement reports appear in the test dashboard.
-
----
-
-## Step 8   Go Live
-1. Switch from Test to Production API keys.
-2. Ensure KYC is fully approved (v3).
-3. Confirm the penny test is ACKNOWLEDGED.
-4. Choose your settlement cycle (T+1 / T+2 / Instant).
-5. Configure notifications (settlement, refund, dispute alerts).
-6. Start processing real transactions.
-
----
-
-## Go Live Checklist
-
-- [ ] Cashfree account created and email verified
-- [ ] KYC documents uploaded and approved
-- [ ] Bank account verified (penny test ACKNOWLEDGED)
-- [ ] Production API keys generated and stored securely
-- [ ] Webhook endpoints configured and tested
-- [ ] Signature verification implemented
-- [ ] Integration tested in Sandbox (all chosen methods)
-- [ ] Settlement cycle chosen and confirmed
-- [ ] Refund and dispute workflows understood
-- [ ] SoftPOS activated and Collection points created and verified (if offline needed)
-- [ ] Go live — monitor transactions and settlements daily
-
----
-
-## Support & Resources
-
-| Resource | Details |
-| :--- | :--- |
-| **Dashboard** | [merchant.cashfree.com](https://merchant.cashfree.com) |
-| **API Docs** | Cashfree Developer Documentation |
-| **Postman Collections** | Available for quick API testing |
-| **Sandbox** | Full test environment with simulated payments |
-| **Account Manager** | Contact for custom pricing, Flash UPI activation, or enterprise needs |
+> **Note:** While the NPCI sets the maximum ceilings above, individual **Remitter Banks** reserve the right to set *lower* internal limits based on their own risk policies (e.g., a specific bank might cap daily UPI spends at ₹50,000 regardless of your MCC).

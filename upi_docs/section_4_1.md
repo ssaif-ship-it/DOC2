@@ -2,24 +2,20 @@ UPI AutoPay is a recurring payments framework built on the Unified Payments Inte
 
 Merchants can initiate mandate creation via three modes: **QR Scanning**, **Intent Deep Links**, or **Collect Requests**.
 
-
 <video src="https://github.com/user-attachments/assets/4d1f0b3d-907e-442f-8b88-0c166d6c6b43" autoplay loop muted playsinline width="50%">
   Your browser does not support the video tag.
 </video>
-
-
 
 ## 1. Core Concepts: Amount Rules & Frequencies
 
 When creating a mandate, you must define the specific rules that dictate how and when funds can be pulled.
 
 | Amount Rule | Description |
-| :--- | :--- |
+| :-- | :-- |
 | **EXACT** | You are authorized to debit the exact amount specified (e.g., exactly ₹1,000 for a fixed subscription). |
 | **MAX** | You are authorized to debit up to a maximum ceiling limit per cycle (e.g., up to ₹5,000 for a variable utility bill). You must ensure any extra amount collected during the first execution is adjusted in subsequent executions. |
 
-**Supported Frequencies:**
-Daily, Weekly, Fortnightly, Monthly, Bimonthly, Quarterly, Half-yearly, Yearly, or As Presented.
+**Supported Frequencies:** Daily, Weekly, Fortnightly, Monthly, Bimonthly, Quarterly, Half-yearly, Yearly, or As Presented.
 
 > **Note on "As Presented":** To prevent misuse, unverified offline merchants using "As Presented" mandates are capped at a cumulative debit of ₹25,000 per month. This cap does not apply to verified online merchants.
 
@@ -30,12 +26,13 @@ Daily, Weekly, Fortnightly, Monthly, Bimonthly, Quarterly, Half-yearly, Yearly, 
 The NPCI enforces strict limits on how much money can be automatically debited without the customer entering their Additional Factor of Authentication (AFA/UPI PIN).
 
 | Limit Type | Threshold | Description |
-| :--- | :--- | :--- |
+| :-- | :-- | :-- |
 | **Standard Limit** | ₹15,000 | For most retail merchants, recurring debits up to ₹15,000 execute automatically without a PIN. |
 | **Extended Limit** | ₹1,00,000 | For specific high-value categories mandated by OC 151A (Mutual Funds, Insurance Premiums, Credit Card Bills), the automatic PIN-less limit is extended to ₹1,00,000. |
 | **Over-Limit Executions** | Above limits | Any execution exceeding these thresholds requires the user to manually enter their UPI PIN for every single cycle. |
 
 **Instant vs. Deferred First Execution:**
+
 *   **Instant:** If the very first debit happens instantly (within 5 minutes of mandate creation), no additional PIN is required, as the creation PIN suffices.
 *   **Deferred:** If the first execution is deferred to a later date, that specific first debit will always strictly require a UPI PIN, regardless of the amount.
 
@@ -57,7 +54,7 @@ To ensure transparency, you must trigger a Pre-Debit Notification (PDN) to the P
 Every mandate execution is tracked using a sequential number (SeqNum). For example, month one is `SeqNum: 1`, month two is `SeqNum: 2`.
 
 | Action | Rule |
-| :--- | :--- |
+| :-- | :-- |
 | **Retries** | If an execution fails (e.g., insufficient funds), you are allowed a maximum of **9 re-initiation attempts** (10 attempts total) for that specific SeqNum. |
 | **Cooling Off** | There must be a minimum gap of **1 hour** between any retry attempts. |
 | **Skipping** | If all 10 attempts fail, or if you miss a cycle, that specific SeqNum stands cancelled. You must skip it and use the next sequence number (e.g., `SeqNum: 3`) for the following execution. |
@@ -68,5 +65,4 @@ Every mandate execution is tracked using a sequential number (SeqNum). For examp
 
 Users can pause or permanently revoke their active mandates directly from their UPI app. Any attempt to debit a paused or revoked mandate will result in an immediate technical decline.
 
-**The MCC 7322 Exception:**
-To protect lenders, merchants operating under **MCC 7322 (Debt Collection / Loans)** can pass a specific `revokeable=N` flag during mandate creation. This removes the "Revoke" and "Pause" buttons from the customer's UPI app. For these EMI mandates, the user cannot cancel the AutoPay themselves; they must contact the lending institution directly.
+**The MCC 7322 Exception:** To protect lenders, merchants operating under **MCC 7322 (Debt Collection / Loans)** can pass a specific `revokeable=N` flag during mandate creation. This removes the "Revoke" and "Pause" buttons from the customer's UPI app. For these EMI mandates, the user cannot cancel the AutoPay themselves; they must contact the lending institution directly.

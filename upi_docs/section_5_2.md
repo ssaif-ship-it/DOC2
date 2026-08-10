@@ -1,4 +1,4 @@
-This guide outlines the rules, workflows, regulatory timelines, and reconciliation mechanics for returning customer funds—either via merchant-initiated Refunds or system-triggered Reversals.
+This guide outlines the rules, workflows, regulatory timelines, and reconciliation mechanics for returning customer funds, either via merchant-initiated Refunds or system-triggered Reversals.
 
 ### 1. Key Concepts & Definitions
 
@@ -43,13 +43,15 @@ It is essential to distinguish between refunds, reversals, and chargebacks to ma
   </table>
 </div>
 
-
 **Core Rules for Refund Eligibility**
+
 *   **Transaction Status:** Only payments in `SUCCESS` / `Captured` state can be refunded. Pending, failed, or already reversed transactions cannot be refunded.
 *   **Time Window:** Standard refunds are allowed up to 180 days from the transaction date. Complaint-driven UPI UDIR refunds are supported up to 90 days.
 *   **Refundable Balance:** Any new refund must satisfy:
 
-> **Refund Amount** ≤ **Captured Amount** - **∑ (Previous Partial Refunds)**### 2. Payment Method Differences & Regulatory SLAs
+> **Refund Amount** must be less than or equal to **Captured Amount** minus the **total of all previous partial refunds**.
+
+### 2. Payment Method Differences & Regulatory SLAs
 
 Refund processing speeds and technical capabilities vary significantly depending on the payment rail used.
 
@@ -76,15 +78,15 @@ Refund processing speeds and technical capabilities vary significantly depending
         <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Credit/Debit Cards</td>
         <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">ISO 8583 0400 Reversals / Scheme Refunds</td>
         <td style="padding: 16px 20px; border-bottom: 1px solid #f1f5f9; vertical-align: top;">
-          <span style="display: inline-block; background-color: #fef3c7; color: #d97706; border: 1px solid #fde68a; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">5–7 Business Days</span>
+          <span style="display: inline-block; background-color: #fef3c7; color: #d97706; border: 1px solid #fde68a; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">5 to 7 Business Days</span>
         </td>
-        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Scheme rules (Visa/Mastercard/RuPay) set an outer limit of 7–10 days.</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Scheme rules (Visa/Mastercard/RuPay) set an outer limit of 7 to 10 days.</td>
       </tr>
       <tr>
         <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Net Banking</td>
         <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Bank Claim Files / MIS Adjustments</td>
         <td style="padding: 16px 20px; border-bottom: 1px solid #f1f5f9; vertical-align: top;">
-          <span style="display: inline-block; background-color: #f0eafc; color: #5b21b6; border: 1px solid #ddd6fe; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">3–5 Business Days</span>
+          <span style="display: inline-block; background-color: #f0eafc; color: #5b21b6; border: 1px solid #ddd6fe; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">3 to 5 Business Days</span>
         </td>
         <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Non-automated; relies on bank-side periodic claim file processing.</td>
       </tr>
@@ -100,7 +102,7 @@ Refund processing speeds and technical capabilities vary significantly depending
         <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; vertical-align: top;">EMI / BNPL</td>
         <td style="padding: 16px 20px; color: #334155; vertical-align: top; line-height: 1.5;">Issuer Credit Line Adjustment</td>
         <td style="padding: 16px 20px; vertical-align: top;">
-          <span style="display: inline-block; background-color: #fef3c7; color: #d97706; border: 1px solid #fde68a; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">5–7 Business Days</span>
+          <span style="display: inline-block; background-color: #fef3c7; color: #d97706; border: 1px solid #fde68a; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">5 to 7 Business Days</span>
         </td>
         <td style="padding: 16px 20px; color: #334155; vertical-align: top; line-height: 1.5;">Refund cancels principal; customer must contact issuer to cancel bank EMI interest schedules.</td>
       </tr>
@@ -108,16 +110,18 @@ Refund processing speeds and technical capabilities vary significantly depending
   </table>
 </div>
 
-
 ## 3. Refunds vs. Reversals
 
 ### 3.1 Merchant-Initiated Refunds (Full vs. Partial)
+
 *   **Full Refund:** Refunds 100% of the captured transaction amount.
 *   **Partial Refund:** Refunds a portion of the original sale. Multiple partial refunds are permitted until the total captured balance reaches zero.
 *   **Multi-Payment Orders:** On orders paid via multiple transactions, refunds must be executed at the transaction level (`payment_id`) rather than the order level to ensure clear ledger allocation.
 
 ### 3.2 System-Driven Auto-Reversals
+
 Reversals occur automatically when funds leave the customer's account but cannot be fulfilled:
+
 *   **UPI Timeouts ("Deemed Success"):** Debited funds that fail terminal confirmation are auto-reversed back to the remitter bank via NPCI switch signals.
 *   **Direct VPA Transfers:** Payments sent directly to a merchant VPA without a valid checkout session/Order ID are tagged as `UNRECONCILED_AUTO_REFUND` and auto-reversed.
 *   **Card Auth Timeouts:** Authorization holds that drop before capture are released via ISO 8583 0400 messages.

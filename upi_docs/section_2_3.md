@@ -1,18 +1,40 @@
-UPI Collect is a standard server-to-server "pull" mechanism. In this flow, the customer provides their Virtual Payment Address (VPA/UPI ID) on your checkout page. Your backend then sends a payment request directly to that VPA. The user receives a push notification or SMS, opens their UPI app (like Google Pay or PhonePe), and enters their PIN to authorize the transaction.
+UPI QR codes bridge the gap between offline and online payments, as well as desktop and mobile environments. By adhering to the interoperable BharatQR and UPI QR standards, these solutions allow customers to scan and pay using any UPI PSP app.
 
-While this was once a standard integration, it inherently introduces friction (users must wait for network notifications and manually switch apps) and yields lower success rates compared to UPI Intent.
+Depending on your integration environment and reconciliation needs, there are three primary QR architectures you can deploy.
 
-### NPCI Sunset Guidelines (Effective February 2026)
+### 1. Static QR
 
-To combat payment spam, reduce unauthorized mandate requests, and push the ecosystem towards higher-converting flows, the NPCI deprecated standard P2M (Person-to-Merchant) Collect flows effective **February 2026**.
+A Static QR code is a fixed image that does not change. It encodes only your base merchant VPA (Virtual Payment Address) and merchant details.
 
-For standard e-commerce and retail transactions, merchants are now strictly required to default to **UPI Intent** (for mobile checkouts) or **Dynamic QR Codes** (for desktop/web checkouts). Standard Collect requests sent for everyday retail transactions are heavily throttled or proactively blocked by the NPCI Switch, resulting in failed transactions and potential compliance warnings.
+*   **How it works:** When a customer scans a Static QR, their app identifies the merchant, but the customer must manually type in the payment amount before entering their PIN.
+*   **Best for:** Small offline retail storefronts, generic donation pages, or low-tech payment collection.
+*   **Limitations:** Because the amount is variable and the QR does not contain a unique order ID, automated server-to-server reconciliation is very difficult. You rely on SMS notifications or manual ledger checks to confirm payments.
 
-### Collect Exemptions: Valid Use Cases
+### 2. Dynamic QR
 
-The sunset of standard P2M Collect does not mean the architecture is entirely dead. Strict exemptions exist where UPI Collect remains a permitted, compliant, and necessary integration:
+A Dynamic QR code is generated on the fly for every single transaction. It encodes your merchant VPA, the exact payment amount, and a unique Order ID or Reference Number.
 
-* **Capital Markets & Broking (TPV):** For merchants operating under MCC 6211 or 6012, Collect is still permitted and heavily utilized in tandem with Third-Party Verification (TPV). It ensures the payment is pulled exactly from the investor's pre-registered bank account.
-* **Desktop-to-Mobile Flows:** When a user is checking out on a desktop computer and chooses to type in their UPI ID rather than scanning a QR code, a Collect request is necessary to push the authorization prompt to their mobile phone.
-* **iOS Platform Limitations:** In certain hybrid app environments or specific iOS browser flows where standard deep linking (Intent) fails or is blocked by the OS, Collect acts as an approved fallback mechanism to ensure the user can still pay.
-* **Mandate Execution (AutoPay):** Recurring payments rely entirely on the Collect architecture. When a subscription is due, the merchant's server triggers a pre-authorized Collect request against the user's account, which executes automatically without requiring an additional PIN entry (within allowed limits).
+*   **How it works:** When a customer scans this QR, the amount is pre-filled and locked. The customer cannot change it; they simply enter their PIN to authorize.
+*   **Best for:** Desktop website checkouts, self-checkout kiosks, automated vending machines, and organized retail POS systems.
+*   **Benefits:** Perfect reconciliation. Because the exact Order ID is baked into the QR code, your backend instantly receives a Webhook tying the successful payment to the exact shopping cart or invoice.
+
+## 3.POD QR
+
+POD QR (podQR) is a Cashfree UPI QR variant designed for **pay-on-delivery / delayed-payment** use cases, that is, situations where a standard UPI QR does not fit because the customer isn't paying immediately at the time the QR is generated (e.g., a delivery invoice, a printed restaurant bill, or a WhatsApp/digital invoice sent ahead of collection).
+
+### Problem with a standard UPI QR
+
+*   **No retries.** A failed payment attempt kills the transaction; the customer has to be issued a fresh QR/link, causing confusion and lost revenue.
+*   **Short TTL.** Standard QR codes expire quickly, which does not work for invoices where payment may happen hours or days later.
+
+### How POD QR solves this
+
+| Feature | Behavior |
+| :-- | :-- |
+| **Payment retries allowed** | The *same* QR keeps working for repeated attempts until the TTL expires, so there is no need to regenerate. |
+| **Customisable TTL** | Configurable from a few hours up to 30+ days, instead of the few-minute expiry on a normal QR. |
+| **Smarter session handling** | The final payment status is confirmed only after TTL expiry (via a status check), avoiding premature failures. |
+
+**Best suited for:** Pay-on-Delivery, printed invoices, and WhatsApp or digital invoices, that is, anywhere the payer might not pay on the first try or might pay later.
+
+---
