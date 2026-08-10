@@ -2,9 +2,13 @@ UPI AutoPay is a recurring payments framework built on the Unified Payments Inte
 
 Merchants can initiate mandate creation via three modes: **QR Scanning**, **Intent Deep Links**, or **Collect Requests**.
 
-<video src="https://github.com/user-attachments/assets/4d1f0b3d-907e-442f-8b88-0c166d6c6b43" autoplay loop muted playsinline width="50%">
+<video src="https://github.com/user-attachments/assets/cc00d497-1171-4b8d-be57-edde6a77320c" autoplay loop muted playsinline width="50%">
   Your browser does not support the video tag.
 </video>
+
+
+
+
 
 ## 1. Core Concepts: Amount Rules & Frequencies
 
