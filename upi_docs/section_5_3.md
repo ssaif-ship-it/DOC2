@@ -40,9 +40,11 @@ The table below maps standard NPCI error codes, raw bank responses, root causes,
 
 # error codes table
 
-# https://ssaif-ship-it.github.io/Error_codes/
+<div style="background:#EFF6FF;border:1px solid #BFDBFE;border-left:4px solid #1E40AF;border-radius:8px;padding:14px 16px;margin:1.25rem 0;">
+  <strong style="color:#1E40AF;">Note:</strong> https://ssaif-ship-it.github.io/Error_codes/
+</div>
 
-Interactive CSV Table
+
 
   <style>
     body {
