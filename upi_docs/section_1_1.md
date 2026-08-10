@@ -11,7 +11,7 @@ For merchants, integrating UPI is no longer just an alternative payment method; 
 
 ### How a UPI Transaction Works
 
-Unlike traditional card networks, UPI operates on a streamlined, interoperable 4-Pillar Model. This architecture is orchestrated entirely by the NPCI through a central routing engine known as the UPI Switch.
+Unlike traditional card networks, UPI operates on a streamlined, interoperable 4-Pillar Model. This architecture is orchestrated entirely by the NPCI through a central routing engine known as the UPI Switch .
 
 Note that consumer-facing apps like Google Pay or PhonePe are Third-Party Application Providers (TPAPs). They provide the user interface but do not hold a direct UPI banking license. They must partner with regulated Payment Service Provider (PSP) banks to route transactions to the NPCI.
 
