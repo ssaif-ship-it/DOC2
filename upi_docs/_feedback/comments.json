@@ -168,6 +168,20 @@
       "createdAt": "2026-08-11T13:32:51.622Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_ijdmdzmtmsopg137",
+      "section": "doc-4-1",
+      "file": "upi_docs/section_4_1.md",
+      "quote": "Instant: If the very first debit happens instantly (within 5 minutes of mandate creation), no additional PIN is required, as the creation PIN suffices.\nDeferred: If the first execution is deferred to a later date, that specific first debit will always strictly require a UPI PIN, regardless of the amount.",
+      "prefix": "\nInstant vs. Deferred First Execution:\n\n",
+      "suffix": "\n\n\n3. The 24-Hour Pre-Debit Notification",
+      "suggestion": null,
+      "text": "1 rupeee limit",
+      "author": "Saif",
+      "createdAt": "2026-08-11T13:37:22.051Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
