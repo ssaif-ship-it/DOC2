@@ -31,5 +31,5 @@
 
 ### Related sections
 
-*   [5.3 Standard Error Codes](#) lists every error code and its meaning.
-*   [5.4 Customer Facing Messages](#) maps raw error strings to plain language messages.
+*   [5.3 Standard Error Codes](#doc-5-3) lists every error code and its meaning.
+*   [5.4 Customer Facing Messages](#doc-5-4) maps raw error strings to plain language messages.

@@ -18,6 +18,22 @@ We have enabled real-time EMI options for customers paying via RuPay Credit Card
 *   **Supported Flows:** Enabled exclusively for UPI Intent Links and Dynamic QR Codes.
 *   **Unsupported Flows:** Contextual EMI is strictly prohibited for UPI Collect requests. Combining flat discounts with EMI offers is not supported at this time.
 
+### Category Restrictions on RuPay Credit Card on UPI
+
+Before EMI can apply, the base RuPay Credit Card on UPI method itself has to be available to the customer. NPCI excludes the following categories from accepting RuPay Credit Card payments via UPI at all, regardless of MCC:
+
+*   Person-to-person and person-to-person-merchant transfers (P2P, P2PM)
+*   Digital account opening
+*   Lending platforms
+*   Cash withdrawal, at a merchant or at an ATM
+*   eRUPI
+*   IPO
+*   Foreign inward remittances
+*   Mutual funds
+*   Any other category the issuing bank or RBI separately restricts
+
+This list is defined by category, not by MCC number. If your business falls into one of these categories, RuPay Credit Card will not appear as a UPI payment option for your customers, and the EMI feature above is not reachable either.
+
 ## 2. EMI Subvention & Affordability Engine
 
 You can configure both No-Cost EMI and Low-Cost EMI structures via the Merchant Dashboard or API.
@@ -97,11 +113,12 @@ To help you accept micro-transactions and alternative funding sources, our check
 
 ### UPI Lite (On-Device Wallet)
 
-UPI Lite is an on-device wallet designed for 1-click, PIN-less payments for amounts up to ₹200.
+UPI Lite is an on-device wallet designed for 1-click, PIN-less payments, up to **₹1,000 per transaction**, **₹10,000 cumulative per day**, with a maximum on-device wallet balance of **₹5,000** at any time.
 
 *   **Seamless Micro-Payments:** Customers experience sub-second transaction speeds without entering a UPI PIN.
-*   **Fallback Mechanism:** If the order amount exceeds ₹200 or the Lite balance is insufficient, the checkout automatically falls back to standard 2FA UPI requiring a PIN.
+*   **Fallback Mechanism:** If the order amount exceeds ₹1,000, the daily cumulative cap is reached, or the Lite balance is insufficient, the checkout automatically falls back to standard 2FA UPI requiring a PIN.
 *   **No Extra Integration:** Enabled automatically on standard UPI Intent and QR flows.
+*   **Not for Mandates:** UPI Lite cannot be used for AutoPay or other UPI Mandate executions, which require the full bank-authenticated flow.
 
 ### Prepaid Wallets (Interoperable PPI)
 
