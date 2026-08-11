@@ -140,6 +140,20 @@
       "createdAt": "2026-08-11T13:32:23.275Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_ydr7ljynmsop9wc3",
+      "section": "doc-3-4",
+      "file": "upi_docs/section_3_4.md",
+      "quote": "Bank-Level Overrides: Remitter banks reserve authority to apply lower internal spending limits (e.g., ₹50,000 daily) regardless of category cap allowance.",
+      "prefix": "tions daily per rolling 24 hours.\n      ",
+      "suffix": "\n    \n  \n\n\n\nNote: The Standard Default t",
+      "suggestion": null,
+      "text": "remove",
+      "author": "Saif",
+      "createdAt": "2026-08-11T13:32:35.955Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
