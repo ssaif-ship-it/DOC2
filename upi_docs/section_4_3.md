@@ -4,7 +4,7 @@ This guide provides a step-by-step walkthrough for merchants integrating Cashfre
 
 *   [Cashfree Developer Studio](https://www.cashfree.com/devstudio/)
 *   [Subscriptions API Reference](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/raise-a-charge-or-create-an-auth)
-*   [Cashfree Postman Collections](https://www.cashfree.com/docs/apireference/payments/latest/subscription/subscription-postman-collection)
+*   [Cashfree Postman Collections](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/subscription-postman-collection)
 
 ## 1. Onboarding Prerequisites
 
