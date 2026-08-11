@@ -182,6 +182,20 @@
       "createdAt": "2026-08-11T13:37:22.051Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_a4mhpacjmsopjm1s",
+      "section": "doc-4-1",
+      "file": "upi_docs/section_4_1.md",
+      "quote": "If an execution fails (e.g., insufficient funds), you are allowed a maximum of 9 re-initiation attempts (10 attempts total) for that specific SeqNum.",
+      "prefix": "is SeqNum: 2.\n\n\n\nAction\nRule\n\n\n\nRetries\n",
+      "suffix": "\n\n\nCooling Off\nThere must be a minimum g",
+      "suggestion": null,
+      "text": "verify 3",
+      "author": "Saif",
+      "createdAt": "2026-08-11T13:40:09.184Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
