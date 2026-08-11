@@ -1,4 +1,4 @@
-### 3.1.2 Merchant Eligibility Criteria
+### Merchant Eligibility Criteria
 
 To maintain a secure and compliant ecosystem, not all businesses can automatically accept UPI payments. Merchant eligibility is evaluated based on business models, regulatory frameworks, and risk profiles.
 
