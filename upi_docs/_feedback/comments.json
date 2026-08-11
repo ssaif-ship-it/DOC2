@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "comments": [
+    {
+      "id": "c_gn1kbyz0msog797v",
+      "section": "doc-1-1",
+      "file": "upi_docs/section_1_1.md",
+      "quote": "The destination bank where your business account is held and where the settled funds are ultimately deposited.",
+      "prefix": "ry Bank\n      The Merchant's Bank\n      ",
+      "suffix": "\n    \n  \n\n\n\n",
+      "suggestion": null,
+      "text": "change the diagram",
+      "author": "Saif",
+      "createdAt": "2026-08-11T09:18:36.139Z",
+      "status": "open",
+      "replies": []
+    }
+  ]
+}
