@@ -154,6 +154,20 @@
       "createdAt": "2026-08-11T13:32:35.955Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_2mjjxbwxmsopa8fa",
+      "section": "doc-3-4",
+      "file": "upi_docs/section_3_4.md",
+      "quote": "24-Hour Security Cap: Profile updates (new registration, device binding, or UPI PIN reset) cap transactions at ₹5,000 total for the first 24 hours.\nVolume Cap: Standard Default merchants (₹100k tier) are subject to a maximum 20 transactions daily per rolling 24 hours.\nBank-Level Overrides: Remitter banks reserve authority to apply lower internal spending limits (e.g., ₹50,000 daily) regardless of category cap allowance.\nNote: The Standard Default tier is additionally subject to a 20-transaction daily limit per rolling 24 hours, and the ₹5,000 new-user cap described above still applies within its 24-hour window regardless of MCC.\n\nNote: While the NPCI sets the maximum ceilings above, individual Remitter Banks reserve the right to set lower internal limits based on their own risk policies (e.g., a specific bank might cap daily UPI spends at ₹50,000 regardless of your MCC).",
+      "prefix": " & User Velocity Constraints\n    \n      ",
+      "suffix": "regardless of your MCC).\n\n",
+      "suggestion": null,
+      "text": "refine",
+      "author": "Saif",
+      "createdAt": "2026-08-11T13:32:51.622Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
