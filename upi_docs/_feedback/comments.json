@@ -56,6 +56,20 @@
       "createdAt": "2026-08-11T13:26:15.872Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_kb2ifnnkmsop274b",
+      "section": "doc-3-2",
+      "file": "upi_docs/section_3_2.md",
+      "quote": "Path 3: Flash UPI\nFully native, in-app UPI experience, with no switching to a separate app.\n\n",
+      "prefix": "o complete payment.\n\nWeb Checkout Docs\n\n",
+      "suffix": "IN\nThe user enters their UPI PIN directl",
+      "suggestion": null,
+      "text": "To be removed",
+      "author": "Ayushi",
+      "createdAt": "2026-08-11T13:26:36.683Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
