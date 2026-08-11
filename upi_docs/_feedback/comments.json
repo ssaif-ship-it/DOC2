@@ -28,6 +28,20 @@
       "createdAt": "2026-08-11T13:25:18.639Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_9wlj8cnhmsop139o",
+      "section": "doc-3-2",
+      "file": "upi_docs/section_3_2.md",
+      "quote": "In-app UPI without redirects\tIntegrate the Flash UPI SDK (Android)",
+      "prefix": "Use Seamless/Custom Integration (API)\n\n\n",
+      "suffix": "\n\n\nOffline/in-person only\nActivate SoftP",
+      "suggestion": null,
+      "text": "Needs to be removed",
+      "author": "Ayushi",
+      "createdAt": "2026-08-11T13:25:45.036Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
