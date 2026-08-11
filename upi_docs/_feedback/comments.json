@@ -42,6 +42,20 @@
       "createdAt": "2026-08-11T13:25:45.036Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_unphbzg2msop1r28",
+      "section": "doc-3-2",
+      "file": "upi_docs/section_3_2.md",
+      "quote": "User manually enters their VPA (UPI ID) on the checkout page.",
+      "prefix": " device, desktop or mobile web.\nCollect\n",
+      "suffix": "\nQR\nA dynamic QR code is rendered on-scr",
+      "suggestion": null,
+      "text": "Add note about collect sunset",
+      "author": "Ayushi",
+      "createdAt": "2026-08-11T13:26:15.872Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
