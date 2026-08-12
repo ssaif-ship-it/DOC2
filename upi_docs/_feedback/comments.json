@@ -262,6 +262,20 @@
       "createdAt": "2026-08-12T07:59:26.892Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_coa8wjw9mspstxfa",
+      "section": "doc-4-3",
+      "file": "upi_docs/section_4_3.md",
+      "quote": "[ 1. Activate Subscriptions ] --> [ 2. API Keys & Webhooks ] --> [ 3. Create Plan ]\n",
+      "prefix": "h.\n\n2. Step-by-Step Integration Journey\n",
+      "suffix": "                                        ",
+      "suggestion": null,
+      "text": "better looking wireframe",
+      "author": "Saif",
+      "createdAt": "2026-08-12T07:59:55.510Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
