@@ -159,17 +159,7 @@ On mobile-web, the user is redirected to their preferred UPI app to complete pay
 
 *   [Web Checkout Docs](https://www.cashfree.com/docs/payments/overview)
 
-### Path 3: Flash UPI
-
-Fully native, in-app UPI experience, with no switching to a separate app.
-
-### PIN
-
-The user enters their UPI PIN directly inside your app to authorize the payment.
-
-*   [UPI Setup Docs](https://www.cashfree.com/docs/payments/manage/payment-methods/upi)
-
-### Path 4: Core API Reference & Webhooks
+### Path 3: Core API Reference & Webhooks
 
 For a fully custom backend integration.
 
