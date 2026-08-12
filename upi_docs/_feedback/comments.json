@@ -244,8 +244,10 @@
       "text": "verify",
       "author": "Saif",
       "createdAt": "2026-08-12T07:40:16.047Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [],
+      "resolvedBy": "Saif",
+      "resolvedAt": "2026-08-12T07:49:27.678Z"
     }
   ]
 }
