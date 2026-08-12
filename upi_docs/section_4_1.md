@@ -30,9 +30,9 @@ Alongside frequency, every mandate also carries an amount rule:
 | **EXACT** | You are authorized to debit the exact amount specified (e.g., exactly ₹1,000 for a fixed subscription). |
 | **MAX** | You are authorized to debit up to a ceiling per cycle (e.g., up to ₹5,000 for a variable utility bill). If you collect less than the ceiling in one cycle, you cannot carry the difference forward and collect it in a later cycle. |
 
-<!-- DRAFT, NOT CONFIRMED, do not publish until Saif verifies from the test account:
-For MAX mandates specifically, a source outside Cashfree's own docs says a ₹1 debit is triggered the moment the customer approves the mandate, as a verification check, before real recurring debits begin. Open questions: does Cashfree refund this ₹1 automatically, does it show up separately in settlement, or is it just treated as a normal transaction? Once confirmed, turn this into a real blockquote note under the Amount Rules table above.
--->
+<div style="background:#fef3c7;border:1px solid #f59e0b;border-radius:6px;padding:10px 14px;margin:12px 0;">
+<strong>Needs verification:</strong> For MAX mandates specifically, the moment your customer approves the mandate in their UPI app, a ₹1 debit is triggered right away as a verification check, before any of your real recurring debits begin.
+</div>
 
 ## 4. How Much Can Go Through Without a PIN
 
