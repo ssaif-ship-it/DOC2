@@ -334,8 +334,10 @@
       "text": "2026-01-01 is the default shown in the live API reference as of 12 Aug 2026. It is a dated version and will move. Worth a check at each doc release.",
       "author": "Claude",
       "createdAt": "2026-08-12T10:15:00.000Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [],
+      "resolvedBy": "Saif",
+      "resolvedAt": "2026-08-12T10:16:33.668Z"
     },
     {
       "id": "c_5173fc54e2764d81",
