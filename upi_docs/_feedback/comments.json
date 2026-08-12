@@ -166,8 +166,10 @@
       "text": "remove",
       "author": "Saif",
       "createdAt": "2026-08-11T13:32:35.955Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [],
+      "resolvedBy": "Saif",
+      "resolvedAt": "2026-08-12T11:09:37.001Z"
     },
     {
       "id": "c_2mjjxbwxmsopa8fa",
