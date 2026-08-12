@@ -1,135 +1,139 @@
-This guide provides a step-by-step walkthrough for merchants integrating Cashfree UPI AutoPay (alongside eNACH and Card Standing Instructions). It covers account activation, webhook configuration, subscription lifecycle execution, sandbox verification, and direct links to comprehensive developer documentation.
+This guide walks you through integrating Cashfree Subscriptions, covering UPI AutoPay, eNACH, and Card Standing Instructions, from activating the product to your first live recurring charge. At each step, we call out what you're actually deciding, what it means for your customer, and what it means for you operationally, not just the API call to make.
 
-**Developer documentation quick links:**
+## 1. Before You Start: Prerequisites
 
-*   [Cashfree Developer Studio](https://www.cashfree.com/devstudio/)
-*   [Subscriptions API Reference](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/overview)
-*   [Cashfree Postman Collections](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/subscription-postman-collection)
+| Requirement | Description | Status / Action |
+| :-- | :-- | :-- |
+| **Cashfree Account** | Active account on merchant.cashfree.com | Mandatory, [sign up or log in](https://merchant.cashfree.com/merchants/signup) |
+| **KYC Verification** | KYC v3 completed and approved | Mandatory, see the [KYC Compliance Guide](https://www.cashfree.com/docs/help/account/account-activation#required-documents) |
+| **PG Activation** | Payment Gateway live status enabled | Mandatory, see [PG Activation Steps](https://www.cashfree.com/docs/help/account/account-activation) |
+| **Subscriptions Product** | Explicit product activation in Dashboard | Request via Dashboard or your account manager |
 
-## 1. Onboarding Prerequisites
+<!-- REMOVED per Saif's comment on the live doc (2026-08-12): dropped the "Bank Verification / penny-test ACKNOWLEDGED" row. Confirm this was because it's not actually a Subscriptions-specific gate (e.g. it's just general PG activation and doesn't belong in this checklist), so nothing else needs adjusting elsewhere in this file. -->
 
-Before initiating subscription integrations, verify that your account meets the following baseline requirements:
+> **Note on VPA provisioning:** Once Subscriptions is activated, Cashfree automatically provisions a dedicated merchant VPA (e.g., `yourmerchant@cfnsdl`) with the subscription attribute enabled on the UPI switch.
 
-| Requirement | Description | Status / Action | Reference |
-| :-- | :-- | :-- | :-- |
-| **Cashfree Account** | Active account on merchant.cashfree.com | Mandatory | [Sign Up / Login](https://merchant.cashfree.com/merchants/signup) |
-| **KYC Verification** | KYC v3 completed and approved | Mandatory | [KYC Compliance Guide](https://www.cashfree.com/docs/help/account/account-activation#required-documents) |
-| **PG Activation** | Payment Gateway live status enabled | Mandatory | [PG Activation Steps](https://www.cashfree.com/docs/help/account/account-activation) |
-| **Bank Verification** | Penny-test credit status marked `ACKNOWLEDGED` | Mandatory | [Bank Verification Docs](https://www.cashfree.com/docs/help/secure-id/bav) |
-| **Subscriptions Product** | Explicit product activation in Dashboard | Request via Dashboard / Account Manager | [Dashboard Products](https://www.cashfree.com/docs/help/onboarding-related/onboarding-faqs) |
+## 2. The Two Ways to Integrate
 
-> **Note on VPA provisioning:** Upon activating Subscriptions, Cashfree automatically provisions a dedicated merchant VPA (e.g., `yourmerchant@cfnsdl`) with the subscription attribute enabled on the UPI switch.
+Before writing any code, decide how much of the mandate creation experience you want to build yourself. This is the choice that shapes everything else in this guide.
 
-## 2. Step-by-Step Integration Journey
+<div style="display:flex;flex-wrap:wrap;gap:16px;margin:16px 0;">
+  <div style="flex:1;min-width:220px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px;padding:14px 16px;">
+    <div style="font-weight:600;margin-bottom:6px;">Hosted Checkout</div>
+    <div style="font-size:14px;color:#334155;">Cashfree hosts the mandate approval page. You redirect your customer there, Cashfree collects their VPA/bank details and manages the authorization screen, then redirects back to you.</div>
+  </div>
+  <div style="flex:1;min-width:220px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px;padding:14px 16px;">
+    <div style="font-weight:600;margin-bottom:6px;">Seamless (API-only)</div>
+    <div style="font-size:14px;color:#334155;">You build the entire mandate creation UI yourself and call Cashfree's APIs directly. Your customer never leaves your app or site, but you own the interface, the validation, and the PCI/UPI handling on your end.</div>
+  </div>
+</div>
 
-```text
-[ 1. Activate Subscriptions ] --> [ 2. API Keys & Webhooks ] --> [ 3. Create Plan ]
-                                                                         |
-                                                                         v
-[ 6. Reconcile & Manage ]   <-- [ 5. Execute Charges (PDN) ] <-- [ 4. Authorize Mandate ]
-```
+| | Customer sees | You have to build |
+| :-- | :-- | :-- |
+| **Hosted Checkout** | Briefly redirected to a Cashfree-branded approval page, then back to you | Almost nothing, call the API, redirect using the returned link |
+| **Seamless** | Never leaves your app, approves the mandate inside your own UI | The full mandate creation interface, plus your own handling of UPI/bank details |
 
-### Step 1: Activate Subscriptions Product
+If you're not sure which to pick: Hosted Checkout gets you live fastest and is what most merchants start with. Seamless is worth the extra build only if a visible redirect to Cashfree would actually hurt your conversion or brand experience.
 
-1.  Log in to the Cashfree Merchant Dashboard.
-2.  Navigate to **Products > Subscriptions** and click **Request Activation**.
-3.  Internal provisioning configures your `SBCProfile`, webhook triggers, and VPA mandate attributes on the UPI switch.
+Two lighter-weight options sit alongside these: the **Element SDK** gives you a native mobile UI while Cashfree still processes everything behind it, a middle ground, less work than full Seamless, more native feel than a redirect, and **Dashboard/Payment Links** let you create and send a subscription with no code at all, useful for sales-led billing or quick testing rather than a real integration.
 
-### Step 2: Retrieve API Keys and Configure Webhooks
+## 3. Building the Integration, Step by Step
 
-*   Retrieve production and sandbox credentials under **Developers > API Keys** (`x-client-id`, `x-client-secret`, `x-api-version`). Refer to the [Authentication Guide](https://www.cashfree.com/docs/api-reference/authentication).
-*   Register your endpoint under **Developers > Webhooks** and subscribe to subscription lifecycle events:
-    *   `SUBSCRIPTION_STATUS_CHANGE`
-    *   `SUBSCRIPTION_AUTH_SUCCESS` / `SUBSCRIPTION_AUTH_FAILURE`
-    *   `SUBSCRIPTION_PAYMENT_SUCCESS` / `SUBSCRIPTION_PAYMENT_FAILURE`
-*   Implement HMAC-SHA256 signature verification on all incoming webhooks using the [Signature Verification Specs](https://www.cashfree.com/docs/payments/online/webhooks/signature-verification).
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:16px 0;font-size:13px;">
+  <div style="background:#f0f4f8;border:1px solid #cbd5e1;border-radius:6px;padding:6px 12px;">1. Activate</div>
+  <div style="color:#94a3b8;">&rarr;</div>
+  <div style="background:#f0f4f8;border:1px solid #cbd5e1;border-radius:6px;padding:6px 12px;">2. Keys &amp; Webhooks</div>
+  <div style="color:#94a3b8;">&rarr;</div>
+  <div style="background:#f0f4f8;border:1px solid #cbd5e1;border-radius:6px;padding:6px 12px;">3. Create a Plan</div>
+  <div style="color:#94a3b8;">&rarr;</div>
+  <div style="background:#f0f4f8;border:1px solid #cbd5e1;border-radius:6px;padding:6px 12px;">4. Authorize Mandate</div>
+  <div style="color:#94a3b8;">&rarr;</div>
+  <div style="background:#f0f4f8;border:1px solid #cbd5e1;border-radius:6px;padding:6px 12px;">5. Execute Charges</div>
+  <div style="color:#94a3b8;">&rarr;</div>
+  <div style="background:#f0f4f8;border:1px solid #cbd5e1;border-radius:6px;padding:6px 12px;">6. Reconcile</div>
+</div>
 
-### Step 3: Define a Plan
+### Step 1: Activate Subscriptions
 
-Create a plan defining the recurring frequency and ceiling limit (`PERIODIC` for automated schedules or `ON_DEMAND` for usage-based billing).
+Log in to the Merchant Dashboard, go to **Products > Subscriptions**, and click **Request Activation**. This provisions your `SBCProfile`, webhook triggers, and VPA mandate attributes on the UPI switch. There's no customer-facing effect at this step, it's account setup, but it can involve a manual review, so start it before you plan a go-live date.
 
-*   **Dashboard flow:** Subscriptions > Plans > Create Plan
-*   **API endpoint:** `POST /pg/plans`
+### Step 2: Get API Keys and Set Up Webhooks
 
-See request schemas and parameters in the [Plans API Reference](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/plans/create).
+Retrieve your production and sandbox credentials under **Developers > API Keys** (`x-client-id`, `x-client-secret`, `x-api-version`), see the [Authentication Guide](https://www.cashfree.com/docs/api-reference/authentication). Then register your webhook endpoint under **Developers > Webhooks** and subscribe to:
 
-### Step 4: Create and Authorize Subscription
+*   `SUBSCRIPTION_STATUS_CHANGE`
+*   `SUBSCRIPTION_AUTH_SUCCESS` / `SUBSCRIPTION_AUTH_FAILURE`
+*   `SUBSCRIPTION_PAYMENT_SUCCESS` / `SUBSCRIPTION_PAYMENT_FAILURE`
 
-Tie a customer to a plan and generate the mandate authorization link.
+Why this matters for your customer: webhooks are how your own app finds out a mandate was approved or a charge failed. If these aren't wired up correctly, your customer could see a stale status in your app, still "pending" after they've approved, or still "active" after a payment failed, even though Cashfree processed it correctly on its end. Verify incoming webhooks with HMAC-SHA256 using the [Signature Verification Specs](https://www.cashfree.com/docs/payments/online/webhooks/signature-verification).
 
-*   **API endpoint:** `POST /pg/subscriptions`
-*   **Authorization link:** Redirect the user or invoke the SDK using the returned `authorization_link`.
+<!-- FLAG FOR SAIF: from your test account notes, confirm whether you actually had to implement this signature verification by hand, or whether an SDK/dashboard setting handled it for you. If it's handled for you, this section should say so and skip straight to "which events to subscribe to." -->
 
-**Flow options:**
+### Step 3: Create a Plan
 
-| Method | Customer Experience |
+A plan defines the billing rules a customer will be authorizing. You're making two decisions here, both already covered in detail in [4.1 AutoPay](#doc-4-1):
+
+*   **Periodic or On-Demand**, whether Cashfree auto-triggers debits on a schedule, or you trigger each charge yourself.
+*   **Exact or Max amount**, whether the customer is authorizing one fixed number every cycle, or a ceiling you can charge up to.
+
+What this means for your customer: Exact is predictable, they know exactly what leaves their account every cycle. Max gives you flexibility, useful for variable bills, but your customer is authorizing a range, not a number, which some customers find less reassuring at approval time.
+
+Create the plan via **Dashboard: Subscriptions > Plans > Create Plan**, or `POST /pg/plans`, see the [Plans API Reference](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/plans/create).
+
+### Step 4: Create and Authorize the Subscription
+
+Tie a customer to the plan with `POST /pg/subscriptions`, see the [Create Subscription API Docs](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/mandate/create). This returns an `authorization_link`, what you do with it depends on the integration approach from Step 2 above, redirect for Hosted Checkout, or feed it into your own UI for Seamless.
+
+You're also choosing a payment method here, which changes what your customer actually experiences:
+
+| Method | What your customer does |
 | :-- | :-- |
-| **UPI AutoPay** | Customer approves mandate via UPI PIN inside their app (Intent, QR, or Collect) |
-| **eNACH** | Redirects to NPCI eMandate portal for NetBanking/Debit Card approval |
-| **Card SI** | Tokenization and OTP validation at SI Hub |
+| **UPI AutoPay** | Approves the mandate with their UPI PIN, inside their own UPI app (Intent, QR, or Collect) |
+| **eNACH** | Gets redirected to their bank's NetBanking or Debit Card portal to approve |
+| **Card SI** | Enters an OTP to tokenize their card at the SI Hub |
 
-See authorization request schemas in the [Create Subscription API Docs](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/mandate/create).
+UPI AutoPay tends to complete fastest since most customers already have a UPI app open and ready. eNACH's bank redirect is an extra hop, and some customers drop off there simply because they don't recognize the bank's page. Offering more than one method widens who can pay you, but means you're supporting more than one approval experience.
 
 ### Step 5: Execute Recurring Charges
 
-Once the mandate status transitions to `ACTIVE`, recurring charges can be processed:
+Once the mandate is `ACTIVE`, Periodic plans debit automatically on schedule, On-Demand plans need you to call `POST /pg/subscriptions/pay` yourself. Every execution follows the Pre-Debit Notification, retry, and denial rules already covered in [4.1 AutoPay, sections 5 and 6](#doc-4-1), that's where the actual mechanics live, this step is just where you trigger it.
 
-*   **`PERIODIC` plans:** Cashfree automatically schedules and triggers debits on due dates.
-*   **`ON_DEMAND` plans:** Trigger charges manually via `POST /pg/subscriptions/pay`.
+If you need finer control over notification timing than the default, see the [Merchant-Controlled PDN & Execution APIs](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/payment/create-controlled-notification).
 
-See payload specifications in the [Subscription Charge API Reference](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/raise-a-charge-or-create-an-auth).
+**On changing an amount mid-mandate:** Cashfree doesn't offer a direct API to edit an active mandate's amount or expiry in place. To bill a customer a different amount going forward, create a new plan with the revised amount and apply it via the `CHANGE_PLAN` action described in Step 6.
 
-> **Mandatory rule, Pre-Debit Notification (PDN):** Cashfree automatically delivers an SMS/push PDN to the customer 24 to 48 hours prior to execution. Debits of ₹15,000 or less execute automatically without PIN entry.
+### Step 6: Manage, Monitor, and Reconcile
 
-> **Tip:** Need custom control over PDN timing? Explore the [Merchant-Controlled PDN & Execution APIs](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/payment/create-controlled-notification).
+Control active mandates via Dashboard or `POST /pg/subscriptions/{subscription_id}/manage`, see the [Manage Subscription API Reference](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/mandate/manage).
 
-### Step 6: Manage, Monitor and Reconcile
-
-Control active mandates via Dashboard or API (`POST /pg/subscriptions/{subscription_id}/manage`):
-
-*   **Supported actions:** `CANCEL` (revokes mandate), `PAUSE` (suspends debits), `ACTIVATE` (resumes), `CHANGE_PLAN`.
-
-See the [Manage Subscription API Reference](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/mandate/manage).
-
-**Mandate updates:** Cashfree does not offer a direct API to edit an active mandate's amount or expiry in place. To change the billing amount, create a new plan with the revised amount and apply it with the `CHANGE_PLAN` action on the same [Manage Subscription API Reference](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/mandate/manage).
-
-## 3. Integration Approaches & SDKs
-
-| Approach | Best For | Technical Effort | Documentation |
-| :-- | :-- | :-- | :-- |
-| **Cashfree Hosted Checkout** | Fastest setup; hosted mandate flow | Low | [Hosted Checkout Integration](https://www.cashfree.com/docs/payments/subscription/hosted-checkout) |
-| **Element SDK** | Native mobile app UI with Cashfree processing | Medium | [Subscription Element SDK Docs](https://www.cashfree.com/docs/payments/subscription/custom-checkout/mobile/ios-subscription-element) |
-| **Seamless API** | Full white-label control over UI and steps | High | [Subscriptions API Specs](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/overview) |
-| **Dashboard / Links (No-Code)** | Manual billing, sales teams, testing | Zero | [Subscription Payment Links Guide](https://www.cashfree.com/docs/payments/subscription/create) |
+| Action | Effect on your customer | When to use it |
+| :-- | :-- | :-- |
+| **PAUSE** | Debits stop, but the mandate itself stays alive, nothing for them to re-approve later | Customer requests a temporary break, or you're troubleshooting |
+| **ACTIVATE** | Resumes debits on the existing mandate | Ending a pause |
+| **CANCEL** | Mandate is revoked outright, they'd need to approve a brand new one to resume | Customer is done, or the relationship is ending |
+| **CHANGE_PLAN** | They keep paying, but under new plan terms | You need to change the amount, frequency, or ceiling |
 
 ## 4. Sandbox Testing & Go-Live Checklist
 
-Before transitioning to production, complete end-to-end testing in the Cashfree Sandbox environment.
+Test end to end in Cashfree's Sandbox (`https://sandbox.cashfree.com/pg`) before going live:
 
-### Sandbox Testing Resources
+*   [ ] Mandate creation and simulated PIN approval, see [Sandbox Environment Resources](https://www.cashfree.com/docs/payments/online/resources/sandbox-environment)
+*   [ ] Mandate cancellation and the user-decline path
+*   [ ] First cycle charge execution and webhook verification
+*   [ ] A simulated `INSUFFICIENT_FUNDS` failure, confirm your app reacts correctly per the retry rules in [4.1](#doc-4-1)
+*   [ ] Signature verification, using the [Webhook Tools](https://www.cashfree.com/devstudio/preview/pg/tools/webhookVerification)
 
-*   **Environment URL:** `https://sandbox.cashfree.com/pg`
-*   [Sandbox Overview & Credentials](https://www.cashfree.com/docs/api-reference/authentication): Sandbox Getting Started Guide
-*   [Test Cards & Simulator Handles](https://www.cashfree.com/docs/payments/online/resources/sandbox-environment): Subscriptions Test Scenarios and Test VPAs
-*   [Postman Workspace](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/subscription-postman-collection): Download Cashfree Subscriptions Postman Collection
+Before flipping to production:
 
-### Sandbox Test Matrix
-
-*   [ ]  Mandate creation and simulated PIN approval ([Test Handles Guide](https://www.cashfree.com/docs/payments/online/resources/sandbox-environment))
-*   [ ]  Mandate cancellation / user decline path
-*   [ ]  First cycle charge execution and webhook verification
-*   [ ]  Auto-retry trigger on simulated `INSUFFICIENT_FUNDS`
-*   [ ]  Signature verification validation using [Webhook Tools](https://www.cashfree.com/devstudio/preview/pg/tools/webhookVerification)
-
-### Go-Live Verification
-
-*   [ ]  KYC v3 approved and penny-test marked `ACKNOWLEDGED`
-*   [ ]  Subscriptions product enabled in Production Dashboard
-*   [ ]  Production API keys (`x-client-id`, `x-client-secret`) updated
-*   [ ]  Webhook URLs updated to live SSL endpoint
-*   [ ]  Error handling mapped per [Standard & AutoPay Error Codes Reference](#doc-5-3)
+*   [ ] KYC v3 approved
+*   [ ] Subscriptions product enabled in the Production Dashboard
+*   [ ] Production API keys updated
+*   [ ] Webhook URLs updated to your live SSL endpoint
+*   [ ] Error handling mapped against [5.3 Standard & AutoPay Error Codes](#doc-5-3)
 
 ## 5. API Quick Reference
+
+For when you already know the flow and just need the endpoint:
 
 | Endpoint | Method | Purpose | Reference |
 | :-- | :-- | :-- | :-- |
@@ -140,4 +144,6 @@ Before transitioning to production, complete end-to-end testing in the Cashfree 
 | `/pg/subscriptions/pay` | `POST` | Trigger an on-demand recurring charge | [API Docs](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/raise-a-charge-or-create-an-auth) |
 | `/pg/subscriptions/{id}/payments` | `GET` | Retrieve payment execution history | [API Docs](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/payment/fetch-payments-for-mandate) |
 
-For complete API schemas, HTTP header requirements, response status codes, and error payloads, visit the [Cashfree Subscriptions API Portal](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/overview).
+<!-- FLAG FOR SAIF: your PG/Online Store test notes say Subscriptions actually runs on a legacy /api/v2 API in practice, while every endpoint above is the newer /pg one from Cashfree's "latest" docs. Confirm which one your test account is actually provisioned on before this table goes live, if it's the legacy one, this whole table and several links above need to point at /api/v2 endpoints instead. -->
+
+Full schemas, headers, status codes, and error payloads are in the [Cashfree Subscriptions API Portal](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/overview), and the [Postman Collection](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/subscription-postman-collection) if you'd rather explore hands-on.
