@@ -308,6 +308,76 @@
       "replies": [],
       "resolvedBy": "Saif",
       "resolvedAt": "2026-08-12T08:33:00.239Z"
+    },
+    {
+      "id": "c_de5e7ebb2341ee05",
+      "section": "doc-3-2",
+      "file": "upi_docs/section_3_2.md",
+      "quote": "| **Completed** | Approved | You can generate production keys |",
+      "prefix": "ed document. Re-upload just that one. |\n",
+      "suffix": "\n| **Blocked** | Products cannot be acti",
+      "suggestion": null,
+      "text": "Status labels here are taken from the partner-side KYC docs (KYC pending, Under review, Resubmit KYC, Completed, Blocked). Please confirm the merchant dashboard uses the same five labels before publishing. This replaces the old 'KYC v3' wording, which appears nowhere in the dashboard.",
+      "author": "Claude",
+      "createdAt": "2026-08-12T10:15:00.000Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_49548a36d8bf2b79",
+      "section": "doc-3-2",
+      "file": "upi_docs/section_3_2.md",
+      "quote": "x-api-version:    2026-01-01",
+      "prefix": "ID>\nx-client-secret:  <YOUR_SECRET_KEY>\n",
+      "suffix": "\nContent-Type:     application/json\n```\n",
+      "suggestion": null,
+      "text": "2026-01-01 is the default shown in the live API reference as of 12 Aug 2026. It is a dated version and will move. Worth a check at each doc release.",
+      "author": "Claude",
+      "createdAt": "2026-08-12T10:15:00.000Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_5173fc54e2764d81",
+      "section": "doc-3-2",
+      "file": "upi_docs/section_3_2.md",
+      "quote": "For the scope, the exemptions and the migration path, see [2.2 UPI Collect](#doc-2-2).",
+      "prefix": "Use Dynamic QR for desktop web instead. ",
+      "suffix": "\n\n### Reference documentation\n\n*   [Andr",
+      "suggestion": null,
+      "text": "This link does not resolve yet. Section 2.2 currently has no Collect sunset content at all. 2.2 also needs to own the exact NPCI circular reference for the P2M leg, which is still pending compliance sign-off, and confirmation that the iOS and web exemption still holds.",
+      "author": "Claude",
+      "createdAt": "2026-08-12T10:15:00.000Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_0e07173677337c3d",
+      "section": "doc-3-2",
+      "file": "upi_docs/section_3_2.md",
+      "quote": "| **Standard (T+2)** | Two business days after the transaction | Included | **This is the default.** Most merchants stay here. |",
+      "prefix": "ick this if |\n| :-- | :-- | :-- | :-- |\n",
+      "suffix": "\n| T+1 | Next business day | Included, w",
+      "suggestion": null,
+      "text": "T+2 as default is confirmed against Cashfree's own Settlements Quick Guide. Note this contradicts sections 1.1, 1.2 and 5.1, which all currently say T+1. Those three need correcting to match, otherwise the doc still says two different things.",
+      "author": "Claude",
+      "createdAt": "2026-08-12T10:15:00.000Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_5842c4b0292dca6e",
+      "section": "doc-3-2",
+      "file": "upi_docs/section_3_2.md",
+      "quote": "Instant and On-Demand both carry a fee, so check your pricing before you switch to either.",
+      "prefix": "stated cycle while your account is new. ",
+      "suffix": " See [5.1 Settlements](#doc-5-1).\n\n---\n\n",
+      "suggestion": null,
+      "text": "Deliberately left unpriced. The public pricing page calls Instant Settlement an add-on without publishing a rate. An earlier draft said 0.30% plus GST, which could not be verified. Add the real number here if pricing will confirm it.",
+      "author": "Claude",
+      "createdAt": "2026-08-12T10:15:00.000Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }

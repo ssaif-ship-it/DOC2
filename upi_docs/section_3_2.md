@@ -64,9 +64,19 @@ Cashfree then runs a penny test, a Re 1 NEFT credit to the bank account you gave
 
 **How this affects you later.** Your MCC (Merchant Category Code) is assigned from what you declare here, your website, and your product listing. You do not choose your own MCC. Your MCC then determines your per transaction limits, which UPI flows you are permitted to use, and whether you need TPV. If you sell across more than one business line, flag it now, because a wrong MCC surfaces later as unexplained declines. See [3.1 Standards and Onboarding](#doc-3-1) and [3.4 MCC Limits and Caps](#doc-3-4).
 
-> **Success:** Once KYC is approved, the Payment Gateway is activated for production.
+### How to check where your KYC stands
 
-> **Open item, do not publish as is:** confirm with the KYC team the exact status string a merchant sees in the dashboard when KYC is approved, so this step can tell them what to look for. The previous draft said "KYC v3", which is not a term that appears anywhere in the dashboard and which a merchant has no way to verify.
+Your status is shown against your account and moves through these values:
+
+| Status | What it means | What to do |
+| :-- | :-- | :-- |
+| **KYC pending** | You have not submitted yet | Upload the documents above |
+| **Under review** | Submitted, Cashfree is verifying | Nothing, wait. Keep building in sandbox. |
+| **Resubmit KYC** | Something was rejected | The reason is shown against the failed document. Re-upload just that one. |
+| **Completed** | Approved | You can generate production keys |
+| **Blocked** | Products cannot be activated for this business | Contact support, this is not fixable by re-uploading |
+
+> **Success:** Once your KYC status reads Completed, the Payment Gateway is activated for production.
 
 ---
 
@@ -123,9 +133,16 @@ Base URLs:
 *   Sandbox: `https://sandbox.cashfree.com/pg`
 *   Production: `https://api.cashfree.com/pg`
 
-Every request needs `x-client-id`, `x-client-secret`, `Content-Type: application/json` and **`x-api-version`**. A request without `x-api-version` fails, and this is the single most common first-call error.
+Every request needs these four headers:
 
-> **Open item, do not publish as is:** insert the current `x-api-version` value here, confirmed against the live API reference at the time of publishing.
+```
+x-client-id:      <YOUR_APP_ID>
+x-client-secret:  <YOUR_SECRET_KEY>
+x-api-version:    2026-01-01
+Content-Type:     application/json
+```
+
+A request without `x-api-version` fails, and this is the single most common first-call error. Check the [API reference](https://www.cashfree.com/docs/api-reference/overview) for the current version before you build, since it is dated and does change.
 
 ### Handling the result
 
@@ -142,8 +159,6 @@ Verify every webhook before you act on it. The signature is HMAC SHA256 over the
 **Collect.** Read this before you build on it.
 
 > **Restricted flow.** Manual VPA entry Collect for P2M is under sunset. Unless your category is exempt, do not build on it, and migrate if you already have. Use Dynamic QR for desktop web instead. For the scope, the exemptions and the migration path, see [2.2 UPI Collect](#doc-2-2).
-
-> **Open item, do not publish as is:** 2.2 carries no sunset content yet, so this link does not resolve until it is written.
 
 ### Reference documentation
 
@@ -217,13 +232,14 @@ Also test a **refund** and a **user dropped** payment (start a payment and aband
 
 | Option | When the money reaches you | Cost | Pick this if |
 | :-- | :-- | :-- | :-- |
-| Standard | Next business day cycle | Included | Default for most merchants. Weekends and bank holidays roll to the next working day. |
-| Extended | Later cycle, used for higher risk categories | Included | Not usually a choice, it is applied based on your category |
-| Instant | Roughly 15 minutes, available 24x7 | **Chargeable, from 0.30% plus GST** | Your cash flow needs same day funds and the fee is worth it to you |
+| **Standard (T+2)** | Two business days after the transaction | Included | **This is the default.** Most merchants stay here. |
+| T+1 | Next business day | Included, where enabled for your account | You need funds a day sooner |
+| Instant Settlement | Roughly 15 minutes | Chargeable add-on | Your cash flow needs same day funds |
+| On-Demand Settlement | Instantly, including holidays | Chargeable | You need funds outside the normal cycle, when you ask for them |
 
-**How this affects you later.** Your first settlement may be held longer than your stated cycle while your account is new. Instant settlement is the only one of these with a fee attached, and it is easy to select without noticing that. See [5.1 Settlements](#doc-5-1).
+Business days exclude weekends and bank holidays. A transaction on Friday 3 June settles Monday 6 June on T+1, or Tuesday 7 June on T+2.
 
-> **Open item, do not publish as is:** product to confirm the default settlement cycle, T+1 or T+2, and the correct label for each row above. The current documentation states this four different ways across sections 1.1, 1.2, 3.2 and 5.1, and at least two of them are wrong. Whatever the answer, use identical wording in all four places.
+**How this affects you later.** Your first settlement may be held longer than your stated cycle while your account is new. Instant and On-Demand both carry a fee, so check your pricing before you switch to either. See [5.1 Settlements](#doc-5-1).
 
 ---
 
