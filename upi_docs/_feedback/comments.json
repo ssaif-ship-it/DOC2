@@ -152,8 +152,10 @@
       "text": "easy explain",
       "author": "Saif",
       "createdAt": "2026-08-11T13:32:23.275Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [],
+      "resolvedBy": "Saif",
+      "resolvedAt": "2026-08-12T11:09:41.288Z"
     },
     {
       "id": "c_ydr7ljynmsop9wc3",
