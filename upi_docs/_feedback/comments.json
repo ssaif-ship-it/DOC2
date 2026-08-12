@@ -210,6 +210,20 @@
       "createdAt": "2026-08-11T13:41:56.450Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_9pesoif8msps0qdg",
+      "section": "doc-4-1",
+      "file": "upi_docs/section_4_1.md",
+      "quote": "For MAX mandates specifically: the moment your customer approves the mandate in their UPI app, a ₹1 debit is triggered right away as a verification check, before any of your real recurring debits begin. (Flagged for you to confirm from your test account: does Cashfree refund this ₹1 automatically, and does it show up separately in settlement, or does it just get treated as a normal transaction?)\n\n",
+      "prefix": "ard and collect it in a later cycle.\n\n\n\n",
+      "suffix": "4. How Much Can Go Through Without a PIN",
+      "suggestion": null,
+      "text": "cofirm",
+      "author": "Saif",
+      "createdAt": "2026-08-12T07:37:13.348Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
