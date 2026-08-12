@@ -224,6 +224,20 @@
       "createdAt": "2026-08-12T07:37:13.348Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_p2x15huimsps4ncg",
+      "section": "doc-4-1",
+      "file": "upi_docs/section_4_1.md",
+      "quote": "Customer-side and temporary: low balance, a brief network issue at the customer's bank, an inactive-but-not-closed account\tRetry it, Periodic only. The subscription moves to ON HOLD, and you call the Retry API. Up to 3 retry attempts, no more than 1 per day, and it must succeed before the current cycle expires. A successful retry reactivates the subscription.\nThe account or mandate itself is broken: closed/invalid account, a mandate already cancelled or deactivated, a name mismatch\tDon't retry, it won't work. The customer needs to set up a brand new mandate.\nBlocked by something outside normal banking: a court order, a frozen account, KYC pending on the customer's side\tRetrying won't fix this. Follow up with the customer directly instead.\nThis was the mandate's very first debit, and it failed for any reason above\tThe whole mandate is cancelled, not just this one cycle. This is the one exception to the SeqNum-skipping rule below.",
+      "prefix": "\n\nWhat happened\nWhat you do about it\n\n\n\n",
+      "suffix": "below.\n\n\nSee 4.4 MCC-Specific Limits for",
+      "suggestion": null,
+      "text": "verify",
+      "author": "Saif",
+      "createdAt": "2026-08-12T07:40:16.047Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
