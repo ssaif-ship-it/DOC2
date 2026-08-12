@@ -1,71 +1,35 @@
 ## Product Comparison at a Glance
 
-<div class="upi-product-table" style="overflow-x:auto; border:1px solid #E5E7EB; border-radius:0.5rem; box-shadow:0 1px 2px rgba(0,0,0,0.05); margin:1.5rem 0;">
-<style>
-.upi-product-table table { width:100%; font-size:14px; text-align:left; border-collapse:collapse; }
-.upi-product-table thead th { background:#F4F0FA; color:#5A28A3; font-weight:600; padding:12px 16px; }
-.upi-product-table tbody td { padding:12px 16px; border-top:1px solid #E5E7EB; color:#4B5563; }
-.upi-product-table tbody tr:hover td { background:#F9FAFB; }
-.upi-product-table .badge { display:inline-block; padding:2px 10px; border-radius:9999px; font-size:12px; font-weight:500; }
-</style>
-<table>
-  <thead>
-    <tr>
-      <th>Product</th>
-      <th>Best for</th>
-      <th>Integration effort</th>
-      <th>Customer action</th>
-      <th>Where</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="font-weight:600;color:#111827;">UPI Intent</td>
-      <td>Mobile app/web checkout</td>
-      <td><span class="badge" style="background:#EFF6FF;color:#1D4ED8;">Low (API)</span></td>
-      <td>Tap app > PIN</td>
-      <td><span class="badge" style="background:#EEF2FF;color:#4338CA;">Online</span></td>
-    </tr>
-    <tr>
-      <td style="font-weight:600;color:#111827;">UPI Collect</td>
-      <td>Desktop web, known VPA</td>
-      <td><span class="badge" style="background:#EFF6FF;color:#1D4ED8;">Low (API)</span></td>
-      <td>Type VPA > approve in app</td>
-      <td><span class="badge" style="background:#EEF2FF;color:#4338CA;">Online</span></td>
-    </tr>
-    <tr>
-      <td style="font-weight:600;color:#111827;">Flash UPI</td>
-      <td>High-volume repeat apps</td>
-      <td><span class="badge" style="background:#FFFBEB;color:#B45309;">Medium (SDK)</span></td>
-      <td>PIN only (no app switch)</td>
-      <td><span class="badge" style="background:#EEF2FF;color:#4338CA;">Online (in-app)</span></td>
-    </tr>
-    <tr>
-      <td style="font-weight:600;color:#111827;">Static QR</td>
-      <td>Physical stores, no-tech</td>
-      <td><span class="badge" style="background:#F0FDF4;color:#15803D;">Zero (print QR)</span></td>
-      <td>Scan > type amount > PIN</td>
-      <td><span class="badge" style="background:#F3F4F6;color:#374151;">Offline</span></td>
-    </tr>
-    <tr>
-      <td style="font-weight:600;color:#111827;">Dynamic QR</td>
-      <td>Delivery, desktop, invoices</td>
-      <td><span class="badge" style="background:#FFFBEB;color:#B45309;">Medium (API)</span></td>
-      <td>Scan > PIN (amount pre-filled)</td>
-      <td><span class="badge" style="background:#F0FDFA;color:#0F766E;">Offline/Online</span></td>
-    </tr>
-    <tr>
-      <td style="font-weight:600;color:#111827;">SoftPOS</td>
-      <td>Field agents, delivery, retail</td>
-      <td><span class="badge" style="background:#EFF6FF;color:#1D4ED8;">Low (app install)</span></td>
-      <td>Scan QR / Tap card / Pay link</td>
-      <td><span class="badge" style="background:#F3F4F6;color:#374151;">Offline</span></td>
-    </tr>
-  </tbody>
-</table>
-</div>
+Pick the product that matches how your customers pay you. You are not locked in, most merchants run two or three of these side by side, and you can add another later without redoing your integration.
 
-## Getting Started from Zero: Complete Merchant Onboarding Guide
+| Product | Best for | Integration effort | Customer action | What to know before you pick it |
+| :-- | :-- | :-- | :-- | :-- |
+| **[UPI Intent](#doc-2-1)** | Mobile app and mobile web checkout | Low (API or SDK) | Tap their UPI app, enter PIN | Highest success rates of the online flows. Behaviour differs on iOS, see 2.1. |
+| **[UPI Collect](#doc-2-2)** | Narrow. Only the exempt categories below | Low (API) | Type VPA, approve in their app | **Restricted.** Manual VPA entry for P2M is under sunset. See the note in Step 5 before building on this. |
+| **[Static QR](#doc-2-3)** | Counter payments, low tech stores | Low (activation, then print) | Scan, type amount, enter PIN | Not zero effort. Needs activation, and it cannot be reconciled per order. |
+| **[Dynamic QR](#doc-2-3)** | Delivery, desktop checkout, invoices | Medium (API) | Scan, enter PIN (amount pre-filled) | The recommended replacement for Collect on desktop web. |
+| **[SoftPOS](#doc-2-4)** | Field agents, delivery staff, retail | Low (app install) | Scan QR, tap card, or pay by link | Needs activation, agent registration and agent KYC. Tap to pay needs an NFC capable Android phone. |
+
+**If you only read one row.** Selling online, on mobile: UPI Intent. Selling online, on desktop: Dynamic QR. Selling in person: Static QR for a fixed counter, SoftPOS if staff move around.
+
+---
+
+# Getting Started from Zero: Complete Merchant Onboarding Guide
+
+This guide takes you from no account to live transactions. It is eight steps, and four of them are decisions rather than tasks.
+
+| Step | What happens | What you decide |
+| :-- | :-- | :-- |
+| 1. Sign up | You get a dashboard and sandbox access immediately | Nothing, just complete it |
+| 2. Complete KYC | Cashfree verifies your business and bank account | Nothing to choose, but this is what gates production |
+| 3. Get API keys | You collect your test and production credentials | Nothing, just complete it |
+| 4. Choose your integration path | You commit to how your checkout is built | Hosted checkout, custom API, or mobile SDK. Hardest of these to reverse. |
+| 5. Integrate online | You build and test against sandbox | Which UPI flows you enable |
+| 6. Set up offline acceptance | Optional, skip if you sell online only | Static QR or SoftPOS |
+| 7. Test end to end | You prove success, failure and refund paths work | Nothing, just complete it |
+| 8. Go live | You switch keys and start taking real money | Your settlement cycle |
+
+You can work through Steps 3 to 7 in sandbox while Step 2 is still pending. Nothing about KYC blocks you from building.
 
 ---
 
@@ -73,7 +37,9 @@
 
 *   Go to [merchant.cashfree.com](https://merchant.cashfree.com) and create an account.
 *   Provide basic business details (business name, type, PAN, contact info).
-*   You'll land on the Merchant Dashboard with access to the Test (Sandbox) environment immediately.
+*   You land on the Merchant Dashboard with access to the Test (Sandbox) environment immediately.
+
+**Where this leaves you.** You can generate test API keys, build a full integration and run simulated payments today. You cannot accept a real payment until Step 2 clears.
 
 ---
 
@@ -81,13 +47,26 @@
 
 In **Dashboard > Account Settings > KYC**, upload:
 
-*   **PAN** (Business or Individual, based on entity type)
+*   **PAN** (Business or Individual, depending on your entity type)
 *   **Bank account details** (IFSC, account number, account holder name)
 *   **Address proof and business registration documents**
 
-Cashfree performs verification, including a penny test (₹1 to ₹2 NEFT to your bank, which must be acknowledged).
+Cashfree then runs a penny test, a Re 1 NEFT credit to the bank account you gave. You confirm receipt by replying to the bank account confirmation email Cashfree sends you. This is an email reply, not a button in the dashboard.
+
+### Your options while KYC is pending
+
+| Situation | What you can do |
+| :-- | :-- |
+| You want to start building now | Yes. Use your Test keys from Step 3 and build the whole integration in sandbox. Nothing here is wasted work. |
+| You need to go live on a fixed date | Submit KYC first, before you write any code. Verification is the long pole, not the integration. |
+| Your documents were rejected | The dashboard shows which document failed and why. Re-upload the corrected one, the rest of your submission is retained. |
+| Your entity type changed after signup | Raise this with support before re-uploading. Changing entity type after approval is slower than getting it right the first time. |
+
+**How this affects you later.** Your MCC (Merchant Category Code) is assigned from what you declare here, your website, and your product listing. You do not choose your own MCC. Your MCC then determines your per transaction limits, which UPI flows you are permitted to use, and whether you need TPV. If you sell across more than one business line, flag it now, because a wrong MCC surfaces later as unexplained declines. See [3.1 Standards and Onboarding](#doc-3-1) and [3.4 MCC Limits and Caps](#doc-3-4).
 
 > **Success:** Once KYC is approved, the Payment Gateway is activated for production.
+
+> **Open item, do not publish as is:** confirm with the KYC team the exact status string a merchant sees in the dashboard when KYC is approved, so this step can tell them what to look for. The previous draft said "KYC v3", which is not a term that appears anywhere in the dashboard and which a merchant has no way to verify.
 
 ---
 
@@ -95,115 +74,174 @@ Cashfree performs verification, including a penny test (₹1 to ₹2 NEFT to you
 
 Go to **Dashboard > Payment Gateway > Developers > API Keys**.
 
-*   **Test mode:** Keys are auto-generated.
-*   **Production mode:** Click **"Generate API Keys"** and complete 2FA.
+*   **Test mode:** keys are auto-generated, available immediately.
+*   **Production mode:** click **Generate API Keys** and complete 2FA. Available once KYC is approved.
 
 Store your keys securely:
 
 *   `x-client-id: <YOUR_APP_ID>`
 *   `x-client-secret: <YOUR_SECRET_KEY>`
 
-> **Warning:** Never expose your secret key in client-side code.
+> **Warning:** Never expose your secret key in client-side code. Every call that uses it belongs on your server.
+
+**Where this leaves you.** You have two independent key pairs. Test keys only ever hit sandbox, production keys only ever hit live. Keeping them in separate environment configs from day one avoids the most common go-live incident, which is shipping test keys to production.
 
 ---
 
 ## Step 4: Choose Your Integration Path
 
-| If you want to | Do this |
-| :-- | :-- |
-| **Fastest start, minimal code** | Use Cashfree Checkout (hosted page) |
-| **Full control over UI** | Use Seamless/Custom Integration (API) |
-| **In-app UPI without redirects** | Integrate the Flash UPI SDK (Android) |
-| **Offline/in-person only** | Activate SoftPOS or Static QR |
+This is the decision that is most expensive to reverse, so it is worth ten minutes now.
+
+| If this is you | Take this path | What you give up |
+| :-- | :-- | :-- |
+| You want the fastest possible start and minimal code | **Cashfree Checkout (hosted page)**. Cashfree renders the payment page, you redirect to it. | Control over checkout look and feel. The customer briefly leaves your domain. |
+| You want full control over the checkout UI | **Seamless / Custom Integration (API)**. You build the UI, you call the APIs. | More build time, and you own webhook handling, retries and error messaging. |
+| You have a mobile app and want UPI inside it | **Mobile SDK**, available for Android, iOS, React Native, Flutter and Cordova. | Little. This is the standard choice for app-first merchants. |
+| You sell in person, online is not relevant | **SoftPOS or Static QR**. Skip Step 5 and go to Step 6. | Per order reconciliation on Static QR, see Step 6. |
+
+**Can you change your mind later?** Moving from hosted checkout to custom is a full front end rebuild, though your order creation and webhook code carries over. Adding a mobile SDK alongside an existing web integration is additive and low risk. Adding offline acceptance later is entirely separate and does not touch your online integration.
+
+**Not sure?** Start with hosted checkout. It gets you live fastest, and the server-side work you do for it (order creation, webhook handling, signature verification) is exactly the work a custom integration needs later.
 
 ---
 
-# Set up your integration
+## Step 5: Integrate Online (Standard PG)
 
-Follow the paths below based on where you need to accept payments: mobile app, web, in-app UPI, or a fully custom backend.
+Every online transaction flow, whichever path you chose, is the same three moves:
 
----
+**Create an Order** (server side) → **Process the Payment** (client side) → **Handle the Webhook** (server side).
 
-## Step 5: Integrate (Online, Standard PG)
+### The two calls you will make
 
-> Instead of manually building payloads, we highly recommend using our official SDKs and API collections to streamline integration. Every online transaction flow follows three core principles: **Create an Order** (server-side) > **Process the Payment** (client-side) > **Handle Webhooks** (server-side).
+Merchants most often stall here, because it looks like one call and it is two.
 
-Choose your preferred integration path below for complete, up-to-date documentation and code samples.
+1.  `POST /orders` creates the order and returns a **`payment_session_id`**. It does **not** return a UPI deep link.
+2.  Order Pay, with `payment_method.upi.channel` set, returns the thing you actually render: `"link"` for an Intent deep link, `"qrcode"` for a QR payload, `"collect"` with a `upi_id` for a Collect request.
 
-### Path 1: Mobile App Integration
+Base URLs:
 
-Native SDKs for Android, iOS, React Native, Flutter, and Cordova.
+*   Sandbox: `https://sandbox.cashfree.com/pg`
+*   Production: `https://api.cashfree.com/pg`
 
-### Intent
+Every request needs `x-client-id`, `x-client-secret`, `Content-Type: application/json` and **`x-api-version`**. A request without `x-api-version` fails, and this is the single most common first-call error.
 
-Users see a list of installed UPI apps and tap to pay directly, without leaving your checkout context.
+> **Open item, do not publish as is:** insert the current `x-api-version` value here, confirmed against the live API reference at the time of publishing.
 
-*   [Android SDK Docs](https://www.cashfree.com/docs/payments/online/mobile/android)
-*   *Also available for iOS, React Native, Flutter, and Cordova.*
+### Handling the result
 
-### Path 2: Web Checkout (Hosted & Custom)
+Treat the **server to server webhook as the only source of truth** for payment status. The browser redirect back to your return URL is not a reliable success signal, because the customer may close the tab, lose signal, or return before the bank has responded.
 
-Handles multiple UPI methods depending on device, desktop or mobile web.
+Verify every webhook before you act on it. The signature is HMAC SHA256 over the timestamp concatenated with the raw payload, base64 encoded, delivered in the `x-webhook-signature` header alongside `x-webhook-timestamp`. See [signature verification](https://www.cashfree.com/docs/payments/online/webhooks/signature-verification). If you skip this, your webhook endpoint accepts anything anyone posts to it.
 
-### Collect
+### Which UPI flows to enable
 
-User manually enters their VPA (UPI ID) on the checkout page.
+**Intent.** Enable this. It is the default for mobile app and mobile web, and it carries the best success rates. See [2.1 UPI Intent](#doc-2-1).
 
-### QR
+**Dynamic QR.** Enable this if you have desktop web customers, or you send invoices or payment links. See [2.3 QR Solutions](#doc-2-3).
 
-A dynamic QR code is rendered on-screen for the user to scan and pay.
+**Collect.** Read this before you build on it.
 
-### Intent
+> **Restricted flow.** Manual VPA entry Collect for P2M is under sunset. Unless your category is exempt, do not build on it, and migrate if you already have. Use Dynamic QR for desktop web instead. For the scope, the exemptions and the migration path, see [2.2 UPI Collect](#doc-2-2).
 
-On mobile-web, the user is redirected to their preferred UPI app to complete payment.
+> **Open item, do not publish as is:** 2.2 carries no sunset content yet, so this link does not resolve until it is written.
 
-*   [Web Checkout Docs](https://www.cashfree.com/docs/payments/overview)
+### Reference documentation
 
-### Path 3: Core API Reference & Webhooks
-
-For a fully custom backend integration.
-
-### Custom
-
-Manage the `/orders` endpoint, session generation, and webhook signature verification directly.
-
+*   [Android SDK](https://www.cashfree.com/docs/payments/online/mobile/android), also available for iOS, React Native, Flutter and Cordova
+*   [Web Checkout](https://www.cashfree.com/docs/payments/overview)
 *   [API Reference](https://www.cashfree.com/docs/api-reference/overview)
 
 ---
 
-## Step 7 Test End-to-End
+## Step 6: Set Up Offline Acceptance (Optional)
 
-1.  Use Cashfree's Sandbox/Test environment to simulate payments for your chosen method.
-2.  Test: success, failure, user-dropped, and refunds.
-3.  Verify webhooks arrive and your system processes them correctly.
-4.  Verify settlement reports appear in the test dashboard.
+Skip this step entirely if you sell online only.
+
+### Your options
+
+| | **Static QR** | **SoftPOS** |
+| :-- | :-- | :-- |
+| Best for | A fixed counter, one till, low volume | Staff who move, delivery, field collection, multiple counters |
+| What the customer does | Scans, types the amount themselves, enters PIN | Scans a QR you generate, taps a card, or pays a link you send |
+| Amount | Customer types it, so it can be wrong | You enter it, so it is always right |
+| Reconciliation | **Weak.** You cannot tie a payment to a specific order. You rely on SMS alerts or manual ledger checks. | Per transaction, per agent, per collection point |
+| Setup | Request activation, then print the standee | Request activation, install the app, register each agent, complete agent KYC |
+| Hardware | None | An Android phone. NFC required if you want tap to pay. |
+
+**Choose Static QR if** you need to start taking payments tomorrow and you can live without order level reconciliation.
+
+**Choose SoftPOS if** you need to know which agent collected what, or you need to reconcile against orders or invoices, or your staff collect payment away from a fixed counter.
+
+**How this affects you later.** Static QR's reconciliation gap is not something you can fix downstream. If you expect to need order level matching within a few months, start on SoftPOS rather than migrating later.
+
+To activate either, go to **Dashboard > SoftPOS > Request Activation**, or contact your account manager. See [2.4 SoftPOS and Offline Products](#doc-2-4).
 
 ---
 
-## Step 8 Go Live
+## Step 7: Test End to End
 
-1.  Switch from Test to Production API keys.
-2.  Ensure KYC is fully approved (v3).
-3.  Confirm the penny test is ACKNOWLEDGED.
-4.  Choose your settlement cycle (T+1 / T+2 / Instant).
-5.  Configure notifications (settlement, refund, dispute alerts).
-6.  Start processing real transactions.
+Test in sandbox before you switch keys. Sandbox uses the same APIs, the same webhooks and the same error codes as production.
+
+1.  Point your integration at `https://sandbox.cashfree.com/pg` with your Test keys.
+2.  Run each scenario below and confirm your system does the right thing for each.
+3.  Verify webhooks arrive, that signature verification passes, and that your order status updates.
+4.  Verify settlement reports appear in the test dashboard.
+
+### Test VPAs
+
+Use these handles in place of a real UPI ID to force a specific outcome.
+
+| Test VPA | Outcome | What you should check |
+| :-- | :-- | :-- |
+| `testsuccess@gocash` | Payment succeeds | Order marked paid, success webhook received and verified, customer sees confirmation |
+| `testinsufficientfunds@gocash` | Fails, insufficient funds | Customer sees a message telling them to use another account, not a raw error code |
+| `testinvalidpin@gocash` | Fails, incorrect PIN | Customer is offered a retry, since this one is fixable by them |
+| `testexpired@gocash` | Collect request expires | Order is not left hanging in pending forever |
+
+Also test a **refund** and a **user dropped** payment (start a payment and abandon it). User drops are the largest single category of real world failures, and a checkout that leaves them in limbo generates support tickets from day one.
+
+**How this affects you later.** Wrong error handling fails silently. A merchant who maps every failure to "payment failed, try again" will retry declines that must not be retried and will not retry the ones that would have succeeded. See [5.3 Standard Error Codes](#doc-5-3) and [5.4 Customer-Facing Messages](#doc-5-4).
+
+---
+
+## Step 8: Go Live
+
+1.  **Switch from Test to Production API keys** in your environment config. Confirm no test key remains anywhere in your production build.
+2.  **Confirm KYC is approved.** Check the status in **Dashboard > Account Settings > KYC**.
+3.  **Confirm the penny test.** Reply to the bank account confirmation email from Cashfree. Your settlements cannot reach you until this is done.
+4.  **Choose your settlement cycle.** See the options below.
+5.  **Configure webhook notifications.** Subscribe to the events by their literal names: `PAYMENT_SUCCESS_WEBHOOK`, `PAYMENT_FAILED_WEBHOOK`, `REFUND_STATUS_WEBHOOK`. Prose descriptions in a dashboard list will not match what your code needs to switch on.
+6.  **Run one real transaction of your own** before you open the flow to customers.
+
+### Your settlement cycle options
+
+| Option | When the money reaches you | Cost | Pick this if |
+| :-- | :-- | :-- | :-- |
+| Standard | Next business day cycle | Included | Default for most merchants. Weekends and bank holidays roll to the next working day. |
+| Extended | Later cycle, used for higher risk categories | Included | Not usually a choice, it is applied based on your category |
+| Instant | Roughly 15 minutes, available 24x7 | **Chargeable, from 0.30% plus GST** | Your cash flow needs same day funds and the fee is worth it to you |
+
+**How this affects you later.** Your first settlement may be held longer than your stated cycle while your account is new. Instant settlement is the only one of these with a fee attached, and it is easy to select without noticing that. See [5.1 Settlements](#doc-5-1).
+
+> **Open item, do not publish as is:** product to confirm the default settlement cycle, T+1 or T+2, and the correct label for each row above. The current documentation states this four different ways across sections 1.1, 1.2, 3.2 and 5.1, and at least two of them are wrong. Whatever the answer, use identical wording in all four places.
 
 ---
 
 ## Go Live Checklist
 
-*   [ ]  Cashfree account created and email verified
-*   [ ]  KYC documents uploaded and approved
-*   [ ]  Bank account verified (penny test ACKNOWLEDGED)
-*   [ ]  Production API keys generated and stored securely
-*   [ ]  Webhook endpoints configured and tested
-*   [ ]  Signature verification implemented
-*   [ ]  Integration tested in Sandbox (all chosen methods)
-*   [ ]  Settlement cycle chosen and confirmed
-*   [ ]  Refund and dispute workflows understood
-*   [ ]  SoftPOS activated and Collection points created and verified (if offline needed)
-*   [ ]  Go live, then monitor transactions and settlements daily
+*   [ ] Cashfree account created and email verified
+*   [ ] KYC documents uploaded and approved
+*   [ ] Bank account verified and penny test confirmed by email
+*   [ ] Production API keys generated and stored securely, no test keys in the production build
+*   [ ] Integration tested in sandbox across every method you enabled
+*   [ ] Success, insufficient funds, invalid PIN, expiry, user dropped and refund all tested
+*   [ ] Webhook endpoints configured and receiving
+*   [ ] Webhook signature verification implemented and passing
+*   [ ] Settlement cycle chosen, and the Instant fee understood if you chose Instant
+*   [ ] Refund and dispute workflows understood
+*   [ ] SoftPOS activated, collection points created and agents KYC verified, if you sell offline
+*   [ ] One real transaction completed by you
+*   [ ] Monitoring in place, check transactions and settlements daily for the first two weeks
 
 ---
 
@@ -212,7 +250,8 @@ Manage the `/orders` endpoint, session generation, and webhook signature verific
 | Resource | Details |
 | :-- | :-- |
 | **Dashboard** | [merchant.cashfree.com](https://merchant.cashfree.com) |
-| **API Docs** | Cashfree Developer Documentation |
-| **Postman Collections** | Available for quick API testing |
-| **Sandbox** | Full test environment with simulated payments |
-| **Account Manager** | Contact for custom pricing, Flash UPI activation, or enterprise needs |
+| **API Docs** | [www.cashfree.com/docs](https://www.cashfree.com/docs) |
+| **API Reference** | [www.cashfree.com/docs/api-reference/overview](https://www.cashfree.com/docs/api-reference/overview) |
+| **Sandbox** | [Sandbox environment guide](https://www.cashfree.com/docs/payments/online/resources/sandbox-environment). Full test environment with simulated payments. |
+| **Postman Collections** | Available for quick API testing. *Link to be added.* |
+| **Account Manager** | Contact for custom pricing, enterprise volumes, or product activation |
