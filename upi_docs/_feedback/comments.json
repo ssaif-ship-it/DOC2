@@ -276,6 +276,20 @@
       "createdAt": "2026-08-12T07:59:55.510Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_qa7b8dlemspsvzpt",
+      "section": "doc-4-3",
+      "file": "upi_docs/section_4_3.md",
+      "quote": "This guide provides a step-by-step walkthrough for merchants integrating Cashfree UPI AutoPay (alongside eNACH and Card Standing Instructions). It covers account activation, webhook configuration, subscription lifecycle execution, sandbox verification, and direct links to comprehensive developer documentation.\n\n",
+      "prefix": "",
+      "suffix": "eveloper documentation quick links:\n\nCas",
+      "suggestion": null,
+      "text": "to do the following changes \nproper disperse of links\ntell user proper step by step and what options they will get at each step verify that\nlike the the 2 apis we offer etc",
+      "author": "Saif",
+      "createdAt": "2026-08-12T08:01:31.793Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
