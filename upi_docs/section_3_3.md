@@ -1,25 +1,48 @@
-To comply with SEBI guidelines, onboarding investment category merchants such as Stock Brokers, Mutual Funds, Online Bond Platform Providers (OBPPs), and Investment Advisers/Research Analysts (IA/RAs) requires configuring standardized, exclusive Valid UPI Handles. All merchants in this category must be onboarded under **MCC 6211 (Security Brokers/Dealers)**.
+Stock Brokers, Mutual Funds, Online Bond Platform Providers (OBPPs), and Investment Advisers/Research Analysts (IA/RAs) are onboarded under a distinct SEBI-regulated category, **MCC 6211 (Security Brokers/Dealers)**. The defining requirement for this category is Third-Party Validation (TPV) on every payment collected.
 
-A critical component of this onboarding is **Third-Party Validation (TPV)**. TPV ensures that payments are exclusively accepted from the investor's pre-registered bank account, reducing failed or non-compliant transactions.
+## 1. Why TPV Applies
 
-*   **Standard TPV:** Supported by ICICI, YES, HDFC, and AXIS banks.
-*   **Multibank TPV:** Allows merchants to pass up to 5 registered accounts per request, granting users flexibility. This is supported by ICICI and HDFC.
-*   **Recurring Payments:** TPV is fully supported for UPI Mandates and OTMs.
+TPV enforces a single rule: an investor's payment must originate from a bank account registered in their own name. A payment from any other account is rejected before it reaches settlement.
 
----
+This requirement exists to:
 
-### Valid Handle Formats
+*   Ensure investors are aware of, and have explicitly authorized, every recurring payment linked to their investments.
+*   Prevent a common fraud pattern: payment into an investment product from an account that does not belong to the investor.
+*   Meet RBI and NPCI compliance requirements for UPI-based recurring collections in this category.
+*   Add a further authentication layer, beyond the standard UPI PIN, for mandates above approximately ₹15,000.
 
-The format of the SEBI-mandated UPI handle depends on the transaction type. The suffix `cf` is used for standard handles, while `cfp` is required if the merchant needs AutoPay/subscription support.
+## 2. The Customer Experience
 
-*   **One-Time Payments:** `MerchantName.cf.brk@[bank_identifier]`
-*   **UPI AutoPay:** `MerchantName.cfp.brk@[bank_identifier]`
+TPV adds one additional step to mandate setup, compared to a standard AutoPay mandate:
 
----
+1.  The customer selects the subscription, EMI, insurance, or mutual fund payment to set up.
+2.  The merchant triggers the UPI AutoPay request, via Intent, Collect, or Dynamic QR.
+3.  The customer approves the mandate request in their UPI app.
+4.  The request is validated through NPCI and the TPV entity.
+5.  Because this is a TPV transaction, the customer receives one additional OTP or consent prompt confirming the account is genuinely theirs.
+6.  On successful authentication, the mandate activates.
+7.  Recurring debits then proceed on schedule, each preceded by a Pre-Debit Notification. See [4.1 AutoPay](#doc-4-1) for how recurring debits and notifications work.
 
-### Beneficiary & Settlement Configuration
+<!-- Claude, flagging for Saif: is this flow accurate as merchant-facing, or does the merchant's integration need to handle any part of the OTP/TPV-entity verification step directly (4-5), rather than it being entirely bank-side? Written here as something that happens to the customer, not something the merchant builds for. Please confirm. -->
 
-Properly configuring the beneficiary account and settlement flags is a strict compliance requirement. Failure to enable Direct Settlement (DS) where required will result in double settlement and financial loss.
+## 3. Standard vs. Multibank TPV
+
+*   **Standard TPV** validates against a single registered account. Supported by ICICI, YES Bank, HDFC, and Axis.
+*   **Multibank TPV** allows registration of up to five accounts against one request. Supported by ICICI and HDFC.
+*   TPV applies to both UPI Mandates and OTM (One-Time Mandate), covering single premiums and recurring SIPs alike.
+
+## 4. UPI Handle Format
+
+Merchants in this category are issued a dedicated UPI handle rather than a generic one; Cashfree procures this on the merchant's behalf (see Section 6). The suffix identifies the payment type:
+
+*   **One-time payments:** `MerchantName.cf.brk@[bank_identifier]`
+*   **UPI AutoPay (recurring):** `MerchantName.cfp.brk@[bank_identifier]`
+
+Merchants requiring both one-time and recurring collections are issued both handles.
+
+## 5. Settlement Routing
+
+Settlement does not always route directly to the merchant's own account; this depends on category.
 
 <style>
   .onboarding-table-container {
@@ -103,8 +126,8 @@ Properly configuring the beneficiary account and settlement flags is a strict co
   <table class="onboarding-table">
     <thead>
       <tr>
-        <th>Intermediary Type</th>
-        <th>Beneficiary Account</th>
+        <th>Category</th>
+        <th>Settlement Destination</th>
         <th>TPV Required</th>
         <th>Direct Settlement (DS)</th>
       </tr>
@@ -112,19 +135,19 @@ Properly configuring the beneficiary account and settlement flags is a strict co
     <tbody>
       <tr>
         <td class="intermediary-type">Stock Brokers</td>
-        <td>Broker's own designated bank account</td>
+        <td>Merchant's own designated bank account</td>
         <td><span class="badge badge-positive">Yes</span></td>
         <td><span class="badge badge-positive">ON</span></td>
       </tr>
       <tr>
         <td class="intermediary-type">Mutual Funds (MF)</td>
-        <td>ICCL / NCCL Bank Accounts</td>
+        <td>ICCL / NCCL clearing accounts</td>
         <td><span class="badge badge-positive">Yes</span></td>
         <td><span class="badge badge-positive">ON</span></td>
       </tr>
       <tr>
         <td class="intermediary-type">OBPPs</td>
-        <td>ICCL / NCCL Bank Accounts</td>
+        <td>ICCL / NCCL clearing accounts</td>
         <td><span class="badge badge-positive">Yes</span></td>
         <td><span class="badge badge-positive">ON</span></td>
       </tr>
@@ -138,16 +161,13 @@ Properly configuring the beneficiary account and settlement flags is a strict co
   </table>
 </div>
 
----
+**Note:** For IA/RA merchants, TPV does not apply, and funds route through Cashfree's escrow account rather than settling directly. This should be factored into reconciliation and cash flow planning.
 
-### Bank-Specific Procurement Workflows
+## 6. Handle Procurement Process
 
-The process for acquiring and mapping the Valid Handle varies depending on the chosen acquiring bank:
+Procurement effort depends on the acquiring bank:
 
-*   **Axis Bank (API-Based):** The most streamlined route. Handles are procured via internal API integration. The Banking Ops team uploads the specified DMO format file in Retool.
+*   **Axis and HDFC:** No action required from the merchant. Cashfree procures and maps the handle. Axis is typically faster, since it is handled through an internal API; HDFC is a manual process and can take longer.
+*   **ICICI:** The merchant must fill, sign, and submit the UPI Onboarding Form directly to their ICICI point of contact. Mutual Fund merchants additionally require ICCL/NCCL sign-off before submission.
 
-    > *Note: Terminals are created in a non-TPV state by default and must be manually updated to enable TPV.*
-
-*   **HDFC Bank (File-Based by Cashfree):** A manual process. Cashfree Banking Ops prepares the required onboarding files (including a covering letter on letterhead) and submits them directly to the HDFC onboarding team. The Bank Ops team manually adds the credentials to the system once provided by HDFC.
-
-*   **ICICI Bank (File-Based by Merchant):** The merchant is responsible for filling, signing, sealing, and submitting the UPI Onboarding Form directly to their ICICI point of contact (Mutual Funds must also get signatures from ICCL/NCCL). Once ICICI maps the VPA to Cashfree's parent MID, Bank Ops configures the credentials, ensuring the `isDMO` flag is set to `true`.
+<!-- Claude, flagging for Saif: removed the Retool/DMO-file/Banking-Ops-team detail and the isDMO flag note per your and Ayushi's comments, that is Cashfree's internal backend process, not something the merchant does. Also dropped "Terminals are created in a non-TPV state by default and must be manually updated" for the same reason. If that is something a merchant should confirm with their account manager before going live, rather than something Cashfree's ops team handles invisibly, let me know and I will add it back as a merchant-facing action item. -->

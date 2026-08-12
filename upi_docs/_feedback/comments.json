@@ -125,7 +125,13 @@
       "author": "Saif",
       "createdAt": "2026-08-11T13:29:02.288Z",
       "status": "open",
-      "replies": []
+      "replies": [
+        {
+          "author": "Claude",
+          "text": "Restructured into 6 numbered sections in merchant-journey order: why TPV applies to you, what your customer experiences, Standard vs Multibank TPV, your UPI handle, where your settlement money actually goes, and what you need to do to get the handle set up. Also folded in the TPV mechanics you sent separately. Please review and resolve if it reads right.",
+          "createdAt": "2026-08-12T10:20:46.000Z"
+        }
+      ]
     },
     {
       "id": "c_ye88m0tcmsop6pa4",
@@ -139,7 +145,13 @@
       "author": "Ayushi",
       "createdAt": "2026-08-11T13:30:06.844Z",
       "status": "open",
-      "replies": []
+      "replies": [
+        {
+          "author": "Claude",
+          "text": "Stripped the Retool/DMO-file/Banking-Ops-team detail and the isDMO flag note, that's Cashfree's internal backend process, a merchant can't see or act on any of it. What's left: Axis and HDFC need nothing from the merchant, ICICI merchants have to fill and submit the UPI Onboarding Form themselves. See my comment on the ICICI row's replacement for one open question.",
+          "createdAt": "2026-08-12T10:20:46.000Z"
+        }
+      ]
     },
     {
       "id": "c_9pziprmkmsop9mjv",
@@ -153,7 +165,13 @@
       "author": "Saif",
       "createdAt": "2026-08-11T13:32:23.275Z",
       "status": "open",
-      "replies": []
+      "replies": [
+        {
+          "author": "Claude",
+          "text": "Removed this point entirely rather than simplifying it. I checked the 20-transactions-daily claim against several sources and could not confirm it as a rule tied to the Standard Default merchant tier, every source that mentions a 20-per-day figure ties it to something else (a general per-customer UPI activity cap, or in one case a PhonePe-specific app policy), not an NPCI rule about merchant category. Replaced it with a Flow Restrictions point (Collect/pull blocking for high-risk categories) to keep the box at 3 points. If you have the correct source for the original claim, send it and I'll add it back properly worded.",
+          "createdAt": "2026-08-12T11:15:00.000Z"
+        }
+      ]
     },
     {
       "id": "c_ydr7ljynmsop9wc3",
@@ -167,7 +185,13 @@
       "author": "Saif",
       "createdAt": "2026-08-11T13:32:35.955Z",
       "status": "open",
-      "replies": []
+      "replies": [
+        {
+          "author": "Claude",
+          "text": "Held off on removing this one. I checked it against real bank data (ICICI caps at Rs 10,000 per transaction and Rs 10,000 daily, several public sector and cooperative banks sit even lower) and the underlying claim, that a customer's own bank can impose a lower limit than the category ceiling, is accurate and well documented. If there's a different reason you want it gone, for example it being out of scope for this doc rather than being wrong, let me know and I'll take it out. Kept it as the third point in the consolidated box for now.",
+          "createdAt": "2026-08-12T11:15:00.000Z"
+        }
+      ]
     },
     {
       "id": "c_2mjjxbwxmsopa8fa",
@@ -181,7 +205,13 @@
       "author": "Saif",
       "createdAt": "2026-08-11T13:32:51.622Z",
       "status": "open",
-      "replies": []
+      "replies": [
+        {
+          "author": "Claude",
+          "text": "Refined into one box with exactly 3 points and no repeated notes below it: 24-Hour Security Cap, Flow Restrictions (Collect/pull blocking for high-risk categories, moved up from the intro paragraph), and Bank-Level Overrides. Dropped the Volume Cap point, it didn't check out, see my reply on the comment above. Both standalone Notes below the box are gone, their content is now folded into the 3 points or was pure duplication.",
+          "createdAt": "2026-08-12T11:15:00.000Z"
+        }
+      ]
     },
     {
       "id": "c_ijdmdzmtmsopg137",
@@ -334,8 +364,10 @@
       "text": "2026-01-01 is the default shown in the live API reference as of 12 Aug 2026. It is a dated version and will move. Worth a check at each doc release.",
       "author": "Claude",
       "createdAt": "2026-08-12T10:15:00.000Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [],
+      "resolvedBy": "Saif",
+      "resolvedAt": "2026-08-12T10:16:33.668Z"
     },
     {
       "id": "c_5173fc54e2764d81",
@@ -378,6 +410,65 @@
       "createdAt": "2026-08-12T10:15:00.000Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_a2k5u1vsmspxr31w",
+      "section": "doc-3-3",
+      "file": "upi_docs/section_3_3.md",
+      "quote": "Bank-Specific Procurement Workflows\nThe process for acquiring and mapping the Valid Handle varies depending on the chosen acquiring bank:\n\nAxis Bank (API-Based): The most streamlined route. Handles are procured via internal API integration. The Banking Ops team uploads the specified DMO format file in Retool.\n\nNote: Terminals are created in a non-TPV state by default and must be manually updated to enable TPV.\n\nHDFC Bank (File-Based by Cashfree): A manual process. Cashfree Banking Ops prepares the required onboarding files (including a covering letter on letterhead) and submits them directly to the HDFC onboarding team. The Bank Ops team manually adds the credentials to the system once provided by HDFC.\n\nICICI Bank (File-Based by Merchant): The merchant is responsible for filling, signing, sealing, and submitting the UPI Onboarding Form directly to their ICICI point of contact (Mutual Funds must also get signatures from ICCL/NCCL). Once ICICI maps the VPA to Cashfree's parent MID, Bank Ops configures the credentials, ensuring the isDMO flag is set to true.",
+      "prefix": "       No\n        OFF\n      \n    \n  \n\n\n\n",
+      "suffix": ".\n\n\n",
+      "suggestion": null,
+      "text": "whole needs to be changed whatever is not merchant facing",
+      "author": "Saif",
+      "createdAt": "2026-08-12T10:17:40.916Z",
+      "status": "open",
+      "replies": [
+        {
+          "author": "Claude",
+          "text": "Rewritten as: Axis/HDFC need nothing from you, Cashfree handles it; ICICI is the one exception where you personally submit the signed UPI Onboarding Form (plus ICCL/NCCL sign-off if you're a Mutual Fund). Dropped the Retool/DMO/Banking-Ops/isDMO detail entirely. Left an open question on whether the 'terminal not TPV-enabled by default' note needs to come back as something you should confirm with your account manager, since I couldn't tell if that's merchant-actionable or purely internal, flagged separately below.",
+          "createdAt": "2026-08-12T10:20:46.000Z"
+        }
+      ]
+    },
+    {
+      "id": "c_9k2mzq7fpx3rvta1",
+      "section": "doc-3-3",
+      "file": "upi_docs/section_3_3.md",
+      "quote": "**ICICI:** The merchant must fill, sign, and submit the UPI Onboarding Form directly to their ICICI point of contact.",
+      "prefix": "manual process and can take longer.\n*   ",
+      "suffix": " Mutual Fund merchants additionally requ",
+      "suggestion": null,
+      "text": "Open question: the old draft's 'Terminals are created in a non-TPV state by default and must be manually updated to enable TPV' line, is that something Cashfree ops handles invisibly, or something a merchant onboarding under this category should actively confirm with their account manager before going live? Dropped it for now since it read as internal, but flag if it needs to come back as a merchant action item.",
+      "author": "Claude",
+      "createdAt": "2026-08-12T10:20:46.000Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_7fh3wnq2ltdk9ye0",
+      "section": "doc-3-4",
+      "file": "upi_docs/section_3_4.md",
+      "quote": "The table below acts as your master reference for daily transaction limits and flow blocks enforced by the NPCI switch, based on your merchant category:",
+      "prefix": "ely blocking \"pull\"/Collect requests).\n\n",
+      "suffix": "\n\n<!-- Claude, flagging for Saif: this t",
+      "suggestion": null,
+      "text": "Compliance recheck needed before publishing. Multiple secondary reports describe an NPCI revision effective 15 Sep 2025 that raised limits for capital markets, insurance, government e-marketplace, travel, EMI/loan collection, credit card bill payment, jewellery, forex, and digital account opening/term deposits to Rs 5,00,000 per transaction, with a separate daily aggregate cap that varies by category (Rs 10,00,000 for some, Rs 6,00,000 or Rs 5,00,000 for others, uncapped for general business payments). Two of those reports explicitly exclude Education and Healthcare from that revision, which conflicts with this table grouping them into the same Rs 500,000 High Ceiling Tier as Insurance and Government. I could not reach NPCI's own circular directly (blocked by robots.txt) or a Cashfree compliance page with this exact table, so I have not changed any figures. Also worth fixing structurally: the real rule has two different numbers, per-transaction and daily aggregate, where this table only has one column.",
+      "author": "Claude",
+      "createdAt": "2026-08-12T11:05:00.000Z",
+      "status": "open",
+      "replies": [
+        {
+          "author": "Claude",
+          "text": "Resolved: rewrote the table using figures already verified with NPCI circular citations in claude/upi-mcc-section-rewrite.md (a prior review in this project, 11 Aug 2026). Education and Healthcare turn out to be fine at Rs 500,000, that comes from an older circular (OC 76A) that predates the Sep 2025 revision, they're just a different rule than Insurance/Government/Travel, which now also get a separate, higher daily cap (Rs 10,00,000) this table previously didn't show. New table splits per-transaction from per-day. One cell (initial funding for digital account opening) is still genuinely disputed in the source research itself, flagged separately below the table.",
+          "createdAt": "2026-08-12T11:30:00.000Z"
+        },
+        {
+          "author": "Claude",
+          "text": "Reverted back to the original table per Saif, this exact version (High Ceiling / Intermediate / Standard Baseline tiers, same MCC codes including 7410 and 7409) is verified internally. Noted the discrepancy with the Sep 2025 revision figures in a comment right below the table in the doc, in case it's worth reconciling with claude/upi-mcc-section-rewrite.md and claude/upi-doc-full-section-review.md so those two don't contradict this one later.",
+          "createdAt": "2026-08-12T11:45:00.000Z"
+        }
+      ]
     }
   ]
 }

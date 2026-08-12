@@ -2,17 +2,11 @@ To maintain the security of the payment ecosystem and mitigate fraud, the Nation
 
 As a merchant, you need to understand both the baseline network limits and your specific Merchant Category Code (MCC) limits. Attempting to collect amounts above these thresholds, or using restricted payment flows, will result in immediate technical declines.
 
-### 1. The 24-Hour New User Velocity Rule (Anti-Fraud)
+### Standard & MCC-Specific Limits
 
-One of the most common reasons for unexpected payment failures on high-value orders is the NPCI's 24-hour cooling-off period. To prevent account takeover fraud, the NPCI heavily restricts transaction capabilities when a user's UPI profile undergoes a major state change (e.g., first-time registration, device binding/new phone, or UPI PIN reset).
+By default, the standard retail limit for a P2M (Person-to-Merchant) transaction is **₹1 Lakh**. However, the NPCI recognizes that certain critical industries require higher ceilings. High-risk categories also face flow restrictions, covered in the constraints below.
 
-**The Restriction:** For the first **24 hours** following any of these triggers, the user's UPI transaction limit is strictly capped at **₹5,000**. Normal limits are automatically restored after the 24-hour window expires.
-
-### 2. Standard & MCC-Specific Limits
-
-By default, the standard retail limit for a P2M (Person-to-Merchant) transaction is **₹1 Lakh**. However, the NPCI recognizes that certain critical industries require higher ceilings, while high-risk categories face strict flow limitations (such as completely blocking "pull"/Collect requests).
-
-The table below acts as your master reference for daily transaction limits and flow blocks enforced by the NPCI switch, based on your merchant category:
+The table below is your master reference for daily transaction limits, based on your merchant category:
 
 <div class="upi-table-wrapper" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #222; max-width: 100%; margin: 20px 0;">
   <style>
@@ -51,29 +45,6 @@ The table below acts as your master reference for daily transaction limits and f
       font-weight: 700;
       color: #0f9d58;
       white-space: nowrap;
-    }
-    .upi-constraints {
-      margin-top: 24px;
-      padding: 16px;
-      background-color: #f8f9fa;
-      border-left: 4px solid #1a73e8;
-      border-radius: 0 4px 4px 0;
-    }
-    .upi-constraints h4 {
-      margin: 0 0 10px 0;
-      font-size: 16px;
-      color: #1a73e8;
-    }
-    .upi-constraints ul {
-      margin: 0;
-      padding-left: 20px;
-      font-size: 14px;
-    }
-    .upi-constraints li {
-      margin-bottom: 8px;
-    }
-    .upi-constraints li:last-child {
-      margin-bottom: 0;
     }
   </style>
 
@@ -129,17 +100,17 @@ The table below acts as your master reference for daily transaction limits and f
       </tr>
     </tbody>
   </table>
-
-  <div class="upi-constraints">
-    <h4>Key Merchant &amp; User Velocity Constraints</h4>
-    <ul>
-      <li><strong>24-Hour Security Cap:</strong> Profile updates (new registration, device binding, or UPI PIN reset) cap transactions at <strong>₹5,000 total</strong> for the first 24 hours.</li>
-      <li><strong>Volume Cap:</strong> Standard Default merchants (₹100k tier) are subject to a maximum <strong>20 transactions daily</strong> per rolling 24 hours.</li>
-      <li><strong>Bank-Level Overrides:</strong> Remitter banks reserve authority to apply lower internal spending limits (e.g., ₹50,000 daily) regardless of category cap allowance.</li>
-    </ul>
-  </div>
 </div>
 
-> **Note:** The Standard Default tier is additionally subject to a 20-transaction daily limit per rolling 24 hours, and the ₹5,000 new-user cap described above still applies within its 24-hour window regardless of MCC.
+<!-- Claude, note for Saif: reverted to this exact table on 12 Aug 2026 per your instruction, this version is verified internally. I'd previously replaced it with a version reflecting a 15 Sep 2025 NPCI revision I found via secondary sources (also cited in claude/upi-mcc-section-rewrite.md and claude/upi-doc-full-section-review.md, both from 11 Aug 2026), which showed higher ceilings for capital markets, insurance, government, travel, and a few other categories, plus a separate higher daily aggregate cap on top of the per-transaction figure. If that revision is real but just doesn't apply the way those sources described, or if it's already reflected in this table some other way, worth a quick reconciliation with whoever verified this table, so the other two docs don't contradict it. -->
 
-> **Note:** While the NPCI sets the maximum ceilings above, individual **Remitter Banks** reserve the right to set *lower* internal limits based on their own risk policies (e.g., a specific bank might cap daily UPI spends at ₹50,000 regardless of your MCC).
+  <div class="upi-constraints" style="margin-top: 24px; padding: 16px; background-color: #f8f9fa; border-left: 4px solid #1a73e8; border-radius: 0 4px 4px 0;">
+    <h4 style="margin: 0 0 10px 0; font-size: 16px; color: #1a73e8;">Key Merchant &amp; User Velocity Constraints</h4>
+    <ul style="margin: 0; padding-left: 20px; font-size: 14px;">
+      <li style="margin-bottom: 8px;"><strong>24-Hour Security Cap:</strong> A major account state change, first-time registration, device binding to a new phone, an app reinstall, or a UPI PIN reset, triggers a cooling-off period to prevent account takeover fraud. The cap is <strong>₹5,000</strong>, applied as both the per-transaction limit and the cumulative daily limit. Per SBI's published rule, this window is 24 hours on Android but 5 days on iOS at the same cap, confirm whether that platform split holds across other banks and PSPs before quoting a single number to merchants.</li>
+      <li style="margin-bottom: 8px;"><strong>Flow Restrictions:</strong> Collect (pull) requests are blocked for credit card bill payments (MCC 5413) and digital gold (MCC 5412). Both Collect and QR are blocked for wallet loading (MCC 6540) and real money gaming (MCC 5816), restricting those categories to Intent only. Capital markets (MCC 6211) and financial services (MCC 6012) remain permitted to use Collect, since it's needed alongside Third-Party Verification, an exemption that survives the broader P2M Collect sunset described in <a href="#doc-3-2">3.2</a>.</li>
+      <li style="margin-bottom: 8px;"><strong>Bank-Level Overrides:</strong> Remitter banks reserve authority to apply lower internal spending limits (e.g., ₹50,000 daily) regardless of category cap allowance.</li>
+    </ul>
+  </div>
+
+<!-- Claude, flagging for Saif: MCC 5412 for digital gold is not the ISO 18245 description, it looks like an India-specific assignment carried over without a primary source, per claude/upi-mcc-section-rewrite.md's own open items list. Confirm with Cashfree risk or onboarding before this goes live. Also removed the old "Volume Cap: 20 transactions daily" point entirely rather than reintroducing a number I couldn't verify, if you have the correct source for a per-day transaction count limit, send it and I'll add it back properly worded. -->
