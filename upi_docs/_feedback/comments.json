@@ -226,8 +226,10 @@
       "text": "cofirm",
       "author": "Saif",
       "createdAt": "2026-08-12T07:37:13.348Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [],
+      "resolvedBy": "Saif",
+      "resolvedAt": "2026-08-12T07:48:58.331Z"
     },
     {
       "id": "c_p2x15huimsps4ncg",
