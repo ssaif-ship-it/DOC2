@@ -133,7 +133,6 @@ The table below acts as your master reference for daily transaction limits and f
   <div class="upi-constraints">
     <h4>Key Merchant &amp; User Velocity Constraints</h4>
     <ul>
-
       <li><strong>Volume Cap:</strong> Standard Default merchants (₹100k tier) are subject to a maximum <strong>20 transactions daily</strong> per rolling 24 hours.</li>
       <li><strong>Bank-Level Overrides:</strong> Remitter banks reserve authority to apply lower internal spending limits (e.g., ₹50,000 daily) regardless of category cap allowance.</li>
     </ul>
