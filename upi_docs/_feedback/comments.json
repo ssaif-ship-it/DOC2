@@ -292,8 +292,10 @@
       "text": "to do the following changes \nproper disperse of links\ntell user proper step by step and what options they will get at each step verify that\nlike the the 2 apis we offer etc",
       "author": "Saif",
       "createdAt": "2026-08-12T08:01:31.793Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [],
+      "resolvedBy": "Saif",
+      "resolvedAt": "2026-08-12T08:33:00.239Z"
     }
   ]
 }
