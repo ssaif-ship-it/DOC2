@@ -248,6 +248,20 @@
       "replies": [],
       "resolvedBy": "Saif",
       "resolvedAt": "2026-08-12T07:49:27.678Z"
+    },
+    {
+      "id": "c_621tacx7mspstbcc",
+      "section": "doc-4-3",
+      "file": "upi_docs/section_4_3.md",
+      "quote": "Bank Verification\tPenny-test credit status marked ACKNOWLEDGED\tMandatory\tBank Verification Docs",
+      "prefix": "enabled\nMandatory\nPG Activation Steps\n\n\n",
+      "suffix": "\n\n\nSubscriptions Product\nExplicit produc",
+      "suggestion": null,
+      "text": "Remove",
+      "author": "Saif",
+      "createdAt": "2026-08-12T07:59:26.892Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
