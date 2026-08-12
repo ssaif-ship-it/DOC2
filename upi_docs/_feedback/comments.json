@@ -380,6 +380,20 @@
       "createdAt": "2026-08-12T10:15:00.000Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_a2k5u1vsmspxr31w",
+      "section": "doc-3-3",
+      "file": "upi_docs/section_3_3.md",
+      "quote": "Bank-Specific Procurement Workflows\nThe process for acquiring and mapping the Valid Handle varies depending on the chosen acquiring bank:\n\nAxis Bank (API-Based): The most streamlined route. Handles are procured via internal API integration. The Banking Ops team uploads the specified DMO format file in Retool.\n\nNote: Terminals are created in a non-TPV state by default and must be manually updated to enable TPV.\n\nHDFC Bank (File-Based by Cashfree): A manual process. Cashfree Banking Ops prepares the required onboarding files (including a covering letter on letterhead) and submits them directly to the HDFC onboarding team. The Bank Ops team manually adds the credentials to the system once provided by HDFC.\n\nICICI Bank (File-Based by Merchant): The merchant is responsible for filling, signing, sealing, and submitting the UPI Onboarding Form directly to their ICICI point of contact (Mutual Funds must also get signatures from ICCL/NCCL). Once ICICI maps the VPA to Cashfree's parent MID, Bank Ops configures the credentials, ensuring the isDMO flag is set to true.",
+      "prefix": "       No\n        OFF\n      \n    \n  \n\n\n\n",
+      "suffix": ".\n\n\n",
+      "suggestion": null,
+      "text": "whole needs to be changed whatever is not merchant facing",
+      "author": "Saif",
+      "createdAt": "2026-08-12T10:17:40.916Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
