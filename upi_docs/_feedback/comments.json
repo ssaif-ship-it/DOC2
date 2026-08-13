@@ -501,8 +501,16 @@
       "text": "Not confirmed: T+5 for international cards is Cashfree's own settlement policy. Directionally correct, since international settlement is always slower than domestic, but I can't verify this exact figure against a public source.",
       "author": "Claude",
       "createdAt": "2026-08-13T12:01:00.000Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "text": "Resolved by removing 3.3 Payment-Specific Timelines entirely, the subsection this quote lived in. It compared UPI against Domestic Cards/NetBanking and International Cards, all non-UPI rails, out of scope for this UPI-specific doc. The unconfirmed T+5 figure goes with it.",
+          "createdAt": "2026-08-13T15:00:00.000Z"
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-08-13T15:00:00.000Z"
     },
     {
       "id": "c_03e2ec6228ac3a38",
@@ -692,7 +700,7 @@
       "prefix": "he first banking working day following T. ",
       "suffix": "",
       "suggestion": null,
-      "text": "Fact-check correction: this section previously called T+1 the default settlement cycle. Saif's own merchant dashboard shows 'Standard Settlement, Settlement cycle - 2 working days,' and Cashfree's own public docs (cashfree.com/docs/help/payments/settlements/settlements and cashfree.com/settlement-and-reconciliation-guide) both confirm the default is T+2. This also matches 3.2's settlement-cycle table on this same site, which already had T+2 marked as default (see the open comment on that table from 12 Aug flagging that 5.1 needed to be corrected to match). Updated 1.3, the 3.2 Real-World Scenarios table, and 3.3 so T+2 is consistently the default and T+1 is a faster opt-in tier.",
+      "text": "Fact-check correction: this section previously called T+1 the default settlement cycle. Saif's own merchant dashboard shows 'Standard Settlement, Settlement cycle - 2 working days,' and Cashfree's own public docs (cashfree.com/docs/help/payments/settlements/settlements and cashfree.com/settlement-and-reconciliation-guide) both confirm the default is T+2. This also matches 3.2's settlement-cycle table on this same site, which already had T+2 marked as default (see the open comment on that table from 12 Aug flagging that 5.1 needed to be corrected to match). Updated 1.3 and the 3.2 Real-World Scenarios table so T+2 is consistently the default and T+1 is a faster opt-in tier. (3.3 Payment-Specific Timelines, also mentioned in my original note, was later removed entirely as non-UPI content.)",
       "author": "Claude",
       "createdAt": "2026-08-13T14:10:00.000Z",
       "status": "open",

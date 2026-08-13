@@ -58,9 +58,9 @@ Cycles represent business days (n) elapsed after transaction capture day (T):
 <!-- Claude, flagging for Saif, not confirmed: the specific batch times and the 15-minute rolling window are Cashfree's own settlement configuration, not something I can verify against a public source. Plausible as written, but needs sign-off from whoever owns settlements, not me. Posted a comment on this line too. -->
 *   **T+1 (Next Business Day):** Payouts are executed on the first banking working day following T. Available where enabled for your account, for merchants who need funds a day sooner than the default cycle.
 *   **T+2 (Standard - Default):** Payouts are executed on the second banking working day following T. This is Cashfree's default settlement cycle, most merchants stay on it, and it is what shows as "Standard Settlement" on the merchant dashboard.
-*   **Beyond T+2:** Certain categories, such as international card transactions or elevated-risk profiles, may be held for a longer cycle, see 3.3.
+*   **Beyond T+2:** Elevated-risk merchant profiles may be held for a longer cycle.
 
-<!-- Claude, confirmed correction for Saif: this section previously called T+1 the default settlement cycle, that was wrong. Two independent sources say the default is T+2: your own merchant dashboard ("Standard Settlement, Settlement cycle - 2 working days"), and Cashfree's own public docs (cashfree.com/docs/help/payments/settlements/settlements and cashfree.com/settlement-and-reconciliation-guide), both of which state the default cycle is T+2. This also matches 3.2's "Your settlement cycle options" table elsewhere on this site, which already had T+2 marked as the default, flagged as an open comment back on 12 Aug that 5.1 needed to be corrected to match. Corrected this section, the 3.2 Real-World Scenarios table below, and 3.3, so T+2 is consistently the default and T+1 is a faster opt-in tier. Posted a confirming comment on this line too. -->
+<!-- Claude, confirmed correction for Saif: this section previously called T+1 the default settlement cycle, that was wrong. Two independent sources say the default is T+2: your own merchant dashboard ("Standard Settlement, Settlement cycle - 2 working days"), and Cashfree's own public docs (cashfree.com/docs/help/payments/settlements/settlements and cashfree.com/settlement-and-reconciliation-guide), both of which state the default cycle is T+2. This also matches 3.2's "Your settlement cycle options" table elsewhere on this site, which already had T+2 marked as the default, flagged as an open comment back on 12 Aug that 5.1 needed to be corrected to match. Corrected this section and the 3.2 Real-World Scenarios table below, so T+2 is consistently the default and T+1 is a faster opt-in tier. Posted a confirming comment on this line too. -->
 
 ---
 
@@ -259,16 +259,5 @@ Here is how that timeline plays out in practice based on different transaction d
     </tbody>
   </table>
 </div>
----
 
-### 3.3 Payment-Specific Timelines
-
-You are not forced to pick a single payout schedule for your entire business. The system allows you to configure different settlement speeds based on the type of payment your customer used.
-
-This is usually done to balance cash flow with fraud prevention:
-
-*   **UPI Transactions:** Can be set to T+0 (Instant), a chargeable add-on. Because UPI is highly secure and runs 24/7, you can get this money immediately if you opt in.
-*   **Domestic Cards & NetBanking:** Default to T+2, the standard cycle described in 1.3. T+1 is available as a faster tier where enabled for your account.
-*   **International Cards:** Set to T+5 (5 days later). Cross-border payments carry a much higher risk of fraud and chargebacks, so the gateway holds the funds longer to ensure the transaction is legitimate before passing it to you.
-
-<!-- Claude, flagging for Saif, not confirmed: T+5 specifically for international cards is Cashfree's own settlement policy, directionally correct (international is universally slower than domestic) but I can't verify the exact figure against a public source. Posted a comment on this line too. -->
+<!-- Claude, note for Saif: removed 3.3 Payment-Specific Timelines entirely. It compared UPI against Domestic Cards/NetBanking and International Cards, all non-UPI rails, out of scope for this UPI-specific doc. Its one UPI-relevant line (T+0 Instant being a chargeable add-on) already duplicated 1.3, so nothing was lost. Also trimmed the "Beyond T+2" bullet in 1.3, which used to cite international cards as an example and link to this subsection, both gone now. The unconfirmed T+5-for-international-cards flag is resolved in the comments tab with a note pointing here. -->
