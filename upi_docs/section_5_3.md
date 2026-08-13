@@ -2,10 +2,85 @@
 
 When a UPI transaction or recurring debit fails, the failure signal originates at one of three layers before being reported back to your application:
 
-```text
-[ Customer / UPI App ] ---> [ NPCI Switch / Remitter Bank ] ---> [ Gateway / Switch ] ---> [ Merchant Backend ]
-       (User Error)                 (Bank/Network Error)             (Normalized API)            (Handled Code)
-```
+<div class="cf-flow-wrap">
+  <style>
+    .cf-flow-wrap {
+      margin: 20px 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    .cf-flow {
+      display: flex;
+      align-items: stretch;
+      flex-wrap: nowrap;
+      gap: 8px;
+    }
+    .cf-flow-step {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: #F9FAFB;
+      color: #1f2933;
+      border: 1px solid #E5E7EB;
+      border-top: 3px solid #5A28A3;
+      border-radius: 8px;
+      padding: 12px 10px;
+      text-align: center;
+    }
+    .cf-flow-title {
+      font-size: 12.5px;
+      font-weight: 600;
+      line-height: 1.35;
+      color: #1f2933;
+    }
+    .cf-flow-caption {
+      margin-top: 7px;
+      font-size: 11.5px;
+      color: #6b7684;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+    }
+    .cf-flow-arrow {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #5A28A3;
+      font-size: 18px;
+      font-weight: 700;
+      min-width: 14px;
+    }
+    @media (max-width: 680px) {
+      .cf-flow { flex-direction: column; }
+      .cf-flow-step { width: 100%; }
+      .cf-flow-title { font-size: 14px; }
+      .cf-flow-caption { font-size: 12.5px; }
+      .cf-flow-arrow { transform: rotate(90deg); padding: 2px 0; }
+    }
+  </style>
+  <div class="cf-flow">
+    <div class="cf-flow-step">
+      <div class="cf-flow-title">Customer / UPI App</div>
+      <div class="cf-flow-caption">User Error</div>
+    </div>
+    <div class="cf-flow-arrow">&rarr;</div>
+    <div class="cf-flow-step">
+      <div class="cf-flow-title">NPCI Switch / Remitter Bank</div>
+      <div class="cf-flow-caption">Bank / Network Error</div>
+    </div>
+    <div class="cf-flow-arrow">&rarr;</div>
+    <div class="cf-flow-step">
+      <div class="cf-flow-title">Gateway / Switch</div>
+      <div class="cf-flow-caption">Normalized API</div>
+    </div>
+    <div class="cf-flow-arrow">&rarr;</div>
+    <div class="cf-flow-step">
+      <div class="cf-flow-title">Merchant Backend</div>
+      <div class="cf-flow-caption">Handled Code</div>
+    </div>
+  </div>
+</div>
 
 1.  **User / Account Errors (Business Failures):** Actionable issues originating from customer state (e.g., entering an incorrect PIN, insufficient account balance, or breaching daily limits).
 2.  **Bank / Switch Errors (Technical Failures):** Infrastructure issues at the remitter bank's Core Banking System (CBS) or NPCI routing switch.

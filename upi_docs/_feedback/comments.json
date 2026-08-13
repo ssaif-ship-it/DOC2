@@ -15,7 +15,7 @@
       "status": "resolved",
       "replies": [],
       "resolvedBy": "Saif",
-      "resolvedAt": "2026-08-12T07:40:21.549Z"
+      "resolvedAt": "2026-08-13T06:49:28.232Z"
     },
     {
       "id": "c_vtxutrrpmsop0iwf",
@@ -473,6 +473,178 @@
           "author": "Claude",
           "text": "Reverted back to the original table per Saif, this exact version (High Ceiling / Intermediate / Standard Baseline tiers, same MCC codes including 7410 and 7409) is verified internally. Noted the discrepancy with the Sep 2025 revision figures in a comment right below the table in the doc, in case it's worth reconciling with claude/upi-mcc-section-rewrite.md and claude/upi-doc-full-section-review.md so those two don't contradict this one later.",
           "createdAt": "2026-08-12T11:45:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "c_6efac247b69d7052",
+      "section": "doc-5-1",
+      "file": "upi_docs/section_5_1.md",
+      "quote": "fixed daily batches (e.g., 09:00, 17:00, 20:00 IST) or via rolling 15-minute execution windows",
+      "prefix": "the transaction date itself, either in ",
+      "suffix": ".",
+      "suggestion": null,
+      "text": "Not confirmed: the specific batch times (09:00/17:00/20:00 IST) and the 15-minute rolling window are Cashfree's own settlement configuration. I can't verify these against a public source, they're plausible but need sign-off from whoever owns settlements.",
+      "author": "Claude",
+      "createdAt": "2026-08-13T12:00:00.000Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_682400c264dc70a4",
+      "section": "doc-5-1",
+      "file": "upi_docs/section_5_1.md",
+      "quote": "Set to T+5 (5 days later)",
+      "prefix": "International Cards: ",
+      "suffix": ". Cross-border payments",
+      "suggestion": null,
+      "text": "Not confirmed: T+5 for international cards is Cashfree's own settlement policy. Directionally correct, since international settlement is always slower than domestic, but I can't verify this exact figure against a public source.",
+      "author": "Claude",
+      "createdAt": "2026-08-13T12:01:00.000Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_03e2ec6228ac3a38",
+      "section": "doc-5-2",
+      "file": "upi_docs/section_5_2.md",
+      "quote": "Standard refunds are allowed up to 180 days from the transaction date. Complaint-driven UPI UDIR refunds are supported up to 90 days.",
+      "prefix": "Time Window: ",
+      "suffix": "",
+      "suggestion": null,
+      "text": "Not confirmed: couldn't trace either figure to a citable source. No RBI or NPCI document sets a 180-day refund-initiation deadline that I could find, other Indian gateways only publish refund processing time, not an initiation window. The 90-day UDIR figure also isn't a codified filing deadline in NPCI's framework, the real window varies by bank/app. Left both numbers as-is since I don't have confirmed replacements, flagging for whoever owns this rule.",
+      "author": "Claude",
+      "createdAt": "2026-08-13T12:02:00.000Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_ada3f77b24d5851c",
+      "section": "doc-5-2",
+      "file": "upi_docs/section_5_2.md",
+      "quote": "For merchant (P2M) UPI payments specifically, RBI mandates failed debit reversals within T+5 calendar days.",
+      "prefix": "",
+      "suffix": " Delay penalty",
+      "suggestion": null,
+      "text": "Fact-check confirmation: the T+5 calendar days / Rs 100 per day penalty is correct per RBI circular RBI/2019-20/67 (20 Sep 2019), but only for the merchant-payment (P2M) failure scenario specifically. There's a separate line item in the same circular for P2P transfers that's T+1, not T+5. Added the P2M scope explicitly so this figure doesn't get reused for a P2P context elsewhere in the docs.",
+      "author": "Claude",
+      "createdAt": "2026-08-13T12:03:00.000Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_59691f1e2e4c970e",
+      "section": "doc-5-2",
+      "file": "upi_docs/section_5_2.md",
+      "quote": "Treat 7 to 10 days as a safe outer bound; some networks apply slower rails further out.",
+      "prefix": "",
+      "suffix": "",
+      "suggestion": null,
+      "text": "Not confirmed, edited: removed the specific 'Visa/Mastercard/RuPay scheme rules set an outer limit of 7 to 10 days' attribution. Couldn't find a published scheme document stating this as policy, it read as paraphrase presented as a citation. Softened the wording rather than deleting the number entirely, since 7 to 10 days as a rough outer bound is still plausible.",
+      "author": "Claude",
+      "createdAt": "2026-08-13T12:04:00.000Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_9dbd86311f80b1cc",
+      "section": "doc-5-2",
+      "file": "upi_docs/section_5_2.md",
+      "quote": "Non-automated; relies on bank-side periodic claim file processing.",
+      "prefix": "",
+      "suffix": "",
+      "suggestion": null,
+      "text": "Not confirmed: the Net Banking (3 to 5 days) and EMI/BNPL (5 to 7 days) credit windows have no independent public source either way. They read as operational figures rather than a codified rule, plausible but only your ops or settlements team can confirm they're current.",
+      "author": "Claude",
+      "createdAt": "2026-08-13T12:05:00.000Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_38611710da64c229",
+      "section": "doc-5-5",
+      "file": "upi_docs/section_5_5.md",
+      "quote": "overall baseline SR runs in the 92% to 97% range across major PSPs and direct NPCI integrations",
+      "prefix": "In standard ecosystem conditions on UPI, ",
+      "suffix": ". Non-successful attempts",
+      "suggestion": null,
+      "text": "Fact-check correction: replaced the old '~80% baseline SR, User Drops ~13%, Technical Failures ~7%' figures. Every current source I found, NPCI's own ecosystem stats and PSP-published figures from Razorpay, PayU, and Cashfree's own blog, puts blended UPI success rates today at roughly 92 to 97%, with technical failures down near 1%. The old 80% figure matches UPI's state around 2016 to 2018, not now. I didn't have a precise verified split for User Drops specifically, so I described it as 'most of the remaining gap' rather than inventing a number. If you have Cashfree's own current SR or drop-rate figures, use those instead of my range.",
+      "author": "Claude",
+      "createdAt": "2026-08-13T12:06:00.000Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_f72abef9593375dc",
+      "section": "doc-5-5",
+      "file": "upi_docs/section_5_5.md",
+      "quote": "Merchants utilizing dynamic multi-gateway routing achieve a +2.0% to +5.0% improvement in overall Success Rate compared to static routing configurations during ecosystem downtime.",
+      "prefix": "Performance Metric: ",
+      "suffix": "",
+      "suggestion": null,
+      "text": "Not confirmed: no independent benchmark agrees on this specific 2 to 5% range. Cashfree's own published smart-routing case study cites about 2%, a third-party fintech benchmark says 1 to 2%, Razorpay's marketing claims around 10% for a comparable feature. Nothing isolates the 'during ecosystem downtime' scenario specifically the way this line implies. Left the number as-is since I don't have a more precise internal figure to replace it with.",
+      "author": "Claude",
+      "createdAt": "2026-08-13T12:07:00.000Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_fp2pfowrmsr7e8hq",
+      "section": "doc-5-5",
+      "file": "upi_docs/section_5_5.md",
+      "quote": " ~92%. ",
+      "prefix": "ons on UPI, overall baseline SR averages",
+      "suffix": "Non-successful attempts fall into two di",
+      "suggestion": null,
+      "text": "Confirm",
+      "author": "Saif",
+      "createdAt": "2026-08-13T07:35:23.772Z",
+      "status": "open",
+      "replies": [
+        {
+          "author": "Claude",
+          "text": "A single ~92% point figure is closer to reality than the old ~80%, but I rewrote this to a 92 to 97% range instead of one number, since that's what the current sources (NPCI's own ecosystem stats, and PSP-published figures from Razorpay, PayU, and Cashfree's own blog) actually show, a range rather than one point estimate. See the line just below too, I also fixed the User Drops/Technical Failures split you flagged, since 13 plus 7 doesn't reconcile against either the old 80% or your 92% anyway.",
+          "createdAt": "2026-08-13T13:30:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "c_blrspmf9msr7nf7a",
+      "section": "doc-5-5",
+      "file": "upi_docs/section_5_5.md",
+      "quote": "User Drops (~13%): Customer-initiated actions, such as closing the app, abandoning the payment page, or allowing the payment collect request to time out.\nTechnical Failures (~7%): Infrastructure-level issues, including issuing bank CBS downtime, gateway API timeouts, or network congestion.",
+      "prefix": "pts fall into two distinct categories:\n\n",
+      "suffix": "\n\n2. UPI Failure Modes & Mitigation Matr",
+      "suggestion": null,
+      "text": "correct data \nor should we even keep it there?",
+      "author": "Saif",
+      "createdAt": "2026-08-13T07:42:32.374Z",
+      "status": "open",
+      "replies": [
+        {
+          "author": "Claude",
+          "text": "Good catch, the data wasn't right. NPCI's own figures show technical failures have fallen to under 1% by 2024 to 2025, not 7%, that share used to be 8 to 10% back around 2016. I didn't find a precise current verified split for User Drops specifically, so rather than invent a number I rewrote it as 'this accounts for most of the remaining gap' and kept Technical Failures as a described trend rather than a fixed percentage. Kept the line rather than removing it, the categories themselves (user-side vs infrastructure-side) are still a useful merchant-facing distinction, it was just the numbers that were stale.",
+          "createdAt": "2026-08-13T13:31:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "c_94fvl417msr7we7z",
+      "section": "doc-5-2",
+      "file": "upi_docs/section_5_2.md",
+      "quote": "Refund\tMerchant (Dashboard or API)\tPost-capture (Up to 180 days from transaction date).\tUsed for order cancellations, product returns, goodwill credits, or SLA breaches.",
+      "prefix": "l Focus\n      \n    \n    \n      \n        ",
+      "suffix": " returns, goodwill credits, or SLA breac",
+      "suggestion": null,
+      "text": "confirm",
+      "author": "Saif",
+      "createdAt": "2026-08-13T07:49:31.007Z",
+      "status": "open",
+      "replies": [
+        {
+          "author": "Claude",
+          "text": "Can't confirm this one, flagged it independently too (see my comment on the Time Window bullet further up this page). No RBI or NPCI document sets a 180-day refund-initiation deadline that I could find, and Razorpay/PayU/Cashfree's own public docs only state refund processing time, not an initiation window. It may be a real internal Cashfree policy figure, just not one I can verify from outside, worth checking with whoever owns this rule.",
+          "createdAt": "2026-08-13T13:32:00.000Z"
         }
       ]
     }

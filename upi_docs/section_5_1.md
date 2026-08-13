@@ -54,6 +54,8 @@
 Cycles represent business days (n) elapsed after transaction capture day (T):
 
 *   **T+0 (Same-Day / Instant):** Payouts are executed on the transaction date itself, either in fixed daily batches (e.g., 09:00, 17:00, 20:00 IST) or via rolling 15-minute execution windows.
+
+<!-- Claude, flagging for Saif, not confirmed: the specific batch times and the 15-minute rolling window are Cashfree's own settlement configuration, not something I can verify against a public source. Plausible as written, but needs sign-off from whoever owns settlements, not me. Posted a comment on this line too. -->
 *   **T+1 (Next Business Day - Default):** Payouts are executed on the first banking working day following T.
 *   **T+2 / Extended:** Applied for international card transactions, specific alternative payment methods, or elevated risk categories.
 
@@ -63,8 +65,83 @@ Cycles represent business days (n) elapsed after transaction capture day (T):
 
 ### 2.1 Standard Aggregator Model vs. Direct Settlement Model
 
-> **Standard Model:**  [Customer] ---> [Gateway/Acquirer] ---> [Aggregator Escrow] ---> [Merchant Bank]
-> **Direct Model:**    [Customer] ---> [Gateway/Acquirer] -------------------------> [Merchant Bank]
+<div class="cf-model-wrap">
+  <style>
+    .cf-model-wrap { margin: 20px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    .cf-model-row { margin-bottom: 14px; }
+    .cf-model-row:last-child { margin-bottom: 0; }
+    .cf-model-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #5b21b6;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+    .cf-model-flow { display: flex; align-items: stretch; flex-wrap: nowrap; gap: 6px; }
+    .cf-model-step {
+      flex: 1 1 0;
+      min-width: 0;
+      background: #f6f1fc;
+      border: 1px solid #eae5f2;
+      border-radius: 8px;
+      padding: 10px 8px;
+      text-align: center;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cf-model-step.cf-model-skip {
+      background: #ffffff;
+      border-style: dashed;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+    .cf-model-arrow {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #5b21b6;
+      font-size: 16px;
+      font-weight: 700;
+      min-width: 12px;
+    }
+    .cf-model-arrow.cf-model-skiparrow { color: #cbd5e1; }
+    @media (max-width: 640px) {
+      .cf-model-flow { flex-direction: column; }
+      .cf-model-step { width: 100%; }
+      .cf-model-arrow { transform: rotate(90deg); padding: 1px 0; }
+    }
+  </style>
+  <div class="cf-model-row">
+    <div class="cf-model-label">Standard Model</div>
+    <div class="cf-model-flow">
+      <div class="cf-model-step">Customer</div>
+      <div class="cf-model-arrow">&rarr;</div>
+      <div class="cf-model-step">Gateway / Acquirer</div>
+      <div class="cf-model-arrow">&rarr;</div>
+      <div class="cf-model-step">Aggregator Escrow</div>
+      <div class="cf-model-arrow">&rarr;</div>
+      <div class="cf-model-step">Merchant Bank</div>
+    </div>
+  </div>
+  <div class="cf-model-row">
+    <div class="cf-model-label">Direct Model</div>
+    <div class="cf-model-flow">
+      <div class="cf-model-step">Customer</div>
+      <div class="cf-model-arrow">&rarr;</div>
+      <div class="cf-model-step">Gateway / Acquirer</div>
+      <div class="cf-model-arrow cf-model-skiparrow">&rarr;</div>
+      <div class="cf-model-step cf-model-skip">Escrow hop skipped</div>
+      <div class="cf-model-arrow">&rarr;</div>
+      <div class="cf-model-step">Merchant Bank</div>
+    </div>
+  </div>
+</div>
 
 <div style="overflow-x: auto; margin: 20px 0;">
   <table style="width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid #eae5f2; border-radius: 12px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; color: #334155;">
@@ -187,3 +264,5 @@ This is usually done to balance cash flow with fraud prevention:
 *   **UPI Transactions:** Can be set to T+0 (Instant). Because UPI is highly secure and runs 24/7, you can get this money immediately.
 *   **Domestic Cards & NetBanking:** Set to T+1 (Next working day). This is standard for normal Indian banking channels.
 *   **International Cards:** Set to T+5 (5 days later). Cross-border payments carry a much higher risk of fraud and chargebacks, so the gateway holds the funds longer to ensure the transaction is legitimate before passing it to you.
+
+<!-- Claude, flagging for Saif, not confirmed: T+5 specifically for international cards is Cashfree's own settlement policy, directionally correct (international is universally slower than domestic) but I can't verify the exact figure against a public source. Posted a comment on this line too. -->

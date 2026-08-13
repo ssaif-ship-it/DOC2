@@ -8,10 +8,12 @@ Transaction Success Rate (SR) measures the operational efficiency of your paymen
 
 > **Success Rate (SR) = (Successful Transactions / Total Attempted Transactions) x 100**
 
-In standard ecosystem conditions on UPI, overall baseline SR averages ~80%. Non-successful attempts fall into two distinct categories:
+In standard ecosystem conditions on UPI, overall baseline SR runs in the 92% to 97% range across major PSPs and direct NPCI integrations. Non-successful attempts fall into two distinct categories:
 
-*   **User Drops (~13%):** Customer-initiated actions, such as closing the app, abandoning the payment page, or allowing the payment collect request to time out.
-*   **Technical Failures (~7%):** Infrastructure-level issues, including issuing bank CBS downtime, gateway API timeouts, or network congestion.
+*   **User Drops:** Customer-initiated actions, such as closing the app, abandoning the payment page, or allowing the payment collect request to time out. This accounts for most of the remaining gap.
+*   **Technical Failures:** Infrastructure-level issues, including issuing bank CBS downtime, gateway API timeouts, or network congestion. NPCI's own ecosystem data shows this share falling from roughly 8 to 10% around 2016 to under 1% by 2024 to 2025.
+
+<!-- Claude, fact-check note for Saif: replaced the old "~80% baseline SR, User Drops ~13%, Technical Failures ~7%" figures. Every current source I could find (NPCI's own ecosystem stats, and PSP-published figures from Razorpay, PayU, and Cashfree's own blog) puts blended UPI success rates today at roughly 92 to 97%, with technical/ecosystem failures down near 1%, not 7. The old ~80% figure matches where UPI was around 2016 to 2018, not now. I did not find a precise verified split for User Drops specifically, so I described it as "most of the remaining gap" rather than inventing a percentage. If you have a specific current SR or drop-rate figure from Cashfree's own dashboards, use that instead of my range, it would be more precise than public industry data. -->
 
 ## 2. UPI Failure Modes & Mitigation Matrix
 
@@ -104,6 +106,8 @@ The Smart Routing engine operates as an automated traffic orchestrator operating
 ## 4. Expected Impact & Value
 
 *   **Performance Metric:** Merchants utilizing dynamic multi-gateway routing achieve a +2.0% to +5.0% improvement in overall Success Rate compared to static routing configurations during ecosystem downtime.
+
+<!-- Claude, flagging for Saif, not confirmed: I could not find one independent benchmark agreeing on this specific 2 to 5% range. Cashfree's own published smart-routing case study cites about 2%, a third-party fintech benchmark says 1 to 2%, and Razorpay's marketing claims around 10% for a comparable feature. Nothing isolates the "during ecosystem downtime" scenario specifically the way this line implies. Left the number as-is since I don't have a more precise internal figure to replace it with, posted a comment on this line too. If your own routing-engine data backs a specific number, use that instead. -->
 *   **Revenue Protection:** Recovers lost transactions automatically during partner bank and gateway outages.
 *   **Zero Operational Overhead:** Eliminates the need for manual gateway flipping or active health monitoring.
 *   **Unified Telemetry:** Access real-time downtime webhooks and status alerts directly from your merchant dashboard or API.
