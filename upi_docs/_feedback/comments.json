@@ -749,6 +749,20 @@
       "createdAt": "2026-08-13T13:11:07.777Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_206i8x9lmsrjvt2s",
+      "section": "doc-3-3",
+      "file": "upi_docs/section_3_3.md",
+      "quote": "Axis and HDFC: No action required from the merchant. Cashfree procures and maps the handle. Axis is typically faster, since it is handled through an internal API; HDFC is a manual process and can take longer.\nICICI: The merchant must fill, sign, and submit the UPI Onboarding Form directly to their ICICI point of contact. Mutual Fund merchants additionally require ICCL/NCCL sign-off before submissio",
+      "prefix": " effort depends on the acquiring bank:\n\n",
+      "suffix": "n.\n\n\n",
+      "suggestion": null,
+      "text": "Naming Banks and giving bank specific steps, should we do it ?",
+      "author": "Saif",
+      "createdAt": "2026-08-13T13:24:58.995Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
