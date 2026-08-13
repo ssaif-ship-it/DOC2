@@ -501,8 +501,10 @@
       "text": "Not confirmed: T+5 for international cards is Cashfree's own settlement policy. Directionally correct, since international settlement is always slower than domestic, but I can't verify this exact figure against a public source.",
       "author": "Claude",
       "createdAt": "2026-08-13T12:01:00.000Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [],
+      "resolvedBy": "Saif",
+      "resolvedAt": "2026-08-13T10:26:40.093Z"
     },
     {
       "id": "c_03e2ec6228ac3a38",
