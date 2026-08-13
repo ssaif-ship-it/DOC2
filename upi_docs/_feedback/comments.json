@@ -503,6 +503,20 @@
       "createdAt": "2026-08-13T07:42:32.374Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_94fvl417msr7we7z",
+      "section": "doc-5-2",
+      "file": "upi_docs/section_5_2.md",
+      "quote": "Refund\tMerchant (Dashboard or API)\tPost-capture (Up to 180 days from transaction date).\tUsed for order cancellations, product returns, goodwill credits, or SLA breaches.",
+      "prefix": "l Focus\n      \n    \n    \n      \n        ",
+      "suffix": " returns, goodwill credits, or SLA breac",
+      "suggestion": null,
+      "text": "confirm",
+      "author": "Saif",
+      "createdAt": "2026-08-13T07:49:31.007Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
