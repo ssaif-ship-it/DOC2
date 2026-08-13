@@ -589,8 +589,10 @@
       "text": "Fact-check correction: replaced the old '~80% baseline SR, User Drops ~13%, Technical Failures ~7%' figures. Every current source I found, NPCI's own ecosystem stats and PSP-published figures from Razorpay, PayU, and Cashfree's own blog, puts blended UPI success rates today at roughly 92 to 97%, with technical failures down near 1%. The old 80% figure matches UPI's state around 2016 to 2018, not now. I didn't have a precise verified split for User Drops specifically, so I described it as 'most of the remaining gap' rather than inventing a number. If you have Cashfree's own current SR or drop-rate figures, use those instead of my range.",
       "author": "Claude",
       "createdAt": "2026-08-13T12:06:00.000Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [],
+      "resolvedBy": "Saif",
+      "resolvedAt": "2026-08-13T10:46:02.331Z"
     },
     {
       "id": "c_f72abef9593375dc",
