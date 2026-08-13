@@ -735,6 +735,20 @@
       "createdAt": "2026-08-13T11:27:39.889Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_txcmfxunmsrjdzpd",
+      "section": "doc-2-5",
+      "file": "upi_docs/section_2_5.md",
+      "quote": "Interchange Fees for PPI Wallet Acceptance\n",
+      "prefix": "plicit onboarding required on your end.\n",
+      "suffix": "Unlike standard savings account UPI tran",
+      "suggestion": null,
+      "text": "Do we need to include this?",
+      "author": "Saif",
+      "createdAt": "2026-08-13T13:11:07.777Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
