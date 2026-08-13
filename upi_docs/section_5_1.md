@@ -207,6 +207,9 @@ When you see terms like T+1, the "T" stands for the Transaction Date, and the "+
 
 Here is how that timeline plays out in practice based on different transaction days:
 
+<!-- Claude, flagging for Saif, not confirmed: the T+1 rollover logic this table illustrates (weekends and RBI holidays push the payout to the next working day) is standard settlement practice, that part checks out and doesn't need a citation, it's mechanics, not an empirical claim. But the specific "4:00 PM" cutoff and "afternoon" payout times in this table aren't independently verifiable, they depend on Cashfree's own batch execution schedule, same thing I already flagged just above in 3.1 (the 09:00/17:00/20:00 IST batch times comment). This table is presumably a worked example built on that same schedule, so it inherits the same caveat: plausible, but needs sign-off from whoever owns settlements, not confirmable against a public source. -->
+
+
 <div style="overflow-x: auto; margin: 20px 0;">
   <table style="width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid #eae5f2; border-radius: 12px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; color: #334155;">
     <thead>

@@ -647,6 +647,26 @@
           "createdAt": "2026-08-13T13:32:00.000Z"
         }
       ]
+    },
+    {
+      "id": "c_423b752b784a9f00",
+      "section": "doc-5-1",
+      "file": "upi_docs/section_5_1.md",
+      "quote": "Here is how that timeline plays out in practice based on different transaction days:",
+      "prefix": "### 3.2 Real-World Scenarios\n\n",
+      "suffix": "",
+      "suggestion": null,
+      "text": "Asked to show the source for the Real-World Scenarios table below (Standard/Weekend/Holiday Conflict/Instant rows).",
+      "author": "Saif",
+      "createdAt": "2026-08-13T14:00:00.000Z",
+      "status": "open",
+      "replies": [
+        {
+          "author": "Claude",
+          "text": "No single external source, and it doesn't need one for the part that's actually a rule: T+1 meaning next business day, and weekends/RBI holidays pushing the payout forward, is standard settlement mechanics, not a citable fact, it's arithmetic applied to India's bank holiday calendar. What I can't verify is the specific '4:00 PM' cutoff and 'afternoon' payout time-of-day in this table, those depend on Cashfree's own batch execution schedule, the same thing I already flagged in the comment just above this one (09:00/17:00/20:00 IST batch times, in 3.1). This table is a worked example built on that same schedule, so it carries the same caveat: plausible, but only your settlements team can confirm the exact cutoff and payout hour are current.",
+          "createdAt": "2026-08-13T14:01:00.000Z"
+        }
+      ]
     }
   ]
 }
