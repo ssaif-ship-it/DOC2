@@ -489,6 +489,20 @@
       "createdAt": "2026-08-13T07:35:23.772Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_blrspmf9msr7nf7a",
+      "section": "doc-5-5",
+      "file": "upi_docs/section_5_5.md",
+      "quote": "User Drops (~13%): Customer-initiated actions, such as closing the app, abandoning the payment page, or allowing the payment collect request to time out.\nTechnical Failures (~7%): Infrastructure-level issues, including issuing bank CBS downtime, gateway API timeouts, or network congestion.",
+      "prefix": "pts fall into two distinct categories:\n\n",
+      "suffix": "\n\n2. UPI Failure Modes & Mitigation Matr",
+      "suggestion": null,
+      "text": "correct data \nor should we even keep it there?",
+      "author": "Saif",
+      "createdAt": "2026-08-13T07:42:32.374Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
