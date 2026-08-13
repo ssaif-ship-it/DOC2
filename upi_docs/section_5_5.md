@@ -8,7 +8,7 @@ Transaction Success Rate (SR) measures the operational efficiency of your paymen
 
 > **Success Rate (SR) = (Successful Transactions / Total Attempted Transactions) x 100**
 
-In standard ecosystem conditions on UPI, overall baseline SR averages ~80%. Non-successful attempts fall into two distinct categories:
+In standard ecosystem conditions on UPI, overall baseline SR averages ~92%. Non-successful attempts fall into two distinct categories:
 
 *   **User Drops (~13%):** Customer-initiated actions, such as closing the app, abandoning the payment page, or allowing the payment collect request to time out.
 *   **Technical Failures (~7%):** Infrastructure-level issues, including issuing bank CBS downtime, gateway API timeouts, or network congestion.
