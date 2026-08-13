@@ -30,10 +30,6 @@ Alongside frequency, every mandate also carries an amount rule:
 | **EXACT** | You are authorized to debit the exact amount specified (e.g., exactly ₹1,000 for a fixed subscription). |
 | **MAX** | You are authorized to debit up to a ceiling per cycle (e.g., up to ₹5,000 for a variable utility bill). If you collect less than the ceiling in one cycle, you cannot carry the difference forward and collect it in a later cycle. |
 
-<div style="background:#fef3c7;border:1px solid #f59e0b;border-radius:6px;padding:10px 14px;margin:12px 0;">
-<strong>Needs verification:</strong> For MAX mandates specifically, the moment your customer approves the mandate in their UPI app, a ₹1 debit is triggered right away as a verification check, before any of your real recurring debits begin.
-</div>
-
 ## 4. How Much Can Go Through Without a PIN
 
 NPCI limits how much can be automatically debited before the customer has to re-enter their UPI PIN, this is their Additional Factor of Authentication, or AFA. Most merchants get a standard ceiling of ₹15,000 per debit; a short list of high-value categories (credit card bills, insurance premiums, mutual funds, and a few others) get a higher ₹1,00,000 ceiling instead. Above whichever ceiling applies to your category, the customer has to enter their PIN for that specific cycle.
@@ -60,10 +56,6 @@ A debit can fail even after the PDN goes through successfully, and what you do n
 | **Customer-side and temporary:** low balance, a brief network issue at the customer's bank, an inactive-but-not-closed account | **Retry it, Periodic only.** The subscription moves to ON HOLD, and you call the Retry API. Up to **3 retry attempts**, no more than **1 per day**, and it must succeed before the current cycle expires. A successful retry reactivates the subscription. |
 | **The account or mandate itself is broken:** closed/invalid account, a mandate already cancelled or deactivated, a name mismatch | **Don't retry, it won't work.** The customer needs to set up a brand new mandate. |
 | **Blocked by something outside normal banking:** a court order, a frozen account, KYC pending on the customer's side | **Retrying won't fix this.** Follow up with the customer directly instead. |
-
-<!-- DRAFT, NOT CONFIRMED, do not publish until Saif verifies from the test account:
-A third-party integration guide (not Cashfree's own docs) claims that if a mandate's very first debit fails, for any reason, the whole mandate is cancelled outright rather than just that one cycle, unlike a later cycle's failure which only affects that cycle. If Saif confirms this is how Cashfree actually behaves, add it back as a row in the table above: "This was the mandate's very first debit, and it failed for any reason above" -> "The whole mandate is cancelled, not just this one cycle. This is the one exception to the SeqNum-skipping rule below."
--->
 
 See **[4.4 MCC-Specific Limits](#doc-4-4)** for the full limits reference, registration ceilings and PIN thresholds by category, that the rest of this section points back to.
 
