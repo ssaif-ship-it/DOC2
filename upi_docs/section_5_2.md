@@ -1,4 +1,4 @@
-This guide outlines the rules, workflows, regulatory timelines, and reconciliation mechanics for returning customer funds, either via merchant-initiated Refunds or system-triggered Reversals.
+This guide outlines the rules, workflows, regulatory timelines, and reconciliation mechanics for returning customer funds on UPI transactions, either via merchant-initiated Refunds or system-triggered Reversals.
 
 ### 1. Key Concepts & Definitions
 
@@ -53,15 +53,15 @@ It is essential to distinguish between refunds, reversals, and chargebacks to ma
 
 > **Refund Amount** must be less than or equal to **Captured Amount** minus the **total of all previous partial refunds**.
 
-### 2. Payment Method Differences & Regulatory SLAs
+### 2. UPI Refund & Reversal SLAs
 
-Refund processing speeds and technical capabilities vary significantly depending on the payment rail used.
+Refund and reversal speed on UPI depends on whether it's a merchant-initiated refund or a system auto-reversal, and whether the customer's UPI handle sits on a bank account or a prepaid wallet (PPI-on-UPI).
 
 <div style="overflow-x: auto; margin: 20px 0;">
   <table style="width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid #eae5f2; border-radius: 12px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; color: #334155;">
     <thead>
       <tr style="background-color: #f6f1fc;">
-        <th style="padding: 16px 20px; text-align: left; color: #5b21b6; font-weight: 600; font-size: 15px; border-bottom: 1px solid #eae5f2;">Payment Method</th>
+        <th style="padding: 16px 20px; text-align: left; color: #5b21b6; font-weight: 600; font-size: 15px; border-bottom: 1px solid #eae5f2;">UPI Flow</th>
         <th style="padding: 16px 20px; text-align: left; color: #5b21b6; font-weight: 600; font-size: 15px; border-bottom: 1px solid #eae5f2;">Mechanism</th>
         <th style="padding: 16px 20px; text-align: left; color: #5b21b6; font-weight: 600; font-size: 15px; border-bottom: 1px solid #eae5f2;">Typical Credit Window</th>
         <th style="padding: 16px 20px; text-align: left; color: #5b21b6; font-weight: 600; font-size: 15px; border-bottom: 1px solid #eae5f2;">Regulatory TAT &amp; Compliance</th>
@@ -69,7 +69,7 @@ Refund processing speeds and technical capabilities vary significantly depending
     </thead>
     <tbody>
       <tr>
-        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">UPI</td>
+        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">UPI (Bank Account)</td>
         <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Real-time API / Auto-Reversal / UDIR</td>
         <td style="padding: 16px 20px; border-bottom: 1px solid #f1f5f9; vertical-align: top;">
           <span style="display: inline-block; background-color: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">Instant to T+1 Business Day</span>
@@ -77,42 +77,18 @@ Refund processing speeds and technical capabilities vary significantly depending
         <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">For merchant (P2M) UPI payments specifically, RBI mandates failed debit reversals within T+5 calendar days. Delay penalty: ₹100/day charged to acquiring bank/merchant. (A separate RBI line item sets P2P transfers at T+1, not T+5, don't reuse this figure outside a merchant-payment context.)</td>
       </tr>
       <tr>
-        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Credit/Debit Cards</td>
-        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">ISO 8583 0400 Reversals / Scheme Refunds</td>
-        <td style="padding: 16px 20px; border-bottom: 1px solid #f1f5f9; vertical-align: top;">
-          <span style="display: inline-block; background-color: #fef3c7; color: #d97706; border: 1px solid #fde68a; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">5 to 7 Business Days</span>
-        </td>
-        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Treat 7 to 10 days as a safe outer bound; some networks apply slower rails further out.</td>
-      </tr>
-      <!-- Claude, flagging for Saif, not confirmed: softened this cell. Couldn't find a published Visa, Mastercard, or RuPay/NPCI document that states a specific "7 to 10 day outer limit" as scheme policy, that read as paraphrase presented as a citation. The 5 to 7 business day figure in the pill above is broadly consistent with what other Indian gateways publish, so left that alone. Posted a comment on this row too. -->
-      <tr>
-        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Net Banking</td>
-        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Bank Claim Files / MIS Adjustments</td>
-        <td style="padding: 16px 20px; border-bottom: 1px solid #f1f5f9; vertical-align: top;">
-          <span style="display: inline-block; background-color: #f0eafc; color: #5b21b6; border: 1px solid #ddd6fe; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">3 to 5 Business Days</span>
-        </td>
-        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Non-automated; relies on bank-side periodic claim file processing.</td>
-      </tr>
-      <!-- Claude, flagging for Saif, not confirmed: the Net Banking (3 to 5 days) and EMI/BNPL (5 to 7 days) credit windows below have no independent public source either way, they read as operational/gateway-observed figures rather than a codified rule. Plausible, but only your own ops or settlements team can confirm they're current. Posted a comment on this row too. -->
-      <tr>
-        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Prepaid Wallets (PPI)</td>
-        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Sponsor Bank API</td>
-        <td style="padding: 16px 20px; border-bottom: 1px solid #f1f5f9; vertical-align: top;">
+        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; vertical-align: top;">Prepaid Wallets (PPI-on-UPI)</td>
+        <td style="padding: 16px 20px; color: #334155; vertical-align: top; line-height: 1.5;">Sponsor Bank API</td>
+        <td style="padding: 16px 20px; vertical-align: top;">
           <span style="display: inline-block; background-color: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">Instant to T+1 Business Day</span>
         </td>
-        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Governed by NPCI/RBI PPI-on-UPI operating guidelines.</td>
-      </tr>
-      <tr>
-        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; vertical-align: top;">EMI / BNPL</td>
-        <td style="padding: 16px 20px; color: #334155; vertical-align: top; line-height: 1.5;">Issuer Credit Line Adjustment</td>
-        <td style="padding: 16px 20px; vertical-align: top;">
-          <span style="display: inline-block; background-color: #fef3c7; color: #d97706; border: 1px solid #fde68a; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">5 to 7 Business Days</span>
-        </td>
-        <td style="padding: 16px 20px; color: #334155; vertical-align: top; line-height: 1.5;">Refund cancels principal; customer must contact issuer to cancel bank EMI interest schedules.</td>
+        <td style="padding: 16px 20px; color: #334155; vertical-align: top; line-height: 1.5;">Governed by NPCI/RBI PPI-on-UPI operating guidelines.</td>
       </tr>
     </tbody>
   </table>
 </div>
+
+<!-- Claude, note for Saif: removed the Credit/Debit Cards, Net Banking, and EMI/BNPL rows that were previously in this table, those are non-UPI rails and this doc is scoped to UPI. The two unconfirmed-figure flags that were attached to those rows are gone with them, resolved in the comments tab with a note pointing here. -->
 
 ## 3. Refunds vs. Reversals
 
@@ -128,7 +104,6 @@ Reversals occur automatically when funds leave the customer's account but cannot
 
 *   **UPI Timeouts ("Deemed Success"):** Debited funds that fail terminal confirmation are auto-reversed back to the remitter bank via NPCI switch signals.
 *   **Direct VPA Transfers:** Payments sent directly to a merchant VPA without a valid checkout session/Order ID are tagged as `UNRECONCILED_AUTO_REFUND` and auto-reversed.
-*   **Card Auth Timeouts:** Authorization holds that drop before capture are released via ISO 8583 0400 messages.
 *   **Direct Settlement Exception:** If you operate on a Direct Settlement model (where acquirers credit your bank account directly), standard Payment Gateway refund APIs are blocked. Refunds must be executed as explicit outbound Payout transfers from your current account or refund wallet.
 
 ## 4. Refund Status Lifecycle

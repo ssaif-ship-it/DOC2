@@ -53,11 +53,14 @@
 
 Cycles represent business days (n) elapsed after transaction capture day (T):
 
-*   **T+0 (Same-Day / Instant):** Payouts are executed on the transaction date itself, either in fixed daily batches (e.g., 09:00, 17:00, 20:00 IST) or via rolling 15-minute execution windows.
+*   **T+0 (Same-Day / Instant):** Payouts are executed on the transaction date itself, either in fixed daily batches (e.g., 09:00, 17:00, 20:00 IST) or via rolling 15-minute execution windows. Chargeable, and requires eligibility.
 
 <!-- Claude, flagging for Saif, not confirmed: the specific batch times and the 15-minute rolling window are Cashfree's own settlement configuration, not something I can verify against a public source. Plausible as written, but needs sign-off from whoever owns settlements, not me. Posted a comment on this line too. -->
-*   **T+1 (Next Business Day - Default):** Payouts are executed on the first banking working day following T.
-*   **T+2 / Extended:** Applied for international card transactions, specific alternative payment methods, or elevated risk categories.
+*   **T+1 (Next Business Day):** Payouts are executed on the first banking working day following T. Available where enabled for your account, for merchants who need funds a day sooner than the default cycle.
+*   **T+2 (Standard - Default):** Payouts are executed on the second banking working day following T. This is Cashfree's default settlement cycle, most merchants stay on it, and it is what shows as "Standard Settlement" on the merchant dashboard.
+*   **Beyond T+2:** Certain categories, such as international card transactions or elevated-risk profiles, may be held for a longer cycle, see 3.3.
+
+<!-- Claude, confirmed correction for Saif: this section previously called T+1 the default settlement cycle, that was wrong. Two independent sources say the default is T+2: your own merchant dashboard ("Standard Settlement, Settlement cycle - 2 working days"), and Cashfree's own public docs (cashfree.com/docs/help/payments/settlements/settlements and cashfree.com/settlement-and-reconciliation-guide), both of which state the default cycle is T+2. This also matches 3.2's "Your settlement cycle options" table elsewhere on this site, which already had T+2 marked as the default, flagged as an open comment back on 12 Aug that 5.1 needed to be corrected to match. Corrected this section, the 3.2 Real-World Scenarios table below, and 3.3, so T+2 is consistently the default and T+1 is a faster opt-in tier. Posted a confirming comment on this line too. -->
 
 ---
 
@@ -222,28 +225,28 @@ Here is how that timeline plays out in practice based on different transaction d
     </thead>
     <tbody>
       <tr>
-        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Standard (T+1)</td>
+        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Standard (T+2)</td>
         <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Thursday at 4:00 PM</td>
-        <td style="padding: 16px 20px; border-bottom: 1px solid #f1f5f9; vertical-align: top;">
-          <span style="display: inline-block; background-color: #eff6ff; color: #2563eb; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">Friday afternoon</span>
-        </td>
-        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">A normal weekday transaction clears on the next consecutive business day.</td>
-      </tr>
-      <tr>
-        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Weekend (T+1)</td>
-        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Friday at 6:00 PM</td>
         <td style="padding: 16px 20px; border-bottom: 1px solid #f1f5f9; vertical-align: top;">
           <span style="display: inline-block; background-color: #eff6ff; color: #2563eb; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">Monday afternoon</span>
         </td>
-        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">The "+1" day lands on Saturday. Because banks are closed on weekends, it rolls to Monday.</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">A normal weekday transaction clears two business days later. Friday and Monday are the next two business days after Thursday.</td>
+      </tr>
+      <tr>
+        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Weekend (T+2)</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Friday at 6:00 PM</td>
+        <td style="padding: 16px 20px; border-bottom: 1px solid #f1f5f9; vertical-align: top;">
+          <span style="display: inline-block; background-color: #eff6ff; color: #2563eb; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">Tuesday afternoon</span>
+        </td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">The two business days after Friday would normally be Saturday and Sunday. Because banks are closed on weekends, both roll forward, to Monday and Tuesday.</td>
       </tr>
       <tr>
         <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Holiday Conflict</td>
         <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Friday at 6:00 PM</td>
         <td style="padding: 16px 20px; border-bottom: 1px solid #f1f5f9; vertical-align: top;">
-          <span style="display: inline-block; background-color: #f0eafc; color: #5b21b6; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">Tuesday afternoon</span>
+          <span style="display: inline-block; background-color: #f0eafc; color: #5b21b6; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">Wednesday afternoon</span>
         </td>
-        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">If Monday happens to be a bank holiday, the payout rolls forward again to Tuesday.</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">If Monday happens to be a bank holiday, both business days shift forward again, landing on Tuesday and Wednesday.</td>
       </tr>
       <tr>
         <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; vertical-align: top;">Instant (T+0)</td>
@@ -264,8 +267,8 @@ You are not forced to pick a single payout schedule for your entire business. Th
 
 This is usually done to balance cash flow with fraud prevention:
 
-*   **UPI Transactions:** Can be set to T+0 (Instant). Because UPI is highly secure and runs 24/7, you can get this money immediately.
-*   **Domestic Cards & NetBanking:** Set to T+1 (Next working day). This is standard for normal Indian banking channels.
+*   **UPI Transactions:** Can be set to T+0 (Instant), a chargeable add-on. Because UPI is highly secure and runs 24/7, you can get this money immediately if you opt in.
+*   **Domestic Cards & NetBanking:** Default to T+2, the standard cycle described in 1.3. T+1 is available as a faster tier where enabled for your account.
 *   **International Cards:** Set to T+5 (5 days later). Cross-border payments carry a much higher risk of fraud and chargebacks, so the gateway holds the funds longer to ensure the transaction is legitimate before passing it to you.
 
 <!-- Claude, flagging for Saif, not confirmed: T+5 specifically for international cards is Cashfree's own settlement policy, directionally correct (international is universally slower than domestic) but I can't verify the exact figure against a public source. Posted a comment on this line too. -->

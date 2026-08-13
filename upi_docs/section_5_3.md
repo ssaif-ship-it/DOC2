@@ -93,23 +93,41 @@ To abstract bank-specific error strings across different acquirers, the gateway 
 
 ```json
 {
-  "event": "PAYMENT_FAILED",
+  "type": "PAYMENT_FAILED_WEBHOOK",
+  "event_time": "2026-08-13T17:42:11+05:30",
   "data": {
-    "order_id": "order_99887766",
-    "cf_payment_id": 18294021,
-    "payment_status": "FAILED",
+    "order": {
+      "order_id": "order_99887766"
+    },
+    "payment": {
+      "cf_payment_id": "1504280029",
+      "payment_status": "FAILED",
+      "payment_message": "INSUFFICIENT FUNDS IN CUSTOMER (REMITTER) ACCOUNT"
+    },
     "error_details": {
-      "error_code": "INSUFFICIENT_FUNDS",
-      "error_type": "USER_ERROR",
-      "error_subcode": "ZA",
-      "error_message": "The customer account has insufficient funds to complete the transaction.",
-      "raw_bank_response": "ZA - REMITTER BANK INSUFFICIENT BALANCE"
+      "error_code": "TRANSACTION_DECLINED",
+      "error_description": "Insufficient funds in the customer's account",
+      "error_reason": "insufficient_funds",
+      "error_source": "bank",
+      "error_subcode_raw": "Z9"
     }
   }
 }
 ```
 
-## 2. Master NPCI Error Code & Business Failure Mapping
+<!-- Claude, confirmed correction for Saif: this JSON example previously used field names that do not exist in Cashfree's own webhook contract (error_type, error_subcode, error_message, raw_bank_response, plus an "event" key instead of "type"), and it used error_subcode "ZA" in an example about insufficient funds, when the error table below this section maps ZA to Customer Auth Failure / Customer Decline, not insufficient funds, Z9 is the code actually mapped to Insufficient Funds. Checked against Cashfree's own published docs (cashfree.com/docs/api-reference/payments/errors and cashfree.com/docs/api-reference/payments/latest/payments/webhooks), both confirm the real error_details shape is error_code, error_description, error_reason, error_source, error_subcode_raw. Rewrote the example to match that shape and to use Z9 consistently with the table below. This also replaces the separate, differently-shaped "Cashfree Normalized Payload Structure" example that used to live in 5.4, that section is now merged into this one, see 2. From Raw Code to Customer Message below, and it now points back to this example instead of repeating a conflicting one. -->
+
+## 2. From Raw Code to Customer Message
+
+Displaying a raw code like `U30|DEBIT HAS BEEN FAILED|Z9|INSUFFICIENT FUNDS IN CUSTOMER (REMITTER) ACCOUNT` directly to a customer leads to confusion, unnecessary support tickets, and cart abandonment. Every failure above goes through a three-stage translation before it reaches a checkout screen. Only the third stage should ever be customer-facing:
+
+| Layer | Audience / Target | Example Payload |
+| :-- | :-- | :-- |
+| **1. Raw Bank / Network Code** | Internal logs, gateway routing, switch recon | `U30\|DEBIT HAS BEEN FAILED\|Z9\|INSUFFICIENT FUNDS` |
+| **2. Normalized Gateway Code** | Merchant APIs, webhooks, analytics dashboards | `error_code: "TRANSACTION_DECLINED"`, `error_reason: "insufficient_funds"`, `error_source: "bank"`, see the full `error_details` shape above |
+| **3. Customer-Facing Message** | Checkout UI, mobile app modals, SMS / Email | *"Your payment failed due to insufficient balance. Please add funds and try again, or use a different account."* |
+
+## 3. Master NPCI Error Code & Business Failure Mapping
 
 The table below lists every NPCI and gateway error code Cashfree currently maps, with the failure category and a plain language explanation of what happened. Search across all columns, filter any single column, or click a column heading to sort.
 
@@ -602,9 +620,9 @@ The table below lists every NPCI and gateway error code Cashfree currently maps,
 </script>
 </section>
 
-## 3. High-Priority Business Scenarios & Edge Cases
+## 4. High-Priority Business Scenarios & Edge Cases
 
-### 3.1 Third-Party Verification (TPV) Failures (U19)
+### 4.1 Third-Party Verification (TPV) Failures (U19)
 
 In investment and capital markets flows (MCC 6211 / 6012), regulatory mandates require validating the remitter account against customer record.
 
@@ -617,7 +635,7 @@ In investment and capital markets flows (MCC 6211 / 6012), regulatory mandates r
     > Expected Account: `XXXX-XXXX-1234`
 
 
-### 3.2 The 24-Hour Velocity Cooling-Off Rule (U30)
+### 4.2 The 24-Hour Velocity Cooling-Off Rule (U30)
 
 To prevent account takeover fraud, NPCI caps transactions at ₹5,000 for 24 hours after:
 

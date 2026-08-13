@@ -543,8 +543,16 @@
       "text": "Not confirmed, edited: removed the specific 'Visa/Mastercard/RuPay scheme rules set an outer limit of 7 to 10 days' attribution. Couldn't find a published scheme document stating this as policy, it read as paraphrase presented as a citation. Softened the wording rather than deleting the number entirely, since 7 to 10 days as a rough outer bound is still plausible.",
       "author": "Claude",
       "createdAt": "2026-08-13T12:04:00.000Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "text": "Resolved by removing the row this quote was in. Saif asked to keep 5.2 scoped to UPI only, this whole Credit/Debit Cards row was a non-UPI rail, so it's gone from the table and this open question goes with it.",
+          "createdAt": "2026-08-13T14:20:00.000Z"
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-08-13T14:20:00.000Z"
     },
     {
       "id": "c_9dbd86311f80b1cc",
@@ -557,13 +565,21 @@
       "text": "Not confirmed: the Net Banking (3 to 5 days) and EMI/BNPL (5 to 7 days) credit windows have no independent public source either way. They read as operational figures rather than a codified rule, plausible but only your ops or settlements team can confirm they're current.",
       "author": "Claude",
       "createdAt": "2026-08-13T12:05:00.000Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "text": "Resolved by removing the Net Banking and EMI/BNPL rows entirely. Both are non-UPI rails, out of scope now that 5.2 is UPI-only, so the unconfirmed figures go with them rather than staying open.",
+          "createdAt": "2026-08-13T14:20:00.000Z"
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-08-13T14:20:00.000Z"
     },
     {
       "id": "c_38611710da64c229",
-      "section": "doc-5-5",
-      "file": "upi_docs/section_5_5.md",
+      "section": "doc-5-4",
+      "file": "upi_docs/section_5_4.md",
       "quote": "overall baseline SR runs in the 92% to 97% range across major PSPs and direct NPCI integrations",
       "prefix": "In standard ecosystem conditions on UPI, ",
       "suffix": ". Non-successful attempts",
@@ -576,8 +592,8 @@
     },
     {
       "id": "c_f72abef9593375dc",
-      "section": "doc-5-5",
-      "file": "upi_docs/section_5_5.md",
+      "section": "doc-5-4",
+      "file": "upi_docs/section_5_4.md",
       "quote": "Merchants utilizing dynamic multi-gateway routing achieve a +2.0% to +5.0% improvement in overall Success Rate compared to static routing configurations during ecosystem downtime.",
       "prefix": "Performance Metric: ",
       "suffix": "",
@@ -590,8 +606,8 @@
     },
     {
       "id": "c_fp2pfowrmsr7e8hq",
-      "section": "doc-5-5",
-      "file": "upi_docs/section_5_5.md",
+      "section": "doc-5-4",
+      "file": "upi_docs/section_5_4.md",
       "quote": " ~92%. ",
       "prefix": "ons on UPI, overall baseline SR averages",
       "suffix": "Non-successful attempts fall into two di",
@@ -610,8 +626,8 @@
     },
     {
       "id": "c_blrspmf9msr7nf7a",
-      "section": "doc-5-5",
-      "file": "upi_docs/section_5_5.md",
+      "section": "doc-5-4",
+      "file": "upi_docs/section_5_4.md",
       "quote": "User Drops (~13%): Customer-initiated actions, such as closing the app, abandoning the payment page, or allowing the payment collect request to time out.\nTechnical Failures (~7%): Infrastructure-level issues, including issuing bank CBS downtime, gateway API timeouts, or network congestion.",
       "prefix": "pts fall into two distinct categories:\n\n",
       "suffix": "\n\n2. UPI Failure Modes & Mitigation Matr",
@@ -667,6 +683,20 @@
           "createdAt": "2026-08-13T14:01:00.000Z"
         }
       ]
+    },
+    {
+      "id": "c_f63a5741fbd83f29",
+      "section": "doc-5-1",
+      "file": "upi_docs/section_5_1.md",
+      "quote": "This is Cashfree's default settlement cycle, most merchants stay on it, and it is what shows as \"Standard Settlement\" on the merchant dashboard.",
+      "prefix": "he first banking working day following T. ",
+      "suffix": "",
+      "suggestion": null,
+      "text": "Fact-check correction: this section previously called T+1 the default settlement cycle. Saif's own merchant dashboard shows 'Standard Settlement, Settlement cycle - 2 working days,' and Cashfree's own public docs (cashfree.com/docs/help/payments/settlements/settlements and cashfree.com/settlement-and-reconciliation-guide) both confirm the default is T+2. This also matches 3.2's settlement-cycle table on this same site, which already had T+2 marked as default (see the open comment on that table from 12 Aug flagging that 5.1 needed to be corrected to match). Updated 1.3, the 3.2 Real-World Scenarios table, and 3.3 so T+2 is consistently the default and T+1 is a faster opt-in tier.",
+      "author": "Claude",
+      "createdAt": "2026-08-13T14:10:00.000Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }

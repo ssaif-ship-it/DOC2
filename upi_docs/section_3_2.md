@@ -215,7 +215,7 @@ Use these handles in place of a real UPI ID to force a specific outcome.
 
 Also test a **refund** and a **user dropped** payment (start a payment and abandon it). User drops are the largest single category of real world failures, and a checkout that leaves them in limbo generates support tickets from day one.
 
-**How this affects you later.** Wrong error handling fails silently. A merchant who maps every failure to "payment failed, try again" will retry declines that must not be retried and will not retry the ones that would have succeeded. See [5.3 Standard Error Codes](#doc-5-3) and [5.4 Customer-Facing Messages](#doc-5-4).
+**How this affects you later.** Wrong error handling fails silently. A merchant who maps every failure to "payment failed, try again" will retry declines that must not be retried and will not retry the ones that would have succeeded. See [5.3 Standard Error Codes](#doc-5-3), which also covers how raw codes get translated into customer-facing messages.
 
 ---
 
