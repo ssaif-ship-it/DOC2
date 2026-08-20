@@ -849,6 +849,20 @@
       "createdAt": "2026-08-13T13:37:00.000Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_lcgyf3tqmt18jplv",
+      "section": "doc-1-1",
+      "file": "upi_docs/section_1_1.md",
+      "quote": " secure 4- or 6-digit UPI PIN.",
+      "prefix": "ed mobile device), and Factor 2 is their",
+      "suffix": "\nVirtual Payment Address (VPA): Also kno",
+      "suggestion": null,
+      "text": "Or biometric",
+      "author": "Ayushi",
+      "createdAt": "2026-08-20T08:05:20.611Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
