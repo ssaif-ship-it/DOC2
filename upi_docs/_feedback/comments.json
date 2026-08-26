@@ -877,6 +877,20 @@
       "createdAt": "2026-08-26T09:05:04.447Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_18bbvz4umt9viss0",
+      "section": "doc-2-1",
+      "file": "upi_docs/section_2_1.md",
+      "quote": "Warning: Never trust the frontend app-switch return alone to verify a payment. Always wait for the backend Webhook confirmation from Cashfree.",
+      "prefix": "owing the success screen to the user.\n\n\n",
+      "suffix": "\n\n",
+      "suggestion": null,
+      "text": "Can we add more information on intent link -- like how this is in android and ios , for seamless -- what all deeplinks are returned",
+      "author": "Ayushi",
+      "createdAt": "2026-08-26T09:10:38.640Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
