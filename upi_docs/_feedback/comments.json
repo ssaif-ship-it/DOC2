@@ -933,6 +933,20 @@
       "createdAt": "2026-08-26T09:11:42.889Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_gwmxknanmt9vkyot",
+      "section": "doc-2-2",
+      "file": "upi_docs/section_2_2.md",
+      "quote": "(AutoPay, OTM): Recurring payments rely on the Collect architecture for execution, modification and revoke. When a subscription is due, the merchant's server triggers a pre-authorized Collect request against the user's account, which executes automatically without requiring an additional PIN entry (within allowed limits).",
+      "prefix": "istered bank account.\nMandate Execution ",
+      "suffix": "\neRupi vouchers: eRupi voucher transacti",
+      "suggestion": null,
+      "text": "We can make ths clear , that mandate creation -- UPI collect is not allowe",
+      "author": "Ayushi",
+      "createdAt": "2026-08-26T09:12:19.613Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
