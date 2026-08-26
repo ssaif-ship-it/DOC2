@@ -6,7 +6,7 @@ For merchants, integrating UPI is no longer just an alternative payment method; 
 
 *   **High Transaction Success Rates:** By bypassing legacy card networks and routing directly between bank accounts via the NPCI switch, UPI significantly reduces points of failure.
 *   **Frictionless User Experience:** Customers complete payments in seconds via deep-linked apps or QR scans, eliminating the need to manually enter 16-digit card numbers.
-*   **Native Security:** UPI uses mandatory Two-Factor Authentication (2FA). Factor 1 is hard device binding (the user's registered mobile device), and Factor 2 is their secure 4- or 6-digit UPI PIN.
+*   **Native Security:** UPI uses mandatory Two-Factor Authentication (2FA). Factor 1 is hard device binding (the user's registered mobile device), and Factor 2 is their secure 4- or 6-digit UPI PIN or biometric.
 *   **Virtual Payment Address (VPA):** Also known as a UPI Handle (e.g., customer@bank), this acts as a unique identifier mapped directly to the user's underlying bank account, keeping their financial details private.
 
 ### How a UPI Transaction Works
