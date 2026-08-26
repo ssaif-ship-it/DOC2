@@ -947,6 +947,20 @@
       "createdAt": "2026-08-26T09:12:19.613Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_8qzp7hhjmt9vlfet",
+      "section": "doc-2-2",
+      "file": "upi_docs/section_2_2.md",
+      "quote": "Desktop-to-Mobile Flows: When a user is checking out on a desktop computer and chooses to type in their UPI ID rather than sca",
+      "prefix": "through PACB are exempt from the block.\n",
+      "suffix": "nning a QR code, a Collect request is ne",
+      "suggestion": null,
+      "text": "This needs to be removed",
+      "author": "Ayushi",
+      "createdAt": "2026-08-26T09:12:41.285Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
