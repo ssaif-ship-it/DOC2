@@ -989,6 +989,20 @@
       "createdAt": "2026-08-26T09:14:36.822Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_ts1c9h43mt9voo72",
+      "section": "doc-2-3",
+      "file": "upi_docs/section_2_3.md",
+      "quote": "Limitations: Because the amount is variable and the QR does not contain a unique order ID, automated server-to-server reconciliation is very difficult. You rely on SMS notifications or manual ledger checks to confirm payments.",
+      "prefix": " pages, or low-tech payment collection.\n",
+      "suffix": "\n\n2. Dynamic QR\nA Dynamic QR code is gen",
+      "suggestion": null,
+      "text": "Only available for offline merchat , where they dont haee a website and app and payments are collcted in close proximity",
+      "author": "Ayushi",
+      "createdAt": "2026-08-26T09:15:12.638Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
