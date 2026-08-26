@@ -863,6 +863,20 @@
       "createdAt": "2026-08-20T08:05:20.611Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_qkit27kvmt9vbmwv",
+      "section": "doc-2-1",
+      "file": "upi_docs/section_2_1.md",
+      "quote": "When the user taps \"Pay with UPI,\" your app/website triggers a specific link (starting with upi://pay?...). The phone's operating system instantly detects this and opens a bottom sheet showing all the UPI apps currently installed on the user's phone (Google Pay, PhonePe, Paytm, CRED, etc.).",
+      "prefix": " phone), UPI Intent uses a \"deep link.\"\n",
+      "suffix": "\nThe user taps their preferred app, the ",
+      "suggestion": null,
+      "text": "Can we add the flow as well?",
+      "author": "Ayushi",
+      "createdAt": "2026-08-26T09:05:04.447Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
