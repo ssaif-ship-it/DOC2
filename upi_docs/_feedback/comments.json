@@ -961,6 +961,20 @@
       "createdAt": "2026-08-26T09:12:41.285Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_moz5ktt1mt9vlq83",
+      "section": "doc-2-2",
+      "file": "upi_docs/section_2_2.md",
+      "quote": "While this was once a standard integration, it inherently introduces friction (users must wait for network notifications and manually switch apps) and yields lower success rates compar",
+      "prefix": "their PIN to authorize the transaction.\n",
+      "suffix": "ed to UPI Intent.\nCollect Restriction on",
+      "suggestion": null,
+      "text": "Lets add a collect flow video",
+      "author": "Ayushi",
+      "createdAt": "2026-08-26T09:12:55.298Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
