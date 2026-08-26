@@ -905,6 +905,20 @@
       "createdAt": "2026-08-26T09:11:08.758Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_baudh7ylmt9vjwms",
+      "section": "doc-2-2",
+      "file": "upi_docs/section_2_2.md",
+      "quote": "Android (Ef",
+      "prefix": "d to UPI Intent.\nCollect Restriction on ",
+      "suffix": "fective February 28, 2026)\nTo combat pay",
+      "suggestion": null,
+      "text": "and desktop both -- for both UPI and UPI Autopay",
+      "author": "Ayushi",
+      "createdAt": "2026-08-26T09:11:30.292Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
