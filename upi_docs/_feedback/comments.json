@@ -919,6 +919,20 @@
       "createdAt": "2026-08-26T09:11:30.292Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_ngppy1j3mt9vk6cp",
+      "section": "doc-2-2",
+      "file": "upi_docs/section_2_2.md",
+      "quote": "(TPV)",
+      "prefix": "gration for:\n\nCapital Markets & Broking ",
+      "suffix": ": For merchants operating under MCC 6211",
+      "suggestion": null,
+      "text": "We can remove this",
+      "author": "Ayushi",
+      "createdAt": "2026-08-26T09:11:42.889Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
