@@ -975,6 +975,20 @@
       "createdAt": "2026-08-26T09:12:55.298Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_ov0xvb74mt9vnwk7",
+      "section": "doc-2-3",
+      "file": "upi_docs/section_2_3.md",
+      "quote": "Small offline retail storefronts, generic donation pages, or low-tech payment collection.",
+      "prefix": "nt before entering their PIN.\nBest for: ",
+      "suffix": "\nLimitations: Because the amount is vari",
+      "suggestion": null,
+      "text": "Where the qr cannot  be loaded dynamically",
+      "author": "Ayushi",
+      "createdAt": "2026-08-26T09:14:36.822Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
