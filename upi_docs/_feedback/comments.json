@@ -1339,6 +1339,20 @@
       "createdAt": "2026-08-27T11:48:12.023Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_39coxq4zmtbgtq0x",
+      "section": "doc-3-2",
+      "file": "upi_docs/section_3_2.md",
+      "quote": "ost merchants run two or three of these side by side, and you can add another later without redoing your integration.",
+      "prefix": "tomers pay you. You are not locked in, m",
+      "suffix": "\n\n\n\nProduct\nBest for\nIntegration effort\n",
+      "suggestion": null,
+      "text": "add drop down menus and stuff to make page look shorter  \nthe whole page needs to be a story\nasking customers what they are(online store,offline store website etc)\nwhich type of paymment would be better for them then explain them \nstart with onboarding and signup and one by one give everything",
+      "author": "Saif",
+      "createdAt": "2026-08-27T11:54:46.401Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
