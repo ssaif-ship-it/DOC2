@@ -1227,6 +1227,20 @@
       "createdAt": "2026-08-27T11:24:56.288Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_4xenr8jjmtbg6sdm",
+      "section": "doc-2-3",
+      "file": "upi_docs/section_2_3.md",
+      "quote": "Limitations: Because the amount is variable and the QR does not contain a unique order ID, automated server-to-server reconciliation is very difficult. You rely on SMS notifications or manual ledger checks to confirm payments. Not suitable for anything sold online, delivered, or invoiced remotely, for those cases see Dynamic QR or POD QR below.",
+      "prefix": "ee, in close proximity to the customer.\n",
+      "suffix": "\n\n2. Dynamic QR\nA Dynamic QR code is gen",
+      "suggestion": null,
+      "text": "how to start remove limitation",
+      "author": "Saif",
+      "createdAt": "2026-08-27T11:36:56.361Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
