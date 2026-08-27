@@ -2,9 +2,24 @@ UPI Collect is a standard server-to-server "pull" mechanism. In this flow, the c
 
 While this was once a standard integration, it inherently introduces friction (users must wait for network notifications and manually switch apps) and yields lower success rates compared to UPI Intent.
 
-[VIDEO: Collect flow walkthrough, placeholder, asset not yet available]
-
-<!-- Claude, flagging for Saif: Ayushi asked for a Collect flow video here. I don't have a video asset or an existing hosted link to embed, so this is a labeled placeholder only, not a real embed. If there's a Loom/Drive/GitHub-hosted clip already, send the link and I'll swap this for the real embed. -->
+> **[VIDEO PLACEHOLDER, not yet recorded]** Collect flow walkthrough, the customer's side, end to end.
+>
+> **Shot list:**
+> 1. Customer on your checkout page, types their VPA into the UPI ID field, taps Pay.
+> 2. Checkout page shows a "waiting for confirmation" state.
+> 3. Customer's phone: a push notification or SMS arrives from their UPI app.
+> 4. Customer opens the UPI app and sees the payment request, your merchant name and the amount.
+> 5. Customer enters their UPI PIN.
+> 6. Success screen inside the UPI app.
+> 7. Back on your checkout page: it updates to show payment confirmed.
+>
+> **Format:** screen recording, phone screen is what matters most, 30 to 45 seconds, no voiceover needed. Once you have the clip, host it the same way as the AutoPay video in 4.1 (a GitHub user-attachments link) and swap this block for:
+>
+> ```
+> <video src="https://github.com/user-attachments/assets/YOUR-ASSET-ID" autoplay loop muted playsinline width="100%">
+>   Your browser does not support the video tag.
+> </video>
+> ```
 
 ### Collect Restriction on Android (Effective February 28, 2026)
 
