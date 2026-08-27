@@ -1241,6 +1241,20 @@
       "createdAt": "2026-08-27T11:36:56.361Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_lbp7hdosmtbg7nbn",
+      "section": "doc-2-3",
+      "file": "upi_docs/section_2_3.md",
+      "quote": "Perfect reconciliation. Because the exact Order ID is baked into the QR code, your backend instantly receives a Webhook tying the successful payment to the exact shopping cart or invoice.",
+      "prefix": "organized retail POS systems.\nBenefits: ",
+      "suffix": "\n\n3.POD QR\nPOD QR (podQR) is a Cashfree ",
+      "suggestion": null,
+      "text": "Create and order pay",
+      "author": "Ayushi",
+      "createdAt": "2026-08-27T11:37:36.467Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
