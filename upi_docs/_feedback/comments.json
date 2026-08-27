@@ -1297,6 +1297,20 @@
       "createdAt": "2026-08-27T11:42:30.247Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_ww4mfghpmtbggfdb",
+      "section": "doc-3-2",
+      "file": "upi_docs/section_3_2.md",
+      "quote": "Product Comparison ",
+      "prefix": "",
+      "suffix": "at a Glance\nPick the product that matche",
+      "suggestion": null,
+      "text": "differentiate based on offline and online and POD",
+      "author": "Saif",
+      "createdAt": "2026-08-27T11:44:26.063Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
