@@ -1255,6 +1255,20 @@
       "createdAt": "2026-08-27T11:37:36.467Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_obk42ragmtbgavsb",
+      "section": "doc-2-3",
+      "file": "upi_docs/section_2_3.md",
+      "quote": "POD QR",
+      "prefix": " the exact shopping cart or invoice.\n\n3.",
+      "suffix": "\nPOD QR (podQR) is a Cashfree UPI QR var",
+      "suggestion": null,
+      "text": "images for this seciton",
+      "author": "Saif",
+      "createdAt": "2026-08-27T11:40:07.403Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
