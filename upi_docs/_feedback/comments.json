@@ -877,8 +877,16 @@
       "text": "Can we add the flow as well?",
       "author": "Ayushi",
       "createdAt": "2026-08-26T09:05:04.447Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-08-27T00:00:00.000Z",
+          "text": "Covered: the Standard Flow diagram plus What the API Returns section already show the seamless deeplink detail; added a new Platform behavior: Android and iOS subsection for the Android/iOS difference and when to fall back to Collect or Dynamic QR."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-08-27T00:00:00.000Z"
     },
     {
       "id": "c_18bbvz4umt9viss0",
@@ -891,8 +899,16 @@
       "text": "Can we add more information on intent link -- like how this is in android and ios , for seamless -- what all deeplinks are returned",
       "author": "Ayushi",
       "createdAt": "2026-08-26T09:10:38.640Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-08-27T00:00:00.000Z",
+          "text": "Covered: the Standard Flow diagram plus What the API Returns section already show the seamless deeplink detail; added a new Platform behavior: Android and iOS subsection for the Android/iOS difference and when to fall back to Collect or Dynamic QR."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-08-27T00:00:00.000Z"
     },
     {
       "id": "c_yjv6kmddmt9vjg0m",
@@ -905,8 +921,16 @@
       "text": "Add ios here as well",
       "author": "Ayushi",
       "createdAt": "2026-08-26T09:11:08.758Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-08-27T00:00:00.000Z",
+          "text": "Already satisfied: the sentence already reads \"iOS mobile app and mobile web transactions are unaffected by this block for now.\""
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-08-27T00:00:00.000Z"
     },
     {
       "id": "c_baudh7ylmt9vjwms",
@@ -920,7 +944,13 @@
       "author": "Ayushi",
       "createdAt": "2026-08-26T09:11:30.292Z",
       "status": "open",
-      "replies": []
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-08-27T00:00:00.000Z",
+          "text": "This would widen the restriction to desktop and possibly AutoPay, which contradicts the Mandate Execution exemption a few lines down. Flagged inline for Saif rather than guessing at the compliance scope. Left open."
+        }
+      ]
     },
     {
       "id": "c_ngppy1j3mt9vk6cp",
@@ -933,8 +963,16 @@
       "text": "We can remove this",
       "author": "Ayushi",
       "createdAt": "2026-08-26T09:11:42.889Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-08-27T00:00:00.000Z",
+          "text": "Removed the (TPV) parenthetical from the Capital Markets & Broking bullet heading, TPV is still explained in the bullet body."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-08-27T00:00:00.000Z"
     },
     {
       "id": "c_gwmxknanmt9vkyot",
@@ -947,8 +985,16 @@
       "text": "We can make ths clear , that mandate creation -- UPI collect is not allowe",
       "author": "Ayushi",
       "createdAt": "2026-08-26T09:12:19.613Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-08-27T00:00:00.000Z",
+          "text": "Added a sentence making explicit that the Mandate Execution exemption covers execution only, not creation, with a link to 4.1 for creation modes."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-08-27T00:00:00.000Z"
     },
     {
       "id": "c_8qzp7hhjmt9vlfet",
@@ -961,8 +1007,16 @@
       "text": "This needs to be removed",
       "author": "Ayushi",
       "createdAt": "2026-08-26T09:12:41.285Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-08-27T00:00:00.000Z",
+          "text": "Removed the Desktop-to-Mobile Flows bullet entirely, it named the exact manual VPA entry flow the section above says is blocked."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-08-27T00:00:00.000Z"
     },
     {
       "id": "c_moz5ktt1mt9vlq83",
@@ -976,7 +1030,13 @@
       "author": "Ayushi",
       "createdAt": "2026-08-26T09:12:55.298Z",
       "status": "open",
-      "replies": []
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-08-27T00:00:00.000Z",
+          "text": "Added a labeled placeholder in the doc plus an inline flag for Saif, no video asset or link available to embed yet. Left open until a real clip exists."
+        }
+      ]
     },
     {
       "id": "c_ov0xvb74mt9vnwk7",
