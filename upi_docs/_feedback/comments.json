@@ -1129,6 +1129,20 @@
       ],
       "resolvedBy": "Claude",
       "resolvedAt": "2026-08-27T00:05:00.000Z"
+    },
+    {
+      "id": "c_wwu6j0mbmtbfegc1",
+      "section": "doc-2-1",
+      "file": "upi_docs/section_2_1.md",
+      "quote": "On iOS, the same link works the same way from Safari and from inside your own native app. It's less reliable inside certain in-app browsers, such as the webview social apps use for links opened from a feed, and in a handful of other hybrid or embedded environments. In those cases the OS can silently ignore the link instead of raising an error your code can catch, so the customer just sees nothing happen.\n\n",
+      "prefix": "reliable and consistent across devices.\n",
+      "suffix": "f a meaningful share of your iOS traffic",
+      "suggestion": null,
+      "text": "This is not correct",
+      "author": "Ayushi",
+      "createdAt": "2026-08-27T11:14:54.385Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
