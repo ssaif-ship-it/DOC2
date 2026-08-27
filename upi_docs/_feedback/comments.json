@@ -1311,6 +1311,20 @@
       "createdAt": "2026-08-27T11:44:26.063Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_8rbgmnwdmtbgj4fk",
+      "section": "doc-3-2",
+      "file": "upi_docs/section_3_2.md",
+      "quote": "your",
+      "prefix": "lance\nPick the product that matches how ",
+      "suffix": " customers pay you. You are not locked i",
+      "suggestion": null,
+      "text": "online or offline and things needed \n\nstuff in online \nstuff in offline \n\nthen integration  type",
+      "author": "Saif",
+      "createdAt": "2026-08-27T11:46:31.856Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
