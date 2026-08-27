@@ -144,14 +144,21 @@
       "text": "This is internal , and merchant facing",
       "author": "Ayushi",
       "createdAt": "2026-08-11T13:30:06.844Z",
-      "status": "open",
+      "status": "resolved",
       "replies": [
         {
           "author": "Claude",
           "text": "Stripped the Retool/DMO-file/Banking-Ops-team detail and the isDMO flag note, that's Cashfree's internal backend process, a merchant can't see or act on any of it. What's left: Axis and HDFC need nothing from the merchant, ICICI merchants have to fill and submit the UPI Onboarding Form themselves. See my comment on the ICICI row's replacement for one open question.",
           "createdAt": "2026-08-12T10:20:46.000Z"
+        },
+        {
+          "author": "Claude",
+          "createdAt": "2026-08-27T00:05:00.000Z",
+          "text": "Already superseded: 3.3 was restructured and this internal bank-ops detail (Retool, DMO file, isDMO flag) was already removed in an earlier pass, replaced by the current \"Handle Procurement Process\" section. Marking resolved as stale rather than re-editing live text that no longer matches this quote."
         }
-      ]
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-08-27T00:05:00.000Z"
     },
     {
       "id": "c_9pziprmkmsop9mjv",
@@ -1049,8 +1056,16 @@
       "text": "Where the qr cannot  be loaded dynamically",
       "author": "Ayushi",
       "createdAt": "2026-08-26T09:14:36.822Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-08-27T00:05:00.000Z",
+          "text": "Reworded Static QR \"Best for\" to key off the actual constraint: no website/app, no way to generate a QR per order, i.e. the QR genuinely cannot be loaded dynamically."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-08-27T00:05:00.000Z"
     },
     {
       "id": "c_ts1c9h43mt9voo72",
@@ -1063,8 +1078,16 @@
       "text": "Only available for offline merchat , where they dont haee a website and app and payments are collcted in close proximity",
       "author": "Ayushi",
       "createdAt": "2026-08-26T09:15:12.638Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-08-27T00:05:00.000Z",
+          "text": "Narrowed Static QR to offline-only merchants collecting in close proximity, and added a line pointing anything sold online, delivered, or invoiced remotely to Dynamic QR or POD QR instead."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-08-27T00:05:00.000Z"
     },
     {
       "id": "c_nh5ijenmmt9vpia1",
@@ -1077,8 +1100,16 @@
       "text": "dynamic",
       "author": "Ayushi",
       "createdAt": "2026-08-26T09:15:51.625Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-08-27T00:05:00.000Z",
+          "text": "Changed the heading from \"Problem with a standard UPI QR\" to \"Problem with a dynamic UPI QR\", the no-retries/short-TTL problems POD QR solves are dynamic QR characteristics, not static QR ones (static QR is a fixed image with no TTL). Also fixed the matching \"Standard QR codes expire quickly\" bullet to say Dynamic for consistency."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-08-27T00:05:00.000Z"
     }
   ]
 }

@@ -7,8 +7,8 @@ Depending on your integration environment and reconciliation needs, there are th
 A Static QR code is a fixed image that does not change. It encodes only your base merchant VPA (Virtual Payment Address) and merchant details.
 
 *   **How it works:** When a customer scans a Static QR, their app identifies the merchant, but the customer must manually type in the payment amount before entering their PIN.
-*   **Best for:** Small offline retail storefronts, generic donation pages, or low-tech payment collection.
-*   **Limitations:** Because the amount is variable and the QR does not contain a unique order ID, automated server-to-server reconciliation is very difficult. You rely on SMS notifications or manual ledger checks to confirm payments.
+*   **Best for:** Offline-only merchants with no website or app, and no way to generate a QR per order or transaction, i.e. situations where the QR genuinely cannot be loaded dynamically. Payment is collected in person, at a fixed counter or standee, in close proximity to the customer.
+*   **Limitations:** Because the amount is variable and the QR does not contain a unique order ID, automated server-to-server reconciliation is very difficult. You rely on SMS notifications or manual ledger checks to confirm payments. Not suitable for anything sold online, delivered, or invoiced remotely, for those cases see Dynamic QR or POD QR below.
 
 ### 2. Dynamic QR
 
@@ -22,10 +22,10 @@ A Dynamic QR code is generated on the fly for every single transaction. It encod
 
 POD QR (podQR) is a Cashfree UPI QR variant designed for **pay-on-delivery / delayed-payment** use cases, that is, situations where a standard UPI QR does not fit because the customer isn't paying immediately at the time the QR is generated (e.g., a delivery invoice, a printed restaurant bill, or a WhatsApp/digital invoice sent ahead of collection).
 
-### Problem with a standard UPI QR
+### Problem with a dynamic UPI QR
 
 *   **No retries.** A failed payment attempt kills the transaction; the customer has to be issued a fresh QR/link, causing confusion and lost revenue.
-*   **Short TTL.** Standard QR codes expire quickly, which does not work for invoices where payment may happen hours or days later.
+*   **Short TTL.** Dynamic QR codes expire quickly, which does not work for invoices where payment may happen hours or days later.
 
 ### How POD QR solves this
 
