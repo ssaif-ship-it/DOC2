@@ -1171,6 +1171,20 @@
       "createdAt": "2026-08-27T11:16:55.208Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_w7vp1n2ymtbfj6vn",
+      "section": "doc-2-1",
+      "file": "upi_docs/section_2_1.md",
+      "quote": "The Technical Architecture\nThis is the registration and signature-verification exchange that happens between UPI apps under the hood, every time an intent call is made. Cashfree's API and SDKs handle all of this for you, you don't implement any of it directly. It's included here fo",
+      "prefix": "nd Webhook confirmation from Cashfree.\n\n",
+      "suffix": "r context on why a upi://pay link is mor",
+      "suggestion": null,
+      "text": "Architecture not important",
+      "author": "Saif",
+      "createdAt": "2026-08-27T11:18:35.411Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
