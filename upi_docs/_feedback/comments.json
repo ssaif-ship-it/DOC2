@@ -1043,7 +1043,7 @@
       "text": "Lets add a collect flow video",
       "author": "Ayushi",
       "createdAt": "2026-08-26T09:12:55.298Z",
-      "status": "open",
+      "status": "resolved",
       "replies": [
         {
           "author": "Claude",
@@ -1054,8 +1054,15 @@
           "author": "Claude",
           "createdAt": "2026-08-27T00:15:00.000Z",
           "text": "Replaced the bare placeholder with a full spec: a 7-step shot list, suggested format and length, and the exact <video> embed to drop in once the clip exists, matching the AutoPay video already embedded in 4.1. Still open until the real clip is recorded and swapped in."
+        },
+        {
+          "author": "Claude",
+          "createdAt": "2026-08-27T01:00:00.000Z",
+          "text": "Marked resolved at Saif's request. The ask itself is addressed, a full shot list, format, and drop-in embed syntax are in the doc. The actual video clip is still pending, the placeholder block stays in section_2_2.md as the reminder until it is swapped for the real embed."
         }
-      ]
+      ],
+      "resolvedBy": "Saif",
+      "resolvedAt": "2026-08-27T01:00:00.000Z"
     },
     {
       "id": "c_ov0xvb74mt9vnwk7",
