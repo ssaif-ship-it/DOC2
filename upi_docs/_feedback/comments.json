@@ -1143,6 +1143,20 @@
       "createdAt": "2026-08-27T11:14:54.385Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_iv8bd0smmtbfgi6z",
+      "section": "doc-2-1",
+      "file": "upi_docs/section_2_1.md",
+      "quote": "their PIN",
+      "prefix": " amount pre-filled, and they just enter ",
+      "suffix": ".\nPlatform behavior: Android and iOS\nOn ",
+      "suggestion": null,
+      "text": "Ios is different\ngives different apps intent link as it does not work same as android",
+      "author": "Saif",
+      "createdAt": "2026-08-27T11:16:30.107Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
