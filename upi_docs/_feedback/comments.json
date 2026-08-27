@@ -1213,6 +1213,20 @@
       "createdAt": "2026-08-27T11:23:50.023Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_xipu97wrmtbfrcrk",
+      "section": "doc-2-2",
+      "file": "upi_docs/section_2_2.md",
+      "quote": "Capital Markets & Broking: For merchants operating under MCC 6211 or 6012 (IPO creation, execution and revoke, and Secondary Market use cases), Collect is still permitted and used with Third-Party Validation (TPV). It ensures the payment is pulled exactly from the investor's pre-registered bank account.\nMandate Execution (AutoPay, OTM): Recurring payments rely on the Collect architecture for execution, modification and revoke on a mandate that already exists. When a subscription is due, the merchant's server triggers a pre-authorized Collect request against the user's account, which executes automatically without requiring an additional PIN entry (within allowed limits), regardless of platform. This exemption does not cover creating a new mandate by manual VPA entry, that follows the same Android and desktop restriction as standard payments (iOS remains exempt). See 4.1 AutoPay for the three supported creation modes, Intent, QR, and Collect where still permitted.",
+      "prefix": "rmitted and necessary integration for:\n\n",
+      "suffix": "\neRupi vouchers: eRupi voucher transacti",
+      "suggestion": null,
+      "text": "Simple language tpv remove do not need this info when it is not required for merchant",
+      "author": "Saif",
+      "createdAt": "2026-08-27T11:24:56.288Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
