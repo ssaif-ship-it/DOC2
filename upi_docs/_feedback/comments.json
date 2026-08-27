@@ -1269,6 +1269,20 @@
       "createdAt": "2026-08-27T11:40:07.403Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_nrinyfx1mtbgbei2",
+      "section": "doc-2-3",
+      "file": "upi_docs/section_2_3.md",
+      "quote": "roblem with a dynamic UPI QR",
+      "prefix": "tal invoice sent ahead of collection).\nP",
+      "suffix": "\n\nNo retries. A failed payment attempt k",
+      "suggestion": null,
+      "text": "wrong wording..... how dynaic qr can't solve this",
+      "author": "Saif",
+      "createdAt": "2026-08-27T11:40:31.658Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
