@@ -1157,6 +1157,20 @@
       "createdAt": "2026-08-27T11:16:30.107Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_i5afki7ymtbfh1k8",
+      "section": "doc-2-1",
+      "file": "upi_docs/section_2_1.md",
+      "quote": "t a high level: the initiating app (for example, the merchant's own app) is registered with NPCI, and its VAE (Virtual Address Entity) is added (ReqManageVae / RespManageVae). When the user triggers the intent call, the initiating app signs the intent payload (SIGNATURE = ENCRYPT[SHA256(INTENT DATA)]), encrypted with the receiving app's public key, fetched over a secure API. NPCI's UPI switch validates the APPID on both sides. The receiving UPI app (for example, BHIM) then looks up the list of valid VAEs (ReqListvae / RespListvae) and verifies the signature, recalculating the intent hash and comparing it against the decrypted value, before it lets the customer proceed.",
+      "prefix": "ts the customer authorize a payment.\n\n\nA",
+      "suffix": "\n\n\n\n\n\n\n",
+      "suggestion": null,
+      "text": "info repeating",
+      "author": "Saif",
+      "createdAt": "2026-08-27T11:16:55.208Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
