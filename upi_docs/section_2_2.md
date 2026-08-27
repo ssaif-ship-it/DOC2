@@ -21,21 +21,19 @@ While this was once a standard integration, it inherently introduces friction (u
 > </video>
 > ```
 
-### Collect Restriction on Android (Effective February 28, 2026)
+### Collect Restriction on Android and Desktop (Effective February 28, 2026)
 
-<!-- Claude, flagging for Saif: Ayushi's comment on this heading says "and desktop both -- for both UPI and UPI Autopay," which would widen this restriction beyond Android-only standard retail Collect to cover desktop too, and possibly AutoPay execution as well. That would contradict the Mandate Execution exemption bullet below, which explicitly keeps Collect available for AutoPay execution. Left unchanged pending confirmation from Ayushi on the actual scope before editing this. -->
+To combat payment spam and push the ecosystem towards higher-converting flows, Cashfree has blocked UPI Collect requests on Android and desktop, effective **February 28, 2026**, in line with NPCI's broader direction of moving merchant collections towards UPI Intent and QR.
 
-To combat payment spam and push the ecosystem towards higher-converting flows, Cashfree has blocked UPI Collect requests on Android, effective **February 28, 2026**, in line with NPCI's broader direction of moving merchant collections towards UPI Intent and QR.
+For standard e-commerce and retail transactions, merchants are now required to default to **UPI Intent** (for mobile checkouts) or **Dynamic QR Codes** (for desktop/web checkouts). Standard Collect requests sent from Android or desktop are blocked, resulting in failed transactions if you have not migrated. This also covers registering a new UPI mandate by having the customer manually type their VPA, see the Mandate Execution exemption below for what still works.
 
-For standard e-commerce and retail transactions on Android, merchants are now required to default to **UPI Intent** (for mobile checkouts) or **Dynamic QR Codes** (for desktop/web checkouts). Standard Collect requests sent for everyday retail transactions on Android are blocked, resulting in failed transactions if you have not migrated.
-
-**iOS mobile app and mobile web transactions are unaffected by this block for now.**
+**iOS is unaffected by this block for now, both the iOS app and iOS mobile web (Safari or Chrome on an iPhone or iPad). This does not extend to desktop browsers, which are covered by the restriction above.**
 
 ### Collect Exemptions: Valid Use Cases
 
-Even on Android, UPI Collect remains a permitted and necessary integration for:
+Even on Android and desktop, UPI Collect remains a permitted and necessary integration for:
 
 *   **Capital Markets & Broking:** For merchants operating under MCC 6211 or 6012 (IPO creation, execution and revoke, and Secondary Market use cases), Collect is still permitted and used with Third-Party Validation (TPV). It ensures the payment is pulled exactly from the investor's pre-registered bank account.
-*   **Mandate Execution (AutoPay, OTM):** Recurring payments rely on the Collect architecture for execution, modification and revoke on a mandate that already exists. When a subscription is due, the merchant's server triggers a pre-authorized Collect request against the user's account, which executes automatically without requiring an additional PIN entry (within allowed limits). This exemption covers execution only, not creation: setting up a new mandate does not use Collect. See [4.1 AutoPay](#doc-4-1) for the supported creation modes.
+*   **Mandate Execution (AutoPay, OTM):** Recurring payments rely on the Collect architecture for execution, modification and revoke on a mandate that already exists. When a subscription is due, the merchant's server triggers a pre-authorized Collect request against the user's account, which executes automatically without requiring an additional PIN entry (within allowed limits), regardless of platform. This exemption does not cover *creating* a new mandate by manual VPA entry, that follows the same Android and desktop restriction as standard payments (iOS remains exempt). See [4.1 AutoPay](#doc-4-1) for the three supported creation modes, Intent, QR, and Collect where still permitted.
 *   **eRupi vouchers:** eRupi voucher transactions are exempt from the block.
 *   **PACB-related flows:** Transactions routed through PACB are exempt from the block.

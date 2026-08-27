@@ -950,14 +950,21 @@
       "text": "and desktop both -- for both UPI and UPI Autopay",
       "author": "Ayushi",
       "createdAt": "2026-08-26T09:11:30.292Z",
-      "status": "open",
+      "status": "resolved",
       "replies": [
         {
           "author": "Claude",
           "createdAt": "2026-08-27T00:00:00.000Z",
           "text": "This would widen the restriction to desktop and possibly AutoPay, which contradicts the Mandate Execution exemption a few lines down. Flagged inline for Saif rather than guessing at the compliance scope. Left open."
+        },
+        {
+          "author": "Claude",
+          "createdAt": "2026-08-27T00:30:00.000Z",
+          "text": "Verified against two official sources: Cashfree's own live docs (cashfree.com/docs/payments/manage/payment-methods/upi-collect) and PayU's disablement page (docs.payu.in/docs/upi-collect-disablement-information). Ayushi was right on desktop: Cashfree's own page states the block is on \"Android and desktop\", not Android alone, iOS app and iOS mobile web are the exemption. PayU's page also confirms mandate REGISTRATION by manual VPA entry follows the same restriction as payments. Ayushi was right there too, but mandate EXECUTION/modification/revoke on an existing mandate stays exempt on every platform, per both sources, that part of the doc was already correct and is unchanged. Rewrote the heading, both paragraphs, the iOS line, and the Mandate Execution bullet to reflect this precisely."
         }
-      ]
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-08-27T00:30:00.000Z"
     },
     {
       "id": "c_ngppy1j3mt9vk6cp",
