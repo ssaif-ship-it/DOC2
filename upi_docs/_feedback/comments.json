@@ -1283,6 +1283,20 @@
       "createdAt": "2026-08-27T11:40:31.658Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_9tmuhr5lmtbgdy07",
+      "section": "doc-2-6",
+      "file": "upi_docs/section_2_6.md",
+      "quote": "Flash",
+      "prefix": "",
+      "suffix": " UPI provides merchants with the functio",
+      "suggestion": null,
+      "text": "new info got",
+      "author": "Saif",
+      "createdAt": "2026-08-27T11:42:30.247Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
