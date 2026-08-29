@@ -33,7 +33,26 @@ You can work through Steps 3 to 7 in sandbox while Step 2 is still pending. Noth
 
 ---
 
-## Step 1: Sign Up on Cashfree
+<style>
+.cf-acc-wrap{margin:20px 0 28px;}
+.cf-acc-item{border:1px solid #E5E7EB;border-radius:10px;margin-bottom:10px;overflow:hidden;background:#FFFFFF;}
+.cf-acc-item > summary{list-style:none;cursor:pointer;padding:14px 18px;display:flex;align-items:center;gap:10px;font-size:15px;background:#F9FAFB;position:relative;}
+.cf-acc-item > summary::-webkit-details-marker{display:none;}
+.cf-acc-item > summary::after{content:"";position:absolute;right:18px;top:50%;width:8px;height:8px;border-right:2px solid #6B7280;border-bottom:2px solid #6B7280;transform:translateY(-65%) rotate(-45deg);transition:transform .15s ease;}
+.cf-acc-item[open] > summary::after{transform:translateY(-35%) rotate(45deg);}
+.cf-acc-item[open] > summary{background:#F4F0FA;border-bottom:1px solid #E5E7EB;}
+.cf-acc-item > summary .cf-acc-tag{font-size:11px;font-weight:700;color:#5A28A3;background:#F4F0FA;padding:3px 9px;border-radius:999px;flex-shrink:0;}
+.cf-acc-item[open] > summary .cf-acc-tag{background:#FFFFFF;}
+.cf-acc-item > summary .cf-acc-title{font-weight:600;color:#111827;padding-right:20px;}
+.cf-acc-body{padding:18px 18px 22px;}
+.cf-acc-body > *:first-child{margin-top:0;}
+.cf-acc-body > *:last-child{margin-bottom:0;}
+</style>
+
+<div class="cf-acc-wrap">
+
+<details class="cf-acc-item" open>
+<summary><span class="cf-acc-tag">Step 1</span><span class="cf-acc-title">Sign Up on Cashfree</span></summary>
 
 *   Go to [merchant.cashfree.com](https://merchant.cashfree.com) and create an account.
 *   Provide basic business details (business name, type, PAN, contact info).
@@ -41,9 +60,10 @@ You can work through Steps 3 to 7 in sandbox while Step 2 is still pending. Noth
 
 **Where this leaves you.** You can generate test API keys, build a full integration and run simulated payments today. You cannot accept a real payment until Step 2 clears.
 
----
+</details>
 
-## Step 2: Complete KYC
+<details class="cf-acc-item">
+<summary><span class="cf-acc-tag">Step 2</span><span class="cf-acc-title">Complete KYC</span></summary>
 
 In **Dashboard > Account Settings > KYC**, upload:
 
@@ -78,9 +98,10 @@ Your status is shown against your account and moves through these values:
 
 > **Success:** Once your KYC status reads Completed, the Payment Gateway is activated for production.
 
----
+</details>
 
-## Step 3: Get API Keys
+<details class="cf-acc-item">
+<summary><span class="cf-acc-tag">Step 3</span><span class="cf-acc-title">Get API Keys</span></summary>
 
 Go to **Dashboard > Payment Gateway > Developers > API Keys**.
 
@@ -96,9 +117,10 @@ Store your keys securely:
 
 **Where this leaves you.** You have two independent key pairs. Test keys only ever hit sandbox, production keys only ever hit live. Keeping them in separate environment configs from day one avoids the most common go-live incident, which is shipping test keys to production.
 
----
+</details>
 
-## Step 4: Choose Your Integration Path
+<details class="cf-acc-item">
+<summary><span class="cf-acc-tag">Step 4</span><span class="cf-acc-title">Choose Your Integration Path</span></summary>
 
 This is the decision that is most expensive to reverse, so it is worth ten minutes now.
 
@@ -113,9 +135,10 @@ This is the decision that is most expensive to reverse, so it is worth ten minut
 
 **Not sure?** Start with hosted checkout. It gets you live fastest, and the server-side work you do for it (order creation, webhook handling, signature verification) is exactly the work a custom integration needs later.
 
----
+</details>
 
-## Step 5: Integrate Online (Standard PG)
+<details class="cf-acc-item">
+<summary><span class="cf-acc-tag">Step 5</span><span class="cf-acc-title">Integrate Online (Standard PG)</span></summary>
 
 Every online transaction flow, whichever path you chose, is the same three moves:
 
@@ -166,9 +189,10 @@ Verify every webhook before you act on it. The signature is HMAC SHA256 over the
 *   [Web Checkout](https://www.cashfree.com/docs/payments/overview)
 *   [API Reference](https://www.cashfree.com/docs/api-reference/overview)
 
----
+</details>
 
-## Step 6: Set Up Offline Acceptance (Optional)
+<details class="cf-acc-item">
+<summary><span class="cf-acc-tag">Step 6</span><span class="cf-acc-title">Set Up Offline Acceptance (Optional)</span></summary>
 
 Skip this step entirely if you sell online only.
 
@@ -191,9 +215,10 @@ Skip this step entirely if you sell online only.
 
 To activate either, go to **Dashboard > SoftPOS > Request Activation**, or contact your account manager. See [2.4 SoftPOS and Offline Products](#doc-2-4).
 
----
+</details>
 
-## Step 7: Test End to End
+<details class="cf-acc-item">
+<summary><span class="cf-acc-tag">Step 7</span><span class="cf-acc-title">Test End to End</span></summary>
 
 Test in sandbox before you switch keys. Sandbox uses the same APIs, the same webhooks and the same error codes as production.
 
@@ -212,14 +237,16 @@ Use these handles in place of a real UPI ID to force a specific outcome.
 | `testinsufficientfunds@gocash` | Fails, insufficient funds | Customer sees a message telling them to use another account, not a raw error code |
 | `testinvalidpin@gocash` | Fails, incorrect PIN | Customer is offered a retry, since this one is fixable by them |
 | `testexpired@gocash` | Collect request expires | Order is not left hanging in pending forever |
+| `testuserdropped@gocash` | Customer abandons the payment mid flow | Order stays in a clear pending or failed state, and does not sit there unresolved |
 
-Also test a **refund** and a **user dropped** payment (start a payment and abandon it). User drops are the largest single category of real world failures, and a checkout that leaves them in limbo generates support tickets from day one.
+Also test a **refund**. User drops (the row above) are the largest single category of real world failures, and a checkout that leaves them in limbo generates support tickets from day one.
 
 **How this affects you later.** Wrong error handling fails silently. A merchant who maps every failure to "payment failed, try again" will retry declines that must not be retried and will not retry the ones that would have succeeded. See [5.3 Standard Error Codes](#doc-5-3), which also covers how raw codes get translated into customer-facing messages.
 
----
+</details>
 
-## Step 8: Go Live
+<details class="cf-acc-item">
+<summary><span class="cf-acc-tag">Step 8</span><span class="cf-acc-title">Go Live</span></summary>
 
 1.  **Switch from Test to Production API keys** in your environment config. Confirm no test key remains anywhere in your production build.
 2.  **Confirm KYC is approved.** Check the status in **Dashboard > Account Settings > KYC**.
@@ -240,6 +267,10 @@ Also test a **refund** and a **user dropped** payment (start a payment and aband
 Business days exclude weekends and bank holidays. A transaction on Friday 3 June settles Monday 6 June on T+1, or Tuesday 7 June on T+2.
 
 **How this affects you later.** Your first settlement may be held longer than your stated cycle while your account is new. Instant and On-Demand both carry a fee, so check your pricing before you switch to either. See [5.1 Settlements](#doc-5-1).
+
+</details>
+
+</div>
 
 ---
 

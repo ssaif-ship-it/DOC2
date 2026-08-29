@@ -1,4 +1,4 @@
-UPI Collect is a server to server pull mechanism. The customer enters their UPI ID (VPA) on your checkout page, your backend sends a payment request to that VPA, and the customer approves it from their UPI application after receiving a notification.
+UPI Collect is a server to server pull mechanism. Your customer enters their UPI ID (VPA) on your checkout page, your backend sends a payment request to that VPA, and they approve it from their UPI application after receiving a notification.
 
 ### The customer experience
 
@@ -111,7 +111,7 @@ UPI Collect is a server to server pull mechanism. The customer enters their UPI 
 <figcaption>The customer chooses UPI from the payment method list, enters their UPI ID and submits, and a payment request is sent to their UPI application. The checkout page shows a countdown while the request waits. The customer opens their UPI application, reviews the amount and the linked account, and taps Make Payment. The checkout page updates once the webhook confirms the result. Compared to UPI Intent, this adds a waiting step and a manual application switch.</figcaption>
 </figure>
 
-Compared to UPI Intent, Collect adds two extra steps: the customer waits for a notification to arrive, and switches to their UPI application manually rather than being taken there directly. For this reason, UPI Intent ([section 2.1](#doc-2-1)) is the recommended default for mobile checkout, and Dynamic QR ([section 2.3](#doc-2-3)) is the recommended default for desktop checkout.
+Compared to UPI Intent, Collect adds two extra steps for your customer: waiting for a notification to arrive, and switching to their UPI application by hand rather than being taken there directly. That is why UPI Intent ([section 2.1](#doc-2-1)) is what we recommend by default for mobile checkout, and Dynamic QR ([section 2.3](#doc-2-3)) for desktop checkout.
 
 ### Where UPI Collect is restricted
 
