@@ -21,8 +21,10 @@ Which of the three models below fits you depends on where your business actually
 ### Customer VPA (Specialized Model)
 
 *   **What it is:** Assigning a dedicated, permanent UPI ID or static QR code to a specific recurring customer.
-<!-- Claude, flagging for Saif, not confirmed: this model is missing a "How it works" bullet, unlike Storefront and Agent Collection above. Draft, needs verification before publishing: "Cashfree issues a unique VPA or static QR tied only to that one customer. Every payment they make against it settles to your account already tagged with their identity, so you never have to match it back by hand." Confirm this is actually how the Customer VPA model behaves before it goes live. -->
+*   **How it works:** Cashfree issues a unique UPI ID or QR code tied to just that one customer. Every payment they make against it arrives already tagged with their identity, so lending and subscription businesses in particular can match repayments automatically instead of reconciling by hand.
 *   **Best for:** EMI repayments, school fees, and recurring utility payments requiring strict customer-level reconciliation.
+
+<!-- Claude, confirmed for Saif: verified this model against Cashfree's own public softPOS docs (cashfree.com/docs/payments/softpos/introduction), which describe it the same way, a unique UPI ID or QR per customer, with lending named as the leading use case. Added the How it works bullet on that basis. -->
 
 ---
 
