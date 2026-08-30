@@ -1,3 +1,18 @@
+## What Kind of Merchant Are You?
+
+Before you look at payment options, place yourself in one of these four categories. It decides which rows in the comparison below actually apply to you, and which ones you can skip.
+
+| You are | This means | What matters to you |
+| :-- | :-- | :-- |
+| **Online only** | You sell through a website, an app, or both, with no physical counter. | UPI Intent for mobile checkout, Dynamic QR for desktop |
+| **Offline only** | You sell from a physical storefront or counter, with no website or app of your own. | Static QR for a fixed counter, SoftPOS if your staff move around |
+| **Online and offline** | You run a website or app, and you also take payments in person. | A mix, UPI Intent and Dynamic QR online, Static QR or SoftPOS in person |
+| **Field or mobile collection** | Your staff or agents collect payment away from a fixed location, delivery, home visits, on site services. | SoftPOS |
+
+Once you know which row describes you, the comparison below tells you exactly which product to build first, and which ones you can ignore for now.
+
+---
+
 ## Product Comparison at a Glance
 
 Pick the product that matches how your customers pay you. You are not locked in, most merchants run two or three of these side by side, and you can add another later without redoing your integration.
@@ -124,7 +139,7 @@ Store your keys securely:
 
 This is the decision that is most expensive to reverse, so it is worth ten minutes now.
 
-| If this is you | Take this path | What you give up |
+| If this is you | Take this path | Trade-offs |
 | :-- | :-- | :-- |
 | You want the fastest possible start and minimal code | **Cashfree Checkout (hosted page)**. Cashfree renders the payment page, you redirect to it. | Control over checkout look and feel. The customer briefly leaves your domain. |
 | You want full control over the checkout UI | **Seamless / Custom Integration (API)**. You build the UI, you call the APIs. | More build time, and you own webhook handling, retries and error messaging. |
