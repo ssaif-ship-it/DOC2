@@ -4,6 +4,8 @@ Cashfree SoftPOS converts any standard Android smartphone into a digital payment
 
 ## 1. Collection Models
 
+Which of the three models below fits you depends on where your business actually happens: at a fixed counter, out in the field with your own staff, or with the same customer paying you again and again.
+
 ### Storefront Collection
 
 *   **What it is:** Fixed-location payments at physical retail or billing counters.
@@ -19,6 +21,7 @@ Cashfree SoftPOS converts any standard Android smartphone into a digital payment
 ### Customer VPA (Specialized Model)
 
 *   **What it is:** Assigning a dedicated, permanent UPI ID or static QR code to a specific recurring customer.
+<!-- Claude, flagging for Saif, not confirmed: this model is missing a "How it works" bullet, unlike Storefront and Agent Collection above. Draft, needs verification before publishing: "Cashfree issues a unique VPA or static QR tied only to that one customer. Every payment they make against it settles to your account already tagged with their identity, so you never have to match it back by hand." Confirm this is actually how the Customer VPA model behaves before it goes live. -->
 *   **Best for:** EMI repayments, school fees, and recurring utility payments requiring strict customer-level reconciliation.
 
 ---
@@ -67,7 +70,7 @@ Select the collection point type that matches your business needs:
 
 *   **Storefront:** Use this model if you operate one or more physical store locations and want customers to scan a static QR code to pay at the counter, with funds credited directly to your account.
 *   **Agent (softPOS):** Use this model if your staff or agents collect payments on your behalf at the point of service, such as at a customer's doorstep or table, with funds credited directly to your account.
-*   **Customer VPA**
+*   **Customer VPA:** Use this model if you bill the same customer repeatedly, for EMI, school fees, or a recurring utility charge, and want every payment automatically tagged to that one customer for reconciliation.
 
 ---
 
@@ -87,6 +90,6 @@ Cashfree must verify each collection point before you can start collecting payme
 
 Agents can begin accepting payments through the **softPOS application**, a mobile app for Android devices that supports QR codes, payment links, and more.
 
-For instructions on setting up static and dynamic QR codes, payment links, and payment limits, see **agent collection point**.
+For instructions on setting up static and dynamic QR codes, payment links, and payment limits, see the Agent setup steps above.
 
-All transactions, both cash and digital, are visible in a single dashboard. See **settlements and reports** to understand how and when funds are transferred to your bank account.
+All transactions, both cash and digital, are visible in a single dashboard. See [5.1 Settlements](#doc-5-1) to understand how and when funds are transferred to your bank account.
