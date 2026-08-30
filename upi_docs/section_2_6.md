@@ -1,40 +1,64 @@
-Flash UPI provides merchants with the functionality to accept UPI payments within the merchant's app without any redirection to PSPs like Google Pay, PhonePe, etc. This will increase the payment success rate for merchants.
+Flash UPI lets your customer pay with UPI entirely inside your app, without being redirected to a separate UPI application such as Google Pay, PhonePe, or BHIM. It runs on BHIM VEGA, built in partnership with Axis Bank and NPCI.
 
-### Customer Flow
+### Why this matters
+
+A standard UPI payment sends your customer out of your app to a separate UPI application, where they choose a bank account and enter their PIN, before being sent back once the payment completes. That round trip commonly takes over twenty seconds, and every step spent outside your app is a place your customer can lose signal, get distracted, or drop off. Flash UPI removes all of those steps. The entire payment, from your customer tapping Pay to confirmation, happens inside your app in under five seconds, and they never leave it.
+
+<!-- Claude, flagging for Saif: "over twenty seconds" and "under five seconds" come directly from Cashfree's own Flash UPI plus BHIM VEGA product deck (Google Slides, shared 2026-08-28), not from independently measured production data. Treat these as product marketing figures until confirmed against real transaction telemetry. -->
+
+### What your customer experiences
+
+The exact steps depend on whether your customer has used Flash UPI before, and whether they already hold a UPI ID with the partner bank.
+
+**A returning customer who has already registered.**
+
+1. Your customer lands on your checkout page and selects Flash UPI.
+2. They enter their UPI PIN, and the payment is complete.
+
+**A customer with an existing UPI ID at the partner bank, registering for the first time.**
+
+1. Your customer lands on your checkout page and selects Add Bank Account.
+2. They choose their SIM and grant permission to send text messages. This is what binds Flash UPI to their device.
+3. Their bank account details are fetched automatically and linked to their existing UPI ID.
+4. They enter their UPI PIN, and the payment is complete.
+
+**A customer who has used UPI before, but not with the partner bank.**
+
+1. Your customer lands on your checkout page and selects Add Bank Account.
+2. They choose their SIM and grant permission to send text messages, which binds the device.
+3. They pick their bank from the list, and every account they hold there is fetched.
+4. A new UPI ID is created in the format `mobilenumber@axis`, and linked to any account that already has a UPI PIN set.
+5. They enter their UPI PIN, and the payment is complete.
+
+**A customer who has never used UPI.**
+
+1. Your customer lands on your checkout page and selects Add Bank Account.
+2. They choose their SIM and grant permission to send text messages, which binds the device.
+3. They pick their bank from the list, and every account they hold there is fetched.
+4. Since no UPI PIN exists yet, they are asked for their debit card details and an OTP to set one.
+5. They enter their new UPI PIN, and the payment is complete.
 
 <img width="1728" height="1136" alt="8aa94f95-ac3e-458d-a29b-fa5daef220f3" src="https://github.com/user-attachments/assets/3827df1c-ea2a-453c-9efd-8486f6c363c9">
 
-**Returning customer who registered earlier:**
+### Why it is faster and more reliable
 
-1.  The customer lands on the merchant's checkout page and selects Flash UPI.
-2.  Customer enters UPI PIN to complete the payment.
+Two things make this possible. Device binding, done once through SMS permission, is what lets Cashfree recognise your customer's device on every later payment, without sending them anywhere else to prove who they are. And multi bank dynamic routing means a payment is not locked to a single fixed path between your customer's bank and yours, if one route is slow or unavailable, the payment can move to another. A standard UPI plugin typically binds a payment to one fixed payer and payee route, and cannot do this.
 
-**The customer has an existing VPA with the partner bank:**
+### Who this fits best
 
-1.  The customer lands on the merchant's checkout page and selects 'Add Bank Account'.
-2.  The customer selects the sim and gives permission to send text messages. This triggers device binding.
-3.  Customer's bank account details are fetched and linked to the VPA.
-4.  Customer enters UPI PIN to complete the payment.
+Flash UPI is built for businesses where checkout speed and repeat, high frequency payments matter most, ride hailing, food delivery, and other checkouts your customer returns to often, where every extra second before confirmation costs you conversions.
 
-**The customer doesn't have an existing VPA with the partner bank but has used UPI via some other bank/PSP:**
+### Before you build on it
 
-1.  The customer lands on the merchant's checkout page and selects 'Add Bank Account'.
-2.  The customer selects the sim and gives permission to send text messages. This triggers device binding.
-3.  Customer selects a bank from the available banks - All accounts with that bank are fetched.
-4.  We create a new VPA with `mobilenumber@axis` and link accounts which have a UPI PIN already set.
-5.  The customer enters UPI PIN to complete the payment.
+Flash UPI's partner bank is Axis Bank. Any new UPI ID Flash UPI creates for a customer who did not already have one carries the `@axis` handle, regardless of which bank the customer actually holds their account with, since the UPI ID belongs to the partner bank relationship rather than the customer's own bank.
 
-**The customer never used UPI:**
-
-1.  The customer lands on the merchant's checkout page and selects 'Add Bank Account'.
-2.  The customer selects the sim and gives permission to send text messages. This triggers device binding.
-3.  Customer selects a bank from the available banks - All accounts with that bank are fetched.
-4.  The customer is prompted to provide their debit card details and enter an OTP to complete the setup.
-5.  The customer enters UPI PIN to complete the payment.
+<!-- Claude, flagging for Saif: eligibility, onboarding requirements and pricing for merchants who want to enable Flash UPI are not covered in this section or in the source deck. If there is a merchant facing activation process (comparable to the SoftPOS activation flow in 2.4), it belongs here. -->
 
 ### Benefits
 
-*   **Faster and Smooth Customer Experience**
-*   **Higher Success Rates (by 4-5%):** With lesser opportunities for customers to drop off in the payment experience.
-*   **Complete In-App Flow:** With no redirections, you gain much better control over the user journey.
-*   **Eliminates Third-Party Dependencies:** Transactions do not need to be routed via external UPI applications, which reduces timeout issues significantly and gives you more visibility on payment failures.
+* **A faster, smoother checkout.** Your customer completes payment in one screen, with no app switching.
+* **Higher success rates.** Cashfree's own product materials state 10 to 15 percent higher success rates than a standard UPI redirect flow, driven by multi bank routing and the removal of redirect related failures. This is a meaningful increase from what this section previously stated, 4 to 5 percent, see the flag above.
+* **A fully in-app experience.** With no redirection, you keep control over the customer journey from start to finish, and full visibility into where a payment succeeds or fails.
+* **No dependency on third party UPI applications.** Payments do not route through an external UPI application, which removes a common source of timeouts and gives you clearer visibility when a payment does fail.
+
+<!-- Claude, flagging for Saif: the 10 to 15 percent figure and the 4 to 5 percent figure it replaces cannot both be right, and I have not been able to verify either against real data, only against Cashfree's own marketing deck. Please confirm which number, if either, is safe to publish before this goes live. -->
