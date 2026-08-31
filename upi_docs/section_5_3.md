@@ -129,6 +129,8 @@ Displaying a raw code like `U30|DEBIT HAS BEEN FAILED|Z9|INSUFFICIENT FUNDS IN C
 
 ## 3. Master NPCI Error Code & Business Failure Mapping
 
+<!-- Claude, flagging for Saif, not confirmed: spot-checked several rows in the table below against public bank-published UPI error code lists (HDFC, Axis). Z9 as Insufficient Funds checks out exactly. U31 does not, this table describes it as "TPV payment was made using a non-registered bank account," but Axis Bank's public UPI response code list defines U31 as a generic "Credit Has Been Failed" with no TPV meaning at all. This may be a real Cashfree-specific overlay on a generic NPCI code, gateways sometimes do map the same raw code to a more specific internal reason, but I could not confirm that from any public source, so treat U31's TPV meaning as unconfirmed until checked internally. I did not attempt to verify the remaining 150-plus rows individually, this table is clearly bulk reference data, spot-checking a handful was what was feasible here. -->
+
 The table below lists every NPCI and gateway error code Cashfree currently maps, with the failure category and a plain language explanation of what happened. Search across all columns, filter any single column, or click a column heading to sort.
 
 <section id="cf-errors">
@@ -622,6 +624,8 @@ The table below lists every NPCI and gateway error code Cashfree currently maps,
 
 ## 4. High-Priority Business Scenarios & Edge Cases
 
+<!-- Claude, flagging for Saif, not confirmed: this heading cites U19 for TPV failures, but the master table above maps U19 to a generic "Authentication Failure," not TPV, and the example below uses a `TPV_ACCOUNT_MISMATCH` string that does not appear in the master table at all. The master table's own closest match for a TPV account mismatch is U31 (see the flag above that table), and it separately lists B3 and XV for other TPV-specific failure reasons (restricted account, compliance violation). Whichever code this section is actually about needs to match the master table exactly, right now heading, body, and table all point at different things. -->
+
 ### 4.1 Third-Party Verification (TPV) Failures (U19)
 
 In investment and capital markets flows (MCC 6211 / 6012), regulatory mandates require validating the remitter account against customer record.
@@ -634,6 +638,8 @@ In investment and capital markets flows (MCC 6211 / 6012), regulatory mandates r
 
     > Expected Account: `XXXX-XXXX-1234`
 
+
+<!-- Claude, flagging for Saif, not confirmed: the master table above describes U30 as a generic "Debit Failed... remitter bank declined the transaction," with nothing about velocity caps or new device/PIN-reset cooling-off periods. Public bank sources (Axis Bank's UPI response code list, a Paytm consumer explainer) describe U30 the same generic way. The velocity-cap scenario below is a real NPCI rule, but citing U30 as the specific code for it is not supported by any source I found, confirm internally whether U30 is really what comes back for this scenario or whether it is a different code. -->
 
 ### 4.2 The 24-Hour Velocity Cooling-Off Rule (U30)
 
