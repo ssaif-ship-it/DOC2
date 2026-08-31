@@ -8,9 +8,11 @@ Which of the three models below fits you depends on where your business actually
 
 ### Storefront Collection
 
-*   **What it is:** Fixed-location payments at physical retail or billing counters.
-*   **How it works:** A static QR code standee or display is placed at the counter. Customers scan using any UPI app (Google Pay, PhonePe, Paytm, etc.) and enter the bill amount.
-*   **Best for:** Retail stores, pharmacies, supermarkets, and service counters.
+*   **What it is:** Static QR codes for physical store or counter locations, with every payment credited directly to your account.
+*   **How it works:** You generate a QR code per store or counter and display it there. Customers scan it with any UPI app and pay. If you run multiple locations, each one keeps its own QR for separate tracking, while every payment still settles into a single registered bank account.
+*   **Best for:** Retail shops, restaurants, clinics and salons, and any multi-outlet business that wants one settlement account across many locations without needing a dedicated POS terminal.
+
+<!-- Claude, confirmed for Saif: rewritten to match Cashfree's own public softPOS docs (cashfree.com/docs/payments/softpos/introduction#storefront), including the per-location QR with single settlement account detail that was missing before. -->
 
 ### Agent Collection (SoftPOS App)
 
