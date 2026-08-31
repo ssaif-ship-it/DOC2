@@ -1,4 +1,4 @@
-UPI Intent hands your customer directly to their own UPI application to complete the payment, rather than asking them to type a VPA or scan a QR code. Default to this flow whenever your customer is checking out on a mobile device, whether that is your mobile website or your own application, they select their UPI app, enter their PIN, and the payment is done.
+UPI Intent hands your customer directly to their own UPI application to complete the payment, rather than asking them to type a VPA or scan a QR code. Default to this flow whenever your customer is checking out on a mobile device, whether that is your mobile website or your own application.
 
 <video src="upi%20intent.mp4" autoplay loop muted playsinline width="100%">
   Your browser does not support the video tag.
@@ -96,7 +96,7 @@ UPI Intent hands your customer directly to their own UPI application to complete
 <text x="810" y="244" text-anchor="middle" font-size="9.5" fill="#6543A0">webhook</text>
 </g>
 </svg>
-<figcaption>The customer selects Pay, chooses a UPI application from the system-generated list, and completes the payment with the amount, payee, and account details already populated. No manual data entry is required at any step.</figcaption>
+<figcaption>The four screens your customer moves through: checkout, app selection, the prefilled payment, and confirmation.</figcaption>
 </figure>
 
 Your customer taps Pay on your checkout page. Their phone opens a list of the UPI applications installed on the device, they pick the one they use, and it opens with the payment amount, payee, and account details already filled in. They enter their UPI PIN, and control returns to your checkout page.
