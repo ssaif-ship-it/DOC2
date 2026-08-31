@@ -107,18 +107,96 @@ UPI Intent runs on a deep link that starts with `upi://pay?...`. When your custo
 
 ### Integration options
 
-**Using Cashfree's SDK, or Web Checkout in a browser.** This is the default path, and it is enough for most merchants. You do not need to write any code to show the UPI application picker, the operating system handles that natively the moment the link is triggered. This covers the Android, iOS, React Native, and Flutter SDKs, as well as Cashfree's hosted Web Checkout when it opens in a mobile browser or through a full page redirect, rather than inside your own application.
+There are three ways to trigger UPI Intent, depending on how your checkout is already built.
 
-One platform difference is worth noting. On Android, the `upi://pay` link is resolved consistently, since every major UPI application registers for this scheme. On iOS, the link behaves the same way in Safari and within a native application, but is less reliable inside certain in-app browsers, such as the webview used by social apps for links opened from a feed, and in some other embedded browser environments. In these cases, iOS may not raise an error, and the link can fail without any visible response to the customer. If a meaningful share of your iOS traffic comes through contexts like these, do not rely on UPI Intent alone. UPI Collect ([section 2.2](#doc-2-2)) remains available on iOS, and Dynamic QR ([section 2.3](#doc-2-3)) is an additional alternative.
+#### 1. Using Cashfree's SDK, or Web Checkout in a browser
 
-**Loading Web Checkout inside your own WebView.** If you embed Cashfree's Web Checkout page inside your own Android, iOS, React Native, Flutter, or Cordova application using a WebView, rather than opening it in a system browser, you are responsible for intercepting the UPI deep link yourself. A WebView does not hand off to other apps the way a system browser does, so without extra code the UPI option can show up on your checkout page and simply do nothing when your customer taps it. Cashfree still renders the checkout page in this case, only the deep link interception becomes your responsibility. The implementation differs by platform:
+This is the default path, and it works for most merchants. You do not need to write any code to show the UPI application picker, the operating system handles that natively the moment the link is triggered. It covers the Android, iOS, React Native, and Flutter SDKs, along with Cashfree's hosted Web Checkout when it opens in a mobile browser or through a full page redirect, rather than inside your own application.
 
-* **Android:** override `shouldOverrideUrlLoading` on the `WebViewClient`, match the request URL against the required UPI schemes (`upi://pay`, and application-specific schemes such as `tez://`, `gpay://`, `paytmmp://`, `phonepe://`), confirm that a handler exists on the device, and launch it using an `ACTION_VIEW` intent. Cashfree also provides a feature-flag mode, in which the application picker is rendered within the checkout page directly, and a code-based mode, in which a JS bridge named `Android` is registered to handle the interaction.
-* **iOS:** the checkout runs inside a `WKWebView`. Every UPI application scheme to be detected (`bhim`, `paytmmp`, `phonepe`, `tez`, `credpay`, and others) must be declared under `LSApplicationQueriesSchemes` in the application's `Info.plist`. Before opening a scheme, the integration checks `UIApplication.shared.canOpenURL(...)`. A `WKScriptMessageHandler` JS bridge allows the checkout page to query which UPI applications are installed. This integration path also requires the application's bundle ID to be whitelisted by Cashfree.
+> **Platform note:** On Android, the `upi://pay` link resolves consistently, since every major UPI application registers for this scheme. On iOS, it behaves the same way in Safari and inside a native application, but is less reliable inside certain in-app browsers, such as the webview used by social apps for links opened from a feed, and in some other embedded browser environments. In these cases, iOS may not raise an error, and the link can fail without any visible response to the customer. If a meaningful share of your iOS traffic comes through contexts like these, do not rely on UPI Intent alone. UPI Collect ([section 2.2](#doc-2-2)) remains available on iOS, and Dynamic QR ([section 2.3](#doc-2-3)) is an additional alternative.
+
+#### 2. Loading Web Checkout inside your own WebView
+
+If you embed Cashfree's Web Checkout page inside your own Android, iOS, React Native, Flutter, or Cordova application using a WebView, rather than opening it in a system browser, you are responsible for intercepting the UPI deep link yourself. A WebView does not hand off to other apps the way a system browser does, so without extra code the UPI option can show up on your checkout page and simply do nothing when your customer taps it. Cashfree still renders the checkout page in this case, only the deep link interception becomes your responsibility, and it differs by platform:
+
+<style>
+.cf-acc-wrap{margin:20px 0 28px;}
+.cf-acc-item{border:1px solid #E5E7EB;border-radius:10px;margin-bottom:10px;overflow:hidden;background:#FFFFFF;}
+.cf-acc-item > summary{list-style:none;cursor:pointer;padding:14px 18px;display:flex;align-items:center;gap:10px;font-size:15px;background:#F9FAFB;position:relative;}
+.cf-acc-item > summary::-webkit-details-marker{display:none;}
+.cf-acc-item > summary::after{content:"";position:absolute;right:18px;top:50%;width:8px;height:8px;border-right:2px solid #6B7280;border-bottom:2px solid #6B7280;transform:translateY(-65%) rotate(-45deg);transition:transform .15s ease;}
+.cf-acc-item[open] > summary::after{transform:translateY(-35%) rotate(45deg);}
+.cf-acc-item[open] > summary{background:#F4F0FA;border-bottom:1px solid #E5E7EB;}
+.cf-acc-item > summary .cf-acc-tag{font-size:11px;font-weight:700;color:#5A28A3;background:#F4F0FA;padding:3px 9px;border-radius:999px;flex-shrink:0;}
+.cf-acc-item[open] > summary .cf-acc-tag{background:#FFFFFF;}
+.cf-acc-item > summary .cf-acc-title{font-weight:600;color:#111827;padding-right:20px;}
+.cf-acc-body{padding:18px 18px 22px;}
+.cf-acc-body > *:first-child{margin-top:0;}
+.cf-acc-body > *:last-child{margin-bottom:0;}
+</style>
+
+<div class="cf-acc-wrap">
+
+<details class="cf-acc-item" open>
+<summary><span class="cf-acc-tag">Android</span><span class="cf-acc-title">Intercept the deep link in your WebViewClient</span></summary>
+
+Override `shouldOverrideUrlLoading` on the `WebViewClient`, match the request URL against the required UPI schemes, confirm that a handler exists on the device, and launch it using an `ACTION_VIEW` intent.
+
+```kotlin
+override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
+    val url = request.url.toString()
+    val upiSchemes = listOf("upi://pay", "tez://", "gpay://", "paytmmp://", "phonepe://")
+    if (upiSchemes.any { url.startsWith(it) }) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        if (intent.resolveActivity(context.packageManager) != null) context.startActivity(intent)
+        return true
+    }
+    return false
+}
+```
+
+Cashfree also provides a feature-flag mode, in which the application picker is rendered within the checkout page directly, and a code-based mode, in which a JS bridge named `Android` is registered to handle the interaction.
+
+<!-- Claude, this snippet is illustrative, built only from the verified method and scheme names, not copied from Cashfree's own sample repo. Point engineers to the Custom Checkout for Android guide linked below for the real, working sample. -->
+
+</details>
+
+<details class="cf-acc-item">
+<summary><span class="cf-acc-tag">iOS</span><span class="cf-acc-title">Declare UPI schemes and check before opening</span></summary>
+
+The checkout runs inside a `WKWebView`. Every UPI application scheme to be detected (`bhim`, `paytmmp`, `phonepe`, `tez`, `credpay`, and others) must be declared under `LSApplicationQueriesSchemes` in the application's `Info.plist`, and checked with `canOpenURL` before you try to open it.
+
+```swift
+if UIApplication.shared.canOpenURL(url) {
+    UIApplication.shared.open(url)
+}
+```
+
+A `WKScriptMessageHandler` JS bridge allows the checkout page to query which UPI applications are installed. This integration path also requires the application's bundle ID to be whitelisted by Cashfree.
+
+<!-- Claude, same as the Android snippet above, illustrative only. -->
+
+</details>
+
+</div>
 
 Full implementation details and sample code are available for [Custom Checkout for Android](https://www.cashfree.com/docs/payments/online/web/custom-checkout-android) and [Custom Checkout for iOS](https://www.cashfree.com/docs/payments/online/web/custom-checkout-ios).
 
-**Integrating directly against the API.** If you do not use Cashfree's SDK or Web Checkout at all, and build your own checkout interface from the ground up, you retrieve the deep link from the API rather than from a rendered checkout page. The deep link does not come back in the Create Order response, it comes from the Order Pay call, in the payload for the UPI payment method you requested. Set `payment_method.upi.channel` to `"link"` and you get the `upi://pay?...` string directly. Check the API Reference for the current field name and response shape, since this is versioned and does change. If your custom interface is itself embedded in a WebView, the interception steps above still apply to you.
+#### 3. Integrating directly against the API
+
+If you do not use Cashfree's SDK or Web Checkout at all, and build your own checkout interface from the ground up, you retrieve the deep link from the API rather than from a rendered checkout page. The deep link does not come back in the Create Order response, it comes from the Order Pay call, in the payload for the UPI payment method you requested.
+
+```json
+{
+  "payment_method": {
+    "upi": {
+      "channel": "link"
+    }
+  }
+}
+```
+
+Set `payment_method.upi.channel` to `"link"` and you get the `upi://pay?...` string directly in the response. Check the API Reference for the current field name and response shape, since this is versioned and does change. If your custom interface is itself embedded in a WebView, the interception steps above still apply to you.
 
 > **Warning:** Never trust the frontend app-switch return alone to verify a payment. Always wait for the backend Webhook confirmation from Cashfree.
 
