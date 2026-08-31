@@ -1,4 +1,4 @@
-UPI Intent is the payment flow you should default to whenever your customer is checking out on a mobile device, whether that is your mobile website or your own application. It asks your customer to do only two things: select a UPI application, and enter their PIN.
+UPI Intent hands your customer directly to their own UPI application to complete the payment, rather than asking them to type a VPA or scan a QR code. Default to this flow whenever your customer is checking out on a mobile device, whether that is your mobile website or your own application, they select their UPI app, enter their PIN, and the payment is done.
 
 <video src="upi%20intent.mp4" autoplay loop muted playsinline width="100%">
   Your browser does not support the video tag.
