@@ -120,25 +120,32 @@ This is the default path, and it works for most merchants. You do not need to wr
 If you embed Cashfree's Web Checkout page inside your own Android, iOS, React Native, Flutter, or Cordova application using a WebView, rather than opening it in a system browser, you are responsible for intercepting the UPI deep link yourself. A WebView does not hand off to other apps the way a system browser does, so without extra code the UPI option can show up on your checkout page and simply do nothing when your customer taps it. Cashfree still renders the checkout page in this case, only the deep link interception becomes your responsibility, and it differs by platform:
 
 <style>
-.cf-acc-wrap{margin:20px 0 28px;}
-.cf-acc-item{border:1px solid #E5E7EB;border-radius:10px;margin-bottom:10px;overflow:hidden;background:#FFFFFF;}
-.cf-acc-item > summary{list-style:none;cursor:pointer;padding:14px 18px;display:flex;align-items:center;gap:10px;font-size:15px;background:#F9FAFB;position:relative;}
-.cf-acc-item > summary::-webkit-details-marker{display:none;}
-.cf-acc-item > summary::after{content:"";position:absolute;right:18px;top:50%;width:8px;height:8px;border-right:2px solid #6B7280;border-bottom:2px solid #6B7280;transform:translateY(-65%) rotate(-45deg);transition:transform .15s ease;}
-.cf-acc-item[open] > summary::after{transform:translateY(-35%) rotate(45deg);}
-.cf-acc-item[open] > summary{background:#F4F0FA;border-bottom:1px solid #E5E7EB;}
-.cf-acc-item > summary .cf-acc-tag{font-size:11px;font-weight:700;color:#5A28A3;background:#F4F0FA;padding:3px 9px;border-radius:999px;flex-shrink:0;}
-.cf-acc-item[open] > summary .cf-acc-tag{background:#FFFFFF;}
-.cf-acc-item > summary .cf-acc-title{font-weight:600;color:#111827;padding-right:20px;}
-.cf-acc-body{padding:18px 18px 22px;}
-.cf-acc-body > *:first-child{margin-top:0;}
-.cf-acc-body > *:last-child{margin-bottom:0;}
+.cf-tabs{margin:20px 0 28px;border:1px solid #E5E7EB;border-radius:10px;overflow:hidden;background:#FFFFFF;}
+.cf-tabs-nav{display:flex;border-bottom:1px solid #E5E7EB;background:#F9FAFB;}
+.cf-tab-btn{flex:1;padding:12px 16px;font-size:14px;font-weight:600;color:#6B7280;background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;font-family:inherit;}
+.cf-tab-btn:hover{color:#374151;}
+.cf-tab-btn.cf-tab-active{color:#5A28A3;border-bottom:2px solid #5A28A3;background:#FFFFFF;}
+.cf-tab-panel{padding:18px 20px 22px;}
+.cf-tab-panel[hidden]{display:none;}
+.cf-tab-panel > *:first-child{margin-top:0;}
+.cf-tab-panel > *:last-child{margin-bottom:0;}
 </style>
 
-<div class="cf-acc-wrap">
+<div class="cf-tabs" data-cftabs>
 
-<details class="cf-acc-item" open>
-<summary><span class="cf-acc-tag">Android</span><span class="cf-acc-title">Intercept the deep link in your WebViewClient</span></summary>
+<div class="cf-tabs-nav">
+<button type="button" class="cf-tab-btn cf-tab-active" data-tab="webview">WebView</button>
+<button type="button" class="cf-tab-btn" data-tab="android">Android</button>
+<button type="button" class="cf-tab-btn" data-tab="ios">iOS</button>
+</div>
+
+<div class="cf-tab-panel" data-panel="webview">
+
+If you embed Cashfree's Web Checkout page inside your own Android, iOS, React Native, Flutter, or Cordova application using a WebView, rather than opening it in a system browser, you are responsible for intercepting the UPI deep link yourself. A WebView does not hand off to other apps the way a system browser does, so without extra code the UPI option can show up on your checkout page and simply do nothing when your customer taps it. Cashfree still renders the checkout page in this case, only the deep link interception becomes your responsibility, and it differs by platform, see the Android and iOS tabs above.
+
+</div>
+
+<div class="cf-tab-panel" data-panel="android" hidden>
 
 Override `shouldOverrideUrlLoading` on the `WebViewClient`, match the request URL against the required UPI schemes, confirm that a handler exists on the device, and launch it using an `ACTION_VIEW` intent.
 
@@ -159,10 +166,9 @@ Cashfree also provides a feature-flag mode, in which the application picker is r
 
 <!-- Claude, this snippet is illustrative, built only from the verified method and scheme names, not copied from Cashfree's own sample repo. Point engineers to the Custom Checkout for Android guide linked below for the real, working sample. -->
 
-</details>
+</div>
 
-<details class="cf-acc-item">
-<summary><span class="cf-acc-tag">iOS</span><span class="cf-acc-title">Declare UPI schemes and check before opening</span></summary>
+<div class="cf-tab-panel" data-panel="ios" hidden>
 
 The checkout runs inside a `WKWebView`. Every UPI application scheme to be detected (`bhim`, `paytmmp`, `phonepe`, `tez`, `credpay`, and others) must be declared under `LSApplicationQueriesSchemes` in the application's `Info.plist`, and checked with `canOpenURL` before you try to open it.
 
@@ -176,9 +182,27 @@ A `WKScriptMessageHandler` JS bridge allows the checkout page to query which UPI
 
 <!-- Claude, same as the Android snippet above, illustrative only. -->
 
-</details>
+</div>
 
 </div>
+
+<script>
+(function () {
+    document.querySelectorAll('[data-cftabs]').forEach(function (root) {
+        if (root.dataset.cftabsBound) return;
+        root.dataset.cftabsBound = '1';
+        var btns = root.querySelectorAll('.cf-tab-btn');
+        btns.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                btns.forEach(function (b) { b.classList.remove('cf-tab-active'); });
+                root.querySelectorAll('.cf-tab-panel').forEach(function (p) { p.hidden = true; });
+                btn.classList.add('cf-tab-active');
+                root.querySelector('.cf-tab-panel[data-panel="' + btn.dataset.tab + '"]').hidden = false;
+            });
+        });
+    });
+})();
+</script>
 
 Full implementation details and sample code are available for [Custom Checkout for Android](https://www.cashfree.com/docs/payments/online/web/custom-checkout-android) and [Custom Checkout for iOS](https://www.cashfree.com/docs/payments/online/web/custom-checkout-ios).
 
