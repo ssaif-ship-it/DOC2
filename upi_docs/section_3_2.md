@@ -1,4 +1,4 @@
-## What Kind of Merchant Are You?
+## Find Your Merchant Category
 
 Before you look at payment options, place yourself in one of these four categories. It decides which rows in the comparison below actually apply to you, and which ones you can skip.
 
