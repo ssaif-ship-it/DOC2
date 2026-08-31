@@ -103,12 +103,14 @@ Refund and reversal speed on UPI depends on whether it's a merchant-initiated re
 Reversals occur automatically when funds leave the customer's account but cannot be fulfilled:
 
 *   **UPI Timeouts ("Deemed Success"):** Debited funds that fail terminal confirmation are auto-reversed back to the remitter bank via NPCI switch signals.
-*   **Direct VPA Transfers:** Payments sent directly to a merchant VPA without a valid checkout session/Order ID are tagged as `UNRECONCILED_AUTO_REFUND` and auto-reversed.
+*   **Direct VPA Transfers:** Payments sent directly to a merchant VPA without a valid checkout session/Order ID are tagged as `UNRECONCILED_AUTO_REFUND` and auto-reversed. <!-- Claude, flagging for Saif, not confirmed: I could not find `UNRECONCILED_AUTO_REFUND` anywhere in Cashfree's public docs or API reference. The underlying behaviour, an unmatched direct VPA payment getting auto-reversed, is plausible, but confirm this exact tag internally before publishing it as the literal value merchants would see. -->
 *   **Direct Settlement Exception:** If you operate on a Direct Settlement model (where acquirers credit your bank account directly), standard Payment Gateway refund APIs are blocked. Refunds must be executed as explicit outbound Payout transfers from your current account or refund wallet.
 
 ## 4. Refund Status Lifecycle
 
 Gateways track refunds across a defined lifecycle. You can monitor these statuses via Dashboard or Webhooks:
+
+<!-- Claude, confirmed correction for Saif: this lifecycle previously showed INITIATED, then IN_PROGRESS / PENDING, branching to four outcomes, SUCCESS / REFUNDED, ON_HOLD, MANUAL, and FAILED / CANCELLED. Checked against Cashfree's own refund fetch API reference (cashfree.com/docs/api-reference/payments/latest/refunds/get), the documented refund_status enum is only SUCCESS, PENDING, CANCELLED, and ONHOLD, FAILED appears only in prose description text on that page, not as a formal status value, and there is no INITIATED, IN_PROGRESS, or MANUAL status at all. Rebuilt the diagram below to match the real four-value enum. -->
 
 <div class="cf-rf-wrap">
   <style>
@@ -146,26 +148,24 @@ Gateways track refunds across a defined lifecycle. You can monitor these statuse
     }
   </style>
   <div class="cf-rf-main">
-    <div class="cf-rf-node cf-rf-blue">INITIATED</div>
+    <div class="cf-rf-node cf-rf-blue">PENDING</div>
     <div class="cf-rf-arrow">&rarr;</div>
-    <div class="cf-rf-node cf-rf-blue">IN_PROGRESS / PENDING</div>
+    <div class="cf-rf-node cf-rf-blue">Being processed</div>
   </div>
   <div class="cf-rf-connector">&darr;</div>
-  <div class="cf-rf-branch-label">Branches to one of four outcomes</div>
+  <div class="cf-rf-branch-label">Branches to one of three statuses</div>
   <div class="cf-rf-branches">
     <div class="cf-rf-node cf-rf-green">
-      <div class="cf-rf-title">SUCCESS / REFUNDED</div>
+      <div class="cf-rf-title">SUCCESS</div>
     </div>
     <div class="cf-rf-node cf-rf-amber">
-      <div class="cf-rf-title">ON_HOLD</div>
+      <div class="cf-rf-title">ONHOLD</div>
       <div class="cf-rf-caption">Low merchant balance or verification pending</div>
     </div>
-    <div class="cf-rf-node cf-rf-amber">
-      <div class="cf-rf-title">MANUAL</div>
-      <div class="cf-rf-caption">Exhausted auto-retries, escalated to ops</div>
-    </div>
     <div class="cf-rf-node cf-rf-red">
-      <div class="cf-rf-title">FAILED / CANCELLED</div>
+      <div class="cf-rf-title">CANCELLED</div>
     </div>
   </div>
 </div>
+
+A refund description can also mention that it failed, but Cashfree's API does not carry a separate FAILED status value for refunds, only the four values shown above.
