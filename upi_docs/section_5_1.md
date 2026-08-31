@@ -45,9 +45,11 @@
 ### 1.2 Gross vs. Net Settlement
 
 *   **Gross Settlement:** You receive 100% of customer payments upfront; gateway charges and taxes are invoiced separately (common for specific enterprise setups).
-*   **Net Settlement (Default):** Merchant Discount Rates (MDR), GST (18%), refunds, and chargebacks are deducted prior to payout:
+*   **Net Settlement (Default):** Merchant Discount Rates (MDR), applicable GST, refunds, and chargebacks are deducted prior to payout:
 
 ```Net Payout = Gross Sales - MDR Fees - GST - Refunds/Disputes```
+
+<!-- Claude, confirmed correction for Saif: this formula previously listed a flat "GST (18%)" deduction. For standard UPI P2M transactions specifically, that is not accurate, MDR on UPI P2M has been zero since January 2020, and GST is charged as a percentage of MDR, so there is no MDR base for GST to apply to. The Finance Ministry said as much directly in 2026, calling reports of GST on UPI transactions "false, misleading, and without any basis," since no MDR is charged. I removed the flat 18% figure since this doc is UPI scoped, GST only re-enters the picture if you also process something with a chargeable MDR on this same platform, in which case 18% is the correct standard rate for that portion. -->
 
 ### 1.3 Settlement Cycles Explained (T+n)
 
@@ -65,6 +67,8 @@ Cycles represent business days (n) elapsed after transaction capture day (T):
 ---
 
 ## 2. End-to-End Fund Movement
+
+<!-- Claude, flagging for Saif, not confirmed: I could not find this Direct Settlement Model, as described below, documented anywhere on cashfree.com's public docs. Cashfree does publish a Direct to Bank Settlement feature (cashfree.com/blog/direct-to-bank-settlements), but that page describes something different, credit within 90 minutes, with refunds and chargebacks explicitly still supported normally, no mention of gross-only transfer, blocked refund APIs, or an MCC 6211 broking restriction. The specific claims below, gross transfer via periodic debit mandates, blocked refund APIs, broking-only eligibility, are not corroborated by any public source I could find. This may be accurate for a real internal product I just cannot see documented publicly, but it needs an internal source before this goes live as written. -->
 
 ### 2.1 Standard Aggregator Model vs. Direct Settlement Model
 
