@@ -8,7 +8,7 @@ A Static QR code is a fixed image that does not change. It encodes only your bas
 
 *   **How it works:** When a customer scans a Static QR, their app identifies the merchant, but the customer must manually type in the payment amount before entering their PIN.
 *   **Best for:** Offline-only merchants with no website or app, and no way to generate a QR per order or transaction, i.e. situations where the QR genuinely cannot be loaded dynamically. Payment is collected in person, at a fixed counter or standee, in close proximity to the customer.
-*   **Limitations:** Because the amount is variable and the QR does not contain a unique order ID, automated server-to-server reconciliation is very difficult. You rely on SMS notifications or manual ledger checks to confirm payments. Not suitable for anything sold online, delivered, or invoiced remotely, for those cases see Dynamic QR or POD QR below.
+*   **If you need to match a payment to a specific order:** Static QR cannot do that on its own, it carries no order ID, so you rely on SMS notifications or manual ledger checks instead. If that matters to you, or you sell online, deliver, or invoice remotely, move to Dynamic QR below, it solves this by putting the order ID in the QR itself.
 
 ### 2. Dynamic QR
 
@@ -17,15 +17,20 @@ A Dynamic QR code is generated on the fly for every single transaction. It encod
 *   **How it works:** When a customer scans this QR, the amount is pre-filled and locked. The customer cannot change it; they simply enter their PIN to authorize.
 *   **Best for:** Desktop website checkouts, self-checkout kiosks, automated vending machines, and organized retail POS systems.
 *   **Benefits:** Perfect reconciliation. Because the exact Order ID is baked into the QR code, your backend instantly receives a Webhook tying the successful payment to the exact shopping cart or invoice.
+*   **How you generate it:** Create the order with `POST /orders`, then call Order Pay with `payment_method.upi.channel` set to `"qrcode"`. The response gives you the QR payload to render, already carrying that order's ID. See [3.2 Step 5](#doc-3-2) for the full request shape.
 
-## 3.POD QR
+## 3. POD QR
 
-POD QR (podQR) is a Cashfree UPI QR variant designed for **pay-on-delivery / delayed-payment** use cases, that is, situations where a standard UPI QR does not fit because the customer isn't paying immediately at the time the QR is generated (e.g., a delivery invoice, a printed restaurant bill, or a WhatsApp/digital invoice sent ahead of collection).
+<!-- Claude, flagging for Saif: you asked for an image here. I do not have a POD QR flow diagram to embed, please upload one (drag it into a GitHub comment or issue to get a user-attachments URL, the same way the 2.6 and 4.1 images and video got added) and I will wire it in right away. -->
 
-### Problem with a dynamic UPI QR
+POD QR (podQR) is a Cashfree UPI QR variant designed for **pay-on-delivery / delayed-payment** use cases, that is, situations where a standard UPI QR does not fit because your customer is not paying immediately at the time the QR is generated (a delivery invoice, a printed restaurant bill, or a WhatsApp/digital invoice sent ahead of collection).
 
-*   **No retries.** A failed payment attempt kills the transaction; the customer has to be issued a fresh QR/link, causing confusion and lost revenue.
-*   **Short TTL.** Dynamic QR codes expire quickly, which does not work for invoices where payment may happen hours or days later.
+### Why a standard Dynamic QR does not work here
+
+Dynamic QR, described above, is built to be scanned and paid within minutes, at checkout. That breaks down for pay-on-delivery and invoice use cases in two specific ways:
+
+*   **No retries.** If the payment attempt fails, that QR is dead. You would have to generate and resend a fresh one, which confuses your customer and can cost you the sale.
+*   **Short TTL.** A Dynamic QR expires quickly. It cannot stay valid for the hours or days that can pass between you sending an invoice and your customer actually paying it.
 
 ### How POD QR solves this
 
