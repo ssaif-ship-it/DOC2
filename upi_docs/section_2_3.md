@@ -22,7 +22,7 @@ A Dynamic QR code is generated on the fly for every single transaction. It encod
 
 ## 3. POD QR
 
-<!-- Claude, flagging for Saif: you asked for an image here. I do not have a POD QR flow diagram to embed, please upload one (drag it into a GitHub comment or issue to get a user-attachments URL, the same way the 2.6 and 4.1 images and video got added) and I will wire it in right away. -->
+<img src="pod-qr-bill-mockup.png" alt="A printed restaurant bill with a POD QR code at the bottom, showing the order summary and total the customer pays against after their meal." width="420">
 
 POD QR (podQR) is a Cashfree UPI QR variant designed for **pay-on-delivery / delayed-payment** use cases, that is, situations where a standard UPI QR does not fit because your customer is not paying immediately at the time the QR is generated (a delivery invoice, a printed restaurant bill, or a WhatsApp/digital invoice sent ahead of collection).
 

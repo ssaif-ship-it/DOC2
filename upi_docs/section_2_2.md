@@ -1,5 +1,9 @@
 UPI Collect is a server to server pull mechanism. Your customer enters their UPI ID (VPA) on your checkout page, your backend sends a payment request to that VPA, and they approve it from their UPI application after receiving a notification.
 
+<video src="UPI%20collect.mp4" autoplay loop muted playsinline width="100%">
+  Your browser does not support the video tag.
+</video>
+
 ### The customer experience
 
 <figure>
