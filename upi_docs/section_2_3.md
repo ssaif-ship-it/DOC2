@@ -25,20 +25,13 @@ A Dynamic QR code is generated on the fly for every single transaction. It encod
 
 POD QR (podQR) is a Cashfree UPI QR variant designed for **pay-on-delivery / delayed-payment** use cases, that is, situations where a standard UPI QR does not fit because your customer is not paying immediately at the time the QR is generated (a delivery invoice, a printed restaurant bill, or a WhatsApp/digital invoice sent ahead of collection).
 
-### Why a standard Dynamic QR does not work here
-
-Dynamic QR, described above, is built to be scanned and paid within minutes, at checkout. That breaks down for pay-on-delivery and invoice use cases in two specific ways:
-
-*   **No retries.** If the payment attempt fails, that QR is dead. You would have to generate and resend a fresh one, which confuses your customer and can cost you the sale.
-*   **Short TTL.** A Dynamic QR expires quickly. It cannot stay valid for the hours or days that can pass between you sending an invoice and your customer actually paying it.
-
-### How POD QR solves this
+### What POD QR Gives You
 
 | Feature | Behavior |
 | :-- | :-- |
-| **Payment retries allowed** | The *same* QR keeps working for repeated attempts until the TTL expires, so there is no need to regenerate. |
-| **Customisable TTL** | Configurable from a few hours up to 30+ days, instead of the few-minute expiry on a normal QR. |
-| **Smarter session handling** | The final payment status is confirmed only after TTL expiry (via a status check), avoiding premature failures. |
+| **Payment retries allowed** | The *same* QR keeps working for repeated attempts, so you never need to regenerate one for your customer. |
+| **A TTL built for delay** | Configurable from a few hours up to 30+ days, so the QR stays valid for as long as your customer actually takes to pay. |
+| **Smarter session handling** | The final payment status is confirmed only after the TTL expires, via a status check, so a slow payer never registers as a premature failure. |
 
 **Best suited for:** Pay-on-Delivery, printed invoices, and WhatsApp or digital invoices, that is, anywhere the payer might not pay on the first try or might pay later.
 
