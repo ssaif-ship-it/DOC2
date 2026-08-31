@@ -4,11 +4,12 @@ Depending on your integration environment and reconciliation needs, there are th
 
 ### 1. Static QR
 
+<!-- Claude, flagging for Saif: leaving space for a Static QR photo here too, please upload one (drag it into a GitHub comment or issue to get a user-attachments URL, the same way the 2.6 and 4.1 images and video got added) and I will wire it in right away. -->
+
 A Static QR code is a fixed image that does not change. It encodes only your base merchant VPA (Virtual Payment Address) and merchant details.
 
-*   **How it works:** When a customer scans a Static QR, their app identifies the merchant, but the customer must manually type in the payment amount before entering their PIN.
-*   **Best for:** Offline-only merchants with no website or app, and no way to generate a QR per order or transaction, i.e. situations where the QR genuinely cannot be loaded dynamically. Payment is collected in person, at a fixed counter or standee, in close proximity to the customer.
-*   **If you need to match a payment to a specific order:** Static QR cannot do that on its own, it carries no order ID, so you rely on SMS notifications or manual ledger checks instead. If that matters to you, or you sell online, deliver, or invoice remotely, move to Dynamic QR below, it solves this by putting the order ID in the QR itself.
+*   **How it works:** When a customer scans a Static QR, their app identifies the merchant, but the customer must manually type in the payment amount before entering their PIN. Because the QR carries no order ID, matching a payment back to a specific order relies on SMS notifications or manual ledger checks rather than automated reconciliation.
+*   **Best for:** Offline-only merchants with no website or app, and no way to generate a QR per order or transaction, i.e. situations where the QR genuinely cannot be loaded dynamically. Payment is collected in person, at a fixed counter or standee, in close proximity to the customer. If you sell online, deliver, or invoice remotely instead, move to Dynamic QR below, it solves this by putting the order ID in the QR itself.
 
 ### 2. Dynamic QR
 
