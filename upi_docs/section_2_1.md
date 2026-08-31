@@ -134,18 +134,11 @@ If you embed Cashfree's Web Checkout page inside your own Android, iOS, React Na
 <div class="cf-tabs" data-cftabs>
 
 <div class="cf-tabs-nav">
-<button type="button" class="cf-tab-btn cf-tab-active" data-tab="webview">WebView</button>
-<button type="button" class="cf-tab-btn" data-tab="android">Android</button>
+<button type="button" class="cf-tab-btn cf-tab-active" data-tab="android">Android</button>
 <button type="button" class="cf-tab-btn" data-tab="ios">iOS</button>
 </div>
 
-<div class="cf-tab-panel" data-panel="webview">
-
-If you embed Cashfree's Web Checkout page inside your own Android, iOS, React Native, Flutter, or Cordova application using a WebView, rather than opening it in a system browser, you are responsible for intercepting the UPI deep link yourself. A WebView does not hand off to other apps the way a system browser does, so without extra code the UPI option can show up on your checkout page and simply do nothing when your customer taps it. Cashfree still renders the checkout page in this case, only the deep link interception becomes your responsibility, and it differs by platform, see the Android and iOS tabs above.
-
-</div>
-
-<div class="cf-tab-panel" data-panel="android" hidden>
+<div class="cf-tab-panel" data-panel="android">
 
 Override `shouldOverrideUrlLoading` on the `WebViewClient`, match the request URL against the required UPI schemes, confirm that a handler exists on the device, and launch it using an `ACTION_VIEW` intent.
 
