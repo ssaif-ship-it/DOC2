@@ -53,6 +53,8 @@ Which of the three models below fits you depends on where your business actually
 
 # Activation Guide
 
+If you are just weighing whether offline payments fits your business, here is the shape of it: you request activation from the Merchant Dashboard, pick the collection point type that matches how you collect payments (see Collection Models above), Cashfree verifies it, and you start collecting. No hardware or lengthy integration is needed for Storefront or Customer VPA, and Agent just needs an app install.
+
 ## Step 1: Activate Offline Payments
 
 Make sure you have an active Cashfree Payment Gateway account, then request Offline Payments activation from the Merchant Dashboard.
@@ -78,22 +80,14 @@ Select the collection point type that matches your business needs:
 
 ---
 
-## Step 3: Set Up Your Collection Points
+## Step 3: Get It Verified and Start Collecting
 
-Cashfree must verify each collection point before you can start collecting payments. Follow the respective setup steps according to your selected collection point type:
+Cashfree verifies each collection point before it can start accepting payments, and it must reach **Active** status first.
 
-*   Storefront setup
-*   Agent setup
-*   Customer VPA setup
+Once active, agents collect through the **softPOS application** (Android), using QR codes, payment links, or Tap to Pay, while Storefront and Customer VPA collection points work directly through their own QR code or UPI ID, with no app needed.
 
-> **Note:** Each collection point must reach **Active** status before you can start collecting payments.
+All transactions, both cash and digital, are visible in a single dashboard. See [5.1 Settlements](#doc-5-1) to understand how and when funds are transferred to your bank account.
 
 ---
 
-## Step 4: Start Collecting Payments via Agents
-
-Agents can begin accepting payments through the **softPOS application**, a mobile app for Android devices that supports QR codes, payment links, and more.
-
-For instructions on setting up static and dynamic QR codes, payment links, and payment limits, see the Agent setup steps above.
-
-All transactions, both cash and digital, are visible in a single dashboard. See [5.1 Settlements](#doc-5-1) to understand how and when funds are transferred to your bank account.
+**Setting this up from scratch?** This guide assumes you already have a Cashfree account. If you are starting from zero, including creating your account, completing KYC, and deciding how the rest of your payments are integrated, see the complete [3.2 Onboarding Guide](#doc-3-2). Step 6 there covers exactly where offline acceptance fits into that journey.
