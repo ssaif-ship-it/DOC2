@@ -4,7 +4,9 @@ Depending on your integration environment and reconciliation needs, there are th
 
 ### 1. Static QR
 
-<!-- Claude, flagging for Saif: leaving space for a Static QR photo here too, please upload one (drag it into a GitHub comment or issue to get a user-attachments URL, the same way the 2.6 and 4.1 images and video got added) and I will wire it in right away. -->
+<video src="upi%20qr%20code.mp4" autoplay loop muted playsinline width="100%">
+  Your browser does not support the video tag.
+</video>
 
 A Static QR code is a fixed image that does not change. It encodes only your base merchant VPA (Virtual Payment Address) and merchant details.
 
