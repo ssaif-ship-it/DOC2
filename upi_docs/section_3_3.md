@@ -2,29 +2,30 @@ If you are a Stock Broker, Mutual Fund, Online Bond Platform Provider (OBPP), or
 
 ## 1. What TPV Means For You
 
-TPV enforces a single rule: a payment must come from a bank account registered in the investor's own name. A payment from any other account is rejected before it reaches settlement.
+TPV enforces a single rule: a payment must come from a bank account registered in the investor's own name. Cashfree shares your customer's expected bank account details with their bank, and the bank checks that the payment is actually coming from that account before it goes through. A payment from any other account fails and never reaches settlement.
 
-This exists to make sure your customer has explicitly authorized the investment they are paying into, to stop a common fraud pattern where money moves into an investment product from an account that is not the investor's own, and to meet RBI and NPCI's compliance requirements for UPI recurring collections in this category. For mandates above roughly ₹15,000, TPV also adds one more layer of authentication beyond the standard UPI PIN.
+This exists to make sure your customer has explicitly authorized the investment they are paying into, to stop a common fraud pattern where money moves into an investment product from an account that is not the investor's own, and to meet RBI and NPCI's compliance requirements for UPI recurring collections in this category.
+
+<!-- Claude, flagging for Saif: dropped the earlier "additional authentication above ₹15,000" line here. That is a real NPCI rule for recurring UPI mandates in general, but I have not found it confirmed specifically for TPV mandates on Cashfree's public docs, so I did not want to state it as a TPV specific fact. Added it to the open questions list instead. -->
 
 ## 2. What Your Customer Sees
 
-TPV adds exactly one extra step on top of a standard AutoPay mandate:
-
 1.  Your customer selects the subscription, EMI, insurance, or mutual fund payment to set up.
-2.  You trigger the UPI AutoPay request, via Intent, Collect, or Dynamic QR.
-3.  Your customer approves the mandate request in their UPI app.
-4.  The request is validated through NPCI and the TPV entity.
-5.  Because this is a TPV transaction, your customer gets one additional OTP or consent prompt confirming the account is genuinely theirs.
-6.  Once that clears, the mandate activates.
-7.  Recurring debits proceed on schedule after that, each preceded by a Pre-Debit Notification. See [4.1 AutoPay](#doc-4-1) for how that part works.
+2.  You trigger the UPI AutoPay request, via Intent, Collect, or Dynamic QR, passing your customer's registered bank account number and IFSC with the request.
+3.  Your customer approves the mandate request in their UPI app, the same way as any AutoPay mandate. There is no separate extra prompt shown to them for TPV specifically.
+4.  Behind the scenes, the bank checks that the account approving the mandate matches the one you registered. If your customer approves from a different account than the one registered, the mandate fails, and the order can remain in a pending state rather than show as failed right away, so build your reconciliation around that rather than expecting an instant decline.
+5.  Once the match clears, the mandate activates, and recurring debits proceed on schedule after that, each preceded by a Pre-Debit Notification. See [4.1 AutoPay](#doc-4-1) for how that part works.
 
-<!-- Claude, flagging for Saif: is this flow accurate as merchant-facing, or does your integration need to handle any part of the OTP/TPV-entity verification step directly (4-5), rather than it being entirely bank-side? Written here as something that happens to the customer, not something you build for. Please confirm. -->
+<!-- Claude, confirmed for Saif: rewrote this flow against Cashfree's own public TPV docs (cashfree.com/docs/payments/features/tpv), which describe this same account matching mechanism. That page does not mention any extra OTP or consent step for TPV specifically, only that a mismatched account fails, so I removed the earlier "additional OTP" claim, it was not something I could verify. That page also does not confirm whether this is the exact same TPV system used for the SEBI investment category specifically, since it is written as a generic feature for any merchant, not this category. See the open questions list for this. -->
 
 ## 3. Which Banks Support This Today
 
-*   **Standard TPV** checks the payment against a single registered account. Supported by ICICI, YES Bank, HDFC, and Axis.
-*   **Multibank TPV** lets your customer register up to five accounts against one request. Supported by ICICI and HDFC.
+*   **Standard TPV (single registered account):** works over UPI with any UPI app or bank, Cashfree's public docs state that all UPI apps support this account validation.
+*   **Multi-bank TPV (your customer registers up to 4 accounts, not 5):** supported on UPI, NetBanking, and bank transfers. For UPI specifically, it only works on select UPI rails and needs to be turned on for your account, contact your Cashfree account manager to enable it.
+*   **NetBanking TPV** is supported across a long list of banks, over 50 at last count, including SBI, HDFC, ICICI, Axis, Kotak, and Yes Bank, alongside most other public and private banks. <!-- Claude, the full bank by bank list is at cashfree.com/docs/payments/features/tpv#netbanking-supported-banks if you need to check one specific bank. -->
 *   TPV applies to both UPI Mandates and OTM (One-Time Mandate), so it covers a single premium payment the same way it covers a recurring SIP.
+
+<!-- Claude, flagging for Saif: this section previously said standard TPV was "Supported by ICICI, YES Bank, HDFC, and Axis" and multi-bank allowed "up to five accounts, supported by ICICI and HDFC." I could not find either claim on Cashfree's public docs, rewritten to match what the public TPV feature page actually says (no bank restriction for standard UPI TPV, four accounts max for multi-bank). See the open questions list, since this public page is generic and does not confirm it is the same system used for this investment category specifically. -->
 
 ## 4. Your UPI Handle
 
