@@ -7,6 +7,8 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/turndown@7/dist/turndown.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/turndown-plugin-gfm@1/dist/turndown-plugin-gfm.js"></script>
 
@@ -52,8 +54,9 @@
         .cf-prose blockquote { border-left: 4px solid #5A28A3; background-color: #F9FAFB; padding: 1rem; color: #4B5563; margin-left: 0; margin-bottom: 1.25rem; border-radius: 0 0.5rem 0.5rem 0; }
         .cf-prose blockquote p:last-child { margin-bottom: 0; }
         .cf-prose code { background-color: #F3F4F6; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-size: 0.875em; font-family: ui-monospace, monospace; color: #DB2777;}
-        .cf-prose pre { background-color: #1F2937; color: #E5E7EB; padding: 1.25rem; border-radius: 0.5rem; overflow-x: auto; white-space: pre-wrap; word-break: break-word; margin-bottom: 1.5rem; }
-        .cf-prose pre code { background-color: transparent; color: inherit; padding: 0; }
+        .cf-prose pre { background-color: #000000; padding: 0; border-radius: 0.5rem; overflow: hidden; margin-bottom: 1.5rem; }
+        .cf-prose pre code.hljs { display: block; background-color: #000000 !important; padding: 1.25rem; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+        .cf-prose pre code:not(.hljs) { background-color: transparent; color: inherit; padding: 0; }
         .cf-prose mark { background-color: #FEF08A; padding: 0.1em 0.2em; border-radius: 0.2em; }
         .cf-prose hr { border: 0; border-top: 1px solid #E5E7EB; margin: 2rem 0; }
         .cf-prose img { max-width: 100%; border-radius: 0.5rem; }
@@ -792,6 +795,7 @@
         editorBlocks = p.blocks;
         const host = document.createElement('div');
         host.innerHTML = marked.parse(p.md);
+        host.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
         host.querySelectorAll('div[data-cfblock]').forEach(el => {
             const idx = parseInt(el.getAttribute('data-cfblock'), 10);
             const tmp = document.createElement('div');
@@ -1026,6 +1030,7 @@
         } else {
             contentArea.innerHTML = renderTOC(marked.parse(shown));
             execScripts(contentArea);
+            contentArea.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
         }
         renderRail();
         updateNav();
