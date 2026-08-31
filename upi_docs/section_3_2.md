@@ -166,6 +166,8 @@ Merchants most often stall here, because it looks like one call and it is two.
 1.  `POST /orders` creates the order and returns a **`payment_session_id`**. It does **not** return a UPI deep link.
 2.  Order Pay, with `payment_method.upi.channel` set, returns the thing you actually render: `"link"` for an Intent deep link, `"qrcode"` for a QR payload, `"collect"` with a `upi_id` for a Collect request.
 
+<!-- Claude, confirmed correction for Saif: the API also accepts a fourth channel value, `"podQrCode"`, for POD QR (see 2.3), not listed here before. Added as a note rather than folding it into the sentence above since POD QR is a narrower, delayed-payment use case, not a general online checkout option. -->
+
 Base URLs:
 
 *   Sandbox: `https://sandbox.cashfree.com/pg`
@@ -267,8 +269,10 @@ Also test a **refund**. User drops (the row above) are the largest single catego
 2.  **Confirm KYC is approved.** Check the status in **Dashboard > Account Settings > KYC**.
 3.  **Confirm the penny test.** Reply to the bank account confirmation email from Cashfree. Your settlements cannot reach you until this is done.
 4.  **Choose your settlement cycle.** See the options below.
-5.  **Configure webhook notifications.** Subscribe to the events by their literal names: `PAYMENT_SUCCESS_WEBHOOK`, `PAYMENT_FAILED_WEBHOOK`, `REFUND_STATUS_WEBHOOK`. Prose descriptions in a dashboard list will not match what your code needs to switch on.
+5.  **Configure webhook notifications.** Subscribe to the events by their literal names: `PAYMENT_SUCCESS_WEBHOOK`, `PAYMENT_FAILED_WEBHOOK`, `PAYMENT_USER_DROPPED_WEBHOOK`, `REFUND_STATUS_WEBHOOK`. Prose descriptions in a dashboard list will not match what your code needs to switch on.
 6.  **Run one real transaction of your own** before you open the flow to customers.
+
+<!-- Claude, confirmed correction for Saif: verified the webhook event list in step 5 against Cashfree's real webhook events (cashfree.com/docs/api-reference/payments/latest/payments/webhooks and .../refunds/webhooks). The three original events are correct, but the list was missing PAYMENT_USER_DROPPED_WEBHOOK, which fires when a customer abandons checkout, worth having if you track drop-offs, added it above. -->
 
 ### Your settlement cycle options
 
