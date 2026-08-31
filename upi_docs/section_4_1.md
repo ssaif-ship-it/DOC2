@@ -12,8 +12,8 @@ Before you create a mandate, decide which of the two AutoPay types fits your bil
 
 | Type | How it works | Best for |
 | :-- | :-- | :-- |
-| **Periodic** | You register a fixed frequency (Daily, Monthly, Yearly, and so on) when creating the mandate. Cashfree automatically schedules and triggers the debit on each due date, you don't call an API to fire it. | Subscriptions, EMIs, insurance premiums, anything with a predictable billing calendar. |
-| **On-Demand** | The mandate is created without a fixed schedule. You trigger each charge yourself, whenever it's due, by raising a charge through the API. | Usage-based billing, ad-hoc top-ups, or any case where you don't know the next debit date in advance. |
+| **Periodic** | You register a fixed frequency (Daily, Monthly, Yearly, and so on) when creating the mandate. Cashfree automatically schedules and triggers the debit on each due date, you do not call an API to fire it. | Subscriptions, EMIs, insurance premiums, anything with a predictable billing calendar. |
+| **On-Demand** | The mandate is created without a fixed schedule. You trigger each charge yourself, whenever it is due, by raising a charge through the API. | Usage-based billing, ad-hoc top-ups, or any case where you do not know the next debit date in advance. |
 
 ## 2. Frequencies (Periodic Mandates Only)
 
@@ -36,7 +36,7 @@ NPCI limits how much can be automatically debited before the customer has to re-
 
 The exact ceiling for your category, and the matching registration limits, are in **[4.4 MCC-Specific Limits](#doc-4-4)**, check that table rather than assuming ₹15,000 applies to you by default.
 
-**First execution is a special case:** if it happens within 5 minutes of mandate creation, the PIN the customer just entered to create the mandate covers it too, no separate PIN entry. If the first debit is scheduled for later instead, it always needs a fresh PIN entry regardless of amount, this one time, even if it's below ₹15,000.
+**First execution is a special case:** if it happens within 5 minutes of mandate creation, the PIN the customer just entered to create the mandate covers it too, no separate PIN entry. If the first debit is scheduled for later instead, it always needs a fresh PIN entry regardless of amount, this one time, even if it is below ₹15,000.
 
 ## 5. The Pre-Debit Notification (PDN)
 
@@ -49,13 +49,13 @@ Before every execution, you must send a Pre-Debit Notification (PDN) to the cust
 
 ## 6. Denied Payments and Retries
 
-A debit can fail even after the PDN goes through successfully, and what you do next depends entirely on why it failed. Don't treat every failure the same way, only one of the four cases below is something you actually retry, and even then, only for Periodic subscriptions, On-Demand has no fixed cycle to retry within, you just raise a new charge yourself whenever you're ready.
+A debit can fail even after the PDN goes through successfully, and what you do next depends entirely on why it failed. Do not treat every failure the same way, only one of the four cases below is something you actually retry, and even then, only for Periodic subscriptions, On-Demand has no fixed cycle to retry within, you just raise a new charge yourself whenever you are ready.
 
 | What happened | What you do about it |
 | :-- | :-- |
 | **Customer-side and temporary:** low balance, a brief network issue at the customer's bank, an inactive-but-not-closed account | **Retry it, Periodic only.** The subscription moves to ON HOLD, and you call the Retry API. Up to **3 retry attempts**, no more than **1 per day**, and it must succeed before the current cycle expires. A successful retry reactivates the subscription. |
-| **The account or mandate itself is broken:** closed/invalid account, a mandate already cancelled or deactivated, a name mismatch | **Don't retry, it won't work.** The customer needs to set up a brand new mandate. |
-| **Blocked by something outside normal banking:** a court order, a frozen account, KYC pending on the customer's side | **Retrying won't fix this.** Follow up with the customer directly instead. |
+| **The account or mandate itself is broken:** closed/invalid account, a mandate already cancelled or deactivated, a name mismatch | **Do not retry, it will not work.** The customer needs to set up a brand new mandate. |
+| **Blocked by something outside normal banking:** a court order, a frozen account, KYC pending on the customer's side | **Retrying will not fix this.** Follow up with the customer directly instead. |
 
 See **[4.4 MCC-Specific Limits](#doc-4-4)** for the full limits reference, registration ceilings and PIN thresholds by category, that the rest of this section points back to.
 

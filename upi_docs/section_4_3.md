@@ -1,4 +1,4 @@
-This guide walks you through integrating Cashfree Subscriptions, covering UPI AutoPay, eNACH, and Card Standing Instructions, from activating the product to your first live recurring charge. At each step, we call out what you're actually deciding, what it means for your customer, and what it means for you operationally, not just the API call to make.
+This guide walks you through integrating Cashfree Subscriptions, covering UPI AutoPay, eNACH, and Card Standing Instructions, from activating the product to your first live recurring charge. At each step, we call out what you are actually deciding, what it means for your customer, and what it means for you operationally, not just the API call to make.
 
 ## 1. Before You Start: Prerequisites
 
@@ -33,7 +33,7 @@ Before writing any code, decide how much of the mandate creation experience you 
 | **Hosted Checkout** | Briefly redirected to a Cashfree-branded approval page, then back to you | Almost nothing, call the API, redirect using the returned link |
 | **Seamless** | Never leaves your app, approves the mandate inside your own UI | The full mandate creation interface, plus your own handling of UPI/bank details |
 
-If you're not sure which to pick: Hosted Checkout gets you live fastest and is what most merchants start with. Seamless is worth the extra build only if a visible redirect to Cashfree would actually hurt your conversion or brand experience.
+If you are not sure which to pick: Hosted Checkout gets you live fastest and is what most merchants start with. Seamless is worth the extra build only if a visible redirect to Cashfree would actually hurt your conversion or brand experience.
 
 Two lighter-weight options sit alongside these: the **Element SDK** gives you a native mobile UI while Cashfree still processes everything behind it, a middle ground, less work than full Seamless, more native feel than a redirect, and **Dashboard/Payment Links** let you create and send a subscription with no code at all, useful for sales-led billing or quick testing rather than a real integration.
 
@@ -55,7 +55,7 @@ Two lighter-weight options sit alongside these: the **Element SDK** gives you a 
 
 ### Step 1: Activate Subscriptions
 
-Log in to the Merchant Dashboard, go to **Products > Subscriptions**, and click **Request Activation**. This provisions your `SBCProfile`, webhook triggers, and VPA mandate attributes on the UPI switch. There's no customer-facing effect at this step, it's account setup, but it can involve a manual review, so start it before you plan a go-live date.
+Log in to the Merchant Dashboard, go to **Products > Subscriptions**, and click **Request Activation**. This provisions your `SBCProfile`, webhook triggers, and VPA mandate attributes on the UPI switch. There is no customer-facing effect at this step, it is account setup, but it can involve a manual review, so start it before you plan a go-live date.
 
 ### Step 2: Get API Keys and Set Up Webhooks
 
@@ -65,13 +65,13 @@ Retrieve your production and sandbox credentials under **Developers > API Keys**
 *   `SUBSCRIPTION_AUTH_SUCCESS` / `SUBSCRIPTION_AUTH_FAILURE`
 *   `SUBSCRIPTION_PAYMENT_SUCCESS` / `SUBSCRIPTION_PAYMENT_FAILURE`
 
-Why this matters for your customer: webhooks are how your own app finds out a mandate was approved or a charge failed. If these aren't wired up correctly, your customer could see a stale status in your app, still "pending" after they've approved, or still "active" after a payment failed, even though Cashfree processed it correctly on its end. Verify incoming webhooks with HMAC-SHA256 using the [Signature Verification Specs](https://www.cashfree.com/docs/payments/online/webhooks/signature-verification).
+Why this matters for your customer: webhooks are how your own app finds out a mandate was approved or a charge failed. If these are not wired up correctly, your customer could see a stale status in your app, still "pending" after they have approved, or still "active" after a payment failed, even though Cashfree processed it correctly on its end. Verify incoming webhooks with HMAC-SHA256 using the [Signature Verification Specs](https://www.cashfree.com/docs/payments/online/webhooks/signature-verification).
 
 <!-- FLAG FOR SAIF: from your test account notes, confirm whether you actually had to implement this signature verification by hand, or whether an SDK/dashboard setting handled it for you. If it's handled for you, this section should say so and skip straight to "which events to subscribe to." -->
 
 ### Step 3: Create a Plan
 
-A plan defines the billing rules a customer will be authorizing. You're making two decisions here, both already covered in detail in [4.1 AutoPay](#doc-4-1):
+A plan defines the billing rules a customer will be authorizing. You are making two decisions here, both already covered in detail in [4.1 AutoPay](#doc-4-1):
 
 *   **Periodic or On-Demand**, whether Cashfree auto-triggers debits on a schedule, or you trigger each charge yourself.
 *   **Exact or Max amount**, whether the customer is authorizing one fixed number every cycle, or a ceiling you can charge up to.
@@ -84,7 +84,7 @@ Create the plan via **Dashboard: Subscriptions > Plans > Create Plan**, or `POST
 
 Tie a customer to the plan with `POST /pg/subscriptions`, see the [Create Subscription API Docs](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/mandate/create). This returns an `authorization_link`, what you do with it depends on the integration approach from Step 2 above, redirect for Hosted Checkout, or feed it into your own UI for Seamless.
 
-You're also choosing a payment method here, which changes what your customer actually experiences:
+You are also choosing a payment method here, which changes what your customer actually experiences:
 
 | Method | What your customer does |
 | :-- | :-- |
@@ -92,15 +92,15 @@ You're also choosing a payment method here, which changes what your customer act
 | **eNACH** | Gets redirected to their bank's NetBanking or Debit Card portal to approve |
 | **Card SI** | Enters an OTP to tokenize their card at the SI Hub |
 
-UPI AutoPay tends to complete fastest since most customers already have a UPI app open and ready. eNACH's bank redirect is an extra hop, and some customers drop off there simply because they don't recognize the bank's page. Offering more than one method widens who can pay you, but means you're supporting more than one approval experience.
+UPI AutoPay tends to complete fastest since most customers already have a UPI app open and ready. eNACH's bank redirect is an extra hop, and some customers drop off there simply because they do not recognize the bank's page. Offering more than one method widens who can pay you, but means you are supporting more than one approval experience.
 
 ### Step 5: Execute Recurring Charges
 
-Once the mandate is `ACTIVE`, Periodic plans debit automatically on schedule, On-Demand plans need you to call `POST /pg/subscriptions/pay` yourself. Every execution follows the Pre-Debit Notification, retry, and denial rules already covered in [4.1 AutoPay, sections 5 and 6](#doc-4-1), that's where the actual mechanics live, this step is just where you trigger it.
+Once the mandate is `ACTIVE`, Periodic plans debit automatically on schedule, On-Demand plans need you to call `POST /pg/subscriptions/pay` yourself. Every execution follows the Pre-Debit Notification, retry, and denial rules already covered in [4.1 AutoPay, sections 5 and 6](#doc-4-1), that is where the actual mechanics live, this step is just where you trigger it.
 
 If you need finer control over notification timing than the default, see the [Merchant-Controlled PDN & Execution APIs](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/payment/create-controlled-notification).
 
-**On changing an amount mid-mandate:** Cashfree doesn't offer a direct API to edit an active mandate's amount or expiry in place. To bill a customer a different amount going forward, create a new plan with the revised amount and apply it via the `CHANGE_PLAN` action described in Step 6.
+**On changing an amount mid-mandate:** Cashfree does not offer a direct API to edit an active mandate's amount or expiry in place. To bill a customer a different amount going forward, create a new plan with the revised amount and apply it via the `CHANGE_PLAN` action described in Step 6.
 
 ### Step 6: Manage, Monitor, and Reconcile
 
@@ -108,9 +108,9 @@ Control active mandates via Dashboard or `POST /pg/subscriptions/{subscription_i
 
 | Action | Effect on your customer | When to use it |
 | :-- | :-- | :-- |
-| **PAUSE** | Debits stop, but the mandate itself stays alive, nothing for them to re-approve later | Customer requests a temporary break, or you're troubleshooting |
+| **PAUSE** | Debits stop, but the mandate itself stays alive, nothing for them to re-approve later | Customer requests a temporary break, or you are troubleshooting |
 | **ACTIVATE** | Resumes debits on the existing mandate | Ending a pause |
-| **CANCEL** | Mandate is revoked outright, they'd need to approve a brand new one to resume | Customer is done, or the relationship is ending |
+| **CANCEL** | Mandate is revoked outright, they would need to approve a brand new one to resume | Customer is done, or the relationship is ending |
 | **CHANGE_PLAN** | They keep paying, but under new plan terms | You need to change the amount, frequency, or ceiling |
 
 ## 4. Sandbox Testing & Go-Live Checklist
@@ -146,4 +146,4 @@ For when you already know the flow and just need the endpoint:
 
 <!-- FLAG FOR SAIF: your PG/Online Store test notes say Subscriptions actually runs on a legacy /api/v2 API in practice, while every endpoint above is the newer /pg one from Cashfree's "latest" docs. Confirm which one your test account is actually provisioned on before this table goes live, if it's the legacy one, this whole table and several links above need to point at /api/v2 endpoints instead. -->
 
-Full schemas, headers, status codes, and error payloads are in the [Cashfree Subscriptions API Portal](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/overview), and the [Postman Collection](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/subscription-postman-collection) if you'd rather explore hands-on.
+Full schemas, headers, status codes, and error payloads are in the [Cashfree Subscriptions API Portal](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/overview), and the [Postman Collection](https://www.cashfree.com/docs/api-reference/payments/latest/subscription/subscription-postman-collection) if you would rather explore hands-on.
