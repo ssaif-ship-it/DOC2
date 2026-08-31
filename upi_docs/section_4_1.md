@@ -17,9 +17,11 @@ Before you create a mandate, decide which of the two AutoPay types fits your bil
 
 ## 2. Frequencies (Periodic Mandates Only)
 
-If you chose Periodic, you must register one of the following frequencies at mandate creation: Daily, Weekly, Fortnightly, Monthly, Bimonthly, Quarterly, Half-yearly, Yearly, or **As Presented**.
+If you chose Periodic, you must register one of the following frequencies at mandate creation: Daily, Weekly, Fortnightly, Monthly, Bimonthly, Quarterly, Half-yearly, or Yearly.
 
-**As Presented is a special case.** Unlike the others, it has no fixed date or fixed amount, a debit is raised whenever you present the next bill (for example, a variable utility bill). Because the amount and date both vary, NPCI sets a lower per-mandate registration ceiling for As Presented mandates than for fixed-frequency ones, and that ceiling also varies by merchant category (MCC). For most categories it is ₹25,000 per mandate; a handful of categories are allowed higher. See [4.4 MCC-Specific Limits](#doc-4-4) for the full table before you register a mandate, this is a ceiling on what you can register the mandate for, not a monthly cap on how much you collect.
+<!-- Claude, flagging for Saif, not confirmed: this section used to list "As Presented" as a ninth Periodic frequency. I could not confirm that classification and removed it rather than leave it stated as fact. Cashfree's own Subscriptions Overview page (cashfree.com/docs/payments/subscription/introduction) assigns As Presented's defining behaviour, debiting a variable amount whenever a bill is generated, to On-Demand, not Periodic. The RBI Digital Payments E-Mandate Framework, 2026 does not use the term As Presented at all, it only distinguishes Fixed Amount and Variable Amount mandates. The only place "As Presented" appears anywhere on Cashfree's site is the Payment Modes page, written as "As and when presented," listed for physical/NACH mandate forms, not confirmed for UPI Autopay specifically. The MCC ceiling numbers in 4.4 look like real NPCI data and I have left that table alone, but whether those ceilings sit under Periodic or under On-Demand needs a definitive answer from your NPCI or compliance contact before this doc asserts either way. -->
+
+For invoice-triggered billing, where the amount and the date both vary each cycle (a utility bill, a credit card statement), NPCI applies a lower registration ceiling than it does for the fixed frequencies above, and that ceiling varies by merchant category (MCC). See [4.4 MCC-Specific Limits](#doc-4-4) for the full table before you register a mandate of this kind. This is a ceiling on what you can register the mandate for, not a monthly cap on how much you collect.
 
 ## 3. Amount Rules: Exact or Max
 

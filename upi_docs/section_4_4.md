@@ -6,8 +6,10 @@ The maximum upper bound allowed when registering a mandate. The merchant can nev
 
 ### Billing Frequency Types
 
-*   **As Presented :** Debits are triggered on demand whenever an invoice is generated (e.g., utility bills, credit card statements). Because billing dates and amounts vary, stricter creation caps apply.
-*   **All Others (:** Predefined recurring intervals (e.g., Daily, Monthly, Half-Yearly, Yearly). Higher creation limits are permitted due to the predictable billing cadence.
+<!-- Claude, flagging for Saif, not confirmed: "As Presented" is used below purely as NPCI's own label for the invoice-triggered ceiling column in this table, it is not confirmed to map to either Cashfree's Periodic or On-Demand plan type. See the longer flag in 4.1, section 2, for what I could and could not verify. -->
+
+*   **As Presented:** Debits are triggered whenever an invoice is generated (for example, utility bills, credit card statements). Because billing dates and amounts vary, stricter creation caps apply.
+*   **All Others:** Predefined recurring intervals (for example, Daily, Monthly, Half-Yearly, Yearly). Higher creation limits are permitted due to the predictable billing cadence.
 
 ### AFA Exemption Threshold
 
