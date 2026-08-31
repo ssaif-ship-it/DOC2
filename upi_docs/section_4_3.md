@@ -35,7 +35,9 @@ Before writing any code, decide how much of the mandate creation experience you 
 
 If you are not sure which to pick: Hosted Checkout gets you live fastest and is what most merchants start with. Seamless is worth the extra build only if a visible redirect to Cashfree would actually hurt your conversion or brand experience.
 
-Two lighter-weight options sit alongside these: the **Element SDK** gives you a native mobile UI while Cashfree still processes everything behind it, a middle ground, less work than full Seamless, more native feel than a redirect, and **Dashboard/Payment Links** let you create and send a subscription with no code at all, useful for sales-led billing or quick testing rather than a real integration.
+Two lighter-weight options sit alongside these: the **Element SDK** gives you a native mobile UI while Cashfree still processes everything behind it, a middle ground, less work than full Seamless, more native feel than a redirect, and the **Dashboard** lets you create and send a subscription with no code at all, useful for sales-led billing or quick testing rather than a real integration.
+
+<!-- Claude, confirmed correction for Saif: this line used to say "Dashboard/Payment Links." Checked cashfree.com/docs/payments/no-code/overview, Cashfree's No-Code Payment Links product is for one-off payments, forms, and buttons, it is not documented as a way to create a subscription/mandate. Dropped "Payment Links" so this does not point merchants at a product that cannot actually do what this sentence describes. -->
 
 ## 3. Building the Integration, Step by Step
 
@@ -55,15 +57,19 @@ Two lighter-weight options sit alongside these: the **Element SDK** gives you a 
 
 ### Step 1: Activate Subscriptions
 
-Log in to the Merchant Dashboard, go to **Products > Subscriptions**, and click **Request Activation**. This provisions your `SBCProfile`, webhook triggers, and VPA mandate attributes on the UPI switch. There is no customer-facing effect at this step, it is account setup, but it can involve a manual review, so start it before you plan a go-live date.
+Log in to the Merchant Dashboard, go to **Products > Subscriptions**, and click **Request Activation**. This provisions your webhook triggers and VPA mandate attributes on the UPI switch. There is no customer-facing effect at this step, it is account setup, but it can involve a manual review, so start it before you plan a go-live date.
+
+<!-- Claude, flagging for Saif, not confirmed: this sentence previously said activation "provisions your SBCProfile." I could not find that term anywhere in Cashfree's public docs or on the wider web, it reads as internal-only jargon that would mean nothing to a merchant reading this guide, so I removed it rather than publish an unexplained internal term. If it is meaningful to a merchant (something they would see in the dashboard, for example), tell me what it actually refers to and I will describe it properly instead of just cutting it. -->
 
 ### Step 2: Get API Keys and Set Up Webhooks
 
 Retrieve your production and sandbox credentials under **Developers > API Keys** (`x-client-id`, `x-client-secret`, `x-api-version`), see the [Authentication Guide](https://www.cashfree.com/docs/api-reference/authentication). Then register your webhook endpoint under **Developers > Webhooks** and subscribe to:
 
-*   `SUBSCRIPTION_STATUS_CHANGE`
-*   `SUBSCRIPTION_AUTH_SUCCESS` / `SUBSCRIPTION_AUTH_FAILURE`
-*   `SUBSCRIPTION_PAYMENT_SUCCESS` / `SUBSCRIPTION_PAYMENT_FAILURE`
+*   `SUBSCRIPTION_STATUS_CHANGED`
+*   `SUBSCRIPTION_AUTH_STATUS`
+*   `SUBSCRIPTION_PAYMENT_SUCCESS` / `SUBSCRIPTION_PAYMENT_FAILED`
+
+<!-- Claude, confirmed correction for Saif: fetched cashfree.com/docs/api-reference/payments/latest/subscription/webhooks directly. Three of these event names were wrong: SUBSCRIPTION_STATUS_CHANGE should be SUBSCRIPTION_STATUS_CHANGED, SUBSCRIPTION_AUTH_SUCCESS and SUBSCRIPTION_AUTH_FAILURE do not exist as two separate events, there is a single SUBSCRIPTION_AUTH_STATUS event instead, and SUBSCRIPTION_PAYMENT_FAILURE should be SUBSCRIPTION_PAYMENT_FAILED. A merchant who subscribed to the old literal strings would receive nothing. Corrected all three below. -->
 
 Why this matters for your customer: webhooks are how your own app finds out a mandate was approved or a charge failed. If these are not wired up correctly, your customer could see a stale status in your app, still "pending" after they have approved, or still "active" after a payment failed, even though Cashfree processed it correctly on its end. Verify incoming webhooks with HMAC-SHA256 using the [Signature Verification Specs](https://www.cashfree.com/docs/payments/online/webhooks/signature-verification).
 
@@ -86,11 +92,13 @@ Tie a customer to the plan with `POST /pg/subscriptions`, see the [Create Subscr
 
 You are also choosing a payment method here, which changes what your customer actually experiences:
 
+<!-- Claude, flagging for Saif, not confirmed: the Card SI row below used to say the customer tokenizes their card "at the SI Hub." SI Hub is a real term, ICICI and American Express both use it, but I found no Cashfree page using it, so attributing a product called SI Hub to Cashfree specifically is not something I could confirm. Reworded to describe the mechanism without naming a specific hub. -->
+
 | Method | What your customer does |
 | :-- | :-- |
 | **UPI AutoPay** | Approves the mandate with their UPI PIN, inside their own UPI app (Intent, QR, or Collect) |
 | **eNACH** | Gets redirected to their bank's NetBanking or Debit Card portal to approve |
-| **Card SI** | Enters an OTP to tokenize their card at the SI Hub |
+| **Card SI** | Enters an OTP to tokenize their card for standing instruction |
 
 UPI AutoPay tends to complete fastest since most customers already have a UPI app open and ready. eNACH's bank redirect is an extra hop, and some customers drop off there simply because they do not recognize the bank's page. Offering more than one method widens who can pay you, but means you are supporting more than one approval experience.
 
@@ -112,6 +120,8 @@ Control active mandates via Dashboard or `POST /pg/subscriptions/{subscription_i
 | **ACTIVATE** | Resumes debits on the existing mandate | Ending a pause |
 | **CANCEL** | Mandate is revoked outright, they would need to approve a brand new one to resume | Customer is done, or the relationship is ending |
 | **CHANGE_PLAN** | They keep paying, but under new plan terms | You need to change the amount, frequency, or ceiling |
+
+<!-- Claude, confirmed correction for Saif: verified this whole table and the CHANGE_PLAN workaround above it against cashfree.com/docs/api-reference/payments/latest/subscription/mandate/manage, PAUSE, ACTIVATE, CANCEL, and CHANGE_PLAN are exactly the four documented action values, nothing missing or invented. One gap worth adding: cashfree.com/docs/payments/subscription/manage states PAUSE and CHANGE_PLAN are not supported for On-Demand subscriptions specifically, only for Periodic ones. This guide does not mention that restriction anywhere, worth a line if On-Demand merchants are expected to use this table. -->
 
 ## 4. Sandbox Testing & Go-Live Checklist
 
