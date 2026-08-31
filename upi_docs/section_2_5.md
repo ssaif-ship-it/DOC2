@@ -8,13 +8,15 @@ We have enabled real-time EMI options for customers paying via RuPay Credit Card
 
 ### Key Merchant Benefits
 
-*   **Higher Conversions:** Presenting flexible options directly at checkout reduces customer drop-offs by up to 30%.
-*   **Increased Ticket Size:** Let customers purchase higher-value items, driving a 40% to 60% increase in Average Order Value (AOV).
+*   **Higher Conversions:** Presenting flexible options directly at checkout can increase checkout conversions by up to 30%.
+*   **Increased Ticket Size:** Let customers purchase higher-value items, driving a meaningful increase in Average Order Value (AOV).
 *   **Zero Risk:** Upfront settlement guarantees you receive the full transaction amount (less applicable subvention discounts), while the issuing bank bears the repayment risk.
+
+<!-- Claude, confirmed correction for Saif: the 30% figure checks out, it matches Cashfree's own credit-card-EMI page (cashfree.com/credit-card-emi), which states "increase checkout conversions by upto 30" percent, so reworded slightly to match that framing rather than "reduces drop-offs," a different metric. The AOV figure did not check out: this line previously said "40% to 60%," but Cashfree's own public pages disagree with each other and with that range, the credit-card-EMI page says a single "40% higher AOV," while the ScanToEMI blog (cashfree.com/blog/scan-to-emi-instant-no-cost-emi-upi-sales-booster) says "20 to 30% increase in average order value." Since Cashfree's own sources do not agree on a number, I removed the specific range rather than assert one. Whoever owns this feature should pick a single figure and I will restore it. -->
 
 ### Current Supported Scope
 
-*   **Supported Banks:** Real-time EMI is currently supported for SBI and HDFC RuPay Credit Cards.
+*   **Supported Banks:** Real-time EMI is currently supported for SBI and HDFC RuPay Credit Cards. <!-- Claude, flagging for Saif, not confirmed: the most recent public reporting I found (Inc42, September 2025) describes EMI on UPI as a network-level feature NPCI was still exploring, not something confirmed live in production with named issuing banks. Cashfree's own ScanToEMI blog post does not name SBI or HDFC either. This may well be accurate from an internal partnership you have that has not been publicly announced, but it needs an internal source before publishing the specific bank names as fact. -->
 *   **Supported Flows:** Enabled exclusively for UPI Intent Links and Dynamic QR Codes.
 *   **Unsupported Flows:** Contextual EMI is strictly prohibited for UPI Collect requests. Combining flat discounts with EMI offers is not supported at this time.
 
@@ -103,7 +105,7 @@ When creating an order, request a contextual Intent link or Dynamic QR by specif
 
 ### Reconciliation & Refunds
 
-*   **Purpose Code:** All EMI-converted UPI transactions are tagged with Purpose Code 72 across webhooks and settlement reports.
+*   **Purpose Code:** All EMI-converted UPI transactions are tagged with a distinct purpose code across webhooks and settlement reports. <!-- Claude, flagging for Saif, not confirmed: this line previously stated Purpose Code 72 specifically. A comprehensive NPCI purpose code reference I found runs from 00 through 92 with no gaps around 72, it jumps from 71 (UPI Lite AutoPay top-up) straight to 76 (SBMD for securities brokers), so 72 does not appear to be a real, currently assigned code. I removed the specific number rather than publish a wrong one, confirm the correct code internally and I will add it back. -->
 *   **Settlement:** Standard payments are settled at the full order amount minus MDR. No-Cost EMI payments are settled at the net principal amount (P) minus standard fees.
 *   **Refunds:** On a full refund, the net principal amount (P) is debited from your account, and the issuing bank cancels the customer's EMI schedule via NPCI's Unified Dispute and Issue Resolution (UDIR) framework.
 
@@ -113,16 +115,20 @@ To help you accept micro-transactions and alternative funding sources, our check
 
 ### UPI Lite (On-Device Wallet)
 
-UPI Lite is an on-device wallet designed for 1-click, PIN-less payments, up to **₹1,000 per transaction**, **₹10,000 cumulative per day**, with a maximum on-device wallet balance of **₹5,000** at any time.
+UPI Lite is an on-device wallet designed for 1-click, PIN-less payments, up to **₹1,000 per transaction**, with a maximum on-device wallet balance of **₹5,000** at any time.
+
+<!-- Claude, confirmed correction for Saif: the ₹1,000 per-transaction figure and the ₹5,000 wallet balance figure are both correct and current, they match RBI's October 2024 revision (raised from the earlier ₹500 per transaction and ₹2,000 wallet balance). I could not find any public source for the "₹10,000 cumulative per day" figure this line also used to state, no RBI, NPCI, or industry source I checked mentions a separate daily cumulative cap for UPI Lite specifically, so I removed it rather than publish an unconfirmed number. If that cap is real, it needs a source before it goes back in. -->
 
 *   **Seamless Micro-Payments:** Customers experience sub-second transaction speeds without entering a UPI PIN.
-*   **Fallback Mechanism:** If the order amount exceeds ₹1,000, the daily cumulative cap is reached, or the Lite balance is insufficient, the checkout automatically falls back to standard 2FA UPI requiring a PIN.
+*   **Fallback Mechanism:** If the order amount exceeds ₹1,000 or the Lite balance is insufficient, the checkout automatically falls back to standard 2FA UPI requiring a PIN.
 *   **No Extra Integration:** Enabled automatically on standard UPI Intent and QR flows.
 *   **Not for Mandates:** UPI Lite cannot be used for AutoPay or other UPI Mandate executions, which require the full bank-authenticated flow.
 
 ### Prepaid Wallets (Interoperable PPI)
 
 Full-KYC Prepaid Payment Instruments (like Paytm Wallet, Amazon Pay, and PhonePe Wallet) are fully integrated into the UPI ecosystem. Customers can utilize their pre-funded wallet balances to pay at your existing UPI QR codes or Intent links without any explicit onboarding required on your end.
+
+<!-- Claude, confirmed correction for Saif: the Insurance, Mutual Funds & Railways row previously said 1.1%. Checked against NPCI's PPI interchange structure as reported by Business Standard, that category is 1.0%, not 1.1%. Corrected below, all other rows in this table matched the same source. -->
 
 #### Interchange Fees for PPI Wallet Acceptance
 
@@ -135,7 +141,7 @@ Unlike standard savings account UPI transactions, PPI interoperable transactions
 | Fuel Stations | Any Amount | 0.5% |
 | Utilities, Telecom, Post Office, Agriculture & Education | Any Amount | 0.7% |
 | Supermarkets | Any Amount | 0.9% |
-| Insurance, Mutual Funds & Railways | Any Amount | 1.1% |
+| Insurance, Mutual Funds & Railways | Any Amount | 1.0% |
 
 ### Important PPI Rules
 

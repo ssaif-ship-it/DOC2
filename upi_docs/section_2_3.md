@@ -33,7 +33,7 @@ POD QR (podQR) is a Cashfree UPI QR variant designed for **pay-on-delivery / del
 | Feature | Behavior |
 | :-- | :-- |
 | **Payment retries allowed** | The *same* QR keeps working for repeated attempts, so you never need to regenerate one for your customer. |
-| **A TTL built for delay** | Configurable from a few hours up to 30+ days, so the QR stays valid for as long as your customer actually takes to pay. |
+| **A TTL built for delay** | Configurable from a few hours up to 30+ days, so the QR stays valid for as long as your customer actually takes to pay. <!-- Claude, flagging for Saif, not confirmed: I could not find "POD QR" or "podQR" documented anywhere on cashfree.com's public docs, so this TTL range has no public source to check it against. This may just be an enterprise or newer feature that has not made it into the public docs yet, but confirm this range internally before treating it as settled. --> |
 | **Smarter session handling** | The final payment status is confirmed only after the TTL expires, via a status check, so a slow payer never registers as a premature failure. |
 
 **Best suited for:** Pay-on-Delivery, printed invoices, and WhatsApp or digital invoices, that is, anywhere the payer might not pay on the first try or might pay later.
