@@ -175,8 +175,6 @@ Cycles represent business days (n) elapsed after transaction capture day (T):
         <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">3-way match (Gateway Records, Bank MIS and the escrow bank statement), done automatically by Cashfree.</td>
         <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">2-way match only (Gateway Records and Bank MIS). Cashfree cannot see your bank statement directly, so matching it against the actual bank credit is on you.</td>
       </tr>
-
-<!-- Claude, confirmed correction for Saif: this row previously said the opposite of what it says now, Standard Aggregator was listed as a simple 1:1 match and Direct Settlement as the one requiring 3-way reconciliation. No public source describes either model's reconciliation process, so per your source hierarchy the internal reference material you shared (citing the same PRD - UPI Direct Settlement Recon material behind the flag above this table) governs over this doc's prior unverified draft text. That material says Standard Aggregator gets an automated 3-way match, while Direct Settlement only gets a 2-way match and is more manual for you precisely because Cashfree cannot see your bank statement. Flipped both cells accordingly. -->
       <tr>
         <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Refunds</td>
         <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Fully automated via PG Refund APIs.</td>
@@ -199,6 +197,8 @@ Cycles represent business days (n) elapsed after transaction capture day (T):
     </tbody>
   </table>
 </div>
+
+<!-- Claude, confirmed correction for Saif: this row previously said the opposite of what it says now, Standard Aggregator was listed as a simple 1:1 match and Direct Settlement as the one requiring 3-way reconciliation. No public source describes either model's reconciliation process, so per your source hierarchy the internal reference material you shared (citing the same PRD - UPI Direct Settlement Recon material behind the flag above this table) governs over this doc's prior unverified draft text. That material says Standard Aggregator gets an automated 3-way match, while Direct Settlement only gets a 2-way match and is more manual for you precisely because Cashfree cannot see your bank statement. Flipped both cells accordingly. -->
 
 ## 3. Cut-off Times, Weekends & Bank Holidays
 
