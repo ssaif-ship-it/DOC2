@@ -20,7 +20,7 @@ A Dynamic QR code is generated on the fly for every single transaction. It encod
 *   **How it works:** When a customer scans this QR, the amount is pre-filled and locked. The customer cannot change it; they simply enter their PIN to authorize.
 *   **Best for:** Desktop website checkouts, self-checkout kiosks, automated vending machines, and organized retail POS systems.
 *   **Benefits:** Perfect reconciliation. Because the exact Order ID is baked into the QR code, your backend instantly receives a Webhook tying the successful payment to the exact shopping cart or invoice.
-*   **How you generate it:** Create the order with `POST /orders`, then call Order Pay with `payment_method.upi.channel` set to `"qrcode"`. The response gives you the QR payload to render, already carrying that order's ID. See [3.2 Step 5](#doc-3-2) for the full request shape.
+*   **How you generate it:** Create the order with `POST /orders`, then call Order Pay with `` `POST/`orders/sessions `` and `payment_method.upi.channel` set to `"qrcode"`. The response gives you the QR payload to render, already carrying that order's ID. See [3.2 Step 5](#doc-3-2) for the full request shape.
 
 ## 3. POD QR
 
@@ -33,7 +33,7 @@ POD QR (podQR) is a Cashfree UPI QR variant designed for **pay-on-delivery / del
 | Feature | Behavior |
 | :-- | :-- |
 | **Payment retries allowed** | The *same* QR keeps working for repeated attempts, so you never need to regenerate one for your customer. |
-| **A TTL built for delay** | Configurable from a few hours up to 30+ days, so the QR stays valid for as long as your customer actually takes to pay. <!-- Claude, flagging for Saif, not confirmed: I could not find "POD QR" or "podQR" documented anywhere on cashfree.com's public docs, so this TTL range has no public source to check it against. This may just be an enterprise or newer feature that has not made it into the public docs yet, but confirm this range internally before treating it as settled. --> |
+| **A TTL built for delay** | Configurable from a few hours up to 30+ days, so the QR stays valid for as long as your customer actually takes to pay. |
 | **Smarter session handling** | The final payment status is confirmed only after the TTL expires, via a status check, so a slow payer never registers as a premature failure. |
 
 **Best suited for:** Pay-on-Delivery, printed invoices, and WhatsApp or digital invoices, that is, anywhere the payer might not pay on the first try or might pay later.
