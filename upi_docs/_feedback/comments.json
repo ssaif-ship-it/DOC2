@@ -1253,8 +1253,10 @@
       "text": "Create and order pay",
       "author": "Ayushi",
       "createdAt": "2026-08-27T11:37:36.467Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [],
+      "resolvedBy": "Saif",
+      "resolvedAt": "2026-09-01T12:39:05.975Z"
     },
     {
       "id": "c_obk42ragmtbgavsb",
