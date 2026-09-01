@@ -48,10 +48,14 @@ It is essential to distinguish between refunds, reversals, and chargebacks to ma
 *   **Transaction Status:** Only payments in `SUCCESS` / `Captured` state can be refunded. Pending, failed, or already reversed transactions cannot be refunded.
 *   **Time Window:** Standard refunds are allowed up to 180 days from the transaction date. Complaint-driven UPI UDIR refunds are supported up to 90 days.
 
-<!-- Claude, flagging for Saif, not confirmed: couldn't trace either figure to a citable source. No RBI or NPCI document sets a single 180-day refund-initiation deadline that I could find, Razorpay/PayU/Cashfree's own public docs only state refund processing time, not an initiation window, so 180 days may be specific to Cashfree's own policy rather than an industry standard, worth confirming with whoever owns this rule. Same for the 90-day UDIR figure: NPCI's UDIR framework sets TATs for resolution speed (e.g. 3 days for P2M auto-chargeback conversion), not a single codified filing deadline, the actual in-app dispute window varies by bank/app (commonly 30 to 90 days). Left both numbers as-is and posted a comment on this line, since I don't have a confirmed replacement for either. -->
+<!-- Claude, update for Saif: still no RBI or NPCI document that sets a single 180-day refund-initiation deadline, this stays unconfirmed against a public source. Your internal reference material partially corroborates it though, citing "Unified Payments Interface TSD 2.5", it describes refund windows as commonly running up to around 180 days, while noting the exact limit is scheme and bank specific rather than one fixed universal rule. So 180 days is a reasonable figure per your own internal documentation, just still not something backed by a public regulation. Same caveat as before on the 90-day UDIR figure, NPCI's UDIR framework sets resolution TATs, not a single filing deadline, the actual in-app dispute window varies by bank or app (commonly 30 to 90 days). Left both numbers as-is. -->
 *   **Refundable Balance:** Any new refund must satisfy:
 
 > **Refund Amount** must be less than or equal to **Captured Amount** minus the **total of all previous partial refunds**.
+
+*   **Refund Destination:** A refund always returns to the same UPI instrument that was used for the original payment. UPI does not support redirecting a refund to a different account, VPA, or instrument.
+
+<!-- Claude, flagging for Saif, not confirmed: added this per your internal reference material. It matches how UPI refunds are generally understood to work industry wide, but I could not independently verify it against a public NPCI or RBI source this session. Confirm before treating it as settled if that matters for support scripting. -->
 
 ### 2. UPI Refund & Reversal SLAs
 
@@ -90,6 +94,10 @@ Refund and reversal speed on UPI depends on whether it's a merchant-initiated re
 
 <!-- Claude, note for Saif: removed the Credit/Debit Cards, Net Banking, and EMI/BNPL rows that were previously in this table, those are non-UPI rails and this doc is scoped to UPI. The two unconfirmed-figure flags that were attached to those rows are gone with them, resolved in the comments tab with a note pointing here. -->
 
+**In practice, reversals land well inside the regulatory ceiling above.** The T+5 calendar day window with a ₹100/day penalty is the outer limit banks must not exceed, it is a regulatory backstop, not the everyday customer experience. Per your internal reference material, a system-triggered reversal (a failed or timed-out payment) commonly reaches the customer's account in 24 to 72 hours, while a merchant-initiated refund (an already-successful payment being refunded back) typically takes T+1 or T+2 on the payment rails plus another 1 to 3 days for the bank to post it, so 2 to 5 working days end to end is a realistic figure to set customer expectations by. These describe two different things: one is the regulatory maximum with a financial penalty attached, the other is the typical lived experience.
+
+<!-- Claude, flagging for Saif, not confirmed: added per your internal reference material, these are typical timeframes rather than a codified rule, and I have no public source for either figure. The T+5 calendar days / ₹100 per day figure in the table above stays as the one confirmed regulatory number, this paragraph sits alongside it, it does not replace it. -->
+
 ## 3. Refunds vs. Reversals
 
 ### 3.1 Merchant-Initiated Refunds (Full vs. Partial)
@@ -103,7 +111,7 @@ Refund and reversal speed on UPI depends on whether it's a merchant-initiated re
 Reversals occur automatically when funds leave the customer's account but cannot be fulfilled:
 
 *   **UPI Timeouts ("Deemed Success"):** Debited funds that fail terminal confirmation are auto-reversed back to the remitter bank via NPCI switch signals.
-*   **Direct VPA Transfers:** Payments sent directly to a merchant VPA without a valid checkout session/Order ID are tagged as `UNRECONCILED_AUTO_REFUND` and auto-reversed. <!-- Claude, flagging for Saif, not confirmed: I could not find `UNRECONCILED_AUTO_REFUND` anywhere in Cashfree's public docs or API reference. The underlying behaviour, an unmatched direct VPA payment getting auto-reversed, is plausible, but confirm this exact tag internally before publishing it as the literal value merchants would see. -->
+*   **Direct VPA Transfers:** Payments sent directly to a merchant VPA without a valid checkout session/Order ID are tagged as `UNRECONCILED_AUTO_REFUND` and auto-reversed. <!-- Claude, confirmed for Saif: per your internal reference material (citing "Migration of Refunds and Chargeback Exceptions to centralreconsvc for UPI's"), `UNRECONCILED_AUTO_REFUND` is a real internal tag, I could not confirm this before. It covers more than just this one trigger though, it is used across reconciliation mismatches generally: missing debit or credit records between Cashfree's database and NPCI or bank files, data mismatches such as duplicate transaction references, and edge cases on direct UPI or offline QR flows where a payment cannot be safely tied back to an order. The unlinked-VPA-transfer case above is one instance of this, not the whole definition. Still no public source for this, the confirmation rests on the internal material you shared. -->
 *   **Direct Settlement Exception:** If you operate on a Direct Settlement model (where acquirers credit your bank account directly), standard Payment Gateway refund APIs are blocked. Refunds must be executed as explicit outbound Payout transfers from your current account or refund wallet.
 
 ## 4. Refund Status Lifecycle
