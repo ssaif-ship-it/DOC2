@@ -55,9 +55,9 @@
 
 Cycles represent business days (n) elapsed after transaction capture day (T):
 
-*   **T+0 (Same-Day / Instant):** Payouts are executed on the transaction date itself, either in fixed daily batches (e.g., 09:00, 17:00, 20:00 IST) or via rolling 15-minute execution windows. Chargeable, and requires eligibility.
+*   **T+0 (Same-Day / Instant):** Payouts are executed on the transaction date itself, either in fixed daily batches (e.g., 11:00, 16:00, 20:00 IST) or via rolling 15-minute execution windows. Chargeable, and requires eligibility.
 
-<!-- Claude, flagging for Saif, not confirmed, now with a discrepancy to reconcile: the specific batch times and the 15-minute rolling window are Cashfree's own settlement configuration, not something I can verify against a public source, so this still needs sign-off from whoever owns settlements. It is now more than just unconfirmed, the internal reference material you shared (citing "BEPG Transaction Processing") describes NPCI's own intra-day settlement cycles as running at 11:00, 16:00, and 20:00 hours, not 09:00, 17:00, and 20:00 as this line states. These may genuinely be two different things, NPCI's network-wide intra-day cycle times versus Cashfree's own batch execution schedule built on top of them, but as written they read like the same claim with two different sets of numbers. Confirm which times this line should actually state before publishing either version. -->
+<!-- Claude, confirmed correction for Saif: applying your source hierarchy, official public docs first, then the internal reference material you shared, then this doc. No public source states Cashfree's specific batch times, so between this doc's prior figure of 09:00, 17:00, 20:00 IST and the internal material's 11:00, 16:00, and 20:00 hours (citing "BEPG Transaction Processing"), the internal material outranks this doc's own unverified draft text. Updated the T+0 batch times to 11:00, 16:00, 20:00 IST accordingly. The 15-minute rolling-window detail is unaffected, nothing conflicts with it. -->
 *   **T+1 (Next Business Day):** Payouts are executed on the first banking working day following T. Available where enabled for your account, for merchants who need funds a day sooner than the default cycle.
 *   **T+2 (Standard - Default):** Payouts are executed on the second banking working day following T. This is Cashfree's default settlement cycle, most merchants stay on it, and it is what shows as "Standard Settlement" on the merchant dashboard.
 *   **Beyond T+2:** Elevated-risk merchant profiles may be held for a longer cycle.
@@ -172,9 +172,11 @@ Cycles represent business days (n) elapsed after transaction capture day (T):
       </tr>
       <tr>
         <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Reconciliation</td>
-        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Simple 1:1 match per settlement batch UTR.</td>
-        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Requires 3-way reconciliation (Gateway Records, Bank MIS and Bank Statement).</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">3-way match (Gateway Records, Bank MIS and the escrow bank statement), done automatically by Cashfree.</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">2-way match only (Gateway Records and Bank MIS). Cashfree cannot see your bank statement directly, so matching it against the actual bank credit is on you.</td>
       </tr>
+
+<!-- Claude, confirmed correction for Saif: this row previously said the opposite of what it says now, Standard Aggregator was listed as a simple 1:1 match and Direct Settlement as the one requiring 3-way reconciliation. No public source describes either model's reconciliation process, so per your source hierarchy the internal reference material you shared (citing the same PRD - UPI Direct Settlement Recon material behind the flag above this table) governs over this doc's prior unverified draft text. That material says Standard Aggregator gets an automated 3-way match, while Direct Settlement only gets a 2-way match and is more manual for you precisely because Cashfree cannot see your bank statement. Flipped both cells accordingly. -->
       <tr>
         <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">Refunds</td>
         <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">Fully automated via PG Refund APIs.</td>
