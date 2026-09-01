@@ -20,7 +20,7 @@ A Dynamic QR code is generated on the fly for every single transaction. It encod
 *   **How it works:** When a customer scans this QR, the amount is pre-filled and locked. The customer cannot change it; they simply enter their PIN to authorize.
 *   **Best for:** Desktop website checkouts, self-checkout kiosks, automated vending machines, and organized retail POS systems.
 *   **Benefits:** Perfect reconciliation. Because the exact Order ID is baked into the QR code, your backend instantly receives a Webhook tying the successful payment to the exact shopping cart or invoice.
-*   **How you generate it:** Create the order with `POST /orders`, then call Order Pay with `` `POST/`orders/sessions `` and `payment_method.upi.channel` set to `"qrcode"`. The response gives you the QR payload to render, already carrying that order's ID. See [3.2 Step 5](#doc-3-2) for the full request shape.
+*   **How you generate it:** Create the order with `POST /orders`, then call Order Pay with `POST/orders/sessions` and `payment_method.upi.channel` set to `"qrcode"`. The response gives you the QR payload to render, already carrying that order's ID. See [3.2 Step 5](#doc-3-2) for the full request shape.
 
 ## 3. POD QR
 
