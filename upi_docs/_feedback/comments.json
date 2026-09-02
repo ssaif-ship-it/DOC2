@@ -1201,8 +1201,10 @@
       "text": "web view has to handeled differently on both android and ios",
       "author": "Saif",
       "createdAt": "2026-08-27T11:19:02.301Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [],
+      "resolvedBy": "Saif",
+      "resolvedAt": "2026-09-02T06:04:45.807Z"
     },
     {
       "id": "c_vi9mjeijmtbfpxmv",
