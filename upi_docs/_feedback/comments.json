@@ -1235,8 +1235,10 @@
       "text": "Simple language tpv remove do not need this info when it is not required for merchant",
       "author": "Saif",
       "createdAt": "2026-08-27T11:24:56.288Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [],
+      "resolvedBy": "Saif",
+      "resolvedAt": "2026-09-02T06:05:02.028Z"
     },
     {
       "id": "c_4xenr8jjmtbg6sdm",
