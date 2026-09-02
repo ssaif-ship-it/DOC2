@@ -1169,8 +1169,10 @@
       "text": "info repeating",
       "author": "Saif",
       "createdAt": "2026-08-27T11:16:55.208Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [],
+      "resolvedBy": "Saif",
+      "resolvedAt": "2026-09-02T06:04:39.637Z"
     },
     {
       "id": "c_w7vp1n2ymtbfj6vn",
