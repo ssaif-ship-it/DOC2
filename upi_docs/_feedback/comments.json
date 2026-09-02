@@ -1155,8 +1155,10 @@
       "text": "Ios is different\ngives different apps intent link as it does not work same as android",
       "author": "Saif",
       "createdAt": "2026-08-27T11:16:30.107Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [],
+      "resolvedBy": "Saif",
+      "resolvedAt": "2026-09-02T06:04:42.476Z"
     },
     {
       "id": "c_i5afki7ymtbfh1k8",
