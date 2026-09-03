@@ -624,24 +624,24 @@ The table below lists every NPCI and gateway error code Cashfree currently maps,
 
 ## 4. High-Priority Business Scenarios & Edge Cases
 
-<!-- Claude, flagging for Saif, not confirmed: this heading cites U19 for TPV failures, but the master table above maps U19 to a generic "Authentication Failure," not TPV, and the example below uses a `TPV_ACCOUNT_MISMATCH` string that does not appear in the master table at all. The master table's own closest match for a TPV account mismatch is U31 (see the flag above that table), and it separately lists B3 and XV for other TPV-specific failure reasons (restricted account, compliance violation). Whichever code this section is actually about needs to match the master table exactly, right now heading, body, and table all point at different things. -->
+<!-- Claude, confirmed correction for Saif: independently re-verified this after the earlier flag, using Axis Bank's published UPI Response Codes list and an NPCI-derived UPI Error and Response Codes reference. U19's real, generic meaning is "Request Authorisation is Declined," I found no public source anywhere connecting it to Third-Party Verification. Removed U19 from the heading and removed the TPV_ACCOUNT_MISMATCH string from the body, that string does not appear in Cashfree's public documentation or in the master table above. Pointed instead to the master table's actual TPV related codes, B3 and XV are TPV specific by their own description in the table, U31 is treated as TPV specific in this doc but only carries a confirmed generic public meaning ("Credit Has Been Failed"), so which of these actually fires for a straightforward account mismatch still needs internal confirmation, I do not have grounds to assert one over the others. -->
 
-### 4.1 Third-Party Verification (TPV) Failures (U19)
+### 4.1 Third-Party Verification (TPV) Failures
 
 In investment and capital markets flows (MCC 6211 / 6012), regulatory mandates require validating the remitter account against customer record.
 
 *   **Trigger:** Customer initiates a payment using a UPI ID linked to Account A, but registered profile has Account B.
 
-*   **Gateway Action:** Transaction is aborted before money leaves the bank, failing with `TPV_ACCOUNT_MISMATCH`.
+*   **Gateway Action:** Transaction is aborted before money leaves the bank. The master table above lists three TPV related codes for this kind of mismatch: `B3` (a restricted account under bank policy, such as a minor or proprietor account), `XV` (a compliance violation), and `U31` (used elsewhere in this doc as TPV specific, though its confirmed public meaning is generic). Which code actually returns for a plain account mismatch needs internal confirmation, `TPV_ACCOUNT_MISMATCH` is not a value that appears anywhere in Cashfree's public documentation.
 
 *   **Handling:** Display explicit error banner detailing the expected account number last 4 digits:
 
     > Expected Account: `XXXX-XXXX-1234`
 
 
-<!-- Claude, flagging for Saif, not confirmed: the master table above describes U30 as a generic "Debit Failed... remitter bank declined the transaction," with nothing about velocity caps or new device/PIN-reset cooling-off periods. Public bank sources (Axis Bank's UPI response code list, a Paytm consumer explainer) describe U30 the same generic way. The velocity-cap scenario below is a real NPCI rule, but citing U30 as the specific code for it is not supported by any source I found, confirm internally whether U30 is really what comes back for this scenario or whether it is a different code. -->
+<!-- Claude, confirmed correction for Saif: independently re-verified this after the earlier flag. U30's real, generic meaning is "Debit Has Been Failed" per Axis Bank's published UPI response codes and an NPCI-derived reference, and Paytm's own public U30 explainer describes only generic bank-side risk-management declines, nothing about velocity caps or a cooling-off window after registration, device binding, or a PIN reset. Removed U30 from the heading and from the checkout-detection instruction below, since tying this specific code to this scenario is not supported by any source I could find. The ₹5,000 cap and its triggers are a real NPCI rule, kept as-is, just detached from a code I cannot confirm. -->
 
-### 4.2 The 24-Hour Velocity Cooling-Off Rule (U30)
+### 4.2 The 24-Hour Velocity Cooling-Off Rule
 
 To prevent account takeover fraud, NPCI caps transactions at ₹5,000 for 24 hours after:
 
@@ -649,4 +649,4 @@ To prevent account takeover fraud, NPCI caps transactions at ₹5,000 for 24 hou
 2.  Device binding/SIM change.
 3.  UPI PIN reset/change.
 
-If an order is ₹15,000, NPCI will decline the transaction with code U30 even if the user has ample account balance. Checkouts should detect U30 and offer non-UPI fallback instruments.
+If an order is ₹15,000, NPCI will decline the transaction even if the user has ample account balance. The specific error code returned for this scenario is not confirmed, do not filter checkout logic on U30 specifically, its confirmed public meaning is a generic debit decline unrelated to velocity caps. Checkouts should still offer a non-UPI fallback instrument when a transaction fails shortly after one of the triggers above.
