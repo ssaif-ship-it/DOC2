@@ -1373,6 +1373,20 @@
       "createdAt": "2026-08-27T11:54:46.401Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_0sk9u4ljmtshc1cr",
+      "section": "doc-2-3",
+      "file": "upi_docs/section_2_3.md",
+      "quote": "A TTL built for delay",
+      "prefix": " to regenerate one for your customer.\n\n\n",
+      "suffix": "\nConfigurable from a few hours up to 30+",
+      "suggestion": null,
+      "text": "any info about TTL?",
+      "author": "Saif",
+      "createdAt": "2026-09-08T09:41:05.883Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
