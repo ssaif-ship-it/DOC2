@@ -1,16 +1,16 @@
-### Merchant Eligibility Criteria
+### Which Merchants Can Accept UPI
 
-To maintain a secure and compliant ecosystem, not all businesses can automatically accept UPI payments. Merchant eligibility is evaluated based on business models, regulatory frameworks, and risk profiles.
+Most businesses can accept UPI with no special approval at all. A smaller number, mainly in regulated categories like capital markets or lending, need one extra compliance step before their first transaction. This section walks through both cases, and where your business is likely to fall.
 
 #### Types of Merchants Supported
 
 Cashfree supports UPI onboarding across a wide spectrum of business models:
 
-*   **Online / E-Commerce:** Websites and apps selling physical or digital goods.
-*   **Offline / Retail:** Brick-and-mortar stores requiring static or dynamic QR code standees.
-*   **D2C (Direct-to-Consumer):** Independent brands selling directly to retail customers.
-*   **Marketplaces:** Platforms aggregating multiple sellers or service providers (requires specialized split-payment and Nodal routing compliance).
-*   **Enterprise:** Large-scale corporate billers, educational institutions, and utilities requiring high-volume throughput.
+*   **Online / E-Commerce:** If you sell physical or digital goods through a website or app, this is you.
+*   **Offline / Retail:** You run a brick-and-mortar store and need static or dynamic QR code standees at the counter.
+*   **D2C (Direct-to-Consumer):** You are an independent brand selling directly to retail customers.
+*   **Marketplaces:** You aggregate multiple sellers or service providers on one platform, this needs specialized split-payment and Nodal routing compliance.
+*   **Enterprise:** You are a large-scale corporate biller, educational institution, or utility with high-volume throughput needs.
 
 ---
 
@@ -20,7 +20,7 @@ When you integrate UPI payments, Cashfree acts as your end-to-end facilitator wi
 
 Key aspects of this partnership include:
 
-*   **Proprietary Payment Switch:** In-house switch enabling real-time intelligent routing for higher success rates and faster failover.
+*   **Proprietary Payment Switch:** Our in-house switch checks bank health in real time and reroutes your transactions automatically, the same Smart Routing covered in [5.4](#doc-5-4), for higher success rates and faster failover.
 *   **PSP Bank Partnerships:** Reliable routing across multiple top-tier banking channels.
 *   **End-to-End Onboarding:** Management of the entire UPI onboarding process onto the NPCI network.
 *   **Regulatory Reporting:** Handling of backend processing, settlement, and compliance on your behalf.

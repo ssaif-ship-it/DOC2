@@ -1,4 +1,4 @@
-This guide outlines the rules, workflows, regulatory timelines, and reconciliation mechanics for returning customer funds on UPI transactions, either via merchant-initiated Refunds or system-triggered Reversals.
+When you need to send money back to a customer, on UPI that happens one of two ways: a refund you initiate yourself, or a reversal the system triggers automatically when a payment gets stuck. This guide walks through both, the rules, the timelines, and what you need to reconcile on your end.
 
 ### 1. Key Concepts & Definitions
 
@@ -78,7 +78,7 @@ Refund and reversal speed on UPI depends on whether it's a merchant-initiated re
         <td style="padding: 16px 20px; border-bottom: 1px solid #f1f5f9; vertical-align: top;">
           <span style="display: inline-block; background-color: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 500;">Instant to T+1 Business Day</span>
         </td>
-        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">For merchant (P2M) UPI payments specifically, RBI mandates failed debit reversals within T+5 calendar days. Delay penalty: ₹100/day charged to acquiring bank/merchant. (A separate RBI line item sets P2P transfers at T+1, not T+5, don't reuse this figure outside a merchant-payment context.)</td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.5;">For merchant (P2M) UPI payments specifically, RBI mandates failed debit reversals within T+5 calendar days, with a delay penalty of ₹100 per day charged to the acquiring bank.</td>
       </tr>
       <tr>
         <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; vertical-align: top;">Prepaid Wallets (PPI-on-UPI)</td>

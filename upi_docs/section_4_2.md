@@ -4,7 +4,20 @@ UPI AutoPay Interoperability removes this dependency. It allows you to move mand
 
 ---
 
-## 1. The Core Concept: MIC Mapping
+## 1. What This Means For You
+
+If you have active UPI AutoPay mandates with another payment aggregator, you can migrate your processing to Cashfree without disrupting your customers' mandates.
+
+| Aspect | Before interoperability | After interoperability |
+| :-- | :-- | :-- |
+| **Switching payment gateways** | Mandates break and users must re-create | Mandates migrate without interruption |
+| **Mandate visibility for users** | Only within the originating UPI app | Viewable across any UPI app |
+| **Dynamic routing for mandate executions** | Not allowed | Now allowed |
+| **User re-authentication needed?** | Yes, required if gateway changes | No, existing UPI PIN suffices |
+
+---
+
+## 2. How Cashfree Identifies You: MIC Mapping
 
 Cashfree validates merchants using a persistent Merchant Identifier Code (MIC) rather than your Payee UPI ID.
 
@@ -19,45 +32,17 @@ Cashfree validates merchants using a persistent Merchant Identifier Code (MIC) r
 
 ---
 
-## 2. What This Means For You
-
-If you have active UPI AutoPay mandates with another payment aggregator, you can migrate your processing to Cashfree without disrupting your customers' mandates.
-
-| Aspect | Before interoperability | After interoperability |
-| :-- | :-- | :-- |
-| **Switching payment gateways** | Mandates break and users must re-create | Mandates migrate without interruption |
-| **Mandate visibility for users** | Only within the originating UPI app | Viewable across any UPI app |
-| **Dynamic routing for mandate executions** | Not allowed | Now allowed |
-| **User re-authentication needed?** | Yes, required if gateway changes | No, existing UPI PIN suffices |
-
----
-
 ## 3. Eligibility for Mandate Migration
 
 Because this is new functionality that has not yet been widely adopted, not all banks and UPI apps have implemented the required changes. You can migrate mandates only when all three entities have implemented the interoperability framework: the payee PSP (the PSP collecting payments on your behalf), the payer PSP (the customer's UPI app), and the remitting bank. Each of these must have implemented the interoperability framework.
 
 ### Eligible Remitting Banks
 
-You can migrate mandates only when the customer's bank account is held at one of these banks:
-
-| Bank name | Status |
-| :-- | :-- |
-| **HDFC Bank** | Live on UPI interoperability |
-| **Punjab National Bank (PNB)** | Live on UPI interoperability |
-| **IndusInd Bank** | Live on UPI interoperability |
-| **Yes Bank** | Live on UPI interoperability |
-| **IDFC FIRST Bank** | Live on UPI interoperability |
-| **Cosmos Bank** | Live on UPI interoperability |
+You can migrate mandates only when the customer's bank account is held at one of six banks currently live on UPI interoperability: HDFC Bank, Punjab National Bank (PNB), IndusInd Bank, Yes Bank, IDFC FIRST Bank, or Cosmos Bank.
 
 ### Eligible Payer PSPs (UPI Apps)
 
-Your customer's UPI app must also be certified for interoperability. The following payer PSPs are currently eligible:
-
-| UPI app or PSP | UPI handle |
-| :-- | :-- |
-| **Paytm** | `@ptyes` |
-| **BHIM** | `@upi` |
-| **INDmoney** | `@inhdfc` |
+Your customer's UPI app must also be certified for interoperability. Three payer PSPs are currently eligible: Paytm (`@ptyes`), BHIM (`@upi`), and INDmoney (`@inhdfc`).
 
 > **Note:** You can migrate a mandate only when both the remitting bank and the payer PSP are on these lists. Mandates linked to banks not in this list are not yet eligible, but Cashfree updates this list as more banks complete certification.
 
@@ -99,14 +84,12 @@ Once Cashfree receives your mandate data, Cashfree validates the mandate and beg
 
 ## 5. What is Required From You
 
-These merchant actionables describe the steps you must complete before Cashfree can begin executing migrated mandates.
+These are the steps you need to complete before Cashfree can begin executing migrated mandates, in order:
 
-| Action | Description |
-| :-- | :-- |
-| **Request SID updation from PA1** | Formally ask PA1 to initiate the interoperability migration using `ReqMandate` with purpose code `AZ` for all eligible mandates. This is a prerequisite; Cashfree cannot execute mandates until this is done. |
-| **Collect mandate data file from PA1** | After migration is complete, collect the mandate data file from PA1 containing UMN, MIC, SeqNum, mandate max amount, frequency, start date, and end date for every migrated mandate. |
-| **Share mandate data with Cashfree** | Provide the mandate data file to Cashfree's onboarding and integrations team for validation and ingestion. |
-| **Coordinate go-live date** | Agree on a go-live date with Cashfree. Ensure PA1 stops executing the same UMN once Cashfree takes over to avoid duplicate debits. |
+1.  **Request SID updation from PA1.** Formally ask PA1 to initiate the interoperability migration using `ReqMandate` with purpose code `AZ` for all eligible mandates. This is a prerequisite; Cashfree cannot execute mandates until this is done.
+2.  **Collect mandate data file from PA1.** After migration is complete, collect the mandate data file from PA1 containing UMN, MIC, SeqNum, mandate max amount, frequency, start date, and end date for every migrated mandate.
+3.  **Share mandate data with Cashfree.** Provide the mandate data file to Cashfree's onboarding and integrations team for validation and ingestion.
+4.  **Coordinate go-live date.** Agree on a go-live date with Cashfree. Ensure PA1 stops executing the same UMN once Cashfree takes over to avoid duplicate debits.
 
 ---
 
@@ -116,7 +99,7 @@ To track your migration progress, ensure you have:
 
 *   Identified all active UPI AutoPay mandates on your current payment aggregator and confirmed the source UPI app and remitting bank for each.
 *   Filtered your active mandate list by eligible remitting banks (HDFC Bank, PNB, IndusInd Bank, Yes Bank, IDFC FIRST Bank, and Cosmos Bank).
-*   Filtered mandates by eligible payer PSPs.
+*   Filtered mandates by eligible payer PSPs (Paytm, BHIM, and INDmoney).
 *   Formally asked PA1 to initiate the `ReqMandate` updates with `type='UPDATE'` and purpose code `AZ`.
 *   Collected the data file containing all required metadata before sharing it with Cashfree.
 *   Shared the mandate data with Cashfree promptly so mandates can move to production smoothly.
