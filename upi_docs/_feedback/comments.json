@@ -1301,8 +1301,10 @@
       "text": "wrong wording..... how dynaic qr can't solve this",
       "author": "Saif",
       "createdAt": "2026-08-27T11:40:31.658Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [],
+      "resolvedBy": "Saif",
+      "resolvedAt": "2026-09-08T09:41:12.647Z"
     },
     {
       "id": "c_9tmuhr5lmtbgdy07",
@@ -1371,6 +1373,20 @@
       "text": "add drop down menus and stuff to make page look shorter  \nthe whole page needs to be a story\nasking customers what they are(online store,offline store website etc)\nwhich type of paymment would be better for them then explain them \nstart with onboarding and signup and one by one give everything",
       "author": "Saif",
       "createdAt": "2026-08-27T11:54:46.401Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_0sk9u4ljmtshc1cr",
+      "section": "doc-2-3",
+      "file": "upi_docs/section_2_3.md",
+      "quote": "A TTL built for delay",
+      "prefix": " to regenerate one for your customer.\n\n\n",
+      "suffix": "\nConfigurable from a few hours up to 30+",
+      "suggestion": null,
+      "text": "any info about TTL?",
+      "author": "Saif",
+      "createdAt": "2026-09-08T09:41:05.883Z",
       "status": "open",
       "replies": []
     }
