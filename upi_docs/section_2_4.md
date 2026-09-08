@@ -20,7 +20,7 @@ Which of the three models below fits you depends on where your business actually
 *   **How it works:** Agents open the Cashfree SoftPOS mobile app, enter the order details, and display a QR code or send a payment link directly to the customer's phone.
 *   **Best for:** Cash-on-delivery (COD) digitization, logistics, field collections, and doorstep services.
 
-### Customer VPA (Specialized Model)
+### Customer VPA
 
 *   **What it is:** Assigning a dedicated, permanent UPI ID or static QR code to a specific recurring customer.
 *   **How it works:** Cashfree issues a unique UPI ID or QR code tied to just that one customer. Every payment they make against it arrives already tagged with their identity, so lending and subscription businesses in particular can match repayments automatically instead of reconciling by hand.
