@@ -1,4 +1,4 @@
-## Find Your Merchant Category
+## Find Your Category
 
 Before you look at payment options, place yourself in one of these four categories. It decides which rows in the comparison below actually apply to you, and which ones you can skip.
 
@@ -295,19 +295,19 @@ Business days exclude weekends and bank holidays. A transaction on Friday 3 June
 
 ## Go Live Checklist
 
-*   [ ] Cashfree account created and email verified
-*   [ ] KYC documents uploaded and approved
-*   [ ] Bank account verified and penny test confirmed by email
-*   [ ] Production API keys generated and stored securely, no test keys in the production build
-*   [ ] Integration tested in sandbox across every method you enabled
-*   [ ] Success, insufficient funds, invalid PIN, expiry, user dropped and refund all tested
-*   [ ] Webhook endpoints configured and receiving
-*   [ ] Webhook signature verification implemented and passing
-*   [ ] Settlement cycle chosen, and the Instant fee understood if you chose Instant
-*   [ ] Refund and dispute workflows understood
-*   [ ] SoftPOS activated, collection points created and agents KYC verified, if you sell offline
-*   [ ] One real transaction completed by you
-*   [ ] Monitoring in place, check transactions and settlements daily for the first two weeks
+*   [ ]  Cashfree account created and email verified
+*   [ ]  KYC documents uploaded and approved
+*   [ ]  Bank account verified and penny test confirmed by email
+*   [ ]  Production API keys generated and stored securely, no test keys in the production build
+*   [ ]  Integration tested in sandbox across every method you enabled
+*   [ ]  Success, insufficient funds, invalid PIN, expiry, user dropped and refund all tested
+*   [ ]  Webhook endpoints configured and receiving
+*   [ ]  Webhook signature verification implemented and passing
+*   [ ]  Settlement cycle chosen, and the Instant fee understood if you chose Instant
+*   [ ]  Refund and dispute workflows understood
+*   [ ]  SoftPOS activated, collection points created and agents KYC verified, if you sell offline
+*   [ ]  One real transaction completed by you
+*   [ ]  Monitoring in place, check transactions and settlements daily for the first two weeks
 
 ---
 
