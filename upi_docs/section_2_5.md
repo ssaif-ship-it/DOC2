@@ -39,7 +39,8 @@ This list is defined by category, not by MCC number. If your business falls into
 
 ## 2. EMI Subvention & Affordability Engine
 
-You can configure both No-Cost EMI and Low-Cost EMI structures via the Merchant Dashboard or API.
+You can configure No-Cost EMI via the Merchant Dashboard or API.
+<!-- Claude, note for Saif: removed the Low-Cost EMI mention here and the sentence about it further down. Per the internal Contextual Payments PRD (reviewed June 2026), Low-Cost EMI with partial interest is Phase 2, not something merchants can actually configure right now. Add it back once it ships. -->
 
 In a No-Cost EMI model, the customer pays only the product sticker price, split equally over the selected months. You, as the merchant, absorb the interest by offering an upfront discount equivalent to the total interest charged by the bank.
 
@@ -77,8 +78,6 @@ P = [EMI * ((1 + R)^N - 1)] / [R * (1 + R)^N]
 | Merchant Subvention | ₹261 | Upfront discount absorbed by merchant |
 | Upfront Settlement | ₹9,739 | Amount settled to merchant |
 
-For Low-Cost EMI, you specify a capped interest subvention percentage, and the customer pays the remaining balance interest.
-
 ## 3. Integration & Post-Payment Lifecycle
 
 ### Dashboard Configuration
@@ -87,7 +86,7 @@ Log in to your Merchant Dashboard, navigate to **Offers & Affordability > Create
 
 ### API Integration
 
-When creating an order, request a contextual Intent link or Dynamic QR by specifying the `upi_cc_emi` payment method. The API attaches the required contextual metadata (`ctxtCode: "03"`) automatically.
+When creating an order, request a contextual Intent link or Dynamic QR by specifying the `upi_cc_emi` payment method. Cashfree attaches everything else the EMI flow needs behind the scenes, you do not need to build or pass any EMI-specific codes yourself.
 
 ```json
 {
@@ -97,12 +96,12 @@ When creating an order, request a contextual Intent link or Dynamic QR by specif
   "payment_method": {
     "upi": {
       "channel": "intent",
-      "ctxtCode": "03",
       "prodCode": "SKU-44321"
     }
   }
 }
 ```
+<!-- Claude, flagging for Saif: this sample used to show a literal ctxtCode value ("03") that a merchant would copy. NPCI's actual context codes run C01 to C07 and C50 to C58, "03" does not match any of them, so I removed it from the sample rather than publish a code that does not exist. Since the prose already says Cashfree attaches this automatically, the merchant never needs to see or set it, so this is safe to leave out entirely rather than replace with a guess. -->
 
 ### Reconciliation & Refunds
 
