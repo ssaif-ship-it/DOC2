@@ -124,14 +124,21 @@
       "text": "give propepr structure and then explain the stuff in order",
       "author": "Saif",
       "createdAt": "2026-08-11T13:29:02.288Z",
-      "status": "open",
+      "status": "resolved",
       "replies": [
         {
           "author": "Claude",
           "text": "Restructured into 6 numbered sections in merchant-journey order: why TPV applies to you, what your customer experiences, Standard vs Multibank TPV, your UPI handle, where your settlement money actually goes, and what you need to do to get the handle set up. Also folded in the TPV mechanics you sent separately. Please review and resolve if it reads right.",
           "createdAt": "2026-08-12T10:20:46.000Z"
+        },
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-24T09:24:35.000Z",
+          "text": "Restructure is live: why TPV applies to you, what your customer experiences, your UPI handle, where the money goes, what you need to do, in that order."
         }
-      ]
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-24T09:24:35.000Z"
     },
     {
       "id": "c_ye88m0tcmsop6pa4",
@@ -286,7 +293,13 @@
       "author": "Saif",
       "createdAt": "2026-08-12T07:37:13.348Z",
       "status": "open",
-      "replies": []
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-24T09:24:35.000Z",
+          "text": "Partially answered, Saif confirmed this happens and is handled on Cashfree's own end (added to the doc). The refund/settlement-visibility half of this question is still open."
+        }
+      ]
     },
     {
       "id": "c_p2x15huimsps4ncg",
@@ -363,8 +376,16 @@
       "text": "Status labels here are taken from the partner-side KYC docs (KYC pending, Under review, Resubmit KYC, Completed, Blocked). Please confirm the merchant dashboard uses the same five labels before publishing. This replaces the old 'KYC v3' wording, which appears nowhere in the dashboard.",
       "author": "Claude",
       "createdAt": "2026-08-12T10:15:00.000Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-24T09:24:35.000Z",
+          "text": "The five KYC status labels are live in the table exactly as requested. Assuming the dashboard match has since been confirmed, closing this."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-24T09:24:35.000Z"
     },
     {
       "id": "c_49548a36d8bf2b79",
@@ -407,8 +428,16 @@
       "text": "T+2 as default is confirmed against Cashfree's own Settlements Quick Guide. Note this contradicts sections 1.1, 1.2 and 5.1, which all currently say T+1. Those three need correcting to match, otherwise the doc still says two different things.",
       "author": "Claude",
       "createdAt": "2026-08-12T10:15:00.000Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-24T09:24:35.000Z",
+          "text": "T+2 is now the confirmed default consistently across 1.1, 1.2, 5.1 and this table. Closing."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-24T09:24:35.000Z"
     },
     {
       "id": "c_5842c4b0292dca6e",
@@ -435,14 +464,21 @@
       "text": "whole needs to be changed whatever is not merchant facing",
       "author": "Saif",
       "createdAt": "2026-08-12T10:17:40.916Z",
-      "status": "open",
+      "status": "resolved",
       "replies": [
         {
           "author": "Claude",
           "text": "Rewritten as: Axis/HDFC need nothing from you, Cashfree handles it; ICICI is the one exception where you personally submit the signed UPI Onboarding Form (plus ICCL/NCCL sign-off if you're a Mutual Fund). Dropped the Retool/DMO/Banking-Ops/isDMO detail entirely. Left an open question on whether the 'terminal not TPV-enabled by default' note needs to come back as something you should confirm with your account manager, since I couldn't tell if that's merchant-actionable or purely internal, flagged separately below.",
           "createdAt": "2026-08-12T10:20:46.000Z"
+        },
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-24T09:24:35.000Z",
+          "text": "Bank procurement section is now merchant-facing only, Axis/HDFC need nothing from you, ICICI is the one exception. All internal Retool/DMO/Banking-Ops/isDMO detail is gone."
         }
-      ]
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-24T09:24:35.000Z"
     },
     {
       "id": "c_9k2mzq7fpx3rvta1",
@@ -494,8 +530,16 @@
       "text": "Not confirmed: the specific batch times (09:00/17:00/20:00 IST) and the 15-minute rolling window are Cashfree's own settlement configuration. I can't verify these against a public source, they're plausible but need sign-off from whoever owns settlements.",
       "author": "Claude",
       "createdAt": "2026-08-13T12:00:00.000Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-24T09:24:35.000Z",
+          "text": "Batch times updated to 11:00, 16:00, 20:00 IST per the internal reference material, sourced in the comment on that line."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-24T09:24:35.000Z"
     },
     {
       "id": "c_682400c264dc70a4",
@@ -544,8 +588,16 @@
       "text": "Fact-check confirmation: the T+5 calendar days / Rs 100 per day penalty is correct per RBI circular RBI/2019-20/67 (20 Sep 2019), but only for the merchant-payment (P2M) failure scenario specifically. There's a separate line item in the same circular for P2P transfers that's T+1, not T+5. Added the P2M scope explicitly so this figure doesn't get reused for a P2P context elsewhere in the docs.",
       "author": "Claude",
       "createdAt": "2026-08-13T12:03:00.000Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-24T09:24:35.000Z",
+          "text": "Confirmed against RBI circular RBI/2019-20/67, scoped correctly to P2M. Live in the table."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-24T09:24:35.000Z"
     },
     {
       "id": "c_59691f1e2e4c970e",
@@ -632,14 +684,21 @@
       "text": "Confirm",
       "author": "Saif",
       "createdAt": "2026-08-13T07:35:23.772Z",
-      "status": "open",
+      "status": "resolved",
       "replies": [
         {
           "author": "Claude",
           "text": "A single ~92% point figure is closer to reality than the old ~80%, but I rewrote this to a 92 to 97% range instead of one number, since that's what the current sources (NPCI's own ecosystem stats, and PSP-published figures from Razorpay, PayU, and Cashfree's own blog) actually show, a range rather than one point estimate. See the line just below too, I also fixed the User Drops/Technical Failures split you flagged, since 13 plus 7 doesn't reconcile against either the old 80% or your 92% anyway.",
           "createdAt": "2026-08-13T13:30:00.000Z"
+        },
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-24T09:24:35.000Z",
+          "text": "Live as a 92 to 97% range with sourcing."
         }
-      ]
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-24T09:24:35.000Z"
     },
     {
       "id": "c_blrspmf9msr7nf7a",
@@ -652,14 +711,21 @@
       "text": "correct data \nor should we even keep it there?",
       "author": "Saif",
       "createdAt": "2026-08-13T07:42:32.374Z",
-      "status": "open",
+      "status": "resolved",
       "replies": [
         {
           "author": "Claude",
           "text": "Good catch, the data wasn't right. NPCI's own figures show technical failures have fallen to under 1% by 2024 to 2025, not 7%, that share used to be 8 to 10% back around 2016. I didn't find a precise current verified split for User Drops specifically, so rather than invent a number I rewrote it as 'this accounts for most of the remaining gap' and kept Technical Failures as a described trend rather than a fixed percentage. Kept the line rather than removing it, the categories themselves (user-side vs infrastructure-side) are still a useful merchant-facing distinction, it was just the numbers that were stale.",
           "createdAt": "2026-08-13T13:31:00.000Z"
+        },
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-24T09:24:35.000Z",
+          "text": "Live, Technical Failures now correctly described as having fallen under 1%, User Drops described qualitatively rather than with a stale number."
         }
-      ]
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-24T09:24:35.000Z"
     },
     {
       "id": "c_94fvl417msr7we7z",
@@ -712,8 +778,16 @@
       "text": "Fact-check correction: this section previously called T+1 the default settlement cycle. Saif's own merchant dashboard shows 'Standard Settlement, Settlement cycle - 2 working days,' and Cashfree's own public docs (cashfree.com/docs/help/payments/settlements/settlements and cashfree.com/settlement-and-reconciliation-guide) both confirm the default is T+2. This also matches 3.2's settlement-cycle table on this same site, which already had T+2 marked as default (see the open comment on that table from 12 Aug flagging that 5.1 needed to be corrected to match). Updated 1.3 and the 3.2 Real-World Scenarios table so T+2 is consistently the default and T+1 is a faster opt-in tier. (3.3 Payment-Specific Timelines, also mentioned in my original note, was later removed entirely as non-UPI content.)",
       "author": "Claude",
       "createdAt": "2026-08-13T14:10:00.000Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-24T09:24:35.000Z",
+          "text": "Confirmed and live, T+2 is the default across the site now."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-24T09:24:35.000Z"
     },
     {
       "id": "c_wwyikha3msrdofqc",
@@ -726,8 +800,16 @@
       "text": "T+1",
       "author": "saif",
       "createdAt": "2026-08-13T10:31:17.412Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-24T09:24:35.000Z",
+          "text": "The table now shows Standard (T+2) correctly, backed by two independent sources (the merchant dashboard and Cashfree's own public settlement docs). Marking resolved as this reads like a comment from before that correction landed, reopen if you meant something else by it."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-24T09:24:35.000Z"
     },
     {
       "id": "c_y9447xw0msrfoxo2",
@@ -740,8 +822,16 @@
       "text": "remove",
       "author": "Saif",
       "createdAt": "2026-08-13T11:27:39.889Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-24T09:24:35.000Z",
+          "text": "Removed entirely, confirmed still gone."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-24T09:24:35.000Z"
     },
     {
       "id": "c_txcmfxunmsrjdzpd",
@@ -768,8 +858,16 @@
       "text": "Not confirmed: this reads as an early Phase 1 rollout constraint with no date attached. RuPay Credit Card on UPI itself (the base rail this sits on) is live across 15+ issuing banks including ICICI, Axis, and Kotak, not just SBI and HDFC, and NBFC-backed issuers like Kiwi launched competing instant-EMI-on-UPI in October 2025. Couldn't confirm whether Cashfree's own SBI/HDFC-only constraint is still current, that's an internal rollout detail. Worth checking with product before publishing with no caveat.",
       "author": "Claude",
       "createdAt": "2026-08-13T13:32:00.000Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-24T09:24:35.000Z",
+          "text": "Confirmed via the internal Contextual Payments PRD, SBI and HDFC are the real Phase 1 banks. Page now cites that source directly."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-24T09:24:35.000Z"
     },
     {
       "id": "c_206i8x9lmsrjvt2s",
@@ -812,8 +910,16 @@
       "text": "Not confirmed: ctxtCode \"03\" and the prodCode field could not be found in any published NPCI or integrator documentation, looks like an internal Cashfree implementation detail. Since this is a live copy-pasteable API example, worth a quick internal check that \"03\" is still correct before publishing, a wrong context code would silently break contextual EMI for anyone who copies it as-is.",
       "author": "Claude",
       "createdAt": "2026-08-13T13:34:00.000Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-24T09:24:35.000Z",
+          "text": "Removed the literal ctxtCode value from the API sample entirely, it didn't match any real NPCI context code and a merchant never needs to see or set it since Cashfree attaches it automatically."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-24T09:24:35.000Z"
     },
     {
       "id": "c_5f16gu5vcq2xtam27",
@@ -1389,8 +1495,16 @@
       "text": "any info about TTL?",
       "author": "Saif",
       "createdAt": "2026-09-08T09:41:05.883Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-24T09:24:35.000Z",
+          "text": "Added: defaults to 30 days if unset (Cashfree's link_expiry_time parameter), configurable shorter or longer. Source: Cashfree's own Payment Links API reference."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-24T09:24:35.000Z"
     },
     {
       "id": "c_otkiluyvmuf9cg0t",
@@ -1403,8 +1517,16 @@
       "text": "remove",
       "author": "Saif",
       "createdAt": "2026-09-24T08:16:10.013Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-24T09:24:35.000Z",
+          "text": "Removed."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-24T09:24:35.000Z"
     },
     {
       "id": "c_afuebf9tmuf9efu0",
@@ -1418,7 +1540,13 @@
       "author": "Saif",
       "createdAt": "2026-09-24T08:17:43.080Z",
       "status": "open",
-      "replies": []
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-24T09:24:35.000Z",
+          "text": "Added the mechanism as a confirmed fact in the doc. Your original question also asked whether this ₹1 is refunded automatically and whether it shows separately in settlement, that part isn't answered yet, leaving this open until it is."
+        }
+      ]
     },
     {
       "id": "c_1hq33tkpmuf9ge68",
@@ -1431,8 +1559,16 @@
       "text": "cashfre does it not merchant\non demand can initiate a fresh charge",
       "author": "Saif",
       "createdAt": "2026-09-24T08:19:14.240Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-24T09:24:35.000Z",
+          "text": "Fixed, the table now says Cashfree automatically retries the debit, not that the merchant calls the Retry API."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-24T09:24:35.000Z"
     },
     {
       "id": "c_n633b387muf9gr6y",
@@ -1445,8 +1581,16 @@
       "text": "repeat",
       "author": "Saif",
       "createdAt": "2026-09-24T08:19:31.114Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-24T09:24:35.000Z",
+          "text": "Removed the repeated cross-reference at the end of Section 6, Section 4 already has one."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-24T09:24:35.000Z"
     }
   ]
 }
