@@ -1433,6 +1433,20 @@
       "createdAt": "2026-09-24T08:19:14.240Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_n633b387muf9gr6y",
+      "section": "doc-4-1",
+      "file": "upi_docs/section_4_1.md",
+      "quote": "See 4.4 MCC-Specific Limits for the full limits reference, registration ceilings and PIN thresholds by category, that the rest of this section points back to.",
+      "prefix": "p with the customer directly instead.\n\n\n",
+      "suffix": "\n7. Tracking Executions: SeqNum\nEvery ma",
+      "suggestion": null,
+      "text": "repeat",
+      "author": "Saif",
+      "createdAt": "2026-09-24T08:19:31.114Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
