@@ -1405,6 +1405,20 @@
       "createdAt": "2026-09-24T08:16:10.013Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_afuebf9tmuf9efu0",
+      "section": "doc-4-1",
+      "file": "upi_docs/section_4_1.md",
+      "quote": " below ₹15,000.",
+      "prefix": " of amount, this one time, even if it is",
+      "suffix": "\n5. The Pre-Debit Notification (PDN)\nBef",
+      "suggestion": null,
+      "text": "during the mendate creation cashfree debits a minimum amount of rupees 1\ncashfree does on it's own end",
+      "author": "Saif",
+      "createdAt": "2026-09-24T08:17:43.080Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
