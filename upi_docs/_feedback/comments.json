@@ -1419,6 +1419,20 @@
       "createdAt": "2026-09-24T08:17:43.080Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_1hq33tkpmuf9ge68",
+      "section": "doc-4-1",
+      "file": "upi_docs/section_4_1.md",
+      "quote": "Retry it, Periodic only. The subscription moves to ON HOLD, and you call the Retry API. Up to 3 retry attempts, no more than 1 per day, and it must succeed before the current cycle expires. A successful retry reactivates the subscription.",
+      "prefix": "ank, an inactive-but-not-closed account\n",
+      "suffix": "\n\n\nThe account or mandate itself is brok",
+      "suggestion": null,
+      "text": "cashfre does it not merchant\non demand can initiate a fresh charge",
+      "author": "Saif",
+      "createdAt": "2026-09-24T08:19:14.240Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
