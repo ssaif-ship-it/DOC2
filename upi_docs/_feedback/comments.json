@@ -292,14 +292,21 @@
       "text": "cofirm",
       "author": "Saif",
       "createdAt": "2026-08-12T07:37:13.348Z",
-      "status": "open",
+      "status": "resolved",
       "replies": [
         {
           "author": "Claude",
           "createdAt": "2026-09-24T09:24:35.000Z",
           "text": "Partially answered, Saif confirmed this happens and is handled on Cashfree's own end (added to the doc). The refund/settlement-visibility half of this question is still open."
+        },
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-24T10:15:18.977857Z",
+          "text": "Refund/settlement side is now answered too: it either auto-reverses (typically same day) or gets counted toward the first debit, depending on setup, and it always shows as its own traceable line item in the settlement report, never hidden or netted. Section rewritten accordingly. Marking resolved."
         }
-      ]
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-24T10:15:18.977857Z"
     },
     {
       "id": "c_p2x15huimsps4ncg",
@@ -1539,14 +1546,21 @@
       "text": "during the mendate creation cashfree debits a minimum amount of rupees 1\ncashfree does on it's own end",
       "author": "Saif",
       "createdAt": "2026-09-24T08:17:43.080Z",
-      "status": "open",
+      "status": "resolved",
       "replies": [
         {
           "author": "Claude",
           "createdAt": "2026-09-24T09:24:35.000Z",
           "text": "Added the mechanism as a confirmed fact in the doc. Your original question also asked whether this ₹1 is refunded automatically and whether it shows separately in settlement, that part isn't answered yet, leaving this open until it is."
+        },
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-24T10:15:18.977857Z",
+          "text": "Refund/settlement side is now answered too: it either auto-reverses (typically same day) or gets counted toward the first debit, depending on setup, and it always shows as its own traceable line item in the settlement report, never hidden or netted. Section rewritten accordingly. Marking resolved."
         }
-      ]
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-24T10:15:18.977857Z"
     },
     {
       "id": "c_1hq33tkpmuf9ge68",

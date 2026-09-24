@@ -38,8 +38,8 @@ The exact ceiling for your category, and the matching registration limits, are i
 
 **First execution is a special case:** if it happens within 5 minutes of mandate creation, the PIN the customer just entered to create the mandate covers it too, no separate PIN entry. If the first debit is scheduled for later instead, it always needs a fresh PIN entry regardless of amount, this one time, even if it is below ₹15,000.
 
-At mandate creation, Cashfree also runs a ₹1 verification debit on its own end. This is not something you need to trigger or account for.
-<!-- Claude, note for Saif: added per your confirmation that this happens and is handled on Cashfree's own end. Your original question also asked whether this ₹1 gets refunded automatically and whether it shows separately in settlement, your latest comment didn't say, so that half is still open. Let me know and I will add it. -->
+At mandate creation, Cashfree also runs a ₹1 verification debit on its own end, you do not need to trigger or configure this. Depending on how the mandate is set up, this ₹1 is either reversed back to the customer automatically (typically the same day), or retained and counted toward the first debit on the mandate rather than refunded separately. Either way, it always shows up as its own line item in your settlement report and dashboard, it is never silently absorbed or netted into another transaction, so you can trace it if a customer asks about it.
+<!-- Claude, note for Saif: rewritten from your team's confirmation (24 Sep) that this depends on configuration (auto-reversed vs retained toward first debit), and that it always appears as its own traceable line item settling on the normal cycle. Internal system/report field names left out as not merchant-relevant. -->
 
 ## 5. The Pre-Debit Notification (PDN)
 
