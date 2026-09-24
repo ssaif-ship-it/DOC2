@@ -796,8 +796,10 @@
       "text": "Not confirmed: could not find any independent benchmark supporting this 30% figure, or the adjacent 40% to 60% AOV increase claim. Industry content on EMI/BNPL and AOV shows a wide, inconsistently sourced spread that doesn't match either number. These read as internal marketing figures, if there's a Cashfree study behind them worth citing it, otherwise consider softening the language rather than using specific unsourced percentages.",
       "author": "Claude",
       "createdAt": "2026-08-13T13:33:00.000Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [],
+      "resolvedBy": "Saif",
+      "resolvedAt": "2026-09-24T07:07:30.996Z"
     },
     {
       "id": "c_uk9t5ql3iz9vq4v36",
