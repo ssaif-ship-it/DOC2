@@ -421,8 +421,16 @@
       "text": "This link does not resolve yet. Section 2.2 currently has no Collect sunset content at all. 2.2 also needs to own the exact NPCI circular reference for the P2M leg, which is still pending compliance sign-off, and confirmation that the iOS and web exemption still holds.",
       "author": "Claude",
       "createdAt": "2026-08-12T10:15:00.000Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-24T10:33:31.989210Z",
+          "text": "Confirmed live: 2.2 now has the full Collect-sunset content, effective date (28 Feb 2026), restricted platforms (Android, desktop), the exempt categories (capital markets/broking MCCs, existing mandates), and the migration path (Intent for mobile, Dynamic QR for desktop). The 3.2 link resolves to real content. Saif confirmed current page is correct, marking resolved."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-24T10:33:31.989210Z"
     },
     {
       "id": "c_0e07173677337c3d",
