@@ -1391,6 +1391,20 @@
       "createdAt": "2026-09-08T09:41:05.883Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_otkiluyvmuf9cg0t",
+      "section": "doc-4-1",
+      "file": "upi_docs/section_4_1.md",
+      "quote": "For invoice-triggered billing, where the amount and the date both vary each cycle (a utility bill, a credit card statement), NPCI applies a lower registration ceiling than it does for the fixed frequencies above, and that ceiling varies by merchant category (MCC). See 4.4 MCC-Specific Limits for the full table before you register a mandate of this kind. This is a ceiling on what you can register the mandate for, not a monthly cap on how much you collect.\n\n",
+      "prefix": "y, Quarterly, Half-yearly, or Yearly.\n\n\n",
+      "suffix": ". Amount Rules: Exact or Max\nAlongside f",
+      "suggestion": null,
+      "text": "remove",
+      "author": "Saif",
+      "createdAt": "2026-09-24T08:16:10.013Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
