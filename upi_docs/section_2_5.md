@@ -16,7 +16,8 @@ We have enabled real-time EMI options for customers paying via RuPay Credit Card
 
 ### Current Supported Scope
 
-*   **Supported Banks:** Real-time EMI is currently supported for SBI and HDFC RuPay Credit Cards. <!-- Claude, flagging for Saif, not confirmed: the most recent public reporting I found (Inc42, September 2025) describes EMI on UPI as a network-level feature NPCI was still exploring, not something confirmed live in production with named issuing banks. Cashfree's own ScanToEMI blog post does not name SBI or HDFC either. This may well be accurate from an internal partnership you have that has not been publicly announced, but it needs an internal source before publishing the specific bank names as fact. -->
+*   **Supported Banks:** Real-time EMI is currently supported for SBI and HDFC RuPay Credit Cards.
+<!-- Claude, confirmed for Saif: SBI and HDFC checks out, per the internal Contextual Payments PRD ("Contextual Payments, UPI No-Cost & Low-Cost EMI," owned by Ayushi Agarwal, UPI Products) these are the two Phase 1 banks. Public reporting does not cover this because it is an unannounced internal rollout, not because the claim is wrong, that is why the earlier flag here was overcautious. -->
 *   **Supported Flows:** Enabled exclusively for UPI Intent Links and Dynamic QR Codes.
 *   **Unsupported Flows:** Contextual EMI is strictly prohibited for UPI Collect requests. Combining flat discounts with EMI offers is not supported at this time.
 
