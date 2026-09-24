@@ -21,8 +21,6 @@ If you chose Periodic, you must register one of the following frequencies at man
 
 <!-- Claude, flagging for Saif, not confirmed: this section used to list "As Presented" as a ninth Periodic frequency. I could not confirm that classification and removed it rather than leave it stated as fact. Cashfree's own Subscriptions Overview page (cashfree.com/docs/payments/subscription/introduction) assigns As Presented's defining behaviour, debiting a variable amount whenever a bill is generated, to On-Demand, not Periodic. The RBI Digital Payments E-Mandate Framework, 2026 does not use the term As Presented at all, it only distinguishes Fixed Amount and Variable Amount mandates. The only place "As Presented" appears anywhere on Cashfree's site is the Payment Modes page, written as "As and when presented," listed for physical/NACH mandate forms, not confirmed for UPI Autopay specifically. The MCC ceiling numbers in 4.4 look like real NPCI data and I have left that table alone, but whether those ceilings sit under Periodic or under On-Demand needs a definitive answer from your NPCI or compliance contact before this doc asserts either way. -->
 
-For invoice-triggered billing, where the amount and the date both vary each cycle (a utility bill, a credit card statement), NPCI applies a lower registration ceiling than it does for the fixed frequencies above, and that ceiling varies by merchant category (MCC). See [4.4 MCC-Specific Limits](#doc-4-4) for the full table before you register a mandate of this kind. This is a ceiling on what you can register the mandate for, not a monthly cap on how much you collect.
-
 ## 3. Amount Rules: Exact or Max
 
 Alongside frequency, every mandate also carries an amount rule:
@@ -40,6 +38,9 @@ The exact ceiling for your category, and the matching registration limits, are i
 
 **First execution is a special case:** if it happens within 5 minutes of mandate creation, the PIN the customer just entered to create the mandate covers it too, no separate PIN entry. If the first debit is scheduled for later instead, it always needs a fresh PIN entry regardless of amount, this one time, even if it is below ₹15,000.
 
+At mandate creation, Cashfree also runs a ₹1 verification debit on its own end. This is not something you need to trigger or account for.
+<!-- Claude, note for Saif: added per your confirmation that this happens and is handled on Cashfree's own end. Your original question also asked whether this ₹1 gets refunded automatically and whether it shows separately in settlement, your latest comment didn't say, so that half is still open. Let me know and I will add it. -->
+
 ## 5. The Pre-Debit Notification (PDN)
 
 Before every execution, you must send a Pre-Debit Notification (PDN) to the customer's UPI app, at least 24 hours ahead of the debit.
@@ -55,11 +56,9 @@ A debit can fail even after the PDN goes through successfully, and what you do n
 
 | What happened | What you do about it |
 | :-- | :-- |
-| **Customer-side and temporary:** low balance, a brief network issue at the customer's bank, an inactive-but-not-closed account | **Retry it, Periodic only.** The subscription moves to ON HOLD, and you call the Retry API. Up to **3 retry attempts**, no more than **1 per day**, and it must succeed before the current cycle expires. A successful retry reactivates the subscription. |
+| **Customer-side and temporary:** low balance, a brief network issue at the customer's bank, an inactive-but-not-closed account | **Retry it, Periodic only.** The subscription moves to ON HOLD, and Cashfree automatically retries the debit for you, up to **3 attempts**, no more than **1 per day**, and it must succeed before the current cycle expires. A successful retry reactivates the subscription. |
 | **The account or mandate itself is broken:** closed/invalid account, a mandate already cancelled or deactivated, a name mismatch | **Do not retry, it will not work.** The customer needs to set up a brand new mandate. |
 | **Blocked by something outside normal banking:** a court order, a frozen account, KYC pending on the customer's side | **Retrying will not fix this.** Follow up with the customer directly instead. |
-
-See **[4.4 MCC-Specific Limits](#doc-4-4)** for the full limits reference, registration ceilings and PIN thresholds by category, that the rest of this section points back to.
 
 ## 7. Tracking Executions: SeqNum
 
