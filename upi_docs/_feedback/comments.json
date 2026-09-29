@@ -1745,6 +1745,20 @@
       "createdAt": "2026-09-29T13:24:24.495Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_9srjm7vgmumpmnx5",
+      "section": "doc-4-1",
+      "file": "upi_docs/section_4_1.md",
+      "quote": "Before every execution, you must send a Pre-Debit Notification (PDN) to the customer's UPI app, at least 24 hours ahead of the debit.",
+      "prefix": ".\n\n\n5. The Pre-Debit Notification (PDN)\n",
+      "suffix": "\n\nThe amount cannot change after the PDN",
+      "suggestion": null,
+      "text": "before case pdn must be send...... when yu cal raise a achrge customer \n\n\nthere is also controlled apis \nnew cashfree customs",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:26:23.897Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
