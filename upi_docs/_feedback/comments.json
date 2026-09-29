@@ -1675,6 +1675,20 @@
       "createdAt": "2026-09-29T13:08:38.393Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_hux4t4armump22bn",
+      "section": "doc-3-2",
+      "file": "upi_docs/section_3_2.md",
+      "quote": "Cashfree Checkout (hosted pag",
+      "prefix": "fastest possible start and minimal code\n",
+      "suffix": "e). Cashfree renders the payment page, y",
+      "suggestion": null,
+      "text": "intent collect and qr will autmatically be enabled",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:10:22.786Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
