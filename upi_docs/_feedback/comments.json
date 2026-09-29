@@ -1647,6 +1647,20 @@
       "createdAt": "2026-09-29T13:02:41.300Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_juwbd8z5mumow355",
+      "section": "doc-3-1",
+      "file": "upi_docs/section_3_1.md",
+      "quote": "Which Merchants Can Accept UPI",
+      "prefix": "",
+      "suffix": "\nMost businesses can accept UPI with no ",
+      "suggestion": null,
+      "text": "Remove the whole thing",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:05:43.913Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
