@@ -1,5 +1,4 @@
 {
-  "version": 1,
   "comments": [
     {
       "id": "c_f31ageoxmsokoe8e",
@@ -1621,6 +1620,254 @@
       ],
       "resolvedBy": "Claude",
       "resolvedAt": "2026-09-24T09:24:35.000Z"
+    },
+    {
+      "id": "c_vorcaiprmumomleg",
+      "section": "doc-5-3",
+      "file": "upi_docs/section_5_3.md",
+      "quote": "Customer / UPI App\nUser Error\n→\nNPCI Switch / Remitter Bank\nBank / Network Error\n→\nGateway / Switch\nNormalized API\n→\nMerchant Backend\nHandled Co",
+      "prefix": " to your application:\n\n  \n  \n    \n      ",
+      "suffix": " Switch\n      Normalized API\n    \n    →\n",
+      "suggestion": null,
+      "text": "simplify and correct",
+      "author": "Saif",
+      "createdAt": "2026-09-29T12:58:21.016Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_j4oab1d4mumopedl",
+      "section": "doc-4-4",
+      "file": "upi_docs/section_4_4.md",
+      "quote": " Debits are triggered whenever an invoice is generated (for example, utility bills, credit card statements). Because billing dates and amounts vary, stricter creation caps apply.",
+      "prefix": "Billing Frequency Types\n\n\n\nAs Presented:",
+      "suffix": "\nAll Others: Predefined recurring interv",
+      "suggestion": null,
+      "text": "we doin't generate envoice",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:00:31.881Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_2v8c757jmumornpy",
+      "section": "doc-4-4",
+      "file": "upi_docs/section_4_4.md",
+      "quote": "As Presented:",
+      "prefix": "lling cycle.\nBilling Frequency Types\n\n\n\n",
+      "suffix": " Debits are triggered whenever an invoic",
+      "suggestion": null,
+      "text": "on demanded",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:02:17.302Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_6v1ym5b6mumos68l",
+      "section": "doc-4-4",
+      "file": "upi_docs/section_4_4.md",
+      "quote": "All Others:",
+      "prefix": "nts vary, stricter creation caps apply.\n",
+      "suffix": " Predefined recurring intervals (for exa",
+      "suggestion": null,
+      "text": "periodic",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:02:41.300Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_juwbd8z5mumow355",
+      "section": "doc-3-1",
+      "file": "upi_docs/section_3_1.md",
+      "quote": "Which Merchants Can Accept UPI",
+      "prefix": "",
+      "suffix": "\nMost businesses can accept UPI with no ",
+      "suggestion": null,
+      "text": "Remove the whole thing",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:05:43.913Z",
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-29T19:02:15.145190Z",
+          "text": "Done, section 3.1 removed from the site and nav (its content that wasn't redundant elsewhere was folded into 1.2). See commit 979aa08."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-29T19:02:15.145190Z"
+    },
+    {
+      "id": "c_wjcvsa81mumoztrt",
+      "section": "doc-3-2",
+      "file": "upi_docs/section_3_2.md",
+      "quote": "If you only read one row. Selling online, on mobile: UPI Intent. Selling online, on desktop: Dynamic QR. Selling in person: Static QR for a fixed counter, SoftPOS if staff move around.\n\n",
+      "prefix": "y needs an NFC capable Android phone.\n\n\n",
+      "suffix": "Getting Started from Zero: Complete Merc",
+      "suggestion": null,
+      "text": "change remove",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:08:38.393Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_hux4t4armump22bn",
+      "section": "doc-3-2",
+      "file": "upi_docs/section_3_2.md",
+      "quote": "Cashfree Checkout (hosted pag",
+      "prefix": "fastest possible start and minimal code\n",
+      "suffix": "e). Cashfree renders the payment page, y",
+      "suggestion": null,
+      "text": "intent collect and qr will autmatically be enabled",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:10:22.786Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_2x57vx3vmumpac9a",
+      "section": "doc-3-4",
+      "file": "upi_docs/section_3_4.md",
+      "quote": "pull",
+      "prefix": "cap.\n\n      Flow Restrictions: Collect (",
+      "suffix": ") requests are blocked for credit card b",
+      "suggestion": null,
+      "text": "remove",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:16:48.910Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_4nldm1aemumpdgbt",
+      "section": "doc-3-4",
+      "file": "upi_docs/section_3_4.md",
+      "quote": "nk-Level Overrides: Remitter banks reserve authority to apply lower internal spending limits (e.g., ₹50,000 daily) regardless of category cap allowance.",
+      "prefix": "ollect sunset described in 3.2.\n      Ba",
+      "suffix": "\n    \n  \n\n\n",
+      "suggestion": null,
+      "text": "might differ bank to bank",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:19:14.153Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_ok6w61bqmumpe8lk",
+      "section": "doc-3-4",
+      "file": "upi_docs/section_3_4.md",
+      "quote": ". Capital markets (MCC 6211) and financial services (MCC 6012) remain permitted to use Collect, since it's needed alongside Third-Party Verification, an exemption that survives the broader P2M Collect sunset described in 3.2.",
+      "prefix": "tricting those categories to Intent only",
+      "suffix": "\n      Bank-Level Overrides: Remitter ba",
+      "suggestion": null,
+      "text": "remove",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:19:50.792Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_dhk8ggd7mumpk3sf",
+      "section": "doc-4-1",
+      "file": "upi_docs/section_4_1.md",
+      "quote": " if it happens within 5 minutes of mandate creation, the PIN the customer just entered to create the mandate covers it too, no separate PIN entry. If the first debit is scheduled for later instead, it always needs a fresh PIN entry regardless of amount, this one time, even if it is below ₹15,000.\n\nAt mandate creation, Cashfree also runs a ₹1 verification debit on its own end. This is not something you need to trigger or account for.",
+      "prefix": "ault.\nFirst execution is a special case:",
+      "suffix": "\n\n5. The Pre-Debit Notification (PDN)\nBe",
+      "suggestion": null,
+      "text": "cashfree does this",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:24:24.495Z",
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-29T19:02:15.145190Z",
+          "text": "Confirmed and documented, including the refund/settlement-visibility half (depends on mandate config: auto-reversed same-day, or counted toward the first debit; always its own traceable settlement line item either way). See commits f7c8d80 and fb7cbbe."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-29T19:02:15.145190Z"
+    },
+    {
+      "id": "c_9srjm7vgmumpmnx5",
+      "section": "doc-4-1",
+      "file": "upi_docs/section_4_1.md",
+      "quote": "Before every execution, you must send a Pre-Debit Notification (PDN) to the customer's UPI app, at least 24 hours ahead of the debit.",
+      "prefix": ".\n\n\n5. The Pre-Debit Notification (PDN)\n",
+      "suffix": "\n\nThe amount cannot change after the PDN",
+      "suggestion": null,
+      "text": "before case pdn must be send...... when yu cal raise a achrge customer \n\n\nthere is also controlled apis \nnew cashfree customs",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:26:23.897Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_yvhz6rq3mumpnkfn",
+      "section": "doc-4-1",
+      "file": "upi_docs/section_4_1.md",
+      "quote": "The amount cannot change after the PDN is sent. If the amount you actually debit differs from the amount stated in the PDN, the issuing bank declines the transaction on amount-match grounds. This is not a retry situation, correct the amount and notify again for the next attempt.\nIf the PDN itself fails to reach the customer (a delivery failure on the bank's or PSP's side), the debit is blocked for that cycle. This is also not something you retry directly, the execution simply cannot proceed without a delivered PDN.",
+      "prefix": " at least 24 hours ahead of the debit.\n\n",
+      "suffix": "\n\n\nExemptions: PDNs are not required for",
+      "suggestion": null,
+      "text": "check this value",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:27:06.035Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_e0f10a2hmumppzzf",
+      "section": "doc-4-1",
+      "file": "upi_docs/section_4_1.md",
+      "quote": "A debit can fail even after the PDN goes through successfully, and what you do next depends entirely on why it failed. Do not treat every failure the same way, only one of the four cases below is something you actually retry, and even then, only for Periodic subscriptions, On-Demand has no fixed cycle to retry within, you just raise a new charge yourself whenever you are ready.\n\n",
+      "prefix": " 7412).\n\n6. Denied Payments and Retries\n",
+      "suffix": "\n\nWhat happened\nWhat you do about it\n\n\n\n",
+      "suggestion": null,
+      "text": "easier",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:28:59.499Z",
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-29T19:02:15.145190Z",
+          "text": "Done, rewritten in shorter, simpler sentences in Section 6. See commit 979aa08."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-29T19:02:15.145190Z"
+    },
+    {
+      "id": "c_o9m0fjrymumpqe2z",
+      "section": "doc-4-1",
+      "file": "upi_docs/section_4_1.md",
+      "quote": "(The Loan Exception)",
+      "prefix": "restart the sequence.\n8. Pause & Revoke ",
+      "suffix": "\nCustomers can pause or permanently revo",
+      "suggestion": null,
+      "text": "remove",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:29:17.770Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "id": "c_phfmmga0mumpvg9d",
+      "section": "doc-4-1",
+      "file": "upi_docs/section_4_1.md",
+      "quote": " Deni",
+      "prefix": "MCC 4784) and RuPay NCMC (MCC 7412).\n\n6.",
+      "suffix": "ed Payments and Retries\nA debit can fail",
+      "suggestion": null,
+      "text": "even after retries , we can send payment link",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:33:13.872Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
