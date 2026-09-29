@@ -465,8 +465,16 @@
       "text": "Deliberately left unpriced. The public pricing page calls Instant Settlement an add-on without publishing a rate. An earlier draft said 0.30% plus GST, which could not be verified. Add the real number here if pricing will confirm it.",
       "author": "Claude",
       "createdAt": "2026-08-12T10:15:00.000Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-29T18:59:44.394980Z",
+          "text": "Saif's own settlement cycle table (29 Sep, provided twice) also has no percentage or flat fee for Instant Settlement, just 'paid add-on' and 'chargeable', matching Cashfree's public settlements docs which say the same thing without a number. Confirmed there is no number to add. Timing, eligibility and channel detail from that table has been folded into 3.2 and 5.1. Staying unpriced as-is. Marking resolved."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-29T18:59:44.394980Z"
     },
     {
       "id": "c_a2k5u1vsmspxr31w",
