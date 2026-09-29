@@ -1605,6 +1605,20 @@
       "createdAt": "2026-09-29T12:58:21.016Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_j4oab1d4mumopedl",
+      "section": "doc-4-4",
+      "file": "upi_docs/section_4_4.md",
+      "quote": " Debits are triggered whenever an invoice is generated (for example, utility bills, credit card statements). Because billing dates and amounts vary, stricter creation caps apply.",
+      "prefix": "Billing Frequency Types\n\n\n\nAs Presented:",
+      "suffix": "\nAll Others: Predefined recurring interv",
+      "suggestion": null,
+      "text": "we doin't generate envoice",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:00:31.881Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
