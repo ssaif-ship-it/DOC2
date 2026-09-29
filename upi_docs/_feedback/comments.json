@@ -1689,6 +1689,20 @@
       "createdAt": "2026-09-29T13:10:22.786Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_2x57vx3vmumpac9a",
+      "section": "doc-3-4",
+      "file": "upi_docs/section_3_4.md",
+      "quote": "pull",
+      "prefix": "cap.\n\n      Flow Restrictions: Collect (",
+      "suffix": ") requests are blocked for credit card b",
+      "suggestion": null,
+      "text": "remove",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:16:48.910Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
