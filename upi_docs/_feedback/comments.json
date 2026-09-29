@@ -1731,6 +1731,20 @@
       "createdAt": "2026-09-29T13:19:50.792Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_dhk8ggd7mumpk3sf",
+      "section": "doc-4-1",
+      "file": "upi_docs/section_4_1.md",
+      "quote": " if it happens within 5 minutes of mandate creation, the PIN the customer just entered to create the mandate covers it too, no separate PIN entry. If the first debit is scheduled for later instead, it always needs a fresh PIN entry regardless of amount, this one time, even if it is below ₹15,000.\n\nAt mandate creation, Cashfree also runs a ₹1 verification debit on its own end. This is not something you need to trigger or account for.",
+      "prefix": "ault.\nFirst execution is a special case:",
+      "suffix": "\n\n5. The Pre-Debit Notification (PDN)\nBe",
+      "suggestion": null,
+      "text": "cashfree does this",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:24:24.495Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
