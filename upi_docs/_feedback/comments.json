@@ -1633,6 +1633,20 @@
       "createdAt": "2026-09-29T13:02:17.302Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_6v1ym5b6mumos68l",
+      "section": "doc-4-4",
+      "file": "upi_docs/section_4_4.md",
+      "quote": "All Others:",
+      "prefix": "nts vary, stricter creation caps apply.\n",
+      "suffix": " Predefined recurring intervals (for exa",
+      "suggestion": null,
+      "text": "periodic",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:02:41.300Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
