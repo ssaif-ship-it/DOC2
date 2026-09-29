@@ -1591,6 +1591,20 @@
       ],
       "resolvedBy": "Claude",
       "resolvedAt": "2026-09-24T09:24:35.000Z"
+    },
+    {
+      "id": "c_vorcaiprmumomleg",
+      "section": "doc-5-3",
+      "file": "upi_docs/section_5_3.md",
+      "quote": "Customer / UPI App\nUser Error\n→\nNPCI Switch / Remitter Bank\nBank / Network Error\n→\nGateway / Switch\nNormalized API\n→\nMerchant Backend\nHandled Co",
+      "prefix": " to your application:\n\n  \n  \n    \n      ",
+      "suffix": " Switch\n      Normalized API\n    \n    →\n",
+      "suggestion": null,
+      "text": "simplify and correct",
+      "author": "Saif",
+      "createdAt": "2026-09-29T12:58:21.016Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
