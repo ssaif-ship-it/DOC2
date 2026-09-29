@@ -157,6 +157,8 @@ Settlement does not always land directly in your own account, it depends on your
   </table>
 </div>
 
+**Direct Settlement (DS):** when this is ON, the acquiring bank credits your account directly instead of routing through Cashfree, which changes how you collect fees, handle refunds, and reconcile. See [5.1 Settlements](#doc-5-1) for the full comparison against standard aggregator settlement before you plan around it.
+
 **If you are IA/RA:** TPV does not apply to you, and your funds route through Cashfree's escrow account instead of settling directly. Build this into your reconciliation and cash flow planning.
 
 ## 6. What You Need To Do, By Bank

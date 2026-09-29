@@ -200,7 +200,9 @@ Cycles represent business days (n) elapsed after transaction capture day (T):
   </table>
 </div>
 
-<!-- Claude, confirmed correction for Saif: this row previously said the opposite of what it says now, Standard Aggregator was listed as a simple 1:1 match and Direct Settlement as the one requiring 3-way reconciliation. No public source describes either model's reconciliation process, so per your source hierarchy the internal reference material you shared (citing the same PRD - UPI Direct Settlement Recon material behind the flag above this table) governs over this doc's prior unverified draft text. That material says Standard Aggregator gets an automated 3-way match, while Direct Settlement only gets a 2-way match and is more manual for you precisely because Cashfree cannot see your bank statement. Flipped both cells accordingly. -->
+Direct Settlement is not something every merchant can opt into, it is only available for stock broking, mutual funds, OBPPs and similar investment-category merchants. See [3.3 Investment Category Onboarding](#doc-3-3) to check whether it applies to you and what you need to do to turn it on.
+
+<!-- Claude, confirmed correction for Saif: this row previously said the opposite of what it says now, Standard Aggregator was listed as a simple 1:1 match and Direct Settlement as the one requiring 3-way reconciliation. No public source describes either model's reconciliation process, so per your source hierarchy the internal reference material you shared (citing the same PRD - UPI Direct Settlement Recon material behind the flag above this table) governs over this doc's prior unverified draft text. That material says Standard Aggregator gets an automated 3-way match, while Direct Settlement only gets a 2-way match and is more manual for you precisely because Cashfree cannot see your bank statement. Flipped both cells accordingly. Added the link to 3.3 per your request to connect this table with the investment category section. -->
 
 ## 3. Cut-off Times, Weekends & Bank Holidays
 
@@ -210,7 +212,9 @@ The system calculates when a transaction is eligible for payout based on strictl
 
 When you see terms like T+1, the "T" stands for the Transaction Date, and the "+1" means one business day later. The formula ensures that at 11:59 PM (23:59:59 IST) on the target day, the funds are cleared for the next payout batch.
 
-**The Golden Rule:** Payouts rely on banks being open. If your payout date lands on a weekend or an official Reserve Bank of India (RBI) holiday, the system automatically pauses and pushes your money to the very next working day.
+**The Golden Rule:** Payouts rely on banks being open. If your payout date lands on a weekend or an official Reserve Bank of India (RBI) holiday, the system automatically pauses and pushes your money to the very next working day. Check RBI's own [Holiday Matrix](https://rbi.org.in/Scripts/HolidayMatrixDisplay.aspx) to see upcoming bank holidays by region, so you can anticipate when a payout will roll over.
+
+<!-- Claude, note for Saif: linked RBI's official Holiday Matrix page per your request, it is RBI's own public page for checking bank holidays by regional office and date. -->
 
 ---
 
