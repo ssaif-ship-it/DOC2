@@ -1619,6 +1619,20 @@
       "createdAt": "2026-09-29T13:00:31.881Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_2v8c757jmumornpy",
+      "section": "doc-4-4",
+      "file": "upi_docs/section_4_4.md",
+      "quote": "As Presented:",
+      "prefix": "lling cycle.\nBilling Frequency Types\n\n\n\n",
+      "suffix": " Debits are triggered whenever an invoic",
+      "suggestion": null,
+      "text": "on demanded",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:02:17.302Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
