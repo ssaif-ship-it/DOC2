@@ -60,7 +60,9 @@ Cycles represent business days (n) elapsed after transaction capture day (T):
 *   **T+0 (Same-Day / Instant):** Payouts are executed on the transaction date itself, either in fixed daily batches (e.g., 11:00, 16:00, 20:00 IST) or via rolling 15-minute execution windows. Chargeable, and requires eligibility.
 
 <!-- Claude, confirmed correction for Saif: applying your source hierarchy, official public docs first, then the internal reference material you shared, then this doc. No public source states Cashfree's specific batch times, so between this doc's prior figure of 09:00, 17:00, 20:00 IST and the internal material's 11:00, 16:00, and 20:00 hours (citing "BEPG Transaction Processing"), the internal material outranks this doc's own unverified draft text. Updated the T+0 batch times to 11:00, 16:00, 20:00 IST accordingly. The 15-minute rolling-window detail is unaffected, nothing conflicts with it. -->
-*   **T+1 (Next Business Day):** Payouts are executed on the first banking working day following T. Available where enabled for your account, for merchants who need funds a day sooner than the default cycle.
+*   **T+1 (Next Business Day):** Payouts are executed on the first banking working day following T, typically by 8:00 PM IST. Available once approved for it, at 0% MDR, no extra charge, for merchants who need funds a day sooner than the default cycle.
+
+<!-- Claude, note for Saif: added the ~8:00 PM IST timing and the 0% MDR framing from your 29 Sep table. Left the T+0 bullet above as-is for now, your table describes Same-Day (T+0) as needing "Risk & Volume approval" without saying whether it's chargeable, while this doc currently states T+0 is chargeable, that's a real conflict, not something I want to silently overwrite either way. Flagged in my message. -->
 *   **T+2 (Standard - Default):** Payouts are executed on the second banking working day following T. This is Cashfree's default settlement cycle, most merchants stay on it, and it is what shows as "Standard Settlement" on the merchant dashboard.
 *   **Beyond T+2:** Elevated-risk merchant profiles may be held for a longer cycle.
 

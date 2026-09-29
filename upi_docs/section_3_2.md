@@ -278,10 +278,12 @@ Also test a **refund**. User drops (the row above) are the largest single catego
 
 | Option | When the money reaches you | Cost | Pick this if |
 | :-- | :-- | :-- | :-- |
-| **Standard (T+2)** | Two business days after the transaction | Included | **This is the default.** Most merchants stay here. |
-| T+1 | Next business day | Included, where enabled for your account | You need funds a day sooner |
-| Instant Settlement | Roughly 15 minutes | Chargeable add-on | Your cash flow needs same day funds |
-| On-Demand Settlement | Instantly, including holidays | Chargeable | You need funds outside the normal cycle, when you ask for them |
+| **Standard (T+2)** | Two business days after the transaction, typically by 5:00 PM IST | Included | **This is the default.** Most merchants stay here. |
+| Next-Day (T+1) | One business day after the transaction, typically by 8:00 PM IST | Included, at 0% MDR, once approved for it | You need funds a day sooner |
+| Instant Settlement | Within 15 minutes to 6 hours, over IMPS, UPI or NEFT | Chargeable add-on, subject to limit checks | Your cash flow needs funds fast, automatically, without asking each time |
+| On-Demand Settlement | Instantly, whenever you request it, including holidays | Chargeable | You need funds outside the normal cycle, when you ask for them |
+
+<!-- Claude, note for Saif: refined timing and cost detail from your 29 Sep table (T+1 timing and 0% MDR framing, Instant Settlement's real 15 min to 6 hour window and channels). Kept Instant Settlement and On-Demand Settlement as two separate rows, matching Cashfree's own public settlements doc, which describes them as genuinely different products (Instant is automatic and batch/rolling-window triggered, On-Demand is merchant-initiated whenever you ask, both chargeable). Did not add a separate Same-Day (T+0) row yet, see my message for why. -->
 
 Business days exclude weekends and bank holidays. A transaction on Friday 3 June settles Monday 6 June on T+1, or Tuesday 7 June on T+2.
 
