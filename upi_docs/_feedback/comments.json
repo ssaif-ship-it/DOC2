@@ -1787,6 +1787,20 @@
       "createdAt": "2026-09-29T13:28:59.499Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_o9m0fjrymumpqe2z",
+      "section": "doc-4-1",
+      "file": "upi_docs/section_4_1.md",
+      "quote": "(The Loan Exception)",
+      "prefix": "restart the sequence.\n8. Pause & Revoke ",
+      "suffix": "\nCustomers can pause or permanently revo",
+      "suggestion": null,
+      "text": "remove",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:29:17.770Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
