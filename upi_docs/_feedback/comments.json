@@ -1661,6 +1661,20 @@
       "createdAt": "2026-09-29T13:05:43.913Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_wjcvsa81mumoztrt",
+      "section": "doc-3-2",
+      "file": "upi_docs/section_3_2.md",
+      "quote": "If you only read one row. Selling online, on mobile: UPI Intent. Selling online, on desktop: Dynamic QR. Selling in person: Static QR for a fixed counter, SoftPOS if staff move around.\n\n",
+      "prefix": "y needs an NFC capable Android phone.\n\n\n",
+      "suffix": "Getting Started from Zero: Complete Merc",
+      "suggestion": null,
+      "text": "change remove",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:08:38.393Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
