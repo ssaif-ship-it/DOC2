@@ -1717,6 +1717,20 @@
       "createdAt": "2026-09-29T13:19:14.153Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_ok6w61bqmumpe8lk",
+      "section": "doc-3-4",
+      "file": "upi_docs/section_3_4.md",
+      "quote": ". Capital markets (MCC 6211) and financial services (MCC 6012) remain permitted to use Collect, since it's needed alongside Third-Party Verification, an exemption that survives the broader P2M Collect sunset described in 3.2.",
+      "prefix": "tricting those categories to Intent only",
+      "suffix": "\n      Bank-Level Overrides: Remitter ba",
+      "suggestion": null,
+      "text": "remove",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:19:50.792Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
