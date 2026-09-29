@@ -97,7 +97,7 @@ Cashfree then runs a penny test, a Re 1 NEFT credit to the bank account you gave
 | Your documents were rejected | The dashboard shows which document failed and why. Re-upload the corrected one, the rest of your submission is retained. |
 | Your entity type changed after signup | Raise this with support before re-uploading. Changing entity type after approval is slower than getting it right the first time. |
 
-**How this affects you later.** Your MCC (Merchant Category Code) is assigned from what you declare here, your website, and your product listing. You do not choose your own MCC. Your MCC then determines your per transaction limits, which UPI flows you are permitted to use, and whether you need TPV. If you sell across more than one business line, flag it now, because a wrong MCC surfaces later as unexplained declines. See [3.1 Standards and Onboarding](#doc-3-1) and [3.4 MCC Limits and Caps](#doc-3-4).
+**How this affects you later.** Your MCC (Merchant Category Code) is assigned from what you declare here, your website, and your product listing. You do not choose your own MCC. Your MCC then determines your per transaction limits, which UPI flows you are permitted to use, and whether you need TPV. If you sell across more than one business line, flag it now, because a wrong MCC surfaces later as unexplained declines. See [3.4 MCC Limits and Caps](#doc-3-4).
 
 ### How to check where your KYC stands
 

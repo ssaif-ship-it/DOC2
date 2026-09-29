@@ -52,7 +52,9 @@ Before every execution, you must send a Pre-Debit Notification (PDN) to the cust
 
 ## 6. Denied Payments and Retries
 
-A debit can fail even after the PDN goes through successfully, and what you do next depends entirely on why it failed. Do not treat every failure the same way, only one of the four cases below is something you actually retry, and even then, only for Periodic subscriptions, On-Demand has no fixed cycle to retry within, you just raise a new charge yourself whenever you are ready.
+A debit can still fail even after the PDN goes through. What you should do next depends on why it failed, so do not treat every failure the same way. Only one of the three cases below is worth retrying, and that is only for Periodic subscriptions. On-Demand has no fixed cycle to retry within, so you simply raise a new charge yourself whenever you are ready.
+
+<!-- Claude, note for Saif: simplified this into shorter sentences per your request. Also fixed "four cases" to "three," the table below only has three rows, "four" looks like a leftover from an earlier version. -->
 
 | What happened | What you do about it |
 | :-- | :-- |

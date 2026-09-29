@@ -1,4 +1,6 @@
-Connecting directly to the 4-Pillar UPI infrastructure requires significant engineering resources, direct banking partnerships, and continuous compliance maintenance. When you integrate with Cashfree, we act as your Payment Aggregator (PA). We partner with multiple top-tier Payee PSPs and absorb the entire technical and regulatory complexity of the ecosystem so you can focus strictly on growing your business.
+Connecting directly to the 4-Pillar UPI infrastructure requires significant engineering resources, direct banking partnerships, and continuous compliance maintenance. When you integrate with Cashfree, we act as your Payment Aggregator (PA), licensed by the Reserve Bank of India (RBI), and manage your end-to-end onboarding onto the National Payments Corporation of India (NPCI) network. We partner with multiple top-tier Payee PSPs and absorb the entire technical and regulatory complexity of the ecosystem so you can focus strictly on growing your business.
+
+<!-- Claude, note for Saif: folded in the regulatory framing from 3.1's "Cashfree's Role as a Payment Aggregator" section (RBI license, NPCI onboarding) per your instruction to remove 3.1 and merge that part into 1.2. Did not repeat 3.1's "Proprietary Payment Switch" or "Regulatory Reporting" bullets here, since they duplicate the "Dynamic Intelligent Routing" and "Automated Settlement & Reconciliation" bullets already below. RBI Payment Aggregator license confirmed via public reporting (July 2024). -->
 
 **How Cashfree Optimizes Your UPI Infrastructure:**
 
