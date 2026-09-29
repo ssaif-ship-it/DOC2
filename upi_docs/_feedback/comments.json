@@ -1801,6 +1801,20 @@
       "createdAt": "2026-09-29T13:29:17.770Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_phfmmga0mumpvg9d",
+      "section": "doc-4-1",
+      "file": "upi_docs/section_4_1.md",
+      "quote": " Deni",
+      "prefix": "MCC 4784) and RuPay NCMC (MCC 7412).\n\n6.",
+      "suffix": "ed Payments and Retries\nA debit can fail",
+      "suggestion": null,
+      "text": "even after retries , we can send payment link",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:33:13.872Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
