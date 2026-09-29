@@ -1759,6 +1759,20 @@
       "createdAt": "2026-09-29T13:26:23.897Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_yvhz6rq3mumpnkfn",
+      "section": "doc-4-1",
+      "file": "upi_docs/section_4_1.md",
+      "quote": "The amount cannot change after the PDN is sent. If the amount you actually debit differs from the amount stated in the PDN, the issuing bank declines the transaction on amount-match grounds. This is not a retry situation, correct the amount and notify again for the next attempt.\nIf the PDN itself fails to reach the customer (a delivery failure on the bank's or PSP's side), the debit is blocked for that cycle. This is also not something you retry directly, the execution simply cannot proceed without a delivered PDN.",
+      "prefix": " at least 24 hours ahead of the debit.\n\n",
+      "suffix": "\n\n\nExemptions: PDNs are not required for",
+      "suggestion": null,
+      "text": "check this value",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:27:06.035Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
