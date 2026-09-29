@@ -1773,6 +1773,20 @@
       "createdAt": "2026-09-29T13:27:06.035Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_e0f10a2hmumppzzf",
+      "section": "doc-4-1",
+      "file": "upi_docs/section_4_1.md",
+      "quote": "A debit can fail even after the PDN goes through successfully, and what you do next depends entirely on why it failed. Do not treat every failure the same way, only one of the four cases below is something you actually retry, and even then, only for Periodic subscriptions, On-Demand has no fixed cycle to retry within, you just raise a new charge yourself whenever you are ready.\n\n",
+      "prefix": " 7412).\n\n6. Denied Payments and Retries\n",
+      "suffix": "\n\nWhat happened\nWhat you do about it\n\n\n\n",
+      "suggestion": null,
+      "text": "easier",
+      "author": "Saif",
+      "createdAt": "2026-09-29T13:28:59.499Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
