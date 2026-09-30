@@ -1866,8 +1866,16 @@
       "text": "even after retries , we can send payment link",
       "author": "Saif",
       "createdAt": "2026-09-29T13:33:13.872Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-30T05:59:57.094056Z",
+          "text": "Rewrote Section 6: moved the Periodic vs On-Demand split into the table row itself instead of only the intro, and added the payment-link fallback you flagged, a one-time collection that works regardless of which of the three cases applies, since it doesn't depend on the mandate."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-30T05:59:57.094056Z"
     }
   ]
 }

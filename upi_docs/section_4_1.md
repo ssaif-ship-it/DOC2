@@ -52,15 +52,17 @@ Before every execution, you must send a Pre-Debit Notification (PDN) to the cust
 
 ## 6. Denied Payments and Retries
 
-A debit can still fail even after the PDN goes through. What you should do next depends on why it failed, so do not treat every failure the same way. Only one of the three cases below is worth retrying, and that is only for Periodic subscriptions. On-Demand has no fixed cycle to retry within, so you simply raise a new charge yourself whenever you are ready.
-
-<!-- Claude, note for Saif: simplified this into shorter sentences per your request. Also fixed "four cases" to "three," the table below only has three rows, "four" looks like a leftover from an earlier version. -->
+A debit can still fail even after the PDN goes through. What you do next depends on why it failed, there are three different situations below, and they are not handled the same way.
 
 | What happened | What you do about it |
 | :-- | :-- |
-| **Customer-side and temporary:** low balance, a brief network issue at the customer's bank, an inactive-but-not-closed account | **Retry it, Periodic only.** The subscription moves to ON HOLD, and Cashfree automatically retries the debit for you, up to **3 attempts**, no more than **1 per day**, and it must succeed before the current cycle expires. A successful retry reactivates the subscription. |
-| **The account or mandate itself is broken:** closed/invalid account, a mandate already cancelled or deactivated, a name mismatch | **Do not retry, it will not work.** The customer needs to set up a brand new mandate. |
-| **Blocked by something outside normal banking:** a court order, a frozen account, KYC pending on the customer's side | **Retrying will not fix this.** Follow up with the customer directly instead. |
+| **Customer-side and temporary:** low balance, a brief network issue at the customer's bank, an inactive-but-not-closed account | **Periodic subscriptions:** Cashfree retries automatically, up to **3 attempts**, no more than **1 per day**, and it must succeed before the current cycle expires. A successful retry reactivates the subscription. **On-Demand:** there is no fixed cycle to retry within, you simply raise a new charge yourself whenever you are ready. |
+| **The account or mandate itself is broken:** closed/invalid account, a mandate already cancelled or deactivated, a name mismatch | Retrying the mandate will not work. The customer needs to set up a brand new mandate. |
+| **Blocked by something outside normal banking:** a court order, a frozen account, KYC pending on the customer's side | Retrying will not fix this. Follow up with the customer directly. |
+
+Whichever of these applies, you are not limited to the mandate retry alone. You can always send the customer a one-time [payment link](#doc-2-3) to collect that specific due amount right away, it does not depend on the mandate at all, so it still works while the mandate itself is broken or being recreated.
+
+<!-- Claude, note for Saif: rewrote this per your "confusing and wrong" comment. Moved the Periodic vs On-Demand distinction into the table row itself instead of only the intro paragraph, since that was the confusing part, a merchant reading row 1 alone couldn't tell what happens for On-Demand. Added the payment-link fallback per your comment on this section ("even after retries, we can send payment link"), worded as a one-time collection only, it doesn't fix or recreate the mandate, since Cashfree's own No-Code Payment Links product is documented for one-off payments only, not mandates (see the note in 4.3). Linked to 2.3, which is where 3.2 already points merchants for payment links. -->
 
 ## 7. Tracking Executions: SeqNum
 
