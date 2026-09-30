@@ -25,8 +25,6 @@ Pick the product that matches how your customers pay you. You are not locked in,
 | **[Dynamic QR](#doc-2-3)** | Delivery, desktop checkout, invoices | Medium (API) | Scan, enter PIN (amount pre-filled) | The recommended replacement for Collect on desktop web. |
 | **[SoftPOS](#doc-2-4)** | Field agents, delivery staff, retail | Low (app install) | Scan QR, tap card, or pay by link | Needs activation, agent registration and agent KYC. Tap to pay needs an NFC capable Android phone. |
 
-**If you only read one row.** Selling online, on mobile: UPI Intent. Selling online, on desktop: Dynamic QR. Selling in person: Static QR for a fixed counter, SoftPOS if staff move around.
-
 ---
 
 # Getting Started from Zero: Complete Merchant Onboarding Guide

@@ -1710,8 +1710,16 @@
       "text": "change remove",
       "author": "Saif",
       "createdAt": "2026-09-29T13:08:38.393Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-30T06:16:03.125834Z",
+          "text": "Removed."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-30T06:16:03.125834Z"
     },
     {
       "id": "c_hux4t4armump22bn",
@@ -1738,8 +1746,16 @@
       "text": "remove",
       "author": "Saif",
       "createdAt": "2026-09-29T13:16:48.910Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-30T06:16:03.125834Z",
+          "text": "Rewrote the whole bullet using your actual block-list constants, '(pull)' is gone along with it."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-30T06:16:03.125834Z"
     },
     {
       "id": "c_4nldm1aemumpdgbt",
@@ -1766,8 +1782,16 @@
       "text": "remove",
       "author": "Saif",
       "createdAt": "2026-09-29T13:19:50.792Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-30T06:16:03.125834Z",
+          "text": "Removed. With the real block-list constants now in hand, anything not on either list is simply not blocked, no separate exemption callout needed for 6211/6012."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-30T06:16:03.125834Z"
     },
     {
       "id": "c_dhk8ggd7mumpk3sf",
