@@ -71,11 +71,52 @@ If your business raises a high volume of same-day charges and the default hourly
 
 A debit can still fail even after the PDN goes through. What you do next depends on why it failed, there are three different situations below, and they are not handled the same way.
 
-| What happened | What you do about it |
-| :-- | :-- |
-| **Customer-side and temporary:** low balance, a brief network issue at the customer's bank, an inactive-but-not-closed account | **Periodic subscriptions:** Cashfree retries automatically, up to **3 more attempts** the same day, spaced at least an hour apart, until 11:30 PM IST that day. A successful retry reactivates the subscription. **On-Demand:** there is no fixed cycle to retry within, you simply raise a new charge yourself whenever you are ready. |
-| **The account or mandate itself is broken:** closed/invalid account, a mandate already cancelled or deactivated, a name mismatch | Retrying the mandate will not work. The customer needs to set up a brand new mandate. |
-| **Blocked by something outside normal banking:** a court order, a frozen account, KYC pending, or a fraud/risk block on the customer's side | Retrying will not fix this. Follow up with the customer directly. |
+<div style="overflow-x: auto; margin: 20px 0;">
+  <table style="width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid #eae5f2; border-radius: 12px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; color: #334155;">
+    <thead>
+      <tr style="background-color: #f6f1fc;">
+        <th style="padding: 16px 20px; text-align: left; color: #5b21b6; font-weight: 600; font-size: 15px; border-bottom: 1px solid #eae5f2;">What Happened</th>
+        <th style="padding: 16px 20px; text-align: center; color: #5b21b6; font-weight: 600; font-size: 15px; border-bottom: 1px solid #eae5f2;">Retryable?</th>
+        <th style="padding: 16px 20px; text-align: left; color: #5b21b6; font-weight: 600; font-size: 15px; border-bottom: 1px solid #eae5f2;">What You Do About It</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">
+          Customer-side and temporary
+          <div style="font-weight: 400; color: #64748b; font-size: 13px; margin-top: 4px;">Low balance, a brief network issue at the customer's bank, an inactive-but-not-closed account</div>
+        </td>
+        <td style="padding: 16px 20px; border-bottom: 1px solid #f1f5f9; vertical-align: top; text-align: center;">
+          <span style="display: inline-block; background-color: #c6f6d5; color: #22543d; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700;">Yes</span>
+        </td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.6;">
+          <div style="margin-bottom: 10px;"><strong>Periodic subscriptions:</strong> Cashfree retries automatically, up to 3 more attempts the same day, spaced at least an hour apart, until 11:30 PM IST that day. A successful retry reactivates the subscription.</div>
+          <div><strong>On-Demand:</strong> there is no fixed cycle to retry within, you simply raise a new charge yourself whenever you are ready.</div>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; border-bottom: 1px solid #f1f5f9; vertical-align: top;">
+          The account or mandate itself is broken
+          <div style="font-weight: 400; color: #64748b; font-size: 13px; margin-top: 4px;">Closed/invalid account, a mandate already cancelled or deactivated, a name mismatch</div>
+        </td>
+        <td style="padding: 16px 20px; border-bottom: 1px solid #f1f5f9; vertical-align: top; text-align: center;">
+          <span style="display: inline-block; background-color: #fed7d7; color: #742a2a; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700;">No</span>
+        </td>
+        <td style="padding: 16px 20px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.6;">Retrying the mandate will not work. The customer needs to set up a brand new mandate.</td>
+      </tr>
+      <tr>
+        <td style="padding: 16px 20px; font-weight: 600; color: #0f172a; vertical-align: top;">
+          Blocked by something outside normal banking
+          <div style="font-weight: 400; color: #64748b; font-size: 13px; margin-top: 4px;">A court order, a frozen account, KYC pending, or a fraud/risk block on the customer's side</div>
+        </td>
+        <td style="padding: 16px 20px; vertical-align: top; text-align: center;">
+          <span style="display: inline-block; background-color: #fed7d7; color: #742a2a; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700;">No</span>
+        </td>
+        <td style="padding: 16px 20px; color: #334155; vertical-align: top; line-height: 1.6;">Retrying will not fix this. Follow up with the customer directly.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 Whichever of these applies, you are not limited to the mandate retry alone. You can always send the customer a one-time [payment link](#doc-2-3) to collect that specific due amount right away, it does not depend on the mandate at all, so it still works while the mandate itself is broken or being recreated.
 
