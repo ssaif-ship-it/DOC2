@@ -1852,8 +1852,16 @@
       "text": "remove",
       "author": "Saif",
       "createdAt": "2026-09-29T13:29:17.770Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-30T06:05:33.509847Z",
+          "text": "Removed the parenthetical, heading is now just 'Pause & Revoke'. The MCC 7322 exception is already explained in the body text right below it."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-30T06:05:33.509847Z"
     },
     {
       "id": "c_phfmmga0mumpvg9d",

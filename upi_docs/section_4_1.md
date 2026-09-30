@@ -74,7 +74,7 @@ Every mandate execution is tracked using a sequential number (SeqNum), month one
 
 If a cycle's execution is ultimately not recovered, whether retries were exhausted, the cycle expired, or the failure was non-recoverable, that SeqNum stands cancelled. You skip it and move to the next sequence number (e.g., `SeqNum: 3`) for the following cycle. A missed SeqNum does not pause or restart the sequence.
 
-## 8. Pause & Revoke (The Loan Exception)
+## 8. Pause & Revoke
 
 Customers can pause or permanently revoke their active mandates directly from their UPI app. Any attempt to debit a paused or revoked mandate results in an immediate technical decline.
 
