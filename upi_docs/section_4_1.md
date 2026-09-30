@@ -80,8 +80,8 @@ A debit can still fail even after the PDN goes through, and what happens next de
     </div>
     <div style="color: #64748b; font-size: 13px; margin-bottom: 12px;">Low balance, a brief network issue at the customer's bank, an inactive-but-not-closed account</div>
     <div style="color: #334155; font-size: 14px; line-height: 1.6;">
-      <div style="margin-bottom: 8px;">For Periodic subscriptions, Cashfree retries automatically: up to 3 more attempts the same day, spaced at least an hour apart, ending at 11:30 PM IST. A successful retry reactivates the subscription.</div>
-      <div>For On-Demand, there is no fixed cycle to retry within, so you simply raise a new charge yourself whenever you are ready.</div>
+      <div style="margin-bottom: 8px;">Cashfree retries the debit automatically, up to 3 more attempts the same day, spaced at least an hour apart, ending at 11:30 PM IST, the same for Periodic and On-Demand alike. While retries are running, a Periodic subscription shows as ON HOLD and reactivates the moment one succeeds.</div>
+      <div>If every attempt still fails: a Periodic subscription simply waits for its next scheduled cycle, no action needed from you. An On-Demand charge has no next cycle to fall into, so if you still want to collect it, you raise a fresh charge yourself through the API.</div>
     </div>
   </div>
 
@@ -107,7 +107,9 @@ A debit can still fail even after the PDN goes through, and what happens next de
 
 None of this limits you to the mandate alone, though. A one-time [payment link](#doc-2-3) can collect that specific due amount right away regardless of which case applies, it does not depend on the mandate, so it still works while the mandate itself is broken or being recreated.
 
-<!-- Claude, note for Saif: rebuilt as cards per your feedback that a table was the wrong format for this content, plus a pass on the sentence framing, less "Retrying X will not work" repeated verbatim across rows, more natural phrasing per case. Facts unchanged from before: same retry counts, timing, and the payment-link fallback. Colors follow the site's existing badge palette (green/red from 3.3's badges). -->
+<!-- Claude, note for Saif: rebuilt as cards per your feedback that a table was the wrong format for this content, plus a pass on the sentence framing, less "Retrying X will not work" repeated verbatim across rows, more natural phrasing per case. Facts unchanged from before: same retry counts, timing, and the payment-link fallback. Colors follow the site's existing badge palette (green/red from 3.3's badges).
+
+Follow-up: fixed a real error in card 1, not just wording. The automatic retry (3 more attempts, hourly, same day, until 11:30 PM IST) is not Periodic-only, your source material describes it as the same mechanic for both types ("On-Demand: no fixed cycle to auto-retry into after the day's attempts exhaust" implies the day's attempts happen for On-Demand too). The real difference, per your Periodic vs On-Demand comparison table, is only what happens once retries are exhausted: a Periodic subscription just waits for its next scheduled cycle automatically, while an On-Demand charge is marked failed with no next cycle to fall into, so you have to raise a fresh one yourself. Rewrote the card to say the retry mechanic applies to both, and scope "reactivates" to Periodic only, since On-Demand doesn't have a persistent subscription state to reactivate. -->
 
 ## 7. Tracking Executions: SeqNum
 
