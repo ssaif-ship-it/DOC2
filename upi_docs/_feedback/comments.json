@@ -1802,8 +1802,16 @@
       "text": "before case pdn must be send...... when yu cal raise a achrge customer \n\n\nthere is also controlled apis \nnew cashfree customs",
       "author": "Saif",
       "createdAt": "2026-09-29T13:26:23.897Z",
-      "status": "open",
-      "replies": []
+      "status": "resolved",
+      "replies": [
+        {
+          "author": "Claude",
+          "createdAt": "2026-09-30T06:12:44.458143Z",
+          "text": "Added a new subsection right after the Periodic/On-Demand table explaining both flows: Cashfree-Managed (single POST /subscriptions/pay call) vs Merchant-Controlled (separate notify-mandate and execute-mandate calls, no auto-debit, no auto-retry). Also filled in the exact PDN retry numbers (6 retries, 1 hour apart, cut-off 11:30 PM IST the day before) in Section 5, previously left vague pending confirmation."
+        }
+      ],
+      "resolvedBy": "Claude",
+      "resolvedAt": "2026-09-30T06:12:44.458143Z"
     },
     {
       "id": "c_yvhz6rq3mumpnkfn",

@@ -15,6 +15,19 @@ Before you create a mandate, decide which of the two AutoPay types fits your bil
 | **Periodic** | You register a fixed frequency (Daily, Monthly, Yearly, and so on) when creating the mandate. Cashfree automatically schedules and triggers the debit on each due date, you do not call an API to fire it. | Subscriptions, EMIs, insurance premiums, anything with a predictable billing calendar. |
 | **On-Demand** | The mandate is created without a fixed schedule. You trigger each charge yourself by raising it through the API, for a date at least a day out and up to 14 days ahead, never for the same day, the 24-hour PDN notice in Section 5 below still applies. | Usage-based billing, ad-hoc top-ups, or any case where you do not know the next debit date in advance. |
 
+### On-Demand: Two Ways to Trigger a Charge
+
+By default, when you raise an On-Demand charge with a single call to `POST /subscriptions/pay`, Cashfree manages everything from there, sending the PDN, waiting out the mandatory 24-hour window, then executing the debit automatically.
+
+If you need tighter control, for example custom retry timing or precise settlement alignment, you can use the Merchant-Controlled flow instead, where notifying and debiting are two separate calls you make yourself:
+
+*   Call `POST /subscriptions/pay/controlled/notify-mandate` to send the PDN.
+*   Once the PDN has succeeded and the 24-hour window has passed, call `POST /subscriptions/pay/controlled/execute-mandate` to trigger the debit.
+
+Under this Merchant-Controlled flow, Cashfree never auto-debits and never auto-retries, if a step fails, you call the same endpoint again with a new attempt ID. The two flows also cannot be mixed on the same charge, one raised through `/subscriptions/pay` is locked to the Cashfree-managed path and will reject the controlled endpoints.
+
+<!-- Claude, note for Saif: added per your 30 Sep answer on Cashfree-Managed vs Merchant-Controlled flow. Kept to the endpoints and what a merchant actually does differently, left out the PaymentControlType enum values and the internal service name, those don't change how a merchant integrates. -->
+
 ## 2. Frequencies (Periodic Mandates Only)
 
 If you chose Periodic, you must register one of the following frequencies at mandate creation: Daily, Weekly, Fortnightly, Monthly, Bimonthly, Quarterly, Half-yearly, or Yearly.
@@ -43,14 +56,16 @@ At mandate creation, Cashfree also runs a ₹1 verification debit on its own end
 
 ## 5. The Pre-Debit Notification (PDN)
 
-Before every execution, you must send a Pre-Debit Notification (PDN) to the customer's UPI app, at least 24 hours ahead of the debit. If a PDN push does not go through on the first try, Cashfree retries it automatically, about an hour apart, before giving up. The 24-hour countdown to the actual debit only starts once a PDN has gone through successfully, not when you first attempt to send it.
+Before every execution, you must send a Pre-Debit Notification (PDN) to the customer's UPI app, at least 24 hours ahead of the debit. If a PDN push does not go through on the first try, Cashfree retries it automatically, once an hour, up to 6 times (7 attempts in total, including the first). These retries stop by 11:30 PM IST the day before your charge date, since a PDN needs a full 24 hours to clear before the debit, and that is the last moment which still allows for it. The 24-hour countdown to the actual debit only starts once a PDN has gone through successfully, not when you first attempt to send it.
 
 *   **The amount cannot change after the PDN is sent.** If the amount you actually debit differs from the amount stated in the PDN, the issuing bank declines the transaction on amount-match grounds. This is not a retry situation, correct the amount and notify again for the next attempt.
-*   **If the PDN never goes through** (all of Cashfree's own retries exhausted, or a delivery failure on the bank's or PSP's side), the debit is blocked for that cycle. This is also not something you retry directly, the execution simply cannot proceed without a delivered PDN.
+*   **If the PDN never goes through** (all retries exhausted, or the cut-off above is reached first), the charge moves to a failed state for that cycle and no debit is attempted. This is also not something you retry directly, the execution simply cannot proceed without a delivered PDN.
+
+If your business raises a high volume of same-day charges and the default hourly cadence does not fit, Cashfree can configure a faster retry interval or a different retry count for your account, ask your account manager.
 
 > **Exemptions:** PDNs are not required for Daily frequency mandates, same-day executions, or auto-replenishment use cases like NETC FASTag (MCC 4784) and RuPay NCMC (MCC 7412).
 
-<!-- Claude, note for Saif: added the PDN auto-retry behavior and the On-Demand D+1 to D+14 charge window in Section 1, from the internal retry-mechanics reference you pasted (30 Sep). Left out the retry count and hourly cadence for PDN specifically, since your source cites two different intervals for it in different places (1 hour apart in one place, no interval given elsewhere) and I did not want to state a number I could not cross-check, said "about an hour apart" to stay directionally correct without overclaiming precision. Also left out the internal error codes, service/table names, and the Cashfree-managed vs Controlled(MERCHANT) execution flag for On-Demand, that last one needs a merchant-facing explanation of what it actually changes for you before it belongs here, happy to add it if you tell me what a merchant does differently under each. -->
+<!-- Claude, note for Saif: updated with the exact PDN retry count (6 retries, 7 attempts total, 1 hour apart) and the 11:30 PM IST day-before cut-off, now that your 30 Sep timing document cross-confirms the numbers I'd previously hedged on. Also added the merchant-configurable retry cadence as a "ask your account manager" fact, without naming the internal config parameters, since a merchant can't self-serve this via API or dashboard per your material. Resolves comment c_9srjm7vgmumpmnx5 on the Controlled flow question, see the new subsection above Section 2. -->
 
 ## 6. Denied Payments and Retries
 
