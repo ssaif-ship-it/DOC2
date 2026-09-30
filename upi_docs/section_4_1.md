@@ -75,19 +75,19 @@ A debit can still fail even after the PDN goes through, and what happens next de
 
   <div style="border: 1px solid #eae5f2; border-left: 4px solid #22c55e; border-radius: 10px; padding: 18px 20px; background: #fafafa;">
     <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; flex-wrap: wrap;">
-      <div style="font-weight: 700; font-size: 15px; color: #0f172a;">Customer-side and temporary</div>
+      <div style="font-weight: 700; font-size: 15px; color: #0f172a;">Customer-Side and Temporary</div>
       <span style="display: inline-block; background-color: #c6f6d5; color: #22543d; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; white-space: nowrap;">Retryable</span>
     </div>
     <div style="color: #64748b; font-size: 13px; margin-bottom: 12px;">Low balance, a brief network issue at the customer's bank, an inactive-but-not-closed account</div>
     <div style="color: #334155; font-size: 14px; line-height: 1.6;">
-      <div style="margin-bottom: 8px;">Cashfree retries the debit automatically, up to 3 more attempts the same day, spaced at least an hour apart, ending at 11:30 PM IST, the same for Periodic and On-Demand alike. While retries are running, a Periodic subscription shows as ON HOLD and reactivates the moment one succeeds.</div>
+      <div style="margin-bottom: 8px;">Cashfree retries the debit automatically on the charge date, once the mandatory 24-hour PDN window has passed: up to 3 retries (4 attempts in total), spaced at least an hour apart, ending at 11:30 PM IST, the same for Periodic and On-Demand alike. Each failed attempt is marked FAILED; while retries are still running, a Periodic subscription shows as ON HOLD and reactivates the moment one succeeds.</div>
       <div>If every attempt still fails: a Periodic subscription simply waits for its next scheduled cycle, no action needed from you. An On-Demand charge has no next cycle to fall into, so if you still want to collect it, you raise a fresh charge yourself through the API.</div>
     </div>
   </div>
 
   <div style="border: 1px solid #eae5f2; border-left: 4px solid #ef4444; border-radius: 10px; padding: 18px 20px; background: #fafafa;">
     <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; flex-wrap: wrap;">
-      <div style="font-weight: 700; font-size: 15px; color: #0f172a;">The account or mandate itself is broken</div>
+      <div style="font-weight: 700; font-size: 15px; color: #0f172a;">Broken Account or Invalid Mandate</div>
       <span style="display: inline-block; background-color: #fed7d7; color: #742a2a; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; white-space: nowrap;">Not retryable</span>
     </div>
     <div style="color: #64748b; font-size: 13px; margin-bottom: 12px;">Closed/invalid account, a mandate already cancelled or deactivated, a name mismatch</div>
@@ -96,7 +96,7 @@ A debit can still fail even after the PDN goes through, and what happens next de
 
   <div style="border: 1px solid #eae5f2; border-left: 4px solid #ef4444; border-radius: 10px; padding: 18px 20px; background: #fafafa;">
     <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; flex-wrap: wrap;">
-      <div style="font-weight: 700; font-size: 15px; color: #0f172a;">Blocked by something outside normal banking</div>
+      <div style="font-weight: 700; font-size: 15px; color: #0f172a;">Blocked by Banking or Regulatory Restrictions</div>
       <span style="display: inline-block; background-color: #fed7d7; color: #742a2a; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; white-space: nowrap;">Not retryable</span>
     </div>
     <div style="color: #64748b; font-size: 13px; margin-bottom: 12px;">A court order, a frozen account, KYC pending, or a fraud/risk block on the customer's side</div>
@@ -109,7 +109,9 @@ None of this limits you to the mandate alone, though. A one-time [payment link](
 
 <!-- Claude, note for Saif: rebuilt as cards per your feedback that a table was the wrong format for this content, plus a pass on the sentence framing, less "Retrying X will not work" repeated verbatim across rows, more natural phrasing per case. Facts unchanged from before: same retry counts, timing, and the payment-link fallback. Colors follow the site's existing badge palette (green/red from 3.3's badges).
 
-Follow-up: fixed a real error in card 1, not just wording. The automatic retry (3 more attempts, hourly, same day, until 11:30 PM IST) is not Periodic-only, your source material describes it as the same mechanic for both types ("On-Demand: no fixed cycle to auto-retry into after the day's attempts exhaust" implies the day's attempts happen for On-Demand too). The real difference, per your Periodic vs On-Demand comparison table, is only what happens once retries are exhausted: a Periodic subscription just waits for its next scheduled cycle automatically, while an On-Demand charge is marked failed with no next cycle to fall into, so you have to raise a fresh one yourself. Rewrote the card to say the retry mechanic applies to both, and scope "reactivates" to Periodic only, since On-Demand doesn't have a persistent subscription state to reactivate. -->
+Follow-up: fixed a real error in card 1, not just wording. The automatic retry (3 more attempts, hourly, same day, until 11:30 PM IST) is not Periodic-only, your source material describes it as the same mechanic for both types ("On-Demand: no fixed cycle to auto-retry into after the day's attempts exhaust" implies the day's attempts happen for On-Demand too). The real difference, per your Periodic vs On-Demand comparison table, is only what happens once retries are exhausted: a Periodic subscription just waits for its next scheduled cycle automatically, while an On-Demand charge is marked failed with no next cycle to fall into, so you have to raise a fresh one yourself. Rewrote the card to say the retry mechanic applies to both, and scope "reactivates" to Periodic only, since On-Demand doesn't have a persistent subscription state to reactivate.
+
+Second follow-up: reworked the three headings per your feedback, and pulled in the terminology/timing precision from the rewrite you pasted (3 retries = 4 attempts total; retries run on the charge date after the 24h PDN window; each failed attempt is marked FAILED). Did not add the internal bank codes (Z9, UT, U67, ZX, XC, ZH, K1, U16) from that draft, those are the internal codes you told me earlier not to expose on a merchant-facing page, so the cause lists stay in plain language. Open question for you: once retries are exhausted, does the subscription's ON HOLD status persist until the next cycle actually fires, or does it revert to normal/ACTIVE while it waits? The second line of card 1 currently doesn't name a status there at all, wanted to confirm before adding one. -->
 
 ## 7. Tracking Executions: SeqNum
 
