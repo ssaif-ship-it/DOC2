@@ -13,7 +13,7 @@ Before you create a mandate, decide which of the two AutoPay types fits your bil
 | Type | How it works | Best for |
 | :-- | :-- | :-- |
 | **Periodic** | You register a fixed frequency (Daily, Monthly, Yearly, and so on) when creating the mandate. Cashfree automatically schedules and triggers the debit on each due date, you do not call an API to fire it. | Subscriptions, EMIs, insurance premiums, anything with a predictable billing calendar. |
-| **On-Demand** | The mandate is created without a fixed schedule. You trigger each charge yourself, whenever it is due, by raising a charge through the API. | Usage-based billing, ad-hoc top-ups, or any case where you do not know the next debit date in advance. |
+| **On-Demand** | The mandate is created without a fixed schedule. You trigger each charge yourself by raising it through the API, for a date at least a day out and up to 14 days ahead, never for the same day, the 24-hour PDN notice in Section 5 below still applies. | Usage-based billing, ad-hoc top-ups, or any case where you do not know the next debit date in advance. |
 
 ## 2. Frequencies (Periodic Mandates Only)
 
@@ -43,12 +43,14 @@ At mandate creation, Cashfree also runs a ₹1 verification debit on its own end
 
 ## 5. The Pre-Debit Notification (PDN)
 
-Before every execution, you must send a Pre-Debit Notification (PDN) to the customer's UPI app, at least 24 hours ahead of the debit.
+Before every execution, you must send a Pre-Debit Notification (PDN) to the customer's UPI app, at least 24 hours ahead of the debit. If a PDN push does not go through on the first try, Cashfree retries it automatically, about an hour apart, before giving up. The 24-hour countdown to the actual debit only starts once a PDN has gone through successfully, not when you first attempt to send it.
 
 *   **The amount cannot change after the PDN is sent.** If the amount you actually debit differs from the amount stated in the PDN, the issuing bank declines the transaction on amount-match grounds. This is not a retry situation, correct the amount and notify again for the next attempt.
-*   **If the PDN itself fails to reach the customer** (a delivery failure on the bank's or PSP's side), the debit is blocked for that cycle. This is also not something you retry directly, the execution simply cannot proceed without a delivered PDN.
+*   **If the PDN never goes through** (all of Cashfree's own retries exhausted, or a delivery failure on the bank's or PSP's side), the debit is blocked for that cycle. This is also not something you retry directly, the execution simply cannot proceed without a delivered PDN.
 
 > **Exemptions:** PDNs are not required for Daily frequency mandates, same-day executions, or auto-replenishment use cases like NETC FASTag (MCC 4784) and RuPay NCMC (MCC 7412).
+
+<!-- Claude, note for Saif: added the PDN auto-retry behavior and the On-Demand D+1 to D+14 charge window in Section 1, from the internal retry-mechanics reference you pasted (30 Sep). Left out the retry count and hourly cadence for PDN specifically, since your source cites two different intervals for it in different places (1 hour apart in one place, no interval given elsewhere) and I did not want to state a number I could not cross-check, said "about an hour apart" to stay directionally correct without overclaiming precision. Also left out the internal error codes, service/table names, and the Cashfree-managed vs Controlled(MERCHANT) execution flag for On-Demand, that last one needs a merchant-facing explanation of what it actually changes for you before it belongs here, happy to add it if you tell me what a merchant does differently under each. -->
 
 ## 6. Denied Payments and Retries
 
@@ -56,13 +58,15 @@ A debit can still fail even after the PDN goes through. What you do next depends
 
 | What happened | What you do about it |
 | :-- | :-- |
-| **Customer-side and temporary:** low balance, a brief network issue at the customer's bank, an inactive-but-not-closed account | **Periodic subscriptions:** Cashfree retries automatically, up to **3 attempts**, no more than **1 per day**, and it must succeed before the current cycle expires. A successful retry reactivates the subscription. **On-Demand:** there is no fixed cycle to retry within, you simply raise a new charge yourself whenever you are ready. |
+| **Customer-side and temporary:** low balance, a brief network issue at the customer's bank, an inactive-but-not-closed account | **Periodic subscriptions:** Cashfree retries automatically, up to **3 more attempts** the same day, spaced at least an hour apart, until 11:30 PM IST that day. A successful retry reactivates the subscription. **On-Demand:** there is no fixed cycle to retry within, you simply raise a new charge yourself whenever you are ready. |
 | **The account or mandate itself is broken:** closed/invalid account, a mandate already cancelled or deactivated, a name mismatch | Retrying the mandate will not work. The customer needs to set up a brand new mandate. |
-| **Blocked by something outside normal banking:** a court order, a frozen account, KYC pending on the customer's side | Retrying will not fix this. Follow up with the customer directly. |
+| **Blocked by something outside normal banking:** a court order, a frozen account, KYC pending, or a fraud/risk block on the customer's side | Retrying will not fix this. Follow up with the customer directly. |
 
 Whichever of these applies, you are not limited to the mandate retry alone. You can always send the customer a one-time [payment link](#doc-2-3) to collect that specific due amount right away, it does not depend on the mandate at all, so it still works while the mandate itself is broken or being recreated.
 
-<!-- Claude, note for Saif: rewrote this per your "confusing and wrong" comment. Moved the Periodic vs On-Demand distinction into the table row itself instead of only the intro paragraph, since that was the confusing part, a merchant reading row 1 alone couldn't tell what happens for On-Demand. Added the payment-link fallback per your comment on this section ("even after retries, we can send payment link"), worded as a one-time collection only, it doesn't fix or recreate the mandate, since Cashfree's own No-Code Payment Links product is documented for one-off payments only, not mandates (see the note in 4.3). Linked to 2.3, which is where 3.2 already points merchants for payment links. -->
+<!-- Claude, note for Saif: rewrote this per your "confusing and wrong" comment. Moved the Periodic vs On-Demand distinction into the table row itself instead of only the intro paragraph, since that was the confusing part, a merchant reading row 1 alone couldn't tell what happens for On-Demand. Added the payment-link fallback per your comment on this section ("even after retries, we can send payment link"), worded as a one-time collection only, it doesn't fix or recreate the mandate, since Cashfree's own No-Code Payment Links product is documented for one-off payments only, not mandates (see the note in 4.3). Linked to 2.3, which is where 3.2 already points merchants for payment links.
+
+Follow-up (30 Sep, per your internal retry-mechanics reference): corrected the Periodic retry cadence. This previously said "no more than 1 per day... before the current cycle expires," which implied retries could spread across multiple days. Your source says all retries happen the same charge day, spaced at least an hour apart, stopping at 11:30 PM IST that day or on success, whichever comes first. Fixed accordingly. Also added a fraud/risk block to row 3's examples, since your source lists it alongside court orders and frozen accounts. -->
 
 ## 7. Tracking Executions: SeqNum
 
