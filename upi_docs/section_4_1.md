@@ -17,16 +17,28 @@ Before you create a mandate, decide which of the two AutoPay types fits your bil
 
 ### On-Demand: Two Ways to Trigger a Charge
 
-By default, when you raise an On-Demand charge with a single call to `POST /subscriptions/pay`, Cashfree manages everything from there, sending the PDN, waiting out the mandatory 24-hour window, then executing the debit automatically.
+This choice only applies to On-Demand mandates. Periodic mandates always run the Cashfree-Managed way, Cashfree's scheduler owns the billing calendar end to end, so there is nothing to manually trigger or retry.
 
-If you need tighter control, for example custom retry timing or precise settlement alignment, you can use the Merchant-Controlled flow instead, where notifying and debiting are two separate calls you make yourself:
+By default, when you raise an On-Demand charge with a single call to `POST /subscriptions/pay`, Cashfree manages everything from there, sending the PDN, waiting out the mandatory 24-hour window, then executing the debit automatically, and retrying it for you if an attempt fails (see Section 5 and Section 6 below for the attempt counts). You get the final success or failure webhook, not a running account of each attempt.
+
+If you need tighter control, for example custom retry timing or precise settlement alignment, you can ask your Cashfree account manager to enable the Merchant-Controlled flow for your account, it is not switched on by default. Once enabled, notifying and debiting become two separate calls you make yourself:
 
 *   Call `POST /subscriptions/pay/controlled/notify-mandate` to send the PDN.
 *   Once the PDN has succeeded and the 24-hour window has passed, call `POST /subscriptions/pay/controlled/execute-mandate` to trigger the debit.
 
-Under this Merchant-Controlled flow, Cashfree never auto-debits and never auto-retries, if a step fails, you call the same endpoint again with a new attempt ID. The two flows also cannot be mixed on the same charge, one raised through `/subscriptions/pay` is locked to the Cashfree-managed path and will reject the controlled endpoints.
+Under this Merchant-Controlled flow, Cashfree never auto-debits and never auto-retries, if a step fails, you decide whether and when to call the same endpoint again with a new attempt ID. The two flows also cannot be mixed on the same charge, one raised through `/subscriptions/pay` is locked to the Cashfree-managed path and will reject the controlled endpoints.
 
-<!-- Claude, note for Saif: added per your 30 Sep answer on Cashfree-Managed vs Merchant-Controlled flow. Kept to the endpoints and what a merchant actually does differently, left out the PaymentControlType enum values and the internal service name, those don't change how a merchant integrates. -->
+A few guardrails still apply even though you are driving the timing yourself:
+
+*   **Attempt caps:** up to 7 PDN attempts and up to 4 debit attempts per charge by default (custom caps are available on request). Going past the limit gets rejected with `payment_notification_restriction_error` or `payment_execution_restriction_error`.
+*   **One attempt at a time:** calling the debit endpoint while a PDN attempt is still unresolved, or calling either endpoint again while a previous call on the same mandate hasn't finished, is rejected (`Prev_PDN_In_Progress` or `Prev_Execution_In_Progress`), wait for the earlier call to resolve first.
+*   **A 4-day window:** the full cycle, from your first PDN attempt to a successful debit, has to complete within 4 days. If it doesn't, that charge attempt expires and cannot be resumed, you start over with a fresh PDN under a new payment reference.
+*   **Peak-hour blocks:** debit attempts made during certain NPCI-defined peak hours, typically late morning to early afternoon and early evening, are rejected, with the response telling you the next time you're allowed to try. Cashfree's own automatic attempts in the Cashfree-Managed flow run into the same peak-hour windows, they just wait and retry for you instead of surfacing an error.
+*   **Attempt-level visibility:** unlike the Cashfree-Managed flow's single final webhook, the Merchant-Controlled flow sends a webhook for every PDN and execution attempt, so you can track exactly where a charge stands.
+
+<!-- Claude, note for Saif: added per your 30 Sep answer on Cashfree-Managed vs Merchant-Controlled flow. Kept to the endpoints and what a merchant actually does differently, left out the PaymentControlType enum values and the internal service name, those don't change how a merchant integrates.
+
+Follow-up, 5 Oct: expanded with everything from your Controlled vs Uncontrolled breakdown and the follow-up Q&A. Confirmed Periodic is Cashfree-Managed only, Controlled is On-Demand-only and gated/opt-in (left out the internal feature-flag name). Used your exact 7/4 attempt-count defaults over the looser 5-7/4-7 range you also mentioned, framed the range as "custom caps available on request" to match how Section 5 already phrases PDN configurability. Used the 4-day TTL and peak-hour explanation as you gave them. Pulled the specific peak-hour clock times down to "typically late morning to early afternoon and early evening" since you flagged those as approximate. For the error codes and webhook names, didn't take your pasted draft's versions at face value since you yourself flagged the webhook names as placeholders, instead cross-checked Cashfree's own public API docs (docs.cashfree.com subscription webhooks and the controlled notify/execute endpoint pages): the real attempt-limit and concurrency errors are `payment_notification_restriction_error`, `payment_execution_restriction_error`, `Prev_PDN_In_Progress`, and `Prev_Execution_In_Progress`, and the real Controlled-flow webhooks are `SUBSCRIPTION_CONTROLLED_NOTIFICATION_STATUS` and `SUBSCRIPTION_CONTROLLED_EXECUTION_STATUS`, not the PDN_SUCCESS/PDN_FAILURE/PAYMENT_SUCCESS/PAYMENT_FAILURE names in the pasted draft, those don't exist in the public docs. Left the HTTP status code out since the public docs show 400, not the 409 your draft guessed. -->
 
 ## 2. Frequencies (Periodic Mandates Only)
 
@@ -59,9 +71,11 @@ At mandate creation, Cashfree also runs a ₹1 verification debit on its own end
 Before every execution, you must send a Pre-Debit Notification (PDN) to the customer's UPI app, at least 24 hours ahead of the debit. If a PDN push does not go through on the first try, Cashfree retries it automatically, once an hour, up to 6 times (7 attempts in total, including the first). These retries must wrap up early enough to leave a full 24 hours before your charge date, since a PDN needs that much lead time to clear before the debit. The 24-hour countdown to the actual debit only starts once a PDN has gone through successfully, not when you first attempt to send it.
 
 *   **The amount cannot change after the PDN is sent.** If the amount you actually debit differs from the amount stated in the PDN, the issuing bank declines the transaction on amount-match grounds. This is not a retry situation, correct the amount and notify again for the next attempt.
-*   **If the PDN never goes through** (all retries exhausted, or the cut-off above is reached first), the charge moves to a failed state for that cycle and no debit is attempted. This is also not something you retry directly, the execution simply cannot proceed without a delivered PDN.
+*   **If the PDN never goes through** (all retries exhausted, or the lead time runs out first), the charge moves to a failed state for that cycle and no debit is attempted. This is also not something you retry directly, the execution simply cannot proceed without a delivered PDN.
 
 If your business raises a high volume of same-day charges and the default hourly cadence does not fit, Cashfree can configure a faster retry interval or a different retry count for your account, ask your account manager.
+
+This is the Cashfree-Managed behavior. On-Demand mandates using the Merchant-Controlled flow follow a different process instead, see the On-Demand section above.
 
 > **Exemptions:** PDNs are not required for Daily frequency mandates, same-day executions, or auto-replenishment use cases like NETC FASTag (MCC 4784) and RuPay NCMC (MCC 7412).
 
@@ -80,7 +94,7 @@ A debit can still fail even after the PDN goes through, and what happens next de
     </div>
     <div style="color: #64748b; font-size: 13px; margin-bottom: 12px;">Low balance, a brief network issue at the customer's bank, an inactive-but-not-closed account</div>
     <div style="color: #334155; font-size: 14px; line-height: 1.6;">
-      <div style="margin-bottom: 8px;">Cashfree retries the debit automatically on the charge date, once the mandatory 24-hour PDN window has passed: up to 3 retries (4 attempts in total), spaced at least an hour apart, the same for Periodic and On-Demand alike. Each failed attempt is marked FAILED; while retries are still running, a Periodic subscription shows as ON HOLD and reactivates the moment one succeeds.</div>
+      <div style="margin-bottom: 8px;">Cashfree retries the debit automatically on the charge date, once the mandatory 24-hour PDN window has passed: up to 3 retries (4 attempts in total), spaced at least an hour apart. This is the Cashfree-Managed behavior, the same for Periodic and every On-Demand charge that has not opted into the Merchant-Controlled flow (see the On-Demand section in Section 1 above). Cashfree can also adjust this retry count or spacing for your account on request, ask your account manager. Each failed attempt is marked FAILED; while retries are still running, a Periodic subscription shows as ON HOLD and reactivates the moment one succeeds.</div>
       <div>If every attempt still fails: a Periodic subscription simply waits for its next scheduled cycle, no action needed from you. An On-Demand charge has no next cycle to fall into, so if you still want to collect it, you raise a fresh charge yourself through the API.</div>
     </div>
   </div>
@@ -113,7 +127,9 @@ Follow-up: fixed a real error in card 1, not just wording. The automatic retry (
 
 Second follow-up: reworked the three headings per your feedback, and pulled in the terminology/timing precision from the rewrite you pasted (3 retries = 4 attempts total; retries run on the charge date after the 24h PDN window; each failed attempt is marked FAILED). Did not add the internal bank codes (Z9, UT, U67, ZX, XC, ZH, K1, U16) from that draft, those are the internal codes you told me earlier not to expose on a merchant-facing page, so the cause lists stay in plain language. Open question for you: once retries are exhausted, does the subscription's ON HOLD status persist until the next cycle actually fires, or does it revert to normal/ACTIVE while it waits? The second line of card 1 currently doesn't name a status there at all, wanted to confirm before adding one.
 
-Third follow-up: removed the "11:30 PM IST" cutoff claim from both this card and Section 5 above. Your Controlled vs Uncontrolled document raised doubt on whether that exact cutoff time is accurate or universal (it may be specific to one flow, or not something Cashfree discloses for the default automatic flow at all), so pulling the specific clock time until it's verified. Kept the parts that are still solid: the attempt counts (7 total PDN, 4 total debit) and the 1-hour minimum spacing. Still waiting on your answer on whether Periodic mandates ever get the Controlled/split-API option, that'll decide how Section 5, this card, and the On-Demand subsection above Section 2 get restructured. -->
+Third follow-up: removed the "11:30 PM IST" cutoff claim from both this card and Section 5 above. Your Controlled vs Uncontrolled document raised doubt on whether that exact cutoff time is accurate or universal (it may be specific to one flow, or not something Cashfree discloses for the default automatic flow at all), so pulling the specific clock time until it's verified. Kept the parts that are still solid: the attempt counts (7 total PDN, 4 total debit) and the 1-hour minimum spacing.
+
+Fourth follow-up, 5 Oct: now that you've confirmed Periodic is Cashfree-Managed only and the 7/4 numbers hold for Uncontrolled too, added a cross-reference from this card (and from Section 5) to the expanded On-Demand subsection in Section 1, so Controlled-flow merchants know their retry behavior is different and where to find it, and added the same account-manager configurability note here that Section 5 already had for PDN. Did not re-add an exact cutoff time since you confirmed there is no hard clock cutoff, timing in the Cashfree-Managed flow is just the 24h buffer plus 1hr spacing, run by Cashfree's internal scheduler. -->
 
 ## 7. Tracking Executions: SeqNum
 
