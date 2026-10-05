@@ -124,7 +124,7 @@ A debit can still fail even after the PDN goes through, and what happens next de
 
 </div>
 
-None of this limits you to the mandate alone, though. A one-time [payment link](#doc-2-3) can collect that specific due amount right away regardless of which case applies, it does not depend on the mandate, so it still works while the mandate itself is broken or being recreated.
+None of this limits you to the mandate alone, though. A one-time payment link can collect that specific due amount right away regardless of which case applies, it does not depend on the mandate, so it still works while the mandate itself is broken or being recreated.
 
 <!-- Claude, note for Saif: rebuilt as cards per your feedback that a table was the wrong format for this content, plus a pass on the sentence framing, less "Retrying X will not work" repeated verbatim across rows, more natural phrasing per case. Facts unchanged from before: same retry counts, timing, and the payment-link fallback. Colors follow the site's existing badge palette (green/red from 3.3's badges).
 
@@ -136,7 +136,9 @@ Third follow-up: removed the "11:30 PM IST" cutoff claim from both this card and
 
 Fourth follow-up, 5 Oct: now that you've confirmed Periodic is Cashfree-Managed only and the 7/4 numbers hold for Uncontrolled too, added a cross-reference from this card (and from Section 5) to the expanded On-Demand subsection in Section 1, so Controlled-flow merchants know their retry behavior is different and where to find it, and added the same account-manager configurability note here that Section 5 already had for PDN. Did not re-add an exact cutoff time since you confirmed there is no hard clock cutoff, timing in the Cashfree-Managed flow is just the 24h buffer plus 1hr spacing, run by Cashfree's internal scheduler.
 
-Fifth follow-up, 5 Oct: cut all three cards down to bullet points per your feedback that the paragraphs were too dense, looked at how Juspay documents this (short tables and bullet points, not prose) as a reference point. Dropped the account-manager configurability mention and the FAILED/ON HOLD status terminology from card 1, both still findable in Section 5 and don't need repeating here. Cards 2 and 3 are now one line each, as you asked, no fact changes, same retry counts and same retryable/not-retryable conclusions as before. -->
+Fifth follow-up, 5 Oct: cut all three cards down to bullet points per your feedback that the paragraphs were too dense, looked at how Juspay documents this (short tables and bullet points, not prose) as a reference point. Dropped the account-manager configurability mention and the FAILED/ON HOLD status terminology from card 1, both still findable in Section 5 and don't need repeating here. Cards 2 and 3 are now one line each, as you asked, no fact changes, same retry counts and same retryable/not-retryable conclusions as before.
+
+Sixth follow-up, 5 Oct: the "payment link" mention after the cards linked to #doc-2-3 (2.3 QR Solutions), which doesn't actually cover payment links at all, that was my mistake, there's no payment-link content anywhere on this site. Since Payment Links aren't UPI-specific (they also support all payment methods, not just UPI), you decided not to add dedicated coverage for them here. Removed the link, kept the plain-text mention since the fact itself is still true and useful as a fallback option. -->
 
 ## 7. Tracking Executions: SeqNum
 
