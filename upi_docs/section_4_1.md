@@ -98,10 +98,10 @@ A debit can still fail even after the PDN goes through, and what happens next de
       <span style="display: inline-block; background-color: #c6f6d5; color: #22543d; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; white-space: nowrap;">Retryable</span>
     </div>
     <div style="color: #64748b; font-size: 13px; margin-bottom: 12px;">Low balance, a brief network issue at the customer's bank, an inactive-but-not-closed account</div>
-    <div style="color: #334155; font-size: 14px; line-height: 1.6;">
-      <div style="margin-bottom: 8px;">Cashfree retries the debit automatically on the charge date, once the mandatory 24-hour PDN window has passed: up to 3 retries (4 attempts in total), spaced at least an hour apart. This is the Cashfree-Managed behavior, the same for Periodic and every On-Demand charge that has not opted into the Merchant-Controlled flow (see the On-Demand section in Section 1 above). Cashfree can also adjust this retry count or spacing for your account on request, ask your account manager. Each failed attempt is marked FAILED; while retries are still running, a Periodic subscription shows as ON HOLD and reactivates the moment one succeeds.</div>
-      <div>If every attempt still fails: a Periodic subscription simply waits for its next scheduled cycle, no action needed from you. An On-Demand charge has no next cycle to fall into, so if you still want to collect it, you raise a fresh charge yourself through the API.</div>
-    </div>
+    <ul style="color: #334155; font-size: 14px; line-height: 1.6; margin: 0; padding-left: 18px;">
+      <li>Auto-retried by Cashfree: up to 3 retries (4 attempts total), at least 1hr apart, same day (Cashfree-Managed flow, see the On-Demand section in Section 1 for Merchant-Controlled)</li>
+      <li>All attempts fail: Periodic waits for its next scheduled cycle automatically; On-Demand needs a fresh charge raised via the API</li>
+    </ul>
   </div>
 
   <div style="border: 1px solid #eae5f2; border-left: 4px solid #ef4444; border-radius: 10px; padding: 18px 20px; background: #fafafa;">
@@ -110,7 +110,7 @@ A debit can still fail even after the PDN goes through, and what happens next de
       <span style="display: inline-block; background-color: #fed7d7; color: #742a2a; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; white-space: nowrap;">Not retryable</span>
     </div>
     <div style="color: #64748b; font-size: 13px; margin-bottom: 12px;">Closed/invalid account, a mandate already cancelled or deactivated, a name mismatch</div>
-    <div style="color: #334155; font-size: 14px; line-height: 1.6;">The mandate cannot be revived. The customer will need to set up a brand new one before you can collect from them again.</div>
+    <div style="color: #334155; font-size: 14px;">Not retryable. The customer needs to set up a brand-new mandate.</div>
   </div>
 
   <div style="border: 1px solid #eae5f2; border-left: 4px solid #ef4444; border-radius: 10px; padding: 18px 20px; background: #fafafa;">
@@ -119,7 +119,7 @@ A debit can still fail even after the PDN goes through, and what happens next de
       <span style="display: inline-block; background-color: #fed7d7; color: #742a2a; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; white-space: nowrap;">Not retryable</span>
     </div>
     <div style="color: #64748b; font-size: 13px; margin-bottom: 12px;">A court order, a frozen account, KYC pending, or a fraud/risk block on the customer's side</div>
-    <div style="color: #334155; font-size: 14px; line-height: 1.6;">No retry gets past this. Resolving it is on the customer, or their bank, not something you can trigger from your side, so reach out to them directly.</div>
+    <div style="color: #334155; font-size: 14px;">Not retryable. Resolution is on the customer or their bank, reach out to them directly.</div>
   </div>
 
 </div>
@@ -134,7 +134,9 @@ Second follow-up: reworked the three headings per your feedback, and pulled in t
 
 Third follow-up: removed the "11:30 PM IST" cutoff claim from both this card and Section 5 above. Your Controlled vs Uncontrolled document raised doubt on whether that exact cutoff time is accurate or universal (it may be specific to one flow, or not something Cashfree discloses for the default automatic flow at all), so pulling the specific clock time until it's verified. Kept the parts that are still solid: the attempt counts (7 total PDN, 4 total debit) and the 1-hour minimum spacing.
 
-Fourth follow-up, 5 Oct: now that you've confirmed Periodic is Cashfree-Managed only and the 7/4 numbers hold for Uncontrolled too, added a cross-reference from this card (and from Section 5) to the expanded On-Demand subsection in Section 1, so Controlled-flow merchants know their retry behavior is different and where to find it, and added the same account-manager configurability note here that Section 5 already had for PDN. Did not re-add an exact cutoff time since you confirmed there is no hard clock cutoff, timing in the Cashfree-Managed flow is just the 24h buffer plus 1hr spacing, run by Cashfree's internal scheduler. -->
+Fourth follow-up, 5 Oct: now that you've confirmed Periodic is Cashfree-Managed only and the 7/4 numbers hold for Uncontrolled too, added a cross-reference from this card (and from Section 5) to the expanded On-Demand subsection in Section 1, so Controlled-flow merchants know their retry behavior is different and where to find it, and added the same account-manager configurability note here that Section 5 already had for PDN. Did not re-add an exact cutoff time since you confirmed there is no hard clock cutoff, timing in the Cashfree-Managed flow is just the 24h buffer plus 1hr spacing, run by Cashfree's internal scheduler.
+
+Fifth follow-up, 5 Oct: cut all three cards down to bullet points per your feedback that the paragraphs were too dense, looked at how Juspay documents this (short tables and bullet points, not prose) as a reference point. Dropped the account-manager configurability mention and the FAILED/ON HOLD status terminology from card 1, both still findable in Section 5 and don't need repeating here. Cards 2 and 3 are now one line each, as you asked, no fact changes, same retry counts and same retryable/not-retryable conclusions as before. -->
 
 ## 7. Tracking Executions: SeqNum
 
