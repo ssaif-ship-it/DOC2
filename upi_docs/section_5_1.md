@@ -211,13 +211,15 @@ Direct Settlement is not something every merchant can opt into, it is only avail
 
 ### 3.1 The Payout Formula
 
-The system calculates when a transaction is eligible for payout based on strictly defined "business days."
+The system calculates when a transaction is eligible for payout based on strictly defined "business days," see Cashfree's own [settlement holiday calendar](https://www.cashfree.com/settlement-holidays/) for the exact dates that don't count.
 
 When you see terms like T+1, the "T" stands for the Transaction Date, and the "+1" means one business day later. The formula ensures that at 11:59 PM (23:59:59 IST) on the target day, the funds are cleared for the next payout batch.
 
 **The Golden Rule:** Payouts rely on banks being open. If your payout date lands on a weekend or an official Reserve Bank of India (RBI) holiday, the system automatically pauses and pushes your money to the very next working day. Check RBI's own [Holiday Matrix](https://rbi.org.in/Scripts/HolidayMatrixDisplay.aspx) to see upcoming bank holidays by region, so you can anticipate when a payout will roll over.
 
-<!-- Claude, note for Saif: linked RBI's official Holiday Matrix page per your request, it is RBI's own public page for checking bank holidays by regional office and date. -->
+<!-- Claude, note for Saif: linked RBI's official Holiday Matrix page per your request, it is RBI's own public page for checking bank holidays by regional office and date.
+
+Follow-up, 6 Oct: also linked Cashfree's own settlement holiday calendar (cashfree.com/settlement-holidays) at the "business days" line in 3.1, per your request. This is Cashfree's own curated list for settlement purposes specifically, kept the RBI Holiday Matrix link in the Golden Rule paragraph too since that's the broader regulatory source, the two serve different purposes. -->
 
 ---
 
