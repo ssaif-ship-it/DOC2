@@ -215,11 +215,13 @@ The system calculates when a transaction is eligible for payout based on strictl
 
 When you see terms like T+1, the "T" stands for the Transaction Date, and the "+1" means one business day later. The formula ensures that at 11:59 PM (23:59:59 IST) on the target day, the funds are cleared for the next payout batch.
 
-**The Golden Rule:** Payouts rely on banks being open. If your payout date lands on a weekend or an official Reserve Bank of India (RBI) holiday, the system automatically pauses and pushes your money to the very next working day. Check RBI's own [Holiday Matrix](https://rbi.org.in/Scripts/HolidayMatrixDisplay.aspx) to see upcoming bank holidays by region, so you can anticipate when a payout will roll over.
+**The Golden Rule:** Payouts rely on banks being open. If your payout date lands on a weekend or a bank holiday, the system automatically pauses and pushes your money to the very next working day. See the settlement holiday calendar above to anticipate when a payout will roll over.
 
 <!-- Claude, note for Saif: linked RBI's official Holiday Matrix page per your request, it is RBI's own public page for checking bank holidays by regional office and date.
 
-Follow-up, 6 Oct: also linked Cashfree's own settlement holiday calendar (cashfree.com/settlement-holidays) at the "business days" line in 3.1, per your request. This is Cashfree's own curated list for settlement purposes specifically, kept the RBI Holiday Matrix link in the Golden Rule paragraph too since that's the broader regulatory source, the two serve different purposes. -->
+Follow-up, 6 Oct: also linked Cashfree's own settlement holiday calendar (cashfree.com/settlement-holidays) at the "business days" line in 3.1, per your request.
+
+Second follow-up, 6 Oct: removed the RBI Holiday Matrix link and the explicit RBI naming from the Golden Rule paragraph, per your call that one source (Cashfree's own settlement calendar, linked just above) is enough, two different holiday links in the same short section was more likely to confuse a merchant than help. -->
 
 ---
 
