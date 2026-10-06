@@ -211,17 +211,17 @@ Direct Settlement is not something every merchant can opt into, it is only avail
 
 ### 3.1 The Payout Formula
 
-The system calculates when a transaction is eligible for payout based on strictly defined "business days," see Cashfree's own [settlement holiday calendar](https://www.cashfree.com/settlement-holidays/) for the exact dates that don't count.
+The system calculates when a transaction is eligible for payout based on strictly defined "business days." Payouts rely on banks being open, so if your payout date lands on a weekend or a bank holiday, the system automatically pauses and pushes your money to the next working day, see Cashfree's own [settlement holiday calendar](https://www.cashfree.com/settlement-holidays/) for the exact dates that don't count.
 
 When you see terms like T+1, the "T" stands for the Transaction Date, and the "+1" means one business day later. The formula ensures that at 11:59 PM (23:59:59 IST) on the target day, the funds are cleared for the next payout batch.
-
-**The Golden Rule:** Payouts rely on banks being open. If your payout date lands on a weekend or a bank holiday, the system automatically pauses and pushes your money to the very next working day. See the settlement holiday calendar above to anticipate when a payout will roll over.
 
 <!-- Claude, note for Saif: linked RBI's official Holiday Matrix page per your request, it is RBI's own public page for checking bank holidays by regional office and date.
 
 Follow-up, 6 Oct: also linked Cashfree's own settlement holiday calendar (cashfree.com/settlement-holidays) at the "business days" line in 3.1, per your request.
 
-Second follow-up, 6 Oct: removed the RBI Holiday Matrix link and the explicit RBI naming from the Golden Rule paragraph, per your call that one source (Cashfree's own settlement calendar, linked just above) is enough, two different holiday links in the same short section was more likely to confuse a merchant than help. -->
+Second follow-up, 6 Oct: removed the RBI Holiday Matrix link and the explicit RBI naming from the Golden Rule paragraph, per your call that one source (Cashfree's own settlement calendar, linked just above) is enough, two different holiday links in the same short section was more likely to confuse a merchant than help.
+
+Third follow-up, 6 Oct: merged the "business days" paragraph and the Golden Rule paragraph into one, per your request, they were saying related things (what counts as a business day, then what happens when a date isn't one) and repeating a reference to the same calendar across two separate paragraphs. Dropped the standalone "The Golden Rule:" label since it's now one continuous point rather than a separate callout. Kept the T+1/cut-off-time paragraph separate since it's a distinct sub-topic. No facts changed. -->
 
 ---
 
