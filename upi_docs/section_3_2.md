@@ -254,7 +254,9 @@ Use these handles in place of a real UPI ID to force a specific outcome.
 | `testexpired@gocash` | Collect request expires | Order is not left hanging in pending forever |
 | `testuserdropped@gocash` | Customer abandons the payment mid flow | Order stays in a clear pending or failed state, and does not sit there unresolved |
 
-Also test a **refund**. User drops (the row above) are the largest single category of real world failures, and a checkout that leaves them in limbo generates support tickets from day one.
+Also test a **refund**. User drops (the row above) are a common real world failure, and a checkout that leaves them in limbo generates support tickets from day one.
+
+<!-- Claude, corrected for Saif: removed the claim that user drops are "the largest single category of real world failures." That specific superlative has no source anywhere in this doc or the material you've shared, and it is a different, more specific claim than the ~13% User Drops figure on 5.4 Smart Routing and Uptime, which you've separately flagged as needing confirmation. Kept the underlying point, that user drops matter and are worth testing, since that part does not need a citation. -->
 
 **How this affects you later.** Wrong error handling fails silently. A merchant who maps every failure to "payment failed, try again" will retry declines that must not be retried and will not retry the ones that would have succeeded. See [5.3 Standard Error Codes](#doc-5-3), which also covers how raw codes get translated into customer-facing messages.
 
