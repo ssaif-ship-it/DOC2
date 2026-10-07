@@ -1,4 +1,6 @@
-If you are a Stock Broker, Mutual Fund, Online Bond Platform Provider (OBPP), or Investment Adviser or Research Analyst (IA/RA), SEBI's rules put you in a different UPI category from most other merchants. You are onboarded under a distinct category, **MCC 6211 (Security Brokers/Dealers)**, and every payment you collect must pass Third-Party Validation (TPV) first. This section walks through what TPV actually changes for you, what your customer sees, and exactly what you need to do, bank by bank, to get set up.
+If you are a Stock Broker, Mutual Fund, or Online Bond Platform Provider (OBPP), SEBI's rules put you in a different UPI category from most other merchants. You are onboarded under a distinct category, **MCC 6211 (Security Brokers/Dealers)**, and every payment you collect must pass Third-Party Validation (TPV) first. This section walks through what TPV actually changes for you, what your customer sees, and exactly what you need to do, bank by bank, to get set up.
+
+<!-- Claude, corrected for Saif: removed IA/RA from this opening sentence, it previously said every category here including IA/RA must pass TPV, which directly contradicted Section 5 below ("If you are IA/RA: TPV does not apply to you") and the settlement table's own IA/RA row. IA/RA is still introduced in Section 5 where its different settlement path is explained. -->
 
 ## 1. What TPV Means For You
 
@@ -159,7 +161,9 @@ Settlement does not always land directly in your own account, it depends on your
 
 **Direct Settlement (DS):** when this is ON, the acquiring bank credits your account directly instead of routing through Cashfree, which changes how you collect fees, handle refunds, and reconcile. See [5.1 Settlements](#doc-5-1) for the full comparison against standard aggregator settlement before you plan around it.
 
-**If you are IA/RA:** TPV does not apply to you, and your funds route through Cashfree's escrow account instead of settling directly. Build this into your reconciliation and cash flow planning.
+**If you are an Investment Adviser or Research Analyst (IA/RA):** TPV does not apply to you, and your funds route through Cashfree's escrow account instead of settling directly. Build this into your reconciliation and cash flow planning.
+
+<!-- Claude, flagging for Saif, not confirmed: you asked me to verify whether this IA/RA exemption is actually true. I could not find public confirmation either way. SEBI's real, relevant framework is the Centralized Fee Collection Mechanism (CeFCoM) for IAs/RAs, administered by BSE from October 2024 (SEBI circular SEBI/HO/MIRSD/MIRSD-POD-1/P/CIR/2024/120), which routes client fee payments through a BSE-administered platform rather than directly to the IA/RA. That circular is explicit that the mechanism is optional, not mandatory, and it does not use the word TPV at all, so it neither confirms nor rules out TPV being switched off for this category on Cashfree's own system. Cashfree's public TPV page also does not mention IA/RA specifically. This line and the settlement table's IA/RA row were already on this page before I started working on it this session, if they came from your internal reference material or an account manager, that would settle it, otherwise this needs a real check before merchants rely on it. -->
 
 ## 6. What You Need To Do, By Bank
 
