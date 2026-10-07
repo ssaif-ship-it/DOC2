@@ -21,7 +21,7 @@ This exists to make sure your customer has explicitly authorized the investment 
 ## 3. Which Banks Support This Today
 
 *   **Standard TPV (single registered account):** works over UPI with any UPI app or bank, Cashfree's public docs state that all UPI apps support this account validation.
-*   **Multi-bank TPV (your customer registers up to 4 accounts, not 5):** supported on UPI, NetBanking, and bank transfers. For UPI specifically, it only works on select UPI rails and needs to be turned on for your account, contact your Cashfree account manager to enable it.
+*   **Multi-bank TPV (your customer registers up to 4 accounts):** supported on UPI, NetBanking, and bank transfers. For UPI specifically, it only works on select UPI rails and needs to be turned on for your account, contact your Cashfree account manager to enable it.
 *   **NetBanking TPV** is supported across a long list of banks, over 50 at last count, including SBI, HDFC, ICICI, Axis, Kotak, and Yes Bank, alongside most other public and private banks. <!-- Claude, the full bank by bank list is at cashfree.com/docs/payments/features/tpv#netbanking-supported-banks if you need to check one specific bank. -->
 *   TPV applies to both UPI Mandates and OTM (One-Time Mandate), so it covers a single premium payment the same way it covers a recurring SIP.
 
