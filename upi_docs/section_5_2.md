@@ -116,9 +116,9 @@ Reversals occur automatically when funds leave the customer's account but cannot
 
 ## 4. Refund Status Lifecycle
 
-Gateways track refunds across a defined lifecycle. You can monitor these statuses via Dashboard or Webhooks:
+Gateways track refunds across a defined lifecycle. You can monitor these statuses via Dashboard, Webhooks, or by calling the [Get Refund](https://www.cashfree.com/docs/api-reference/payments/latest/refunds/get-refund) API directly:
 
-<!-- Claude, confirmed correction for Saif: this lifecycle previously showed INITIATED, then IN_PROGRESS / PENDING, branching to four outcomes, SUCCESS / REFUNDED, ON_HOLD, MANUAL, and FAILED / CANCELLED. Checked against Cashfree's own refund fetch API reference (cashfree.com/docs/api-reference/payments/latest/refunds/get), the documented refund_status enum is only SUCCESS, PENDING, CANCELLED, and ONHOLD, FAILED appears only in prose description text on that page, not as a formal status value, and there is no INITIATED, IN_PROGRESS, or MANUAL status at all. Rebuilt the diagram below to match the real four-value enum. -->
+<!-- Claude, confirmed correction for Saif: this lifecycle previously showed INITIATED, then IN_PROGRESS / PENDING, branching to four outcomes, SUCCESS / REFUNDED, ON_HOLD, MANUAL, and FAILED / CANCELLED. Checked against Cashfree's own Get Refund API reference (cashfree.com/docs/api-reference/payments/latest/refunds/get-refund), the RefundEntity schema states refund_status can be one of exactly six values: SUCCESS, PENDING, PENDING_APPROVAL, CANCELLED, ONHOLD, REJECTED. There is still no INITIATED, IN_PROGRESS, MANUAL, or FAILED status, FAILED only ever shows up in prose, never as a formal value. An earlier pass on this page had already corrected four of the six (SUCCESS, PENDING, CANCELLED, ONHOLD) but missed PENDING_APPROVAL and REJECTED, per Saif's flag that the list was incomplete, added below. The six-value set is confirmed directly against the schema text. Where exactly PENDING_APPROVAL and REJECTED sit in the sequence is my own reasonable read (an approval gate ahead of the normal flow), not something the API reference spells out as a flow diagram, flagging that part specifically since it is inference, not a confirmed fact. -->
 
 <div class="cf-rf-wrap">
   <style>
@@ -155,6 +155,25 @@ Gateways track refunds across a defined lifecycle. You can monitor these statuse
       .cf-rf-branches { flex-direction: column; }
     }
   </style>
+  <div class="cf-rf-branch-label">Only if your account requires approval before refunds process</div>
+  <div class="cf-rf-branches">
+    <div class="cf-rf-node cf-rf-blue">
+      <div class="cf-rf-title">PENDING_APPROVAL</div>
+    </div>
+  </div>
+  <div class="cf-rf-connector">&darr;</div>
+  <div class="cf-rf-branch-label">Branches to one of two outcomes</div>
+  <div class="cf-rf-branches">
+    <div class="cf-rf-node cf-rf-red">
+      <div class="cf-rf-title">REJECTED</div>
+      <div class="cf-rf-caption">Approval denied, refund stops here</div>
+    </div>
+    <div class="cf-rf-node cf-rf-blue">
+      <div class="cf-rf-title">Approved</div>
+      <div class="cf-rf-caption">Continues to PENDING below</div>
+    </div>
+  </div>
+  <div class="cf-rf-connector">&darr;</div>
   <div class="cf-rf-main">
     <div class="cf-rf-node cf-rf-blue">PENDING</div>
     <div class="cf-rf-arrow">&rarr;</div>
@@ -176,4 +195,4 @@ Gateways track refunds across a defined lifecycle. You can monitor these statuse
   </div>
 </div>
 
-A refund description can also mention that it failed, but Cashfree's API does not carry a separate FAILED status value for refunds, only the four values shown above.
+A refund description can also mention that it failed, but Cashfree's API does not carry a separate FAILED status value for refunds. The complete set is the six values shown above: PENDING_APPROVAL, PENDING, SUCCESS, ONHOLD, CANCELLED, REJECTED.
