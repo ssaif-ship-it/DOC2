@@ -8,9 +8,9 @@ The maximum upper bound allowed when registering a mandate. The merchant can nev
 
 ### Billing Frequency Types
 
-<!-- Claude, flagging for Saif, not confirmed: "As Presented" is used below purely as NPCI's own label for the invoice-triggered ceiling column in this table, it is not confirmed to map to either Cashfree's Periodic or On-Demand plan type. See the longer flag in 4.1, section 2, for what I could and could not verify. -->
+<!-- Claude, updated for Saif: switched this column and bullet from NPCI's "As Presented" label to Cashfree's own "On-Demand" plan type name, per your instruction that this is what Cashfree uses. This also lines up with the research already in 4.1's comment: Cashfree's Subscriptions Overview page assigns As Presented's defining behaviour, debiting a variable amount whenever a bill is generated, to On-Demand, not Periodic. The NPCI mandate creation frequency itself is still "As Presented" under the hood, this change is about which label merchants see in this doc. -->
 
-*   **As Presented:** Debits are triggered whenever an invoice is generated (for example, utility bills, credit card statements). Because billing dates and amounts vary, stricter creation caps apply.
+*   **On-Demand:** Debits are triggered whenever an invoice is generated (for example, utility bills, credit card statements). Because billing dates and amounts vary, stricter creation caps apply.
 *   **All Others:** Predefined recurring intervals (for example, Daily, Monthly, Half-Yearly, Yearly). Higher creation limits are permitted due to the predictable billing cadence.
 
 ### AFA (Additional Factor of Authentication) Exemption Threshold
@@ -25,7 +25,7 @@ The monetary ceiling up to which recurring auto-debits process silently in the b
     <tr>
       <th>MCC</th>
       <th>MCC DESC</th>
-      <th>Max Creation Limit Freq= As Presented</th>
+      <th>Max Creation Limit Freq= On-Demand</th>
       <th>Max Creation Limit Freq= All Others</th>
       <th>Value Below Which AFA Isn't Required</th>
     </tr>
