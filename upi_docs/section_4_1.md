@@ -19,14 +19,15 @@ Before you create a mandate, decide which of the two AutoPay types fits your bil
 
 This choice only applies to On-Demand mandates. Periodic mandates always run the Cashfree-Managed way, Cashfree's scheduler owns the billing calendar end to end, so there is nothing to manually trigger or retry.
 
-By default, when you raise an On-Demand charge with a single call to `POST /subscriptions/pay`, Cashfree manages everything from there, sending the PDN, waiting out the mandatory 24-hour window, then executing the debit automatically, and retrying it for you if an attempt fails (see Section 5 and Section 6 below for the attempt counts). You get the final success or failure webhook, not a running account of each attempt.
+By default, when you raise an On-Demand charge with a single call to `POST /pg/subscriptions/pay`, Cashfree manages everything from there, sending the PDN, waiting out the mandatory 24-hour window, then executing the debit automatically, and retrying it for you if an attempt fails (see Section 5 and Section 6 below for the attempt counts). You get the final success or failure webhook, not a running account of each attempt.
 
 If you need tighter control, for example custom retry timing or precise settlement alignment, you can ask your Cashfree account manager to enable the Merchant-Controlled flow for your account, it is not switched on by default. Once enabled, notifying and debiting become two separate calls you make yourself:
 
-*   Call `POST /subscriptions/pay/controlled/notify-mandate` to send the PDN.
-*   Once the PDN has succeeded and the 24-hour window has passed, call `POST /subscriptions/pay/controlled/execute-mandate` to trigger the debit.
+*   Call `POST /pg/subscriptions/pay/controlled/notify-mandate` to send the PDN.
+*   Once the PDN has succeeded and the 24-hour window has passed, call `POST /pg/subscriptions/pay/controlled/execute-mandate` to trigger the debit.
+<!-- Claude, fixed for Saif: found while checking all of section 4 against your Merchant-Controlled Subscription Charging Integration Guide PDF. Every /subscriptions/pay path on this page was missing the /pg prefix, the default-flow mention above, both controlled-flow endpoints here, and the cannot-be-mixed line below. The guide lists the controlled paths as /pg/subscriptions/pay/controlled/notify-mandate and /pg/subscriptions/pay/controlled/execute-mandate, and every endpoint in 4.3 (plans, subscriptions, manage, pay, payments) also uses /pg, so all four instances on this page now match. Otherwise this page checked out clean against the guide, attempt caps, timing rules, error codes, and webhook names all match what the PDF states. -->
 
-Under this Merchant-Controlled flow, Cashfree never auto-debits and never auto-retries, if a step fails, you decide whether and when to call the same endpoint again with a new attempt ID. The two flows also cannot be mixed on the same charge, one raised through `/subscriptions/pay` is locked to the Cashfree-managed path and will reject the controlled endpoints.
+Under this Merchant-Controlled flow, Cashfree never auto-debits and never auto-retries, if a step fails, you decide whether and when to call the same endpoint again with a new attempt ID. The two flows also cannot be mixed on the same charge, one raised through `/pg/subscriptions/pay` is locked to the Cashfree-managed path and will reject the controlled endpoints.
 
 A few guardrails still apply even though you are driving the timing yourself:
 
