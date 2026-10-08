@@ -1916,6 +1916,20 @@
       ],
       "resolvedBy": "Claude",
       "resolvedAt": "2026-09-30T05:59:57.094056Z"
+    },
+    {
+      "id": "c_japu59yfmuzkgeeb",
+      "section": "doc-5-4",
+      "file": "upi_docs/section_5_4.md",
+      "quote": "Payment checkout flows involve multiple external dependencies, including acquiring bank APIs, issuing bank Core Banking Systems (CBS), and national switches like NPCI. A technical downtime or network spike at any of these points can directly impact checkout conversion if traffic is statically routed down a single channel.\n\n",
+      "prefix": "",
+      "suffix": "mart Routing continuously measures real-",
+      "suggestion": null,
+      "text": "remove smart routing term",
+      "author": "Saif",
+      "createdAt": "2026-10-08T13:22:33.826Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
