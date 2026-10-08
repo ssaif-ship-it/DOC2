@@ -101,7 +101,7 @@ A debit can still fail even after the PDN goes through, and what happens next de
     <div style="color: #64748b; font-size: 13px; margin-bottom: 12px;">Low balance, a brief network issue at the customer's bank, an inactive-but-not-closed account</div>
     <ul style="color: #334155; font-size: 14px; line-height: 1.6; margin: 0; padding-left: 18px;">
       <li>Auto-retried by Cashfree: up to 3 retries (4 attempts total), at least 1hr apart, same day (Cashfree-Managed flow, see the On-Demand section in Section 1 for Merchant-Controlled)</li>
-      <li>All attempts fail: Periodic waits for its next scheduled cycle automatically; On-Demand needs a fresh charge raised via the API</li>
+      <li>All attempts fail: for Periodic, the subscription moves to ON_HOLD rather than resuming on its own, it stays there until you successfully retry the failed payment or explicitly reactivate the subscription, the next scheduled cycle will not fire while it is on hold. For On-Demand, there is no cycle to wait on either way, you raise a fresh charge via the API when you are ready.</li>
     </ul>
   </div>
 
@@ -139,7 +139,9 @@ Fourth follow-up, 5 Oct: now that you've confirmed Periodic is Cashfree-Managed 
 
 Fifth follow-up, 5 Oct: cut all three cards down to bullet points per your feedback that the paragraphs were too dense, looked at how Juspay documents this (short tables and bullet points, not prose) as a reference point. Dropped the account-manager configurability mention and the FAILED/ON HOLD status terminology from card 1, both still findable in Section 5 and don't need repeating here. Cards 2 and 3 are now one line each, as you asked, no fact changes, same retry counts and same retryable/not-retryable conclusions as before.
 
-Sixth follow-up, 5 Oct: the "payment link" mention after the cards linked to #doc-2-3 (2.3 QR Solutions), which doesn't actually cover payment links at all, that was my mistake, there's no payment-link content anywhere on this site. Since Payment Links aren't UPI-specific (they also support all payment methods, not just UPI), you decided not to add dedicated coverage for them here. Removed the link, kept the plain-text mention since the fact itself is still true and useful as a fallback option. -->
+Sixth follow-up, 5 Oct: the "payment link" mention after the cards linked to #doc-2-3 (2.3 QR Solutions), which doesn't actually cover payment links at all, that was my mistake, there's no payment-link content anywhere on this site. Since Payment Links aren't UPI-specific (they also support all payment methods, not just UPI), you decided not to add dedicated coverage for them here. Removed the link, kept the plain-text mention since the fact itself is still true and useful as a fallback option.
+
+Seventh follow-up, 8 Oct: resolved the open ON HOLD question above per your internal confirmation. A Periodic subscription does not auto-resume once retries are exhausted, it moves to ON_HOLD and stays there until you either successfully retry the failed payment or explicitly reactivate it, the next scheduled cycle will not fire on its own while on hold. Rewrote card 1's second line to say this. Left out the internal service and table names from your source, same policy as the bank codes earlier in this thread, a merchant only needs the status name and what to do about it. Did not touch cards 2 or 3, your confirmation was specifically about the exhausted-retries path in card 1, the cancelled/revoked-mandate path they cover was already accurate. -->
 
 ## 7. Tracking Executions: SeqNum
 
