@@ -1930,6 +1930,20 @@
       "createdAt": "2026-10-08T13:22:33.826Z",
       "status": "open",
       "replies": []
+    },
+    {
+      "id": "c_r8prjavomv5af5k4",
+      "section": "doc-3-3",
+      "file": "upi_docs/section_3_3.md",
+      "quote": "6. What You Need To Do, By Bank",
+      "prefix": "econciliation and cash flow planning.\n\n\n",
+      "suffix": "\nGetting your handle procured takes a di",
+      "suggestion": null,
+      "text": "remove this whole section and include contact your account manager",
+      "author": "Saif",
+      "createdAt": "2026-10-12T13:28:16.612Z",
+      "status": "open",
+      "replies": []
     }
   ]
 }
