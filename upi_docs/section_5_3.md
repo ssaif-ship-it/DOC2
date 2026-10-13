@@ -147,7 +147,6 @@ The table below lists every NPCI and gateway error code Cashfree currently maps,
       --cf-row-hover:#FAFAFB;
       --cf-radius:8px;
       --cf-mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
-
       box-sizing:border-box;
       background:var(--cf-bg);
       color:var(--cf-fg);
@@ -160,10 +159,8 @@ The table below lists every NPCI and gateway error code Cashfree currently maps,
       margin:1.5rem 0;
     }
     #cf-errors *,#cf-errors *::before,#cf-errors *::after{box-sizing:border-box;}
-
     #cf-errors .cf-head{display:flex;gap:.75rem;align-items:center;margin-bottom:1rem;}
     #cf-errors .cf-tools{display:flex;gap:.5rem;align-items:center;flex:1;flex-wrap:wrap;}
-
     #cf-errors input[type=search],
     #cf-errors input[type=text],
     #cf-errors select{
@@ -185,7 +182,6 @@ The table below lists every NPCI and gateway error code Cashfree currently maps,
     }
     #cf-errors .cf-btn:hover:not(:disabled){border-color:var(--cf-accent);color:var(--cf-accent);}
     #cf-errors .cf-btn:disabled{opacity:.45;cursor:default;}
-
     #cf-errors .cf-scroll{
       overflow-x:auto;border:1px solid var(--cf-border);
       border-radius:var(--cf-radius);-webkit-overflow-scrolling:touch;
@@ -205,7 +201,6 @@ The table below lists every NPCI and gateway error code Cashfree currently maps,
     #cf-errors th[aria-sort="ascending"] .cf-arrow,
     #cf-errors th[aria-sort="descending"] .cf-arrow{opacity:1;color:var(--cf-accent);}
     #cf-errors .cf-filtercell{padding:0 .5rem .55rem;}
-
     #cf-errors tbody td{
       padding:.6rem .7rem;border-bottom:1px solid var(--cf-border);
       vertical-align:top;
@@ -223,7 +218,6 @@ The table below lists every NPCI and gateway error code Cashfree currently maps,
     }
     #cf-errors mark{background:#FEF08A;color:inherit;border-radius:2px;padding:0 1px;}
     #cf-errors .cf-empty{padding:2.25rem 1rem;text-align:center;color:var(--cf-muted);}
-
     #cf-errors .cf-foot{
       display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;
       justify-content:space-between;margin-top:.9rem;font-size:.8125rem;color:var(--cf-muted);
@@ -241,21 +235,18 @@ The table below lists every NPCI and gateway error code Cashfree currently maps,
     }
     @media (prefers-reduced-motion:reduce){#cf-errors *{transition:none!important;}}
   </style>
-
   <div class="cf-head">
     <div class="cf-tools">
       <input type="search" class="cf-global" data-cf="global" placeholder="Search all columns, e.g. a code or a keyword" aria-label="Search all columns">
       <button type="button" class="cf-btn" data-cf="reset">Clear</button>
     </div>
   </div>
-
   <div class="cf-scroll">
     <table data-cf="table">
       <thead data-cf="thead"></thead>
       <tbody data-cf="tbody"></tbody>
     </table>
   </div>
-
   <div class="cf-foot">
     <span data-cf="count">Loading...</span>
     <div class="cf-size">
@@ -266,11 +257,9 @@ The table below lists every NPCI and gateway error code Cashfree currently maps,
     </div>
     <div class="cf-pager" data-cf="pager"></div>
   </div>
-
 <script>
 (function () {
   "use strict";
-
   /* Every mapped NPCI and gateway error code Cashfree tracks today. Search or
      sort any column below. This list lives here, not in a separate page, so
      it can never drift from what the docs say. */
@@ -431,9 +420,7 @@ The table below lists every NPCI and gateway error code Cashfree currently maps,
     ["M2","Validation Failed","Limit Exceed","Amount limit is exceeded for this customer."],
     ["S3","Transaction Declined","Fraud Detected","Issuer bank or payment service provider declined the transaction."],
   ];
-
   var CONFIG = { pageSize: 20, monoColumns: /code$|^code/i, maxPillOptions: 16 };
-
   var root = document.getElementById("cf-errors");
   var $ = function (n) { return root.querySelector('[data-cf="' + n + '"]'); };
   var esc = function (s) {
@@ -441,7 +428,6 @@ The table below lists every NPCI and gateway error code Cashfree currently maps,
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
     });
   };
-
   /* Natural sort: numbers numerically, U9 before U16, blanks last. */
   function compare(a, b) {
     var na = parseFloat(a), nb = parseFloat(b);
@@ -451,7 +437,6 @@ The table below lists every NPCI and gateway error code Cashfree currently maps,
     if (b.trim() === "") return -1;
     return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
   }
-
   function highlight(value, term) {
     if (!term) return esc(value);
     var idx = value.toLowerCase().indexOf(term.toLowerCase());
@@ -459,13 +444,11 @@ The table below lists every NPCI and gateway error code Cashfree currently maps,
     return esc(value.slice(0, idx)) + "<mark>" + esc(value.slice(idx, idx + term.length)) +
            "</mark>" + esc(value.slice(idx + term.length));
   }
-
   var headers = ERROR_CODES[0], rows = ERROR_CODES.slice(1);
   var colFilters = headers.map(function () { return ""; });
   var colKinds = [];
   var globalTerm = "", sortCol = -1, sortDir = 1, page = 1;
   var pageSize = CONFIG.pageSize;
-
   function classify() {
     colKinds = headers.map(function (h, i) {
       if (CONFIG.monoColumns.test(h.trim())) return "code";
@@ -480,7 +463,6 @@ The table below lists every NPCI and gateway error code Cashfree currently maps,
       return n > 1 ? "enum" : "text";
     });
   }
-
   function distinct(i) {
     var seen = {}, out = [];
     rows.forEach(function (r) {
@@ -489,7 +471,6 @@ The table below lists every NPCI and gateway error code Cashfree currently maps,
     });
     return out.sort(function (a, b) { return compare(a, b); });
   }
-
   function buildHead() {
     var titles = "<tr>" + headers.map(function (h, i) {
       return '<th scope="col" aria-sort="none" data-col="' + i + '">' +
@@ -497,7 +478,6 @@ The table below lists every NPCI and gateway error code Cashfree currently maps,
         '<span>' + esc(h) + '</span><span class="cf-arrow" aria-hidden="true">&#9650;&#9660;</span>' +
         "</button></th>";
     }).join("") + "</tr>";
-
     var filters = "<tr>" + headers.map(function (h, i) {
       var lbl = 'aria-label="Filter by ' + esc(h) + '"';
       var ctrl = colKinds[i] === "enum"
@@ -507,10 +487,8 @@ The table below lists every NPCI and gateway error code Cashfree currently maps,
         : '<input type="text" data-filter="' + i + '" placeholder="Filter..." ' + lbl + ">";
       return '<th class="cf-filtercell">' + ctrl + "</th>";
     }).join("") + "</tr>";
-
     $("thead").innerHTML = titles + filters;
   }
-
   function visibleRows() {
     var g = globalTerm.trim().toLowerCase();
     return rows.filter(function (r) {
@@ -525,23 +503,19 @@ The table below lists every NPCI and gateway error code Cashfree currently maps,
       return r.some(function (c) { return String(c).toLowerCase().indexOf(g) !== -1; });
     });
   }
-
   function render() {
     var data = visibleRows();
-
     if (sortCol > -1) {
       data = data.slice().sort(function (a, b) {
         return compare(a[sortCol] || "", b[sortCol] || "") * sortDir;
       });
     }
-
     var total = data.length;
     var pages = Math.max(1, Math.ceil(total / pageSize));
     if (page > pages) page = pages;
     var start = (page - 1) * pageSize;
     var slice = data.slice(start, start + pageSize);
     var term = globalTerm.trim();
-
     $("tbody").innerHTML = slice.length
       ? slice.map(function (r) {
           return "<tr>" + headers.map(function (h, i) {
@@ -555,12 +529,10 @@ The table below lists every NPCI and gateway error code Cashfree currently maps,
         }).join("")
       : '<tr><td class="cf-empty" colspan="' + headers.length +
         '">No error code matches those filters. Try clearing one.</td></tr>';
-
     $("count").textContent = total
       ? "Showing " + (start + 1) + " to " + Math.min(start + pageSize, total) +
         " of " + total + (total === rows.length ? "" : " filtered") + " codes"
       : "0 of " + rows.length + " codes";
-
     var btns = [], want = {};
     want[1] = want[pages] = 1;
     for (var p = page - 1; p <= page + 1; p++) if (p > 0 && p <= pages) want[p] = 1;
@@ -577,27 +549,22 @@ The table below lists every NPCI and gateway error code Cashfree currently maps,
     btns.push('<button type="button" class="cf-btn" data-page="' + (page + 1) + '"' +
       (page === pages ? " disabled" : "") + ' aria-label="Next page">Next</button>');
     $("pager").innerHTML = pages > 1 ? btns.join("") : "";
-
     root.querySelectorAll("thead th[data-col]").forEach(function (th) {
       var i = +th.dataset.col;
       th.setAttribute("aria-sort", i === sortCol ? (sortDir === 1 ? "ascending" : "descending") : "none");
     });
   }
-
   var timer;
   function debounced() { clearTimeout(timer); timer = setTimeout(function () { page = 1; render(); }, 110); }
-
   root.addEventListener("input", function (e) {
     var t = e.target;
     if (t.dataset.cf === "global") { globalTerm = t.value; debounced(); return; }
     if (t.dataset.filter !== undefined) { colFilters[+t.dataset.filter] = t.value; debounced(); }
   });
-
   root.addEventListener("change", function (e) {
     var t = e.target;
     if (t.dataset.cf === "pagesize") { pageSize = +t.value; page = 1; render(); }
   });
-
   root.addEventListener("click", function (e) {
     var s = e.target.closest("[data-sort]");
     if (s) {
@@ -614,7 +581,6 @@ The table below lists every NPCI and gateway error code Cashfree currently maps,
       render();
     }
   });
-
   classify();
   buildHead();
   render();
