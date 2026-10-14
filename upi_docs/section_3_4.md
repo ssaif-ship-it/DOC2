@@ -6,7 +6,7 @@ As a merchant, you need to understand both the baseline network limits and your 
 
 By default, the standard retail limit for a P2M (Person-to-Merchant) transaction is **₹1 Lakh**. However, the NPCI recognizes that certain critical industries require higher ceilings. High-risk categories also face flow restrictions, covered in the constraints below.
 
-The table below is your master reference for daily transaction limits, based on your merchant category:
+The table below is your master reference for per transaction limits, based on your merchant category:
 
 <div class="upi-table-wrapper" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #222; max-width: 100%; margin: 20px 0;">
   <style>
@@ -55,7 +55,7 @@ The table below is your master reference for daily transaction limits, based on 
         <th>Sector / Category</th>
         <th>Covered Services</th>
         <th>Associated MCC Codes</th>
-        <th>Daily Limit</th>
+        <th>Per Transaction Limit</th>
       </tr>
     </thead>
     <tbody>
@@ -74,7 +74,7 @@ The table below is your master reference for daily transaction limits, based on 
       </tr>
       <tr>
         <td><strong>Financial &amp; Insurance</strong></td>
-        <td>Credit Cards, Insurance, Securities, LIC, Banking, Debt Collection</td>
+        <td>Credit Cards, Insurance, Securities, LIC, Digital Banking (excluding savings and current account opening), Debt Collection</td>
         <td class="mcc-code">5413, 5960, 6012, 6211, 6300, 6529, 7322, 7410</td>
         <td class="limit-amount">₹500,000</td>
       </tr>
@@ -101,6 +101,23 @@ The table below is your master reference for daily transaction limits, based on 
     </tbody>
   </table>
 </div>
+
+These are per transaction limits. For some categories NPCI also sets a cumulative cap over any 24 hours, which your customer's issuing bank enforces:
+
+* **₹10,00,000:** capital markets (6211), insurance (5960, 6300, 6529), travel (4722), debt collection (7322), and government e-marketplace earnest money deposit payments (9311).
+* **₹6,00,000:** credit card bill payments (5413) and jewellery (5944).
+* **₹5,00,000:** digital account opening for term deposits (7410).
+* **₹2,00,000:** digital account opening, initial funding (7409).
+
+The higher limits for these categories, and for tax payments (9311), apply only to merchants classified as Verified Merchants. If you are unsure whether your business qualifies, contact your Cashfree account manager.
+
+<!--
+Claude, updated for Saif (14 Oct): three changes here, per the verified MCC Limits sheet and the NPCI circular OC 185B (NPCI/UPI/2025-26/OC/185B, 28 August 2025, Annexure I, primary PDF read).
+1. The column and intro line said Daily. The amounts in the table are per transaction limits. The cumulative 24 hour caps are separate and are listed in the note above, taken from Annexure I.
+2. The Verified Merchant condition is condition 1 of OC 185B, and OC 185A applies it to tax payments (9311). Its definition sits in OC 100/2020-21, OC 163/2022-23, OC 163A/2023-24 and OC 190/2023-24, which have not been read, so the text above does not define it.
+3. 7410 is described in the sheet as Digital banking related services (excluding CASA account opening), so the Covered Services cell no longer says plain Banking.
+Left out on purpose: MCC 6012. OC 185B grants it the higher limit and a 5,00,000 cumulative cap only for FX retail through BBPS with purpose code BF or 01, while the sheet and the table list 6012 flat at 5,00,000. Decide whether to qualify it before adding it to the cumulative list. No cumulative cap is stated anywhere for the healthcare and education codes, so none is shown.
+-->
 
   <div class="upi-constraints" style="margin-top: 24px; padding: 16px; background-color: #f8f9fa; border-left: 4px solid #1a73e8; border-radius: 0 4px 4px 0;">
     <h4 style="margin: 0 0 10px 0; font-size: 16px; color: #1a73e8;">Key Merchant &amp; User Velocity Constraints</h4>
