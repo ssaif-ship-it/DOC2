@@ -1,15 +1,17 @@
 ## Find Your Category
 
-Before you look at payment options, place yourself in one of these four categories. It decides which rows in the comparison below actually apply to you, and which ones you can skip.
+Before you look at payment options, place yourself in one of these four categories. It decides which product you ask for on your dashboard, and which rows in the comparison below apply to you.
 
-| You are | This means | What matters to you |
+| You are | This means | What you enable on your dashboard |
 | :-- | :-- | :-- |
-| **Online only** | You sell through a website, an app, or both, with no physical counter. | UPI Intent for mobile checkout, Dynamic QR for desktop |
-| **Offline only** | You sell from a physical storefront or counter, with no website or app of your own. | Static QR for a fixed counter, SoftPOS if your staff move around |
-| **Online and offline** | You run a website or app, and you also take payments in person. | A mix, UPI Intent and Dynamic QR online, Static QR or SoftPOS in person |
-| **Field or mobile collection** | Your staff or agents collect payment away from a fixed location, delivery, home visits, on site services. | SoftPOS |
+| **Online only** | You sell through a website, an app, or both, with no physical counter. | **Payment Gateway.** UPI comes with it as one card, "UPI Intent, QR and Collect". You pick the flow in your integration: Intent on mobile, Dynamic QR on desktop. |
+| **Offline only** | You sell from a physical storefront or counter, with no website or app of your own. | **Offline Payments, Storefront** for a fixed counter (a static QR per store). Choose **Agent (softPOS)** if your staff move around. Offline Payments needs an active Payment Gateway account. |
+| **Online and offline** | You run a website or app, and you also take payments in person. | **Payment Gateway** for online, plus **Offline Payments** (Storefront or Agent (softPOS)) for in person. |
+| **Field or mobile collection** | Your staff or agents collect payment away from a fixed location, delivery, home visits, on site services. | **Offline Payments, Agent (softPOS).** Your agents collect by QR, payment link or tap to pay on an Android phone. |
 
-Once you know which row describes you, the comparison below tells you exactly which product to build first, and which ones you can ignore for now.
+You do not switch on Intent, QR or Collect one by one. You enable **Payment Gateway** with UPI, then choose the flow in your checkout or API call. If you charge the same customer again and again, you also need **Recurring Payments**, see Section 4.
+
+Once you know which row describes you, the comparison below shows the flow to build first and the ones you can ignore for now.
 
 ---
 
@@ -17,13 +19,13 @@ Once you know which row describes you, the comparison below tells you exactly wh
 
 Pick the product that matches how your customers pay you. You are not locked in, most merchants run two or three of these side by side, and you can add another later without redoing your integration.
 
-| Product | Best for | Integration effort | Customer action | What to know before you pick it |
-| :-- | :-- | :-- | :-- | :-- |
-| **[UPI Intent](#doc-2-1)** | Mobile app and mobile web checkout | Low (API or SDK) | Tap their UPI app, enter PIN | Highest success rates of the online flows. Behaviour differs on iOS, see 2.1. |
-| **[UPI Collect](#doc-2-2)** | Narrow. Only the exempt categories below | Low (API) | Type VPA, approve in their app | **Restricted.** Manual VPA entry for P2M is under sunset. See the note in Step 5 before building on this. |
-| **[Static QR](#doc-2-3)** | Counter payments, low tech stores | Low (activation, then print) | Scan, type amount, enter PIN | Not zero effort. Needs activation, and it cannot be reconciled per order. |
-| **[Dynamic QR](#doc-2-3)** | Delivery, desktop checkout, invoices | Medium (API) | Scan, enter PIN (amount pre-filled) | The recommended replacement for Collect on desktop web. |
-| **[SoftPOS](#doc-2-4)** | Field agents, delivery staff, retail | Low (app install) | Scan QR, tap card, or pay by link | Needs activation, agent registration and agent KYC. Tap to pay needs an NFC capable Android phone. |
+| What you enable | Flow | Best for | Integration effort | Customer action | What to know before you pick it |
+| :-- | :-- | :-- | :-- | :-- | :-- |
+| **Payment Gateway** (UPI) | **[UPI Intent](#doc-2-1)** | Mobile app and mobile web checkout | Low (API or SDK) | Tap their UPI app, enter PIN | Highest success rates of the online flows. Behaviour differs on iOS, see 2.1. |
+| **Payment Gateway** (UPI) | **[UPI Collect](#doc-2-2)** | Narrow. Only the exempt categories below | Low (API) | Type VPA, approve in their app | **Restricted.** Manual VPA entry for P2M is under sunset. See the note in Step 5 before building on this. |
+| **Payment Gateway** (UPI) | **[Dynamic QR](#doc-2-3)** | Delivery, desktop checkout, invoices | Medium (API) | Scan, enter PIN (amount pre-filled) | The recommended replacement for Collect on desktop web. |
+| **Offline Payments**, Storefront | **[Static QR](#doc-2-3)** | Counter payments, low tech stores | Low (activation, then print) | Scan, type amount, enter PIN | Not zero effort. Needs activation, and it cannot be reconciled per order. |
+| **Offline Payments**, Agent (softPOS) | **[QR, payment link or tap to pay](#doc-2-4)** | Field agents, delivery staff, retail | Low (app install) | Scan QR, tap card, or pay by link | Needs activation, agent registration and agent KYC. Tap to pay needs an NFC capable Android phone. |
 
 ---
 
@@ -38,7 +40,7 @@ This guide takes you from no account to live transactions. It is eight steps, an
 | 3. Get API keys | You collect your test and production credentials | Nothing, just complete it |
 | 4. Choose your integration path | You commit to how your checkout is built | Hosted checkout, custom API, or mobile SDK. Hardest of these to reverse. |
 | 5. Integrate online | You build and test against sandbox | Which UPI flows you enable |
-| 6. Set up offline acceptance | Optional, skip if you sell online only | Static QR or SoftPOS |
+| 6. Set up offline acceptance | Optional, skip if you sell online only | Offline Payments: Storefront, Agent (softPOS) or Customer VPA |
 | 7. Test end to end | You prove success, failure and refund paths work | Nothing, just complete it |
 | 8. Go live | You switch keys and start taking real money | Your settlement cycle |
 
@@ -142,7 +144,7 @@ This is the decision that is most expensive to reverse, so it is worth ten minut
 | You want the fastest possible start and minimal code | **Cashfree Checkout (hosted page)**. Cashfree renders the payment page, you redirect to it. | Control over checkout look and feel. The customer briefly leaves your domain. |
 | You want full control over the checkout UI | **Seamless / Custom Integration (API)**. You build the UI, you call the APIs. | More build time, and you own webhook handling, retries and error messaging. |
 | You have a mobile app and want UPI inside it | **Mobile SDK**, available for Android, iOS, React Native, Flutter and Cordova. | Little. This is the standard choice for app-first merchants. |
-| You sell in person, online is not relevant | **SoftPOS or Static QR**. Skip Step 5 and go to Step 6. | Per order reconciliation on Static QR, see Step 6. |
+| You sell in person, online is not relevant | **Offline Payments**, with Storefront or Agent (softPOS). Skip Step 5 and go to Step 6. | Per order matching is not possible on Storefront, see Step 6. |
 
 **Can you change your mind later?** Moving from hosted checkout to custom is a full front end rebuild, though your order creation and webhook code carries over. Adding a mobile SDK alongside an existing web integration is additive and low risk. Adding offline acceptance later is entirely separate and does not touch your online integration.
 
@@ -213,22 +215,26 @@ Skip this step entirely if you sell online only.
 
 ### Your options
 
-| | **Static QR** | **SoftPOS** |
-| :-- | :-- | :-- |
-| Best for | A fixed counter, one till, low volume | Staff who move, delivery, field collection, multiple counters |
-| What the customer does | Scans, types the amount themselves, enters PIN | Scans a QR you generate, taps a card, or pays a link you send |
-| Amount | Customer types it, so it can be wrong | You enter it, so it is always right |
-| Reconciliation | **Weak.** You cannot tie a payment to a specific order. You rely on SMS alerts or manual ledger checks. | Per transaction, per agent, per collection point |
-| Setup | Request activation, then print the standee | Request activation, install the app, register each agent, complete agent KYC |
-| Hardware | None | An Android phone. NFC required if you want tap to pay. |
+You switch on **Offline Payments** once. Then you add a collection point, and you pick its type:
 
-**Choose Static QR if** you need to start taking payments tomorrow and you can live without order level reconciliation.
+| | **Storefront** | **Agent (softPOS)** | **Customer VPA** |
+| :-- | :-- | :-- | :-- |
+| Best for | A fixed counter, one QR per store | Staff who move, delivery, field collection, multiple counters | The same customer paying you again and again, such as EMI or school fees |
+| What the customer does | Scans the store QR, types the amount, enters PIN | Scans a QR your agent shows, taps a card, or pays a link you send | Pays to their own UPI ID or QR |
+| Amount | Customer types it, so it can be wrong | Your agent enters it, so it is always right | Customer types it |
+| You can match payments to | The store, not a single order | Each transaction and each agent | That one customer |
+| Setup | Add a collection point, then print the QR | Install the app, add each agent, complete agent KYC | Add a collection point for the customer |
+| Hardware | None | An Android phone. NFC is needed for tap to pay. | None |
 
-**Choose SoftPOS if** you need to know which agent collected what, or you need to reconcile against orders or invoices, or your staff collect payment away from a fixed counter.
+**Choose Storefront if** you need to start tomorrow, you have one fixed counter, and you can live without order level matching.
 
-**How this affects you later.** Static QR's reconciliation gap is not something you can fix downstream. If you expect to need order level matching within a few months, start on SoftPOS rather than migrating later.
+**Choose Agent (softPOS) if** you need to know which agent collected what, you need to match payments to orders or invoices, or your staff collect away from a fixed counter.
 
-To activate either, go to **Dashboard > SoftPOS > Request Activation**, or contact your account manager. See [2.4 SoftPOS and Offline Products](#doc-2-4).
+**Choose Customer VPA if** the same customers pay you on a schedule and you want every payment tagged to the customer.
+
+**How this affects you later.** A Storefront QR cannot tell you which order a payment is for. If you expect to need order level matching within a few months, start on Agent (softPOS) rather than migrating later.
+
+To start, log in to the Merchant Dashboard, go to **Offline Payments** and click **Request Activation**, or contact your account manager. After activation, go to **Offline Payments > Collection Point Management** and click **Add Collection Point**. See [2.4 SoftPOS and Offline Products](#doc-2-4).
 
 </details>
 
@@ -305,7 +311,7 @@ Business days exclude weekends and bank holidays. A transaction on Friday 3 June
 *   [ ]  Webhook signature verification implemented and passing
 *   [ ]  Settlement cycle chosen, and the Instant fee understood if you chose Instant
 *   [ ]  Refund and dispute workflows understood
-*   [ ]  SoftPOS activated, collection points created and agents KYC verified, if you sell offline
+*   [ ]  Offline Payments activated, collection points created and agents KYC verified, if you sell offline
 *   [ ]  One real transaction completed by you
 *   [ ]  Monitoring in place, check transactions and settlements daily for the first two weeks
 
