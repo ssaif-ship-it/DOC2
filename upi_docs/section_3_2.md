@@ -220,7 +220,7 @@ You switch on **Offline Payments** once. Then you add a collection point, and yo
 | | **Storefront** | **Agent (softPOS)** | **Customer VPA** |
 | :-- | :-- | :-- | :-- |
 | Best for | A fixed counter, one QR per store | Staff who move, delivery, field collection, multiple counters | The same customer paying you again and again, such as EMI or school fees |
-| What the customer does | Scans the store QR, types the amount, enters PIN | Scans a QR your agent shows, taps a card, or pays a link you send | Pays to their own UPI ID or QR |
+| What the customer does | Scans the store QR, types the amount, enters PIN | Scans a QR your agent shows, taps a card, or pays a link you send | Pays to a UPI ID or QR made just for them |
 | Amount | Customer types it, so it can be wrong | Your agent enters it, so it is always right | Customer types it |
 | You can match payments to | The store, not a single order | Each transaction and each agent | That one customer |
 | Setup | Add a collection point, then print the QR | Install the app, add each agent, complete agent KYC | Add a collection point for the customer |
